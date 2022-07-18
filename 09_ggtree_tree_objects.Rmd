@@ -1,0 +1,288 @@
+\newpage
+
+# ggtree for Other Tree-like Objects {#chapter9}
+
+## ggtree for Phylogenetic Tree Objects
+
+The `r Biocpkg("treeio")` packages [@wang_treeio_2020] allow parsing evolutionary inferences from several software outputs and linking external data to the tree structure. It serves as an infrastructure to bring evolutionary data to the R community. The `r Biocpkg("ggtree")` package [@yu_ggtree:_2017] works seamlessly with `r Biocpkg("treeio")` to visualize tree-associated data to annotate the tree. The `r Biocpkg("ggtree")` package is a general tool for tree visualization and annotation and it fits the ecosystem of R packages. Most of the S3/S4 tree objects defined by other R packages are also supported by `r Biocpkg("ggtree")`, including `phylo` ([session 4.2](#visualizing-phylogenetic-tree-with-ggtree)), `multiPhylo` ([session 4.4](#visualize-a-list-of-trees)), `phylo4`, `phylo4d`, `phyloseq`, and `obkData`. With `r Biocpkg("ggtree")`, we are able to generate more complex tree graphs which is not possible or easy to do with other packages. For example, the visualization of the `phyloseq` object in Figure \@ref(fig:phyloseq) is not supported by the `r Biocpkg("phyloseq")` package. The `r Biocpkg("ggtree")` package also extends the possibility of linking external data to these tree objects [@yu_two_2018].
+
+
+### The phylo4 and phylo4d objects {#phylobase}
+
+The `phylo4` and `phylo4d` are defined in the `r CRANpkg("phylobase")` package. The `phylo4` object is an S4 version of `phylo`, while `phylo4d` extends `phylo4` with a data frame that contains trait data. The `r CRANpkg("phylobase")` package provides a `plot()` method, which is internally called the `treePlot()` function, to display the tree with the data. However, there are some restrictions of the `plot()` method, it can only plot numeric values for tree-associated data as bubbles and cannot generate figure legend. `Phylobase` doesn't implement a visualization method to display categorical values. Using associated data as visual characteristics such as color, size, and shape, is also not supported. Although it is possible to color the tree using associated data, it requires users to extract the data and map them to the color vector manually followed by passing the color vector to the `plot` method. This is tedious and error-prone since the order of the color vector needs to be consistent with the edge list stored in the object.
+
+
+The `r Biocpkg("ggtree")` package supports `phylo4d` object and all the associated data stored in the `phylo4d` object can be used directly to annotate the tree (Figure \@ref(fig:fp4d)).
+
+(ref:fp4dscap) Visualizing `phylo4d` data using ggtree.
+
+(ref:fp4dcap) **Visualizing `phylo4d` data using ggtree.** Reproduce the output of the `plot()` method provided in the `r CRANpkg("phylobase")` package (A). Visualize the trait data as a heatmap which is not supported in the `r CRANpkg("phylobase")` package (B).
+
+```{r fp4d, warning=F, fig.width=10, fig.height=6.2, fig.cap="(ref:fp4dcap)", fig.scap="(ref:fp4dscap)", out.width="90%"}
+library(phylobase)
+data(geospiza_raw)
+g1 <- as(geospiza_raw$tree, "phylo4")
+g2 <- phylo4d(g1, geospiza_raw$data, missing.data="warn")
+
+d1 <- data.frame(x = seq(1.1, 2, length.out = 5),
+                lab = names(geospiza_raw$data))
+
+p1 <- ggtree(g2) + geom_tippoint(aes(size = wingL), x = d1$x[1], shape = 1) + 
+    geom_tippoint(aes(size = tarsusL), x = d1$x[2], shape = 1) + 
+    geom_tippoint(aes(size = culmenL), x = d1$x[3], shape = 1) + 
+    geom_tippoint(aes(size = beakD),   x = d1$x[4], shape = 1) + 
+    geom_tippoint(aes(size = gonysW),  x = d1$x[5], shape = 1) + 
+    scale_size_continuous(range = c(3,12), name="") + 
+    geom_text(aes(x = x, y = 0, label = lab), data = d1, angle = 45) +
+    geom_tiplab(offset = 1.3) + xlim(0, 3) +
+    theme(legend.position = c(.1, .75)) + vexpand(.05, -1) 
+
+## users can use `as.treedata(g2)` to convert `g2` to a `treedata` object
+## and use `get_tree_data()` function to extract the associated data 
+
+p2 <- gheatmap(ggtree(g1), data=geospiza_raw$data, colnames_angle=45) + 
+  geom_tiplab(offset=1) + hexpand(.2) + vexpand(.05, -1) + 
+  theme(legend.position = c(.1, .75))
+
+aplot::plot_list(p1, p2, ncol=2, tag_levels='A')    
+```
+
+
+### The phylog object {#phylog}
+
+The `phylog` is defined in the `r CRANpkg("ade4")` package. The package is designed for analyzing ecological data and provides `newick2phylog()`, `hclust2phylog()`, and `taxo2phylog()` functions to create phylogeny from Newick string, hierarchical clustering result, or a taxonomy (see also the `r Biocpkg("MicrobiotaProcess")` package described in [Chapter 11](#chapter11)). The `phylog` object is also supported by `r Biocpkg("ggtree")` as demonstrated in Figure \@ref(fig:phylog).
+
+(ref:phylogscap) Visualizing a `phylog` tree object.
+
+(ref:phylogcap) **Visualizing a `phylog` tree object.** 
+
+
+```{r phylog, fig.width=7, fig.height=4.8, fig.cap="(ref:phylogcap)", fig.scap="(ref:phylogscap)", out.width='100%'}
+library(ade4)
+data(taxo.eg)
+tax <- as.taxo(taxo.eg[[1]])
+names(tax) <- c("genus", "family", "order")
+print(tax)
+tax.phy <- taxo2phylog(as.taxo(taxo.eg[[1]]))
+print(tax.phy)
+
+ggtree(tax.phy) + geom_tiplab() + 
+  geom_nodelab(geom='label') + hexpand(.05)
+```
+
+
+### The phyloseq object {#phyloseq}
+
+The `phyloseq` class defined in the `r Biocpkg("phyloseq")` package was designed for storing microbiome data, including a phylogenetic tree, associated sample data, and taxonomy assignment. It can import data from popular pipelines, such as `r pkg_qiime` [@kuczynski_using_2011], `r pkg_mothur` [@schloss_introducing_2009], `r Biocpkg("dada2")` [@callahan_dada2_2016] and `r pkg_pyrotagger` [@kunin_pyrotagger_2010], *etc*. The `r Biocpkg("ggtree")` supports visualizing the phylogenetic tree stored in the `phyloseq` object and related data can be used to annotate the tree as demonstrated in Figures \@ref(fig:reproducephyloseq) and \@ref(fig:phyloseq).
+
+(ref:reproducephyloseqscap) Visualizing a `phyloseq` tree object.
+
+(ref:reproducephyloseqcap) **Visualizing a `phyloseq` tree object.** This example mimics the output of the `plot_tree()` function provided in the `r Biocpkg("phyloseq")` package. 
+
+```{r reproducephyloseq, fig.height=7, fig.width=9.5, message=FALSE, fig.cap="(ref:reproducephyloseqcap)", fig.scap="(ref:reproducephyloseqscap)", out.extra='', warning=FALSE,out.width='100%'}
+library(phyloseq)
+library(scales)
+
+data(GlobalPatterns)
+GP <- prune_taxa(taxa_sums(GlobalPatterns) > 0, GlobalPatterns)
+GP.chl <- subset_taxa(GP, Phylum=="Chlamydiae")
+
+ggtree(GP.chl) + 
+  geom_nodelab(aes(label=label), hjust=-.05, size=3.5) +
+
+  geom_point(aes(x=x+hjust, color=SampleType, shape=Family, 
+                size=Abundance), na.rm=TRUE) +
+  geom_tiplab(aes(label=Genus), hjust=-.35) +                
+  scale_size_continuous(trans=log_trans(5)) +
+  theme(legend.position="right") + hexpand(.4)
+```
+
+
+Figure \@ref(fig:reproducephyloseq) reproduces the output of the `phyloseq::plot_tree()` function. Users of `r Biocpkg("phyloseq")` will find `r Biocpkg("ggtree")` useful for visualizing microbiome data and for further annotation since `r Biocpkg("ggtree")` supports high-level annotation using the grammar of graphics and can add tree data layers that are not available in `r Biocpkg("phyloseq")`.
+
+(ref:phyloseqscap) Phylogenetic tree with OTU abundance densities.
+
+(ref:phyloseqcap) **Phylogenetic tree with OTU abundance densities.** Tips were colored by Phylum, and the corresponding abundances across different samples were visualized as density ridgelines and sorted according to the tree structure.
+
+
+```{r phyloseq, fig.height=6.6, fig.width=7, message=FALSE, fig.cap="(ref:phyloseqcap)", fig.scap="(ref:phyloseqscap)", out.extra='', warning=FALSE, out.width='100%'}
+library(ggridges)
+
+data("GlobalPatterns")
+GP <- GlobalPatterns
+GP <- prune_taxa(taxa_sums(GP) > 600, GP)
+sample_data(GP)$human <- get_variable(GP, "SampleType") %in% 
+  c("Feces", "Skin") 
+
+mergedGP <- merge_samples(GP, "SampleType")
+mergedGP <- rarefy_even_depth(mergedGP,rngseed=394582)
+mergedGP <- tax_glom(mergedGP,"Order") 
+
+melt_simple <- psmelt(mergedGP) %>% 
+  filter(Abundance < 120) %>% 
+  select(OTU, val=Abundance)
+
+ggtree(mergedGP) + 
+  geom_tippoint(aes(color=Phylum), size=1.5) +
+  geom_facet(mapping = aes(x=val,group=label, 
+                           fill=Phylum),
+            data = melt_simple, 
+            geom = geom_density_ridges,
+            panel="Abundance",  
+            color='grey80', lwd=.3) +
+  guides(color = guide_legend(ncol=1))          
+```
+
+
+
+This example uses microbiome data provided in the `r Biocpkg("phyloseq")` package and density ridgeline is employed to visualize species abundance data. The `geom_facet()` layer automatically re-arranges the abundance data according to the tree structure, visualizes the data using the specified `geom` function, *i.e.*, `geom_density_ridges()`, and aligns the density curves with the tree as demonstrated in Figure \@ref(fig:phyloseq). Note that data stored in the `phyloseq` object is visible to `ggtree()` and can be used directly in tree visualization (`Phylum` was used to color tips and density ridgelines in this example). The source code of this example was firstly published in the supplemental file of [@yu_two_2018].
+
+
+<!-- 
+### The obkData object {#obkdata}
+
+The `okbData` is defined in the `r CRANpkg("OutbreakTools")` package to store incidence-based outbreak data, including meta data of sampling and information of infected individuals such as age and onset of symptoms. The `ggtree` supports the `obkData` object and the information can be used to annotate the tree as shown in Figure \@ref(fig:outbreaktools).
+
+(ref:outbreaktoolsscap) Visualizing obkData tree object.
+
+(ref:outbreaktoolscap) **Visualizing obkData tree object.** *x*-axis was scaled by timeline of the outbreak and tips were colored by location of different individuals.
+
+
+```r outbreaktools, fig.width=6.3, fig.height=7, fig.cap="(ref:outbreaktoolscap)", fig.scap="(ref:outbreaktoolsscap)", message=FALSE, out.extra=''}
+library(OutbreakTools)
+data(FluH1N1pdm2009)
+attach(FluH1N1pdm2009)
+
+x <- new("obkData", 
+         individuals = individuals, 
+         dna = dna,
+         dna.individualID = samples$individualID, 
+         dna.date = samples$date,
+         trees = FluH1N1pdm2009$trees)
+ggtree(x, mrsd="2009-09-30", as.Date=TRUE, right=TRUE) +
+    geom_tippoint(aes(color=location), size=3, alpha=.75) +
+    scale_color_brewer("location", palette="Spectral") +
+    theme_tree2(legend.position='right')
+```
+
+
+-->
+
+## ggtree for Dendrograms {#dendrogram}
+
+A dendrogram is a tree diagram to display hierarchical clustering and classification/regression trees. In R, we can calculate a hierarchical clustering using the function `hclust()`\index{dendrogram}.
+
+```{r}
+hc <- hclust(dist(mtcars))
+hc
+```
+
+The `hclust` object describes the tree produced by the clustering process. It can be converted to `dendrogram` object, which stores the tree as deeply-nested lists. 
+
+```{r}
+den <- as.dendrogram(hc)
+den
+```
+
+The `r Biocpkg("ggtree")` package supports most of the hierarchical clustering objects defined in the R community, including `hclust` and `dendrogram` as well as `agnes`, `diana`, and `twins` that are defined in the `r CRANpkg("cluster")` package, and the `pvclust` object defined in the `r CRANpkg("pvclust")` package (Table \@ref(tab:tree-objects)). Users can use `ggtree(object)` to display its tree structure, and use other layers and utilities to customize the graph and of course, add annotations to the tree.
+
+The `r Biocpkg("ggtree")` provides `layout_dendrogram()` to layout the tree top-down, and `theme_dendrogram()` to display tree height (similar to `theme_tree2()` for phylogenetic tree) as demonstrated in Figure \@ref(fig:ggtreehclust) (see also the example in [@yu_cp_2020]).
+
+
+(ref:ggtreehclustscap) Visualizing dendrogram.
+
+(ref:ggtreehclustcap) **Visualizing dendrogram.** Use `cutree()` to split the tree into several groups and `groupClade()` to assign this grouping information. The tree was displayed in the classic top-down layout with branches colored by the grouping information and the tips were colored and labeled by the number of cylinders. 
+
+```{r echo=F}
+MRCA = ggtree:::MRCA.ggtree
+```
+
+
+```{r ggtreehclust, fig.width=9, fig.height=5, fig.cap="(ref:ggtreehclustcap)", fig.scap="(ref:ggtreehclustscap)",out.width='100%'}
+clus <- cutree(hc, 4)
+g <- split(names(clus), clus)
+
+p <- ggtree(hc, linetype='dashed')
+clades <- sapply(g, function(n) MRCA(p, n))
+
+p <- groupClade(p, clades, group_name='subtree') + aes(color=subtree)
+
+d <- data.frame(label = names(clus), 
+                  cyl = mtcars[names(clus), "cyl"])
+
+p %<+% d + 
+  layout_dendrogram() + 
+  geom_tippoint(aes(fill=factor(cyl), x=x+.5), 
+                size=5, shape=21, color='black') + 
+  geom_tiplab(aes(label=cyl), size=3, hjust=.5, color='black') +
+  geom_tiplab(angle=90, hjust=1, offset=-10, show.legend=FALSE) + 
+  scale_color_brewer(palette='Set1', breaks=1:4) +
+  theme_dendrogram(plot.margin=margin(6,6,80,6)) +
+  theme(legend.position=c(.9, .6))
+```
+
+```{r echo=FALSE}
+MRCA = tidytree::MRCA
+```
+
+## ggtree for Tree Graph {#igraph}
+
+The tree graph (as  an `igraph` object) can be converted to a `phylo` object using `as.phylo()` method provided in the `r Biocpkg("treeio")` package (Table \@ref(tab:tree-objects)). The `r Biocpkg("ggtree")` supports directly visualizing tree graph as demonstrated in Figure \@ref(fig:treeGraph). Note that currently not all `igraph` objects can be supported by `r Biocpkg("ggtree")`. Currently, it can only be supported when it is a tree graph\index{tree graph}.
+
+
+(ref:treeGraphscap) Visualizing a tree graph.
+
+(ref:treeGraphcap) **Visualizing a tree graph.** The lines with arrows indicate the relationship between the parent node and the child node. All nodes were indicated by steelblue circle points. 
+
+
+```{r treeGraph, fig.width=10, fig.height=5, fig.cap="(ref:treeGraphcap)", fig.scap="(ref:treeGraphscap)", out.width='100%'}
+library(igraph)
+g <- graph.tree(40, 3)
+arrow_size <- unit(rep(c(0, 3), times = c(27, 13)), "mm")
+ggtree(g, layout='slanted', arrow = arrow(length=arrow_size)) + 
+  geom_point(size=5, color='steelblue', alpha=.6) + 
+  geom_tiplab(hjust=.5,vjust=2) + layout_dendrogram()
+```
+
+
+
+## ggtree for Other Tree-like Structures
+
+The `r Biocpkg("ggtree")` package can be used to visualize any data in a hierarchical structure. Here, we use the GNI (Gross National Income) numbers in 2014 as an example. After preparing an edge list, that is a matrix or data frame that contains two columns indicating the relationship of parent and child nodes, we can use the `as.phylo()` method provided by the `r Biocpkg("treeio")` package to convert the edge list to a `phylo` object. Then it can be visualized using `r Biocpkg("ggtree")` with associated data. In this example, the population was used to scale the size of circle points for each country (Figure \@ref(fig:gni2014)).
+
+
+
+(ref:gni2014scap) Visualizing data in any hierarchical structure.
+
+(ref:gni2014cap) **Visualizing data in any hierarchical structure.** Hierarchical data represented as nodes connected by edges can be converted to a `phylo` object and visualized by `r Biocpkg("ggtree")` to explore their relationships or other properties that are associated with the relationships\index{dendrogram}. 
+
+
+
+
+```{r gni2014, fig.width=12, fig.height=10, fig.cap="(ref:gni2014cap)", fig.scap="(ref:gni2014scap)", out.width='100%'}
+library(treeio)
+library(ggplot2)
+library(ggtree)
+
+data("GNI2014", package="treemap")
+n <- GNI2014[, c(3,1)]
+n[,1] <- as.character(n[,1])
+n[,1] <- gsub("\\s\\(.*\\)", "", n[,1])
+
+w <- cbind("World", as.character(unique(n[,1])))
+
+colnames(w) <- colnames(n)
+edgelist <- rbind(n, w)
+
+y <- as.phylo(edgelist)
+ggtree(y, layout='circular') %<+% GNI2014 + 
+    aes(color=continent) + geom_tippoint(aes(size=population), alpha=.6) + 
+    geom_tiplab(aes(label=country), offset=.05, size=3) +
+    xlim(NA, 3)
+```
+
+## Summary {#summary9}
+
+The `r Biocpkg("ggtree")` supports various tree objects defined in the R language and extension packages, which makes it very easy to integrate `r Biocpkg("ggtree")` into existing pipelines. Moreover, `r Biocpkg("ggtree")` allows external data integration and exploration of these data on the tree, which will greatly promote the data visualization and result in interpretation in the downstream analysis of existing pipelines. Most importantly, the support for converting edge list to a tree object enables more tree-like structures to be incorporated into the framework of `r Biocpkg("treeio")` and `r Biocpkg("ggtree")`. This will enable more tree-like structures and related heterogeneous data in different disciplines to be integrated and visualized through `r Biocpkg("treeio")` and `r Biocpkg("ggtree")`, which facilitates integrated analysis and comparative analysis to discover more systematic patterns and insights. 
+
+
