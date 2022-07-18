@@ -15,7 +15,7 @@ always_allow_html: yes
 toc_appendix: yes
 toc-depth: 2
 link-citations: yes
-colorlinks: false
+colorlinks: true
 language:
   ui:
     chapter_name: "Chapter "
