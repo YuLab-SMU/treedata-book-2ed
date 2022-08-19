@@ -187,7 +187,7 @@ To solve this issue, we can use the `r CRANpkg("ggnewscale")` package to create 
 
 (ref:mgheatmapcap) **Example of plotting multiple matrix with `gheatmap()`**. A data frame (with 'first' and 'second' columns) was visualized as a discrete heatmap and another data frame (with 'A', 'B' and 'C' columns) was visualized as a continuous heatmap with corresponding discrete and continuous palette of colors (Figure \@ref(fig:mgheatmap)). 
 
-```{r mgheatmap, fig.width=10, fig.height=8, fig.cap="(ref:gheatmapcap)", fig.scap="(ref:gheatmapscap)", out.width='100%'}
+```{r mgheatmap, fig.width=10, fig.height=8, fig.cap="(ref:mgheatmapcap)", fig.scap="(ref:mgheatmapscap)", out.width='100%'}
 
 nwk <- system.file("extdata", "sample.nwk", package="treeio")
 
