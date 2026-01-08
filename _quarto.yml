@@ -1,0 +1,54 @@
+project:
+  type: book
+  output-dir: gh-pages
+
+book:
+  title: "Data Integration, Manipulation and Visualization of Phylogenetic Trees"
+  author: "Guangchuang Yu"
+  date: today
+  description: "Master ggtree package suite to handle tree with data."
+  repo-url: https://github.com/YuLab-SMU/treedata-book
+  repo-actions: [edit, issue, source]
+  chapters:
+    - index.qmd
+    - 00_author.qmd
+    - 01_treeio_importing_tree.qmd
+    - 02_tidytree.qmd
+    - 03_treeio_exporting_tree.qmd
+    - 04_ggtree_visualization.qmd
+    - 05_ggtree_annotation.qmd
+    - 06_ggtree_manipulation.qmd
+    - 07_ggtree_tree_with_data.qmd
+    - 08_ggtree_with_silhouette.qmd
+    - 09_ggtree_tree_objects.qmd
+    - 10_ggtree_exts.qmd
+    - 11_ggtree_exts-others.qmd
+    - 12_ggtree_utilities.qmd
+    - 13_ggtree_gallery.qmd
+    - part: "Appendix"
+      chapters: 
+        - A-app-faq.qmd
+        - A-app-tools.qmd
+        - A-app-fig-tab.qmd
+    - B-references.qmd
+
+bibliography: references.bib
+csl: apa.csl
+
+format:
+  html:
+    theme: cosmo
+    css: css/style.css
+    toc: true
+    toc-depth: 3
+    code-fold: false
+  pdf:
+    documentclass: book
+    classoption: [numberinsequence, twoside]
+    keep-tex: true
+    include-in-header: latex/preamble.tex
+    include-before-body: latex/before_body.tex
+    include-after-body: latex/after_body.tex
+    citation-method: natbib
+    lot: true
+    lof: true

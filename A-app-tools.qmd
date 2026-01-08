@@ -4,6 +4,12 @@
 
 # Related Tools {#related-tools}
 
+```{r include=F}
+library("yulab.utils")
+source("software-link.R")
+```
+
+
 ## MicrobiotaProcess: Convert Taxonomy Table to a `treedata` Object {#MicrobiotaProcess-taxonomy}
 
 Taxonomy (genus, family, ...) data are widely used in microbiome or ecology. Hierarchical taxonomies are the tree-like structure that organizes items into subcategories and can be converted to a tree object (see also the [phylog object](#phylog)). The `r Biocpkg("MicrobiotaProcess")` supports converting a `taxonomyTable` object, defined in the `r Biocpkg("phyloseq")` package, to a `treedata` object, and the taxonomic hierarchical relationship can be visualized using `r Biocpkg("ggtree")` (Figure \@ref(fig:TaxaTree)). When there are taxonomy names that are [confused and missing](https://github.com/YuLab-SMU/MicrobiotaProcess/issues/14), the `as.treedata()` method for `taxonomyTable` objects will complete their upper-level taxonomic information automatically.  
@@ -54,11 +60,11 @@ ggtree(tr) + geom_tiplab() + xlim(NA, 5)
 
 
 
-```{r, eval = !knitr::is_latex_output(), child="ggtree-plotly.Rmd"}
+```{r, eval = !knitr::is_latex_output(), child="ggtree-plotly.qmd"}
 ```
 
 
-```{r, eval = !knitr::is_latex_output(), child="ggtree-comicR.Rmd"}
+```{r, eval = !knitr::is_latex_output(), child="ggtree-comicR.qmd"}
 ```
 
 
@@ -156,7 +162,7 @@ p2 <- p + geom_nodelab(image=paste0(imgdir, "/frog.jpg"),
             geom="image", size=.12,
             image_fun= function(.) magick::image_transparent(., "white")) + 
       ggtitle("image with background removed")
-plot_grid(p1, p2, ncol=2)
+aplot::plot_list(p1, p2, ncol=2)
 ```
 
 ### Example 2: Plot tree on a background image {#ggimage-bgimage}

@@ -2,7 +2,6 @@
 title: 'Data Integration, Manipulation and Visualization of Phylogenetic Trees'
 author: Guangchuang Yu
 date: "`r Sys.Date()`"
-knit: "bookdown::render_book"
 site: bookdown::bookdown_site
 header-includes:
   - \usepackage{makeidx}
@@ -11,25 +10,18 @@ documentclass: book
 classoption: numberinsequence,twoside
 bibliography: references.bib
 csl: apa.csl
-always_allow_html: yes
-toc_appendix: yes
-toc-depth: 2
-link-citations: yes
+always_allow_html: true
+toc_appendix: true
+link-citations: true
 colorlinks: true
-language:
-  ui:
-    chapter_name: "Chapter "
-lot: yes
-lof: yes
+lot: true
+lof: true
 fontsize: 11pt
 monofont: "Source Code Pro"
 monofontoptions: "Scale=0.7"
 github-repo: YuLab-SMU/treedata-book
-twiter-handle: guangchuangyu
 description: "Master ggtree package suite to handle tree with data."
-highlight_bw: yes
-graphics: yes
-#papersize: a4
+graphics: true
 geometry: "left=35mm,right=35mm,top=25mm,bottom=25mm"
 cover-image: book-cover.png
 ---

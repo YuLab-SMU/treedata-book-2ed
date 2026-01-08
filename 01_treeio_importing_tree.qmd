@@ -10,6 +10,7 @@
 
 
 ```{r echo=FALSE, results="hide", message=FALSE}
+source("setup.R")
 library(tidyr)
 library(dplyr)
 library(tidytree)

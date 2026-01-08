@@ -4,6 +4,11 @@
 
 # ggtreeExtra for Presenting Data on a Circular Layout {#chapter10}
 
+```{r include=F}
+library("yulab.utils")
+source("setup.R")
+```
+
 ## Introduction
 
 
@@ -57,7 +62,6 @@ p <- p +
          mapping = aes(
                      y=OTU,
                      x=val,
-                     group=label,
                      fill=Phylum,
                    ),
          size=.2,

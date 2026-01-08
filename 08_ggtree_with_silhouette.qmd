@@ -9,6 +9,11 @@ opts_chunk$set(message=FALSE, warning=FALSE, eval=TRUE, echo=TRUE, cache=TRUE)
 library(ggimage)
 library(ggplot2)
 library(ggtree)
+library(yulab.utils)
+library("dplyr")
+library("tidytree")
+source("software-link.R")
+source("setup.R")
 ```
 
 ## Annotating Tree with Images {#ggimage}

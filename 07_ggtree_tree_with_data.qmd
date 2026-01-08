@@ -5,6 +5,8 @@
 ```{r include=F}
 library(knitr)
 opts_chunk$set(message=FALSE, warning=FALSE, eval=TRUE, echo=TRUE, cache=TRUE)
+library("yulab.utils")
+library("treeio")
 ```
 
 Integrating user data to annotate a phylogenetic tree can be done at different

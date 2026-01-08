@@ -1,6 +1,6 @@
 \newpage
 
-# Publications of the `r Biocpkg("ggtree")` Package Suite
+# Publications of the `r yulab.utils::Biocpkg("ggtree")` Package Suite
 
 > Note: ^\*^ Co-corresponding authors 
 

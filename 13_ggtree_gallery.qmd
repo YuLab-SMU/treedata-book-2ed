@@ -7,6 +7,9 @@
 
 ## Visualizing pairwise nucleotide sequence distance with a phylogenetic tree {#hpv58}
 
+```{r include=F}
+library("yulab.utils")
+```
 
 This example reproduces figure 1 of [@chen_ancient_2017]. It extracts accession numbers from tip labels of the HPV58 tree and calculates pairwise nucleotide sequence distances. The distance matrix is visualized as dot and line plots. This example demonstrates the ability to add multiple layers to a specific panel. As illustrated in Figure \@ref(fig:jv2017), the `geom_facet()` function displays sequence distances as a dot plot and then adds a layer of line plot to the same panel, *i.e.*, sequence distance. In addition, the tree in `geom_facet()` can be fully annotated with multiple layers (clade labels, bootstrap support values, *etc.*). The source code is modified from the supplemental file of [@yu_two_2018].
 
@@ -160,7 +163,7 @@ tipseq_aln <- TDbook::dna_HPV58_aln %>%
 
 ```{r jv2017, fig.width=12, fig.height=12, fig.cap="(ref:jv2017cap)", fig.scap="(ref:jv2017scap)", warning=FALSE, out.width='100%'}
 ## calculate pairwise hamming distances among sequences
-tipseq_dist <- stringDist(tipseq_aln, method = "hamming")
+tipseq_dist <- pwalign::stringDist(tipseq_aln, method = "hamming")
 
 ## calculate the percentage of differences
 tipseq_d <- as.matrix(tipseq_dist) / width(tipseq_aln[1]) * 100

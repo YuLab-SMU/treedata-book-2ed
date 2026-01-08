@@ -89,3 +89,6 @@ squote <- function(string) {
     fmt <- "%s%s%s"
     sprintf(fmt, left_quote_mark, string, right_quote_mark)
 }
+
+
+conflicts_prefer(base::setdiff)

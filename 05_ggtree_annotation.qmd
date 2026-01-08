@@ -4,11 +4,14 @@
 
 
 ```{r include=FALSE}
+library("kableExtra")
 library("ape")
 library("ggplot2")
 library("cowplot")
 library("treeio")
 library("ggtree")
+library("yulab.utils")
+source("software-link.R")
 ```                                                                                                                                                                     
 
 

@@ -5,6 +5,13 @@
 
 # Frequently Asked Questions {#faq}
 
+```{r include=F}
+library("yulab.utils")
+library(treeio)
+source("software-link.R")
+```
+
+
 The [ggtree mailing-list](https://groups.google.com/forum/?#!forum/bioc-ggtree)^[<https://groups.google.com/forum/?#!forum/bioc-ggtree>] is a great place to get help, once you have created a reproducible example that illustrates your problem.
 
 ## Installation {#installation}
@@ -547,7 +554,7 @@ ggplot(x) + geom_hilight(node=7, alpha=1) + geom_tree() + theme_tree()
 ```{r treeLayerOrder, echo=F, fig.width=6, fig.height=3, fig.cap="(ref:treeLayerOrdercap)", fig.scap="(ref:treeLayerOrderscap)", out.width="100%"}
 g <- p
 p$layers <- rev(p$layers)
-cowplot::plot_grid(g, p, 
+aplot::plot_list(g, p, 
   ggplot(x) + geom_hilight(node=7, alpha=1) + geom_tree() + theme_tree(),
   ncol = 3, labels = LETTERS[1:3])     
 ```

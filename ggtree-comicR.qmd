@@ -1,5 +1,13 @@
 ## Comic (xkcd-like) phylogenetic tree {#commicR}
 
+```{r include=F}
+library("yulab.utils")
+source("software-link.R")
+
+# https://github.com/timelyportfolio/comicR
+if (!is.installed("comicR"))
+    remotes::install_github("timelyportfolio/comicR")
+```
 
 ```{r ggsvg, fig.show='hide'}
 library(htmltools)    
@@ -20,7 +28,7 @@ svg <- grid.export(name="", res=100)$svg
 (ref:comicRcap) **Remove image background.** Plotting silhouette images on phylogenetic tree without (A) and with (B) background remove.
 
 
-```{r comicR} 
+```{r comicR, eval=FALSE} 
 ## need to convert it to png or pdf for pdfbook
 tagList(
     tags$div(
@@ -29,5 +37,5 @@ tagList(
              HTML(saveXML(svg)),
              comicR("#ggtree_comic", ff=5)
          )
-) # %>% html_print
+) # %>% html_print()
 ```
