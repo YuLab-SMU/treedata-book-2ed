@@ -59,6 +59,7 @@ jobs:
             any::treemap
             any::ggstar
             any::MicrobiotaProcess
+            any::muscle
             any::tanggle
             any::gggenes
             any::ggtext
