@@ -66,6 +66,23 @@ jobs:
             any::gridSVG
             any::data.tree
             any::rsvg
+            any::tidyverse
+            any::jsonlite
+            any::yulab.utils
+            any::ggnewscale
+            any::reshape2
+            any::ggplotify
+            any::glue
+            any::ggrepel
+            any::magick
+            coolbutuseless/devout
+            timelyportfolio/comicR
+            any::XML
+            any::htmltools
+            any::plotly
+            any::scales
+            any::ggridges
+            any::ade4
             YuLab-SMU/tidytree
             YuLab-SMU/treeio
             YuLab-SMU/ggtree
