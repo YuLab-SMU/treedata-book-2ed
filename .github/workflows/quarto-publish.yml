@@ -69,7 +69,7 @@ jobs:
             YuLab-SMU/tidytree
             YuLab-SMU/treeio
             YuLab-SMU/ggtree
-            YuLab-SMU/ggtreeExtra
+            YuLab-SMU/ggtreeExtra@devel
 
       - name: Render Quarto Project
         uses: quarto-dev/quarto-actions/render@v2
