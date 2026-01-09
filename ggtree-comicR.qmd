@@ -1,6 +1,8 @@
 ## Comic (xkcd-like) phylogenetic tree {#sec-commicR}
 
 ```{r}
+#| eval: false
+#| echo: false
 library("yulab.utils")
 source("software-link.R")
 
@@ -11,6 +13,7 @@ if (!is.installed("comicR"))
 
 ```{r}
 #| fig-show: 'hide'
+#| eval: false
 library(htmltools)    
 library(XML)    
 library(gridSVG)    
