@@ -78,6 +78,7 @@ jobs:
             coolbutuseless/devout
             timelyportfolio/comicR
             any::XML
+            any::htmlwidgets
             any::htmltools
             any::plotly
             any::scales
