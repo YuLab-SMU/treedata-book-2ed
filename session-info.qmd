@@ -1,15 +1,17 @@
 
 
-# Session Info {#session-info}
+# Session Info {#sec-session-info}
 
-```{r include=F}
+```{r}
 library("yulab.utils")
 ```
 
 
 The book was written using R Markdown and was compiled by `r CRANpkg("bookdown")` package. Here is the session information on the system on which this thesis was compiled:
 
-```{r sessionInfo, echo=FALSE, cache=FALSE}
+```{r}
+#| echo: false
+#| cache: false
 ## options(width=90)
 devtools::session_info()
 if (FALSE) {

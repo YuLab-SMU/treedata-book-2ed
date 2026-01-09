@@ -5,7 +5,9 @@
 
 
 
-```{r facet-geom, echo=FALSE,results='asis'}
+```{r}
+#| echo: false
+#| results: 'asis'
 
 x <- "ggalt\tgeom_dumbbell\tcreates dumbbell charts\n
 ggbio\tgeom_alignment\tshows interval data as alignment\n
@@ -67,7 +69,9 @@ knitr::kable(y, caption=caption, booktabs = T) %>%
 
 
 
-```{r tree-objects, echo=FALSE,results='asis'}
+```{r}
+#| echo: false
+#| results: 'asis'
 x <- tibble::tribble(
     ~Package, ~Object, ~Description,
     "ape", "phylo", "basic phylogenetic tree structure",
@@ -147,12 +151,14 @@ knitr::kable(ff, caption = "Functions defined in treeio.", booktabs = T) #%>%
 -->
 
 
-```{r, child="publications.md"}
+```{r}
 ```
 
 
 
-```{r, eval = FALSE, child="session-info.qmd"}
+```{r}
+#| label: = FALSE
+#| child: "session-info.qmd"
 ```
 
 

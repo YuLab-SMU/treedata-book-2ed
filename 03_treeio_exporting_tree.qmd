@@ -1,9 +1,11 @@
 \newpage
 
-# Exporting tree with data {#chapter3}
+# Exporting tree with data {#sec-chapter3}
 
 
-```{r echo=FALSE, results="hide", message=FALSE}
+```{r}
+#| results: "hide"
+#| message: false
 library('jsonlite')
 library('tidyverse')
 library("treeio")
@@ -11,7 +13,7 @@ library("yulab.utils")
 source("software-link.R")
 ```
 
-```{r echo=FALSE}
+```{r}
 options(show_data_for_treedata = FALSE)
 ```
 
@@ -61,7 +63,8 @@ by `r Biocpkg("treeio")` (see [Chapter 1](#chapter1)).
 
 Here is an example of converting NHX file to BEAST format:
 
-```{r comment=NA, eval=FALSE}
+```{r}
+#| eval: false
 nhxfile <- system.file("extdata/NHX", "phyldog.nhx", package="treeio")
 nhx <- read.nhx(nhxfile)
 # write.beast(nhx, file = "phyldog.tree")
@@ -75,7 +78,8 @@ f <- system.file("extdata/NHX", "phyldog.nhx", package="treeio")
 nhx <- read.nhx(f)
 ```
 
-```{r echo=FALSE, comment=NA}
+```{r}
+#| comment: NA
 x <- '#NEXUS
 [R-package treeio, Thu Oct 14 11:24:19 2021]
 
@@ -139,14 +143,17 @@ writeLines(x)
 
 Another example of converting `r pkg_codeml` output to BEAST format:
 
-```{r comment=NA, eval=FALSE}
+```{r}
+#| eval: false
 mlcfile <- system.file("extdata/PAML_Codeml", "mlc", package="treeio")
 ml <- read.codeml_mlc(mlcfile)
 # write.beast(ml, file = "codeml.tree")
 write.beast(ml) # output not shown
 ```
 
-```{r echo=FALSE, comment=NA, eval=FALSE}
+```{r}
+#| comment: NA
+#| eval: false
 x <- '#NEXUS
 [R-package treeio, Thu Oct 14 11:27:48 2021]
 
@@ -230,14 +237,19 @@ writeLines(x)
 ```
 
 Some software tools that do not support these outputs can be supported through data conversion. For example, we can convert the NHX file to BEAST file and use NHX tags to color the tree using
-`r pkg_figtree` (Figure \@ref(fig:beastFigtree)A) or convert `r pkg_codeml` output and use
-*d~N~/d~S~*, *d~N~*, or *d~S~* to color the tree in `r pkg_figtree` (Figure \@ref(fig:beastFigtree)B). Before conversion, these files could not be opened in Figtree. Treeio's conversion function makes data available to other software tools and expands the application range of these tools.
+`r pkg_figtree` (Figure @fig-beastFigtreeA) or convert `r pkg_codeml` output and use
+*d~N~/d~S~*, *d~N~*, or *d~S~* to color the tree in `r pkg_figtree` (Figure @fig-beastFigtreeB). Before conversion, these files could not be opened in Figtree. Treeio's conversion function makes data available to other software tools and expands the application range of these tools.
 
-(ref:beastFigtreescap) Visualizing BEAST file in FigTree.
 
-(ref:beastFigtreecap) **Visualizing BEAST file in FigTree.** Directly visualizing `NHX` file (A) and `CodeML` output (B) in `FigTree` is not supported. `treeio` can convert these files to BEAST compatible NEXUS format which can be directly opened in `FigTree` and visualized together with annotated data.
 
-```{r beastFigtree, fig.width=8, fig.height=9.6, echo=FALSE, fig.cap="(ref:beastFigtreecap)", fig.scap="(ref:beastFigtreescap)", out.width="100%"}
+```{r}
+#| fig-width: 8
+#| fig-height: 9.6
+#| echo: false
+#| fig-cap: |
+#|   **Visualizing BEAST file in FigTree.** Directly visualizing `NHX` file (A) and `CodeML` output (B) in `FigTree` is not supported. `treeio` can convert these files to BEAST compatible NEXUS format which can be directly opened in `FigTree` and visualized together with annotated data.
+#| fig-scap: "(ref:beastFigtreescap)"
+#| out-width: "100%"
 # knitr::include_graphics("img/phyldog.png")
 # knitr::include_graphics("img/codeml.png")
 
@@ -256,7 +268,8 @@ Using the utilities provided
 by `r CRANpkg("tidytree")` and `r Biocpkg("treeio")`, it is easy to link
 external data onto the corresponding phylogeny. The `write.beast()` function enables users to export the tree with external data to a single tree file\index{data integration}.
 
-```{r comment=NA, results='hide'}
+```{r}
+#| results: 'hide'
 phylo <- as.phylo(nhx)
 ## save space for printing the tree text
 phylo$edge.length <- round(phylo$edge.length, 2)
@@ -265,7 +278,8 @@ phylo$edge.length <- round(phylo$edge.length, 2)
 write.tree(phylo)
 ```
 
-```{r echo=FALSE, comment=NA}
+```{r}
+#| comment: NA
 x <- "(((Prayidae_D27SS7@2825365:0.07,(Kephyes_ovata@2606431:0.02,
 Chuniphyes_multidentata@1277217:0.01):0.02):0.06,((Apolemia_sp_@1353964:0.12,
 (((Bargmannia_amoena@263997:0.01,Bargmannia_elongata@946788:0.01):0.09,
@@ -280,7 +294,7 @@ writeLines(x)
 ```
 
 
-```{r results='hide'}
+```{r}
 library(tidytree)
 N <- Nnode2(phylo)
 fake_data <- tibble(node = 1:N, fake_trait = round(rnorm(N), 2), 
@@ -294,7 +308,8 @@ write.beast(fake_tree2)
 ```
 
 
-```{r echo=FALSE, comment=NA}
+```{r}
+#| comment: NA
 x <- "#NEXUS
 [R-package treeio, Tue Nov 16 10:13:32 2021]
 
@@ -328,7 +343,7 @@ writeLines(x)
 ```
 
 
-After merging, the `fake_trait` and `another_trait` stored in `fake_data` will be linked to the tree, `phylo`, and stored in the `treedata` object, the `fake_tree`. The `write.beast()` function exports the tree with associated data to a single BEAST format file. The associated data can be used to visualize the tree using `r Biocpkg("ggtree")` (Figure \@ref(fig:beast)) or `r pkg_figtree` (Figure \@ref(fig:beastFigtree)).
+After merging, the `fake_trait` and `another_trait` stored in `fake_data` will be linked to the tree, `phylo`, and stored in the `treedata` object, the `fake_tree`. The `write.beast()` function exports the tree with associated data to a single BEAST format file. The associated data can be used to visualize the tree using `r Biocpkg("ggtree")` (Figure @fig-beast) or `r pkg_figtree` (Figure @fig-beastFigtree).
 
 
 ### Merging tree data from different sources
@@ -351,7 +366,7 @@ identical(tree_with_data, tree2)
 After merging data from different sources, the tree with the associated data can
 be exported into a single file.
 
-```{r comment=NA}
+```{r}
 outfile <- tempfile(fileext = ".tree")
 write.beast(tree2, file = outfile)
 ```
@@ -365,7 +380,7 @@ using [ggtree](https://bioconductor.org/packages/ggtree/) [@yu_ggtree:_2017].
 read.beast(outfile)
 ```
 
-## Exporting Tree Data to the *jtree* Format {#write-jtree}
+## Exporting Tree Data to the *jtree* Format {#sec-write-jtree}
 
 The `r Biocpkg("treeio")` package [@wang_treeio_2020] provides the
 `write.beast()` function to export `treedata` to BEAST Nexus file. This is quite useful
@@ -385,11 +400,13 @@ languages, `r Biocpkg("treeio")` supports
 exporting a tree with data in the `jtree` format, which is JSON-based and can be easy to parse using any language that supports JSON.
 
 
-```{r subtree-jtree, echo=FALSE}
+```{r}
+#| echo: false
 tree3 <- tree_subset(tree2, node=24, levels_back=0) 
 ```
 
-```{r comment=NA, eval=FALSE}
+```{r}
+#| eval: false
 # write.jtree(tree2)
 
 # to save space, use a subtree
@@ -397,7 +414,9 @@ tree3 <- tree_subset(tree2, node=24, levels_back=0)
 write.jtree(tree3)
 ```
 
-```{r print-jtree, comment=NA, echo=FALSE}
+```{r}
+#| comment: NA
+#| echo: false
 x <- '{
 	"tree": "(Physonect_sp_@2066767:0.077429{3},(Bargmannia_amoena@263997:0.0144549
 {1},Bargmannia_elongata@946788:0.0149723{2}):0.0925388{5}):0.28549{4};",
@@ -451,13 +470,16 @@ writeLines(x)
 
 The `jtree` format is based on JSON and can be parsed using JSON parser.
 
-```{r comment=NA, results='hide'}
+```{r}
+#| results: 'hide'
 jtree_file <- tempfile(fileext = '.jtree')
 write.jtree(tree3, file = jtree_file)
 jsonlite::fromJSON(jtree_file)
 ```
 
-```{r print-json, comment=NA, echo=FALSE}
+```{r}
+#| comment: NA
+#| echo: false
 x <- '$tree
 [1] "(Physonect_sp_@2066767:0.077429{3},(Bargmannia_amoena@263997:0.0144549{1},
 Bargmannia_elongata@946788:0.0149723{2}):0.0925388{5}):0.28549{4};"
@@ -489,6 +511,6 @@ in `r Biocpkg("treeio")` package (see also [session 1.3](#jtree)).
 read.jtree(jtree_file)
 ```
 
-## Summary {#summary3}
+## Summary {#sec-summary3}
 
 Phylogenetic tree-associated data is often stored in a separate file and needs the expertise to map the data to the tree structure. Lacking standardization to store and represent phylogeny and associated data makes it difficult for researchers to access and integrate the phylogenetic data into their studies. The `r Biocpkg("treeio")`\index{treeio} package provides functions to import phylogeny with associated data from several sources, including analysis findings from commonly used software and external data such as experimental data, clinical data, or meta-data. These trees and their associated data can be exported into a single file as `BEAST` or `jtree` formats, and the output file can be parsed back to R by `r Biocpkg("treeio")` and the data is easy to access. The input and output utilities supplied by `r Biocpkg("treeio")` package lay the foundation for phylogenetic data integration for downstream comparative study and visualization. It creates the possibility of integrating a tree with associated data from different sources and extends the applications of phylogenetic analysis in different disciplines. 

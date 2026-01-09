@@ -27,7 +27,7 @@ cover-image: book-cover.png
 ---
 
 
-```{r include=FALSE}
+```{r}
 source("setup.R")
 
 options(
@@ -99,7 +99,7 @@ After several years of development, `r Biocpkg("ggtree")` has evolved into a pac
 + Part IV (Miscellaneous topics) describes utilities provided by the `r Biocpkg("ggtree")` package suite and presents a set of reproducible examples.
 
 
-```{r, child="software-info.md"}
+```{r}
 ```
 
 ## Acknowledgments {-}

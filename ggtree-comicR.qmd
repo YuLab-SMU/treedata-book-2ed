@@ -1,6 +1,6 @@
-## Comic (xkcd-like) phylogenetic tree {#commicR}
+## Comic (xkcd-like) phylogenetic tree {#sec-commicR}
 
-```{r include=F}
+```{r}
 library("yulab.utils")
 source("software-link.R")
 
@@ -9,7 +9,8 @@ if (!is.installed("comicR"))
     remotes::install_github("timelyportfolio/comicR")
 ```
 
-```{r ggsvg, fig.show='hide'}
+```{r}
+#| fig-show: 'hide'
 library(htmltools)    
 library(XML)    
 library(gridSVG)    
@@ -23,9 +24,7 @@ print(p)
 svg <- grid.export(name="", res=100)$svg
 ```
 
-(ref:comicRscap) Remove image background.
 
-(ref:comicRcap) **Remove image background.** Plotting silhouette images on phylogenetic tree without (A) and with (B) background remove.
 
 
 ```{r comicR, eval=FALSE} 

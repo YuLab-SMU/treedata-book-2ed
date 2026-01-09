@@ -2,25 +2,26 @@
 \newpage
 
 
-# Related Tools {#related-tools}
+# Related Tools {#sec-related-tools}
 
-```{r include=F}
+```{r}
 library("yulab.utils")
 source("software-link.R")
 ```
 
 
-## MicrobiotaProcess: Convert Taxonomy Table to a `treedata` Object {#MicrobiotaProcess-taxonomy}
+## MicrobiotaProcess: Convert Taxonomy Table to a `treedata` Object {#sec-MicrobiotaProcess-taxonomy}
 
-Taxonomy (genus, family, ...) data are widely used in microbiome or ecology. Hierarchical taxonomies are the tree-like structure that organizes items into subcategories and can be converted to a tree object (see also the [phylog object](#phylog)). The `r Biocpkg("MicrobiotaProcess")` supports converting a `taxonomyTable` object, defined in the `r Biocpkg("phyloseq")` package, to a `treedata` object, and the taxonomic hierarchical relationship can be visualized using `r Biocpkg("ggtree")` (Figure \@ref(fig:TaxaTree)). When there are taxonomy names that are [confused and missing](https://github.com/YuLab-SMU/MicrobiotaProcess/issues/14), the `as.treedata()` method for `taxonomyTable` objects will complete their upper-level taxonomic information automatically.  
+Taxonomy (genus, family, ...) data are widely used in microbiome or ecology. Hierarchical taxonomies are the tree-like structure that organizes items into subcategories and can be converted to a tree object (see also the [phylog object](#phylog)). The `r Biocpkg("MicrobiotaProcess")` supports converting a `taxonomyTable` object, defined in the `r Biocpkg("phyloseq")` package, to a `treedata` object, and the taxonomic hierarchical relationship can be visualized using `r Biocpkg("ggtree")` (Figure @fig-TaxaTree). When there are taxonomy names that are [confused and missing](https://github.com/YuLab-SMU/MicrobiotaProcess/issues/14), the `as.treedata()` method for `taxonomyTable` objects will complete their upper-level taxonomic information automatically.  
 
 
 
-(ref:TaxaToTreescap) Convert a `taxonomyTable` object to a `treedata` object. 
-
-(ref:TaxaToTreecap) **Convert a `taxonomyTable` object to a `treedata` object.** 
-
-```{r TaxaTree, fig.widht=8, fig.height=8, fig.cap="(ref:TaxaToTreecap)", fig.scap="ref:TaxaToTreescap"}
+```{r}
+#| fig-widht: 8
+#| fig-height: 8
+#| fig-cap: |
+#|   **Convert a `taxonomyTable` object to a `treedata` object.**
+#| fig-scap: "ref:TaxaToTreescap"
 library(MicrobiotaProcess)
 library(ggtree)
 
@@ -39,13 +40,11 @@ ggtree(tree, layout="circular", size=0.2) +
      geom_tiplab(size=1)
 ```
 
-## rtol: An R Interface to Open Tree API {#rtol}
+## rtol: An R Interface to Open Tree API {#sec-rtol}
 
-The `r CRANpkg("rtol")` [@michonneau_rotl:_2016] is an R package to interact with the Open Tree of Life data APIs. Users can use it to query phylogenetic trees and visualize the trees with `r Biocpkg("ggtree")` to explore species relationships (Figure \@ref(fig:rotlSubtree)).
+The `r CRANpkg("rtol")` [@michonneau_rotl:_2016] is an R package to interact with the Open Tree of Life data APIs. Users can use it to query phylogenetic trees and visualize the trees with `r Biocpkg("ggtree")` to explore species relationships (Figure @fig-rotlSubtree).
 
-(ref:rotlSubtreescap) Get an induced subtree from the big Open Tree.
 
-(ref:rotlSubtreecap) **Get an induced subtree from the big Open Tree.**
 
 
 
@@ -60,17 +59,22 @@ ggtree(tr) + geom_tiplab() + xlim(NA, 5)
 
 
 
-```{r, eval = !knitr::is_latex_output(), child="ggtree-plotly.qmd"}
+```{r}
+#| label: = !knitr::is_latex_output()
+#| child: "ggtree-plotly.qmd"
 ```
 
 
-```{r, eval = !knitr::is_latex_output(), child="ggtree-comicR.qmd"}
+```{r}
+#| label: = !knitr::is_latex_output()
+#| child: "ggtree-comicR.qmd"
 ```
 
 
-## Print ASCII-art Rooted Tree {#ascii-tree}
+## Print ASCII-art Rooted Tree {#sec-ascii-tree}
 
-```{r asciiTree, comment=NA}
+```{r}
+#| comment: NA
 library(data.tree)
 tree <- rtree(10)
 d <- as.data.frame(as.Node(tree))
@@ -80,11 +84,13 @@ print(d, row.names=FALSE)
 
 It is neat to print ASCII-art of the phylogeny. Sometimes, we don't want to plot the tree, but just take a glance at the tree structure without leaving the focus from the R console. However, it is not a good idea to print the whole tree as ASCII text if the tree is large. Sometimes, we just want to look at a specific portion of the tree and its immediate relatives. In this scenario, we can use `treeio::tree_subset()` function (see [session 2.4](subsetting-tree-with-data)) to extract selected portion of a tree. Then we can print ASCII-art of the tree subset to explore the evolutionary relationship of the species of our interest in the R console.
 
-The `r Biocpkg("ggtree")` supports parsing tip labels as emoji to create [phylomoji](#phylomoji). With the `r CRANpkg("data.tree")` and `r CRANpkg("emojifont")` packages, we can also print phylomoji as ASCII text (Figure \@ref(fig:emojidatatree)).
+The `r Biocpkg("ggtree")` supports parsing tip labels as emoji to create [phylomoji](#phylomoji). With the `r CRANpkg("data.tree")` and `r CRANpkg("emojifont")` packages, we can also print phylomoji as ASCII text (Figure @fig-emojidatatree).
 
 
 
-```{r asciiTreeEmoji, comment=NA, eval=FALSE}
+```{r}
+#| comment: NA
+#| eval: false
 library(data.tree)
 library(emojifont)
 
@@ -97,9 +103,6 @@ print(d, row.names=FALSE)
 ```
 
 
-(ref:emojidatatreescap) Print phylomoji as ASCII text.
-
-(ref:emojidatatreecap) **Print phylomoji as ASCII text.**
 
 
 
@@ -109,7 +112,8 @@ knitr::include_graphics("img/data-tree-emojim.png")
 
 Another way to print ASCII-art of phylogeny is to use the `ascii()` device defined in the `r pkg_devout` package. Here is an example:
 
-```{r devout-ascii, comment=NA}
+```{r}
+#| comment: NA
 library(devout)
 ascii(width=80)
 ggtree(rtree(5))
@@ -117,18 +121,20 @@ invisible(dev.off())
 ```
 
 
-## Zoom in on the Selected Portion {#facet-zoom}
+## Zoom in on the Selected Portion {#sec-facet-zoom}
 
 
-In addition to using `viewClade()` function, users can use the `r CRANpkg("ggforce")` package to zoom in on a selected clade (Figure \@ref(fig:facetZoom)).
- 
-
-(ref:facetZoomscap) Zoom in on a selected clade.
-
-(ref:facetZoomcap) **Zoom in on a selected clade.**
+In addition to using `viewClade()` function, users can use the `r CRANpkg("ggforce")` package to zoom in on a selected clade (Figure @fig-facetZoom).
 
 
-```{r facetZoom, fig.width=6, fig.height=4, fig.cap="(ref:facetZoomcap)", fig.scap="(ref:facetZoomscap)"}
+
+
+```{r}
+#| fig-width: 6
+#| fig-height: 4
+#| fig-cap: |
+#|   **Zoom in on a selected clade.**
+#| fig-scap: "(ref:facetZoomscap)"
 set.seed(2019-08-05)
 x <- rtree(30)
 nn <- tidytree::offspring(x, 43, self_include=TRUE)
@@ -136,15 +142,13 @@ ggtree(x) + ggforce::facet_zoom(xy = node %in% nn)
 ```
 
 
-## Tips for Using `ggtree` with `ggimage` {#ggimage-tips}
+## Tips for Using `ggtree` with `ggimage` {#sec-ggimage-tips}
 
-The `r Biocpkg("ggtree")` supports annotating a tree with silhouette images via the `r CRANpkg("ggimage")` package. The `r CRANpkg("ggimage")` provides the grammar of graphic syntax to work with image files. It allows processing images on the fly via the `image_fun` parameter, which accepts a function to process `magick-image` objects (Figure \@ref(fig:ggimagebg)). The `r CRANpkg("magick")` package provides several functions, and these functions can be combined to perform a particular task.
+The `r Biocpkg("ggtree")` supports annotating a tree with silhouette images via the `r CRANpkg("ggimage")` package. The `r CRANpkg("ggimage")` provides the grammar of graphic syntax to work with image files. It allows processing images on the fly via the `image_fun` parameter, which accepts a function to process `magick-image` objects (Figure @fig-ggimagebg). The `r CRANpkg("magick")` package provides several functions, and these functions can be combined to perform a particular task.
 
-### Example 1: Remove background of images {#ggimage-rm-image-bg}
+### Example 1: Remove background of images {#sec-ggimage-rm-image-bg}
 
-(ref:ggimagebgscap) Remove image background.
 
-(ref:ggimagebgcap) **Remove image background.** Plotting silhouette images on a phylogenetic tree with background not removed (A) and removed (B).
 
 
 ```{r ggimagebg, fig.width=8, fig.height=4, fig.cap="(ref:ggimagebgcap)", fig.scap="(ref:ggimagebgscap)", out.width='100%'} 
@@ -165,13 +169,11 @@ p2 <- p + geom_nodelab(image=paste0(imgdir, "/frog.jpg"),
 aplot::plot_list(p1, p2, ncol=2)
 ```
 
-### Example 2: Plot tree on a background image {#ggimage-bgimage}
+### Example 2: Plot tree on a background image {#sec-ggimage-bgimage}
 
-The `geom_bgimage()` adds a layer of the image and puts the layer to the bottom of the layer stack. It is a normal layer and doesn't change the structure of the output `ggtree` object. Users can add annotation layers without the background image layer (Figure \@ref(fig:bgimage)).
+The `geom_bgimage()` adds a layer of the image and puts the layer to the bottom of the layer stack. It is a normal layer and doesn't change the structure of the output `ggtree` object. Users can add annotation layers without the background image layer (Figure @fig-bgimage).
 
-(ref:bgimagescap) Use an image file as a tree background.
 
-(ref:bgimagecap) **Use an image file as a tree background.**
 
 
 ```{r bgimage, fig.width=6, fig.height=4, fig.cap="(ref:bgimagecap)", fig.scap="(ref:bgimagescap)"} 
@@ -190,14 +192,17 @@ install.packages("IRkernel")
 IRkernel::installspec()
 ```
 
-Then you can use `r Biocpkg("ggtree")` and other R packages in the Jupyter notebook (Figure \@ref(fig:jupyter)). Here is a screenshot of recreating Figure \@ref(fig:phylomoji1) in the Jupyter notebook.
-
-(ref:jupyterscap) ggtree in Jupyter notebook.
-
-(ref:jupytercap) **ggtree in Jupyter notebook.** Running ggtree in Jupyter notebook via R kernel. 
+Then you can use `r Biocpkg("ggtree")` and other R packages in the Jupyter notebook (Figure @fig-jupyter). Here is a screenshot of recreating Figure @fig-phylomoji1 in the Jupyter notebook.
 
 
-```{r jupyter, echo=F, fig.cap="(ref:jupytercap)", fig.scap="(ref:jupyterscap)", out.width='100%'}
+
+
+```{r}
+#| echo: false
+#| fig-cap: |
+#|   **ggtree in Jupyter notebook.** Running ggtree in Jupyter notebook via R kernel.
+#| fig-scap: "(ref:jupyterscap)"
+#| out-width: '100%'
 ## htmltools::includeHTML("img/ggtree_jupyter.html")
 knitr::include_graphics("img/Screenshot_2019-06-24_ggtree-jupyter.png")
 ```

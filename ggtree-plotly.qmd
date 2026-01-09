@@ -1,6 +1,6 @@
-## Convert a `ggtree` object to a `plotly` object {#plotly}
+## Convert a `ggtree` object to a `plotly` object {#sec-plotly}
 
-```{r include=F}
+```{r}
 library("yulab.utils")
 ```
 
@@ -38,9 +38,6 @@ plotly::ggplotly(p2)
 ```
 
 
-(ref:ggtreeplotlyscap) Interactive phylogenetic tree by combining ggtree with plotly.
-
-(ref:ggtreeplotlycap) **Interactive phylogenetic tree by combining ggtree with plotly.**
 
 
 
