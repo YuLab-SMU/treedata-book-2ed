@@ -60,6 +60,7 @@ jobs:
             any::ggstar
             any::MicrobiotaProcess
             any::muscle
+            any::pwalign
             any::tanggle
             any::gggenes
             any::ggtext
