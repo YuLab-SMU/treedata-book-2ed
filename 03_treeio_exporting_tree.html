@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Master ggtree package suite to handle tree with data.">
+
+<title>3&nbsp; Exporting tree with data – Data Integration, Manipulation and Visualization of Phylogenetic Trees</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./04_ggtree_visualization.html" rel="next">
+<link href="./02_tidytree.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_treeio_exporting_tree.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exporting tree with data</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Integration, Manipulation and Visualization of Phylogenetic Trees</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/YuLab-SMU/treedata-book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Integration, Manipulation and Visualization of Phylogenetic Trees</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_author.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Author</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_treeio_importing_tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(PART*) Part I: Tree data input, output, and manipulation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_tidytree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Manipulating Tree with Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_treeio_exporting_tree.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exporting tree with data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_ggtree_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(PART*) Part II: Tree data visualization and annotation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_ggtree_annotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Phylogenetic Tree Annotation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_ggtree_manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visual Exploration of Phylogenetic Trees</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_ggtree_tree_with_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Plotting tree with data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_ggtree_with_silhouette.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Annotating Tree with Silhouette Images and Sub-plots</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_ggtree_tree_objects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">ggtree for Other Tree-like Objects</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_ggtree_exts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(PART*) Part III: ggtree extensions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_ggtree_exts-others.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Other ggtree Extensions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_ggtree_utilities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(PART*) Part IV: Miscellaneous topics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_ggtree_gallery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Gallery of Reproducible Examples</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendix</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A-app-faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(APPENDIX) Appendix</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A-app-tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Related Tools</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A-app-fig-tab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Figures and Tables</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./B-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">3.1</span> Introduction</a></li>
+  <li><a href="#exporting-tree-data-to-beast-nexus-format" id="toc-exporting-tree-data-to-beast-nexus-format" class="nav-link" data-scroll-target="#exporting-tree-data-to-beast-nexus-format"><span class="header-section-number">3.2</span> Exporting Tree Data to <em>BEAST</em> Nexus Format</a>
+  <ul class="collapse">
+  <li><a href="#exportingconverting-software-output" id="toc-exportingconverting-software-output" class="nav-link" data-scroll-target="#exportingconverting-software-output"><span class="header-section-number">3.2.1</span> Exporting/converting software output</a></li>
+  <li><a href="#combining-tree-with-external-data" id="toc-combining-tree-with-external-data" class="nav-link" data-scroll-target="#combining-tree-with-external-data"><span class="header-section-number">3.2.2</span> Combining tree with external data</a></li>
+  <li><a href="#merging-tree-data-from-different-sources" id="toc-merging-tree-data-from-different-sources" class="nav-link" data-scroll-target="#merging-tree-data-from-different-sources"><span class="header-section-number">3.2.3</span> Merging tree data from different sources</a></li>
+  </ul></li>
+  <li><a href="#sec-write-jtree" id="toc-sec-write-jtree" class="nav-link" data-scroll-target="#sec-write-jtree"><span class="header-section-number">3.3</span> Exporting Tree Data to the <em>jtree</em> Format</a></li>
+  <li><a href="#sec-summary3" id="toc-sec-summary3" class="nav-link" data-scroll-target="#sec-summary3"><span class="header-section-number">3.4</span> Summary</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/YuLab-SMU/treedata-book/edit/main/03_treeio_exporting_tree.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/blob/main/03_treeio_exporting_tree.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-chapter3" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exporting tree with data</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">'jsonlite'</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">'tidyverse'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"treeio"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"yulab.utils"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"software-link.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">show_data_for_treedata =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="introduction" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">3.1</span> Introduction</h2>
+<p>The <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package <span class="citation" data-cites="wang_treeio_2020">(<a href="#ref-wang_treeio_2020" role="doc-biblioref">Wang et al., 2020</a>)</span> supports parsing various phylogenetic tree file formats including software outputs that contain evolutionary evidence. Some of the formats are just log files (<em>e.g.</em>, <a href="http://abacus.gene.ucl.ac.uk/software/paml.html"><strong>PAML</strong></a> and <a href="http://loco.biosci.arizona.edu/r8s/"><strong>r8s</strong></a> output), while some of the others are non-standard formats (<em>e.g.</em>, <a href="http://beast2.org/"><strong>BEAST</strong></a> and <a href="http://nbisweden.github.io/MrBayes/"><strong>MrBayes</strong></a> output that introduce a square bracket, which was reserved to store comments in standard Nexus format, to store inferences). With <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a>, we are now able to parse these files to extract phylogenetic trees and map associated data on the tree structure. Exporting tree structure is easy, users can use the <code>as.phyo()</code> method defined in <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> to convert a <code>treedata</code> object to a <code>phylo</code> object and then use <code>write.tree()</code> or <code>write.nexus()</code> implemented in <a href="https://CRAN.R-project.org/package=ape"><strong>ape</strong></a> package <span class="citation" data-cites="paradis_ape_2004">(<a href="#ref-paradis_ape_2004" role="doc-biblioref">Paradis et al., 2004</a>)</span> to export the tree structure as Newick text or Nexus file. This is quite useful for converting non-standard formats to a standard format and for extracting trees from software outputs, such as log files.</p>
+<p>However, exporting a tree with associated data is still challenging. These associated data can be parsed from analysis programs or obtained from external sources (<em>e.g.</em>, phenotypic data, experimental data, and clinical data). The major obstacle here is that there is no standard format designed for storing a tree with data. <a href="http://www.nexml.org/">NeXML</a> <span class="citation" data-cites="vos_nexml:_2012">(<a href="#ref-vos_nexml:_2012" role="doc-biblioref">Vos et al., 2012</a>)</span> may be the most flexible format. However, it is currently not widely supported. Most of the analysis programs in this field rely extensively on Newick string and Nexus format. In my opinion, although <a href="http://beast.community/nexus_metacomments">BEAST Nexus format</a> may not be the best solution, it is currently a good approach for storing heterogeneous associated data. The beauty of the format is that all the annotated elements are stored within square brackets, which are reserved for comments. In this way, existing programs that can read standard Nexus format are able to parse it by ignoring the annotated elements.</p>
+</section>
+<section id="exporting-tree-data-to-beast-nexus-format" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="exporting-tree-data-to-beast-nexus-format"><span class="header-section-number">3.2</span> Exporting Tree Data to <em>BEAST</em> Nexus Format</h2>
+<section id="exportingconverting-software-output" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="exportingconverting-software-output"><span class="header-section-number">3.2.1</span> Exporting/converting software output</h3>
+<p>The <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package <span class="citation" data-cites="wang_treeio_2020">(<a href="#ref-wang_treeio_2020" role="doc-biblioref">Wang et al., 2020</a>)</span> provides the <code>write.beast()</code> function to export <code>treedata</code> object as BEAST Nexus file <span class="citation" data-cites="bouckaert_beast_2014">(<a href="#ref-bouckaert_beast_2014" role="doc-biblioref">Bouckaert et al., 2014</a>)</span>. With <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a>, it is easy to convert software output to BEAST format if the output can be parsed by <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> (see <a href="01_treeio_importing_tree.html#chapter1">Chapter 1</a>).</p>
+<p>Here is an example of converting NHX file to BEAST format:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>nhxfile <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata/NHX"</span>, <span class="st">"phyldog.nhx"</span>, <span class="at">package=</span><span class="st">"treeio"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>nhx <span class="ot">&lt;-</span> <span class="fu">read.nhx</span>(nhxfile)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># write.beast(nhx, file = "phyldog.tree")</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write.beast</span>(nhx)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">'#NEXUS</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="st">[R-package treeio, Thu Oct 14 11:24:19 2021]</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">BEGIN TAXA;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">    DIMENSIONS NTAX = 16;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">    TAXLABELS</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">        Prayidae_D27SS7@2825365</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">        Kephyes_ovata@2606431</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="st">        Chuniphyes_multidentata@1277217</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">        Apolemia_sp_@1353964</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="st">        Bargmannia_amoena@263997</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="st">        Bargmannia_elongata@946788</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="st">        Physonect_sp_@2066767</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="st">        Stephalia_dilata@2960089</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="st">        Frillagalma_vityazi@1155031</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="st">        Resomia_ornicephala@3111757</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="st">        Lychnagalma_utricularia@2253871</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="st">        Nanomia_bijuga@717864</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="st">        Cordagalma_sp_@1525873</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="st">        Rhizophysa_filiformis@3073669</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="st">        Hydra_magnipapillata@52244</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="st">        Ectopleura_larynx@3556167</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="st">    ;</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="st">END;</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="st">BEGIN TREES;</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="st">    TRANSLATE</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="st">        1   Prayidae_D27SS7@2825365,</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="st">        2   Kephyes_ovata@2606431,</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="st">        3   Chuniphyes_multidentata@1277217,</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="st">        4   Apolemia_sp_@1353964,</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="st">        5   Bargmannia_amoena@263997,</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="st">        6   Bargmannia_elongata@946788,</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="st">        7   Physonect_sp_@2066767,</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="st">        8   Stephalia_dilata@2960089,</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="st">        9   Frillagalma_vityazi@1155031,</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="st">        10  Resomia_ornicephala@3111757,</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="st">        11  Lychnagalma_utricularia@2253871,</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="st">        12  Nanomia_bijuga@717864,</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="st">        13  Cordagalma_sp_@1525873,</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="st">        14  Rhizophysa_filiformis@3073669,</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="st">        15  Hydra_magnipapillata@52244,</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="st">        16  Ectopleura_larynx@3556167</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="st">    ;</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="st">    TREE * UNTITLED = [&amp;R] (((1[&amp;Ev=S,ND=0,S=58]:0.0682841,(2[&amp;Ev=S,ND=1,</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="st">S=69]:0.0193941,3[&amp;Ev=S,ND=2,S=70]:0.0121378)[&amp;Ev=S,ND=3,S=60]:0.0217782)</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="st">[&amp;Ev=S,ND=4,S=36]:0.0607598,((4[&amp;Ev=S,ND=9,S=31]:0.11832,(((5[&amp;Ev=S,ND=10,</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="st">S=37]:0.0144549,6[&amp;Ev=S,ND=11,S=38]:0.0149723)[&amp;Ev=S,ND=12,S=33]:0.0925388,</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="st">7[&amp;Ev=S,ND=13,S=61]:0.077429)[&amp;Ev=S,ND=14,S=24]:0.0274637,(8[&amp;Ev=S,ND=15,</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="st">S=52]:0.0761163,((9[&amp;Ev=S,ND=16,S=53]:0.0906068,10[&amp;Ev=S,ND=17,S=54]:1e-06)</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="st">[&amp;Ev=S,ND=18,S=45]:1e-06,((11[&amp;Ev=S,ND=19,S=65]:0.120851,12[&amp;Ev=S,ND=20,</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="st">S=71]:0.133939)[&amp;Ev=S,ND=21,S=56]:1e-06,13[&amp;Ev=S,ND=22,S=64]:0.0693814)</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="st">[&amp;Ev=S,ND=23,S=46]:1e-06)[&amp;Ev=S,ND=24,S=40]:0.0333823)[&amp;Ev=S,ND=25,S=35]:</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="st">1e-06)[&amp;Ev=D,ND=26,S=24]:0.0431861)[&amp;Ev=S,ND=27,S=19]:1e-06,14[&amp;Ev=S,ND=28,</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="st">S=26]:0.22283)[&amp;Ev=S,ND=29,S=17]:0.0292362)[&amp;Ev=D,ND=8,S=17]:0.185603,</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="st">(15[&amp;Ev=S,ND=5,S=16]:0.0621782,16[&amp;Ev=S,ND=6,S=15]:0.332505)[&amp;Ev=S,ND=7,</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="st">S=12]:0.185603)[&amp;Ev=S,ND=30,S=9];</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="st">END;'</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="fu">writeLines</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>NA #NEXUS
+NA [R-package treeio, Thu Oct 14 11:24:19 2021]
+NA 
+NA BEGIN TAXA;
+NA  DIMENSIONS NTAX = 16;
+NA  TAXLABELS
+NA      Prayidae_D27SS7@2825365
+NA      Kephyes_ovata@2606431
+NA      Chuniphyes_multidentata@1277217
+NA      Apolemia_sp_@1353964
+NA      Bargmannia_amoena@263997
+NA      Bargmannia_elongata@946788
+NA      Physonect_sp_@2066767
+NA      Stephalia_dilata@2960089
+NA      Frillagalma_vityazi@1155031
+NA      Resomia_ornicephala@3111757
+NA      Lychnagalma_utricularia@2253871
+NA      Nanomia_bijuga@717864
+NA      Cordagalma_sp_@1525873
+NA      Rhizophysa_filiformis@3073669
+NA      Hydra_magnipapillata@52244
+NA      Ectopleura_larynx@3556167
+NA  ;
+NA END;
+NA BEGIN TREES;
+NA  TRANSLATE
+NA      1   Prayidae_D27SS7@2825365,
+NA      2   Kephyes_ovata@2606431,
+NA      3   Chuniphyes_multidentata@1277217,
+NA      4   Apolemia_sp_@1353964,
+NA      5   Bargmannia_amoena@263997,
+NA      6   Bargmannia_elongata@946788,
+NA      7   Physonect_sp_@2066767,
+NA      8   Stephalia_dilata@2960089,
+NA      9   Frillagalma_vityazi@1155031,
+NA      10  Resomia_ornicephala@3111757,
+NA      11  Lychnagalma_utricularia@2253871,
+NA      12  Nanomia_bijuga@717864,
+NA      13  Cordagalma_sp_@1525873,
+NA      14  Rhizophysa_filiformis@3073669,
+NA      15  Hydra_magnipapillata@52244,
+NA      16  Ectopleura_larynx@3556167
+NA  ;
+NA  TREE * UNTITLED = [&amp;R] (((1[&amp;Ev=S,ND=0,S=58]:0.0682841,(2[&amp;Ev=S,ND=1,
+NA S=69]:0.0193941,3[&amp;Ev=S,ND=2,S=70]:0.0121378)[&amp;Ev=S,ND=3,S=60]:0.0217782)
+NA [&amp;Ev=S,ND=4,S=36]:0.0607598,((4[&amp;Ev=S,ND=9,S=31]:0.11832,(((5[&amp;Ev=S,ND=10,
+NA S=37]:0.0144549,6[&amp;Ev=S,ND=11,S=38]:0.0149723)[&amp;Ev=S,ND=12,S=33]:0.0925388,
+NA 7[&amp;Ev=S,ND=13,S=61]:0.077429)[&amp;Ev=S,ND=14,S=24]:0.0274637,(8[&amp;Ev=S,ND=15,
+NA S=52]:0.0761163,((9[&amp;Ev=S,ND=16,S=53]:0.0906068,10[&amp;Ev=S,ND=17,S=54]:1e-06)
+NA [&amp;Ev=S,ND=18,S=45]:1e-06,((11[&amp;Ev=S,ND=19,S=65]:0.120851,12[&amp;Ev=S,ND=20,
+NA S=71]:0.133939)[&amp;Ev=S,ND=21,S=56]:1e-06,13[&amp;Ev=S,ND=22,S=64]:0.0693814)
+NA [&amp;Ev=S,ND=23,S=46]:1e-06)[&amp;Ev=S,ND=24,S=40]:0.0333823)[&amp;Ev=S,ND=25,S=35]:
+NA 1e-06)[&amp;Ev=D,ND=26,S=24]:0.0431861)[&amp;Ev=S,ND=27,S=19]:1e-06,14[&amp;Ev=S,ND=28,
+NA S=26]:0.22283)[&amp;Ev=S,ND=29,S=17]:0.0292362)[&amp;Ev=D,ND=8,S=17]:0.185603,
+NA (15[&amp;Ev=S,ND=5,S=16]:0.0621782,16[&amp;Ev=S,ND=6,S=15]:0.332505)[&amp;Ev=S,ND=7,
+NA S=12]:0.185603)[&amp;Ev=S,ND=30,S=9];
+NA END;</code></pre>
+</div>
+</div>
+<p>Another example of converting <a href="http://abacus.gene.ucl.ac.uk/software/paml.html"><strong>CODEML</strong></a> output to BEAST format:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mlcfile <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata/PAML_Codeml"</span>, <span class="st">"mlc"</span>, <span class="at">package=</span><span class="st">"treeio"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ml <span class="ot">&lt;-</span> <span class="fu">read.codeml_mlc</span>(mlcfile)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># write.beast(ml, file = "codeml.tree")</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write.beast</span>(ml) <span class="co"># output not shown</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">'#NEXUS</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="st">[R-package treeio, Thu Oct 14 11:27:48 2021]</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="st">BEGIN TAXA;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="st">    DIMENSIONS NTAX = 15;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="st">    TAXLABELS</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="st">        A</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="st">        B</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="st">        C</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="st">        D</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="st">        E</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="st">        F</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="st">        G</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="st">        H</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="st">        I</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="st">        J</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="st">        K</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="st">        L</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="st">        M</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="st">        N</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="st">        O</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="st">    ;</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="st">END;</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="st">BEGIN TREES;</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="st">    TRANSLATE</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="st">        1   A,</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="st">        2   B,</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="st">        3   C,</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="st">        4   D,</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="st">        5   E,</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="st">        6   F,</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="st">        7   G,</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="st">        8   H,</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="st">        9   I,</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="st">        10  J,</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="st">        11  K,</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="st">        12  L,</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="st">        13  M,</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="st">        14  N,</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="st">        15  O</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="st">    ;</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="st">    TREE * UNTITLED = [&amp;U] (11[&amp;t=0.082,N=1514.9,S=633.1,dN_vs_dS=0.0224,</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="st">dN=0.002,dS=0.0878,N_x_dN=3,S_x_dS=55.6]:0.081785,14[&amp;t=0.062,N=1514.9,</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="st">S=633.1,dN_vs_dS=0.0095,dN=7e-04,dS=0.0689,N_x_dN=1,S_x_dS=43.6]:0.062341,</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="st">(4[&amp;t=0.082,N=1514.9,S=633.1,dN_vs_dS=0.0385,dN=0.0033,dS=0.0849,N_x_dN=5,</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="st">S_x_dS=53.8]:0.082021,(12[&amp;t=0.006,N=1514.9,S=633.1,dN_vs_dS=1e-04,dN=0,</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="st">dS=0.0062,N_x_dN=0,S_x_dS=3.9]:0.005508,(10[&amp;t=0.014,N=1514.9,S=633.1,</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="st">dN_vs_dS=0.0457,dN=7e-04,dS=0.0143,N_x_dN=1,S_x_dS=9]:0.013996,(7[&amp;t=0.046,</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="st">N=1514.9,S=633.1,dN_vs_dS=0.1621,dN=0.006,dS=0.0373,N_x_dN=9.2,S_x_dS=23.6]:</span></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="st">0.045746,((3[&amp;t=0.028,N=1514.9,S=633.1,dN_vs_dS=0.0461,dN=0.0013,dS=0.0282,</span></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="st">N_x_dN=2,S_x_dS=17.9]:0.02773,(5[&amp;t=0.031,N=1514.9,S=633.1,dN_vs_dS=0.0641,</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="st">dN=0.002,dS=0.0305,N_x_dN=3,S_x_dS=19.3]:0.031104,15[&amp;t=0.048,N=1514.9,</span></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a><span class="st">S=633.1,dN_vs_dS=0.0538,dN=0.0026,dS=0.0485,N_x_dN=4,S_x_dS=30.7]:0.048389)</span></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="st">23[&amp;t=0.008,N=1514.9,S=633.1,dN_vs_dS=1e-04,dN=0,dS=0.0094,N_x_dN=0,</span></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a><span class="st">S_x_dS=6]:0.008328)22[&amp;t=0.016,N=1514.9,S=633.1,dN_vs_dS=0.0395,dN=7e-04,</span></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a><span class="st">dS=0.0165,N_x_dN=1,S_x_dS=10.4]:0.015959,(8[&amp;t=0.021,N=1514.9,S=633.1,</span></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="st">dN_vs_dS=0.1028,dN=0.002,dS=0.0191,N_x_dN=3,S_x_dS=12.1]:0.021007,</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="st">(9[&amp;t=0.015,N=1514.9,S=633.1,dN_vs_dS=1e-04,dN=0,dS=0.0167,N_x_dN=0,</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="st">S_x_dS=10.6]:0.014739,(2[&amp;t=0.032,N=1514.9,S=633.1,dN_vs_dS=1e-04,</span></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a><span class="st">dN=0,dS=0.0358,N_x_dN=0,S_x_dS=22.7]:0.031643,(1[&amp;t=0.01,N=1514.9,</span></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a><span class="st">S=633.1,dN_vs_dS=0.0646,dN=7e-04,dS=0.0101,N_x_dN=1,S_x_dS=6.4]:0.01034,</span></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a><span class="st">(6[&amp;t=0.007,N=1514.9,S=633.1,dN_vs_dS=0.298,dN=0.0013,dS=0.0044,N_x_dN=2,</span></span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a><span class="st">S_x_dS=2.8]:0.006649,13[&amp;t=0.009,N=1514.9,S=633.1,dN_vs_dS=0.0738,dN=7e-04,</span></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a><span class="st">dS=0.0088,N_x_dN=1,S_x_dS=5.6]:0.009195)28[&amp;t=0.028,N=1514.9,S=633.1,</span></span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a><span class="st">dN_vs_dS=0.0453,dN=0.0013,dS=0.0289,N_x_dN=2,S_x_dS=18.3]:0.028303)27</span></span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a><span class="st">[&amp;t=0.008,N=1514.9,S=633.1,dN_vs_dS=0.0863,dN=7e-04,dS=0.0076,N_x_dN=1,</span></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a><span class="st">S_x_dS=4.8]:0.008072)26[&amp;t=0.003,N=1514.9,S=633.1,dN_vs_dS=1.5591,dN=0.0013,</span></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a><span class="st">dS=8e-04,N_x_dN=2,S_x_dS=0.5]:0.0035)25[&amp;t=0.02,N=1514.9,S=633.1,</span></span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a><span class="st">dN_vs_dS=1e-04,dN=0,dS=0.023,N_x_dN=0,S_x_dS=14.6]:0.020359)24[&amp;t=0.001,</span></span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a><span class="st">N=1514.9,S=633.1,dN_vs_dS=1e-04,dN=0,dS=6e-04,N_x_dN=0,S_x_dS=0.4]:0.000555)</span></span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a><span class="st">21[&amp;t=0.024,N=1514.9,S=633.1,dN_vs_dS=0.0549,dN=0.0013,dS=0.0237,N_x_dN=2,</span></span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a><span class="st">S_x_dS=15]:0.023675)20[&amp;t=0.046,N=1514.9,S=633.1,dN_vs_dS=0.0419,dN=0.002,</span></span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a><span class="st">dS=0.047,N_x_dN=3,S_x_dS=29.8]:0.045745)19[&amp;t=0.015,N=1514.9,S=633.1,</span></span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a><span class="st">dN_vs_dS=1e-04,dN=0,dS=0.0166,N_x_dN=0,S_x_dS=10.5]:0.014684)18[&amp;t=0.059,</span></span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a><span class="st">N=1514.9,S=633.1,dN_vs_dS=0.0964,dN=0.0053,dS=0.0545,N_x_dN=8,S_x_dS=34.5]:</span></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a><span class="st">0.059308)17[&amp;t=0.232,N=1514.9,S=633.1,dN_vs_dS=0.0129,dN=0.0033,dS=0.2541,</span></span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a><span class="st">N_x_dN=5,S_x_dS=160.9]:0.231628)16;</span></span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a><span class="st">END;'</span></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a><span class="fu">writeLines</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Some software tools that do not support these outputs can be supported through data conversion. For example, we can convert the NHX file to BEAST file and use NHX tags to color the tree using <a href="http://beast.community/figtree"><strong>FigTree</strong></a> (Figure <span class="quarto-unresolved-ref">?fig-beastFigtreeA</span>) or convert <a href="http://abacus.gene.ucl.ac.uk/software/paml.html"><strong>CODEML</strong></a> output and use <em>d<sub>N</sub>/d<sub>S</sub></em>, <em>d<sub>N</sub></em>, or <em>d<sub>S</sub></em> to color the tree in <a href="http://beast.community/figtree"><strong>FigTree</strong></a> (Figure <span class="quarto-unresolved-ref">?fig-beastFigtreeB</span>). Before conversion, these files could not be opened in Figtree. Treeio’s conversion function makes data available to other software tools and expands the application range of these tools.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="03_treeio_exporting_tree_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><strong>Visualizing BEAST file in FigTree.</strong> Directly visualizing <code>NHX</code> file (A) and <code>CodeML</code> output (B) in <code>FigTree</code> is not supported. <code>treeio</code> can convert these files to BEAST compatible NEXUS format which can be directly opened in <code>FigTree</code> and visualized together with annotated data.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="combining-tree-with-external-data" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="combining-tree-with-external-data"><span class="header-section-number">3.2.2</span> Combining tree with external data</h3>
+<p>Using the utilities provided by <a href="https://CRAN.R-project.org/package=tidytree"><strong>tidytree</strong></a> and <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a>, it is easy to link external data onto the corresponding phylogeny. The <code>write.beast()</code> function enables users to export the tree with external data to a single tree file.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>phylo <span class="ot">&lt;-</span> <span class="fu">as.phylo</span>(nhx)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## save space for printing the tree text</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>phylo<span class="sc">$</span>edge.length <span class="ot">&lt;-</span> <span class="fu">round</span>(phylo<span class="sc">$</span>edge.length, <span class="dv">2</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">## print the newick text</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">write.tree</span>(phylo)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">"(((Prayidae_D27SS7@2825365:0.07,(Kephyes_ovata@2606431:0.02,</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="st">Chuniphyes_multidentata@1277217:0.01):0.02):0.06,((Apolemia_sp_@1353964:0.12,</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="st">(((Bargmannia_amoena@263997:0.01,Bargmannia_elongata@946788:0.01):0.09,</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="st">Physonect_sp_@2066767:0.08):0.03,(Stephalia_dilata@2960089:0.08,</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="st">((Frillagalma_vityazi@1155031:0.09,Resomia_ornicephala@3111757:0):0,</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="st">((Lychnagalma_utricularia@2253871:0.12,Nanomia_bijuga@717864:0.13):0,</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="st">Cordagalma_sp_@1525873:0.07):0):0.03):0):0.04):0,Rhizophysa_filiformis@3073669:</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="st">0.22):0.03):0.19,(Hydra_magnipapillata@52244:0.06,</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="st">Ectopleura_larynx@3556167:0.33):0.19);"</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">writeLines</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>NA (((Prayidae_D27SS7@2825365:0.07,(Kephyes_ovata@2606431:0.02,
+NA Chuniphyes_multidentata@1277217:0.01):0.02):0.06,((Apolemia_sp_@1353964:0.12,
+NA (((Bargmannia_amoena@263997:0.01,Bargmannia_elongata@946788:0.01):0.09,
+NA Physonect_sp_@2066767:0.08):0.03,(Stephalia_dilata@2960089:0.08,
+NA ((Frillagalma_vityazi@1155031:0.09,Resomia_ornicephala@3111757:0):0,
+NA ((Lychnagalma_utricularia@2253871:0.12,Nanomia_bijuga@717864:0.13):0,
+NA Cordagalma_sp_@1525873:0.07):0):0.03):0):0.04):0,Rhizophysa_filiformis@3073669:
+NA 0.22):0.03):0.19,(Hydra_magnipapillata@52244:0.06,
+NA Ectopleura_larynx@3556167:0.33):0.19);</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytree)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>tidytree v0.4.7 Learn more at https://yulab-smu.top/contribution-tree-data/
+
+Please cite:
+
+L Zhan, X Luo, W Xie, XA Zhu, Z Xie, J Lin, L Li, W Tang, R Wang, L
+Deng, Y Liao, B Liu, Y Cai, Q Wang, S Xu, G Yu. shinyTempSignal: an R
+shiny application for exploring temporal and other phylogenetic
+signals. Journal of Genetics and Genomics 2024, 51(7):762-768. doi:
+10.1016/j.jgg.2024.02.004</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'tidytree'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:treeio':
+
+    getNodeNum</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:stats':
+
+    filter</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">Nnode2</span>(phylo)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>fake_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">node =</span> <span class="dv">1</span><span class="sc">:</span>N, <span class="at">fake_trait =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(N), <span class="dv">2</span>), </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">another_trait =</span> <span class="fu">round</span>(<span class="fu">runif</span>(N), <span class="dv">2</span>))</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>fake_tree <span class="ot">&lt;-</span> <span class="fu">full_join</span>(phylo, fake_data, <span class="at">by =</span> <span class="st">"node"</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># write.beast(fake_tree)</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="do">## to save space, use a subtree</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>fake_tree2 <span class="ot">=</span> <span class="fu">tree_subset</span>(fake_tree, <span class="at">node=</span><span class="dv">27</span>, <span class="at">levels_back=</span><span class="dv">0</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">write.beast</span>(fake_tree2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#NEXUS
+[R-package treeio, Sat Jan 10 10:16:21 2026]
+
+BEGIN TAXA;
+    DIMENSIONS NTAX = 5;
+    TAXLABELS
+        Frillagalma_vityazi@1155031
+        Resomia_ornicephala@3111757
+        Lychnagalma_utricularia@2253871
+        Nanomia_bijuga@717864
+        Cordagalma_sp_@1525873
+    ;
+END;
+BEGIN TREES;
+    TRANSLATE
+        1   Frillagalma_vityazi@1155031,
+        2   Resomia_ornicephala@3111757,
+        3   Lychnagalma_utricularia@2253871,
+        4   Nanomia_bijuga@717864,
+        5   Cordagalma_sp_@1525873
+    ;
+    TREE * UNTITLED = [&amp;R] ((1[&amp;fake_trait=0.08,another_trait=0.41]:0.09,2[&amp;fake_trait=-1.58,another_trait=0.15]:0)[&amp;fake_trait=0.03,another_trait=0.34]:0,(5[&amp;fake_trait=-1.43,another_trait=0.17]:0.07,(3[&amp;fake_trait=-1.15,another_trait=0.33]:0.12,4[&amp;fake_trait=0.73,another_trait=0.8]:0.13)[&amp;fake_trait=-0.9,another_trait=0.38]:0)[&amp;fake_trait=0.37,another_trait=0.54]:0):0.29;
+END;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">"#NEXUS</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="st">[R-package treeio, Tue Nov 16 10:13:32 2021]</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="st">BEGIN TAXA;</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="st">    DIMENSIONS NTAX = 5;</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="st">    TAXLABELS</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="st">        Frillagalma_vityazi@1155031</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="st">        Resomia_ornicephala@3111757</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="st">        Lychnagalma_utricularia@2253871</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="st">        Nanomia_bijuga@717864</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="st">        Cordagalma_sp_@1525873</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="st">    ;</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="st">END;</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="st">BEGIN TREES;</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="st">    TRANSLATE</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="st">        1   Frillagalma_vityazi@1155031,</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="st">        2   Resomia_ornicephala@3111757,</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="st">        3   Lychnagalma_utricularia@2253871,</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="st">        4   Nanomia_bijuga@717864,</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="st">        5   Cordagalma_sp_@1525873</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="st">    ;</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="st">    TREE * UNTITLED = [&amp;R] ((1[&amp;fake_trait=-1.42,another_trait=0.17]:0.09,</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="st">2[&amp;fake_trait=0.19,another_trait=0.04]:0)[&amp;fake_trait=0.85,</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="st">another_trait=0.56]:0,(5[&amp;fake_trait=0.22,another_trait=0.73]:0.07,</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="st">(3[&amp;fake_trait=0.02,another_trait=0.29]:0.12,4[&amp;fake_trait=-1.29,</span></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a><span class="st">another_trait=0.35]:0.13)[&amp;fake_trait=-0.33,another_trait=0.88]:0)</span></span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a><span class="st">[&amp;fake_trait=0.27,another_trait=0.94]:0):0.29;</span></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a><span class="st">END;"</span></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a><span class="fu">writeLines</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>NA #NEXUS
+NA [R-package treeio, Tue Nov 16 10:13:32 2021]
+NA 
+NA BEGIN TAXA;
+NA  DIMENSIONS NTAX = 5;
+NA  TAXLABELS
+NA      Frillagalma_vityazi@1155031
+NA      Resomia_ornicephala@3111757
+NA      Lychnagalma_utricularia@2253871
+NA      Nanomia_bijuga@717864
+NA      Cordagalma_sp_@1525873
+NA  ;
+NA END;
+NA BEGIN TREES;
+NA  TRANSLATE
+NA      1   Frillagalma_vityazi@1155031,
+NA      2   Resomia_ornicephala@3111757,
+NA      3   Lychnagalma_utricularia@2253871,
+NA      4   Nanomia_bijuga@717864,
+NA      5   Cordagalma_sp_@1525873
+NA  ;
+NA  TREE * UNTITLED = [&amp;R] ((1[&amp;fake_trait=-1.42,another_trait=0.17]:0.09,
+NA 2[&amp;fake_trait=0.19,another_trait=0.04]:0)[&amp;fake_trait=0.85,
+NA another_trait=0.56]:0,(5[&amp;fake_trait=0.22,another_trait=0.73]:0.07,
+NA (3[&amp;fake_trait=0.02,another_trait=0.29]:0.12,4[&amp;fake_trait=-1.29,
+NA another_trait=0.35]:0.13)[&amp;fake_trait=-0.33,another_trait=0.88]:0)
+NA [&amp;fake_trait=0.27,another_trait=0.94]:0):0.29;
+NA END;</code></pre>
+</div>
+</div>
+<p>After merging, the <code>fake_trait</code> and <code>another_trait</code> stored in <code>fake_data</code> will be linked to the tree, <code>phylo</code>, and stored in the <code>treedata</code> object, the <code>fake_tree</code>. The <code>write.beast()</code> function exports the tree with associated data to a single BEAST format file. The associated data can be used to visualize the tree using <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> (Figure <span class="quarto-unresolved-ref">?fig-beast</span>) or <a href="http://beast.community/figtree"><strong>FigTree</strong></a> (Figure <span class="quarto-unresolved-ref">?fig-beastFigtree</span>).</p>
+</section>
+<section id="merging-tree-data-from-different-sources" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="merging-tree-data-from-different-sources"><span class="header-section-number">3.2.3</span> Merging tree data from different sources</h3>
+<p>Not only Newick tree text can be combined with associated data, but also tree data obtained from software output can be combined with external data, as well as different tree objects can be merged (for details, see <a href="#chapter2">Chapter 2</a>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">## combine tree object with data</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>tree_with_data <span class="ot">&lt;-</span> <span class="fu">full_join</span>(nhx, fake_data, <span class="at">by =</span> <span class="st">"node"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>tree_with_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'treedata' S4 object that stored information
+of
+    '/home/runner/work/_temp/Library/treeio/extdata/NHX/phyldog.nhx'.
+
+...@ phylo:
+
+Phylogenetic tree with 16 tips and 15 internal nodes.
+
+Tip labels:
+  Prayidae_D27SS7@2825365, Kephyes_ovata@2606431,
+Chuniphyes_multidentata@1277217, Apolemia_sp_@1353964,
+Bargmannia_amoena@263997, Bargmannia_elongata@946788, ...
+
+Rooted; includes branch length(s).
+
+with the following features available:
+  'V1', 'Ev', 'ND', 'S', 'fake_trait', 'another_trait'.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="do">## merge two tree object</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>tree2 <span class="ot">&lt;-</span> <span class="fu">merge_tree</span>(nhx, fake_tree)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(tree_with_data, tree2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>After merging data from different sources, the tree with the associated data can be exported into a single file.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>outfile <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".tree"</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.beast</span>(tree2, <span class="at">file =</span> outfile)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The output BEAST Nexus file can be imported into R using the <code>read.beast</code> function and all the associated data can be used to annotate the tree using <a href="https://bioconductor.org/packages/ggtree/">ggtree</a> <span class="citation" data-cites="yu_ggtree:_2017">(<a href="#ref-yu_ggtree:_2017" role="doc-biblioref">Yu et al., 2017</a>)</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.beast</span>(outfile)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'treedata' S4 object that stored information
+of
+    '/tmp/RtmpCigIsC/file117d52ff17868.tree'.
+
+...@ phylo:
+
+Phylogenetic tree with 16 tips and 15 internal nodes.
+
+Tip labels:
+  Prayidae_D27SS7@2825365, Kephyes_ovata@2606431,
+Chuniphyes_multidentata@1277217, Apolemia_sp_@1353964,
+Bargmannia_amoena@263997, Bargmannia_elongata@946788, ...
+
+Rooted; includes branch length(s).
+
+with the following features available:
+  'another_trait', 'Ev', 'fake_trait', 'ND', 'S'.</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-write-jtree" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="sec-write-jtree"><span class="header-section-number">3.3</span> Exporting Tree Data to the <em>jtree</em> Format</h2>
+<p>The <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package <span class="citation" data-cites="wang_treeio_2020">(<a href="#ref-wang_treeio_2020" role="doc-biblioref">Wang et al., 2020</a>)</span> provides the <code>write.beast()</code> function to export <code>treedata</code> to BEAST Nexus file. This is quite useful to convert file format, combine tree with data and merge tree data from different sources as we demonstrated in <a href="#exporting-tree-data-to-beast-nexus-format">the previous session</a>. The <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package also supplies the <code>read.beast()</code> function to parse the output file of the <code>write.beast()</code> function. Although with <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a>, the R community has the ability to manipulate BEAST Nexus format and process tree data, there is still a lacking library/package for parsing BEAST files in other programming languages.</p>
+<p><a href="https://www.json.org/">JSON</a> (JavaScript Object Notation) is a lightweight data-interchange format and is widely supported in almost all modern programming languages. To make it easy to import a tree with data in other programming languages, <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> supports exporting a tree with data in the <code>jtree</code> format, which is JSON-based and can be easy to parse using any language that supports JSON.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># write.jtree(tree2)</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># to save space, use a subtree</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>tree3 <span class="ot">&lt;-</span> <span class="fu">tree_subset</span>(tree2, <span class="at">node=</span><span class="dv">24</span>, <span class="at">levels_back=</span><span class="dv">0</span>) </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">write.jtree</span>(tree3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>NA {
+NA  "tree": "(Physonect_sp_@2066767:0.077429{3},(Bargmannia_amoena@263997:0.0144549
+NA {1},Bargmannia_elongata@946788:0.0149723{2}):0.0925388{5}):0.28549{4};",
+NA  "data":[
+NA   {
+NA     "edge_num": 1,
+NA     "Ev": "S",
+NA     "ND": 10,
+NA     "S": 37,
+NA     "fake_trait": -0.69,
+NA     "another_trait": 0.42
+NA   },
+NA   {
+NA     "edge_num": 2,
+NA     "Ev": "S",
+NA     "ND": 11,
+NA     "S": 38,
+NA     "fake_trait": -0.95,
+NA     "another_trait": 0.38
+NA   },
+NA   {
+NA     "edge_num": 3,
+NA     "Ev": "S",
+NA     "ND": 13,
+NA     "S": 61,
+NA     "fake_trait": 0.59,
+NA     "another_trait": 0.65
+NA   },
+NA   {
+NA     "edge_num": 4,
+NA     "Ev": "S",
+NA     "ND": 14,
+NA     "S": 24,
+NA     "fake_trait": -0.69,
+NA     "another_trait": 0.06
+NA   },
+NA   {
+NA     "edge_num": 5,
+NA     "Ev": "S",
+NA     "ND": 12,
+NA     "S": 33,
+NA     "fake_trait": -0.58,
+NA     "another_trait": 0.4
+NA   }
+NA ],
+NA  "metadata": {"info": "R-package treeio", "data": "Tue Nov 16 10:21:20 2021"}
+NA }</code></pre>
+</div>
+</div>
+<p>The <code>jtree</code> format is based on JSON and can be parsed using JSON parser.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>jtree_file <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">'.jtree'</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.jtree</span>(tree3, <span class="at">file =</span> jtree_file)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>jsonlite<span class="sc">::</span><span class="fu">fromJSON</span>(jtree_file)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>NA $tree
+NA [1] "(Physonect_sp_@2066767:0.077429{3},(Bargmannia_amoena@263997:0.0144549{1},
+NA Bargmannia_elongata@946788:0.0149723{2}):0.0925388{5}):0.28549{4};"
+NA 
+NA $data
+NA   edge_num Ev ND  S fake_trait another_trait
+NA 1        1  S 10 37      -0.69          0.42
+NA 2        2  S 11 38      -0.95          0.38
+NA 3        3  S 13 61       0.59          0.65
+NA 4        4  S 14 24      -0.69          0.06
+NA 5        5  S 12 33      -0.58          0.40
+NA 
+NA $metadata
+NA $metadata$info
+NA [1] "R-package treeio"
+NA 
+NA $metadata$data
+NA [1] "Tue Nov 16 10:24:34 2021"</code></pre>
+</div>
+</div>
+<p>The <code>jtree</code> file can be directly imported as a <code>treedata</code> object using the <code>read.jtree()</code> function provided also in <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package (see also <a href="01_treeio_importing_tree.html#jtree">session 1.3</a>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.jtree</span>(jtree_file)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'treedata' S4 object that stored information
+of
+    '/tmp/RtmpCigIsC/file117d52e3a8255.jtree'.
+
+...@ phylo:
+
+Phylogenetic tree with 3 tips and 2 internal nodes.
+
+Tip labels:
+  Physonect_sp_@2066767, Bargmannia_amoena@263997, Bargmannia_elongata@946788
+
+Rooted; includes branch length(s).
+
+with the following features available:
+  'Ev', 'ND', 'S', 'fake_trait', 'another_trait'.</code></pre>
+</div>
+</div>
+</section>
+<section id="sec-summary3" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="sec-summary3"><span class="header-section-number">3.4</span> Summary</h2>
+<p>Phylogenetic tree-associated data is often stored in a separate file and needs the expertise to map the data to the tree structure. Lacking standardization to store and represent phylogeny and associated data makes it difficult for researchers to access and integrate the phylogenetic data into their studies. The <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package provides functions to import phylogeny with associated data from several sources, including analysis findings from commonly used software and external data such as experimental data, clinical data, or meta-data. These trees and their associated data can be exported into a single file as <code>BEAST</code> or <code>jtree</code> formats, and the output file can be parsed back to R by <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> and the data is easy to access. The input and output utilities supplied by <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package lay the foundation for phylogenetic data integration for downstream comparative study and visualization. It creates the possibility of integrating a tree with associated data from different sources and extends the applications of phylogenetic analysis in different disciplines.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-bouckaert_beast_2014" class="csl-entry" role="listitem">
+Bouckaert, R., Heled, J., Kühnert, D., Vaughan, T., Wu, C.-H., Xie, D., Suchard, M. A., Rambaut, A., &amp; Drummond, A. J. (2014). <span>BEAST</span> 2: <span>A</span> <span>Software</span> <span>Platform</span> for <span>Bayesian</span> <span>Evolutionary</span> <span>Analysis</span>. <em>PLoS Comput Biol</em>, <em>10</em>(4), e1003537. <a href="https://doi.org/10.1371/journal.pcbi.1003537">https://doi.org/10.1371/journal.pcbi.1003537</a>
+</div>
+<div id="ref-paradis_ape_2004" class="csl-entry" role="listitem">
+Paradis, E., Claude, J., &amp; Strimmer, K. (2004). <span>APE</span>: <span>Analyses</span> of <span>Phylogenetics</span> and <span>Evolution</span> in <span>R</span> language. <em>Bioinformatics</em>, <em>20</em>(2), 289–290. <a href="https://doi.org/10.1093/bioinformatics/btg412">https://doi.org/10.1093/bioinformatics/btg412</a>
+</div>
+<div id="ref-vos_nexml:_2012" class="csl-entry" role="listitem">
+Vos, R. A., Balhoff, J. P., Caravas, J. A., Holder, M. T., Lapp, H., Maddison, W. P., Midford, P. E., Priyam, A., Sukumaran, J., Xia, X., &amp; Stoltzfus, A. (2012). <span>NeXML</span>: Rich, extensible, and verifiable representation of comparative data and metadata. <em>Systematic Biology</em>, <em>61</em>(4), 675–689. <a href="https://doi.org/10.1093/sysbio/sys025">https://doi.org/10.1093/sysbio/sys025</a>
+</div>
+<div id="ref-wang_treeio_2020" class="csl-entry" role="listitem">
+Wang, L.-G., Lam, T. T.-Y., Xu, S., Dai, Z., Zhou, L., Feng, T., Guo, P., Dunn, C. W., Jones, B. R., Bradley, T., Zhu, H., Guan, Y., Jiang, Y., &amp; Yu, G. (2020). Treeio: An r package for phylogenetic tree input and output with richly annotated and associated data. <em>Molecular Biology and Evolution</em>, <em>37</em>(2), 599–603. <a href="https://doi.org/10.1093/molbev/msz240">https://doi.org/10.1093/molbev/msz240</a>
+</div>
+<div id="ref-yu_ggtree:_2017" class="csl-entry" role="listitem">
+Yu, G., Smith, D. K., Zhu, H., Guan, Y., &amp; Lam, T. T.-Y. (2017). Ggtree: An r package for visualization and annotation of phylogenetic trees with their covariates and other associated data. <em>Methods in Ecology and Evolution</em>, <em>8</em>(1), 28–36. <a href="https://doi.org/10.1111/2041-210X.12628">https://doi.org/10.1111/2041-210X.12628</a>
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./02_tidytree.html" class="pagination-link" aria-label="Manipulating Tree with Data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Manipulating Tree with Data</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./04_ggtree_visualization.html" class="pagination-link" aria-label="(PART\*) Part II: Tree data visualization and annotation">
+        <span class="nav-page-text">(PART*) Part II: Tree data visualization and annotation</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/YuLab-SMU/treedata-book/edit/main/03_treeio_exporting_tree.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/blob/main/03_treeio_exporting_tree.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>

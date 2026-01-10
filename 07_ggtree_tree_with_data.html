@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Master ggtree package suite to handle tree with data.">
+
+<title>6&nbsp; Plotting tree with data – Data Integration, Manipulation and Visualization of Phylogenetic Trees</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./08_ggtree_with_silhouette.html" rel="next">
+<link href="./06_ggtree_manipulation.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07_ggtree_tree_with_data.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Plotting tree with data</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Integration, Manipulation and Visualization of Phylogenetic Trees</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/YuLab-SMU/treedata-book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Integration, Manipulation and Visualization of Phylogenetic Trees</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_author.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Author</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_treeio_importing_tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(PART*) Part I: Tree data input, output, and manipulation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_tidytree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Manipulating Tree with Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_treeio_exporting_tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exporting tree with data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_ggtree_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(PART*) Part II: Tree data visualization and annotation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_ggtree_annotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Phylogenetic Tree Annotation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_ggtree_manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visual Exploration of Phylogenetic Trees</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_ggtree_tree_with_data.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Plotting tree with data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_ggtree_with_silhouette.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Annotating Tree with Silhouette Images and Sub-plots</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_ggtree_tree_objects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">ggtree for Other Tree-like Objects</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_ggtree_exts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(PART*) Part III: ggtree extensions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_ggtree_exts-others.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Other ggtree Extensions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_ggtree_utilities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(PART*) Part IV: Miscellaneous topics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_ggtree_gallery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Gallery of Reproducible Examples</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendix</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A-app-faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(APPENDIX) Appendix</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A-app-tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Related Tools</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A-app-fig-tab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Figures and Tables</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./B-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-attach-operator" id="toc-sec-attach-operator" class="nav-link active" data-scroll-target="#sec-attach-operator"><span class="header-section-number">6.1</span> Mapping Data to The tree Structure</a></li>
+  <li><a href="#sec-facet_plot" id="toc-sec-facet_plot" class="nav-link" data-scroll-target="#sec-facet_plot"><span class="header-section-number">6.2</span> Aligning Graph to the Tree Based on the Tree Structure</a></li>
+  <li><a href="#sec-gheatmap" id="toc-sec-gheatmap" class="nav-link" data-scroll-target="#sec-gheatmap"><span class="header-section-number">6.3</span> Visualize a Tree with an Associated Matrix</a>
+  <ul class="collapse">
+  <li><a href="#sec-gheatmap-ggnewscale" id="toc-sec-gheatmap-ggnewscale" class="nav-link" data-scroll-target="#sec-gheatmap-ggnewscale"><span class="header-section-number">6.3.1</span> Visualize a tree with multiple associated matrices</a></li>
+  </ul></li>
+  <li><a href="#sec-msaplot" id="toc-sec-msaplot" class="nav-link" data-scroll-target="#sec-msaplot"><span class="header-section-number">6.4</span> Visualize a Tree with Multiple Sequence Alignments</a></li>
+  <li><a href="#sec-composite_plot" id="toc-sec-composite_plot" class="nav-link" data-scroll-target="#sec-composite_plot"><span class="header-section-number">6.5</span> Composite Plots</a></li>
+  <li><a href="#sec-summary7" id="toc-sec-summary7" class="nav-link" data-scroll-target="#sec-summary7"><span class="header-section-number">6.6</span> Summary</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/YuLab-SMU/treedata-book/edit/main/07_ggtree_tree_with_data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/blob/main/07_ggtree_tree_with_data.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-chapter7" class="quarto-section-identifier"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Plotting tree with data</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">message=</span><span class="cn">FALSE</span>, <span class="at">warning=</span><span class="cn">FALSE</span>, <span class="at">eval=</span><span class="cn">TRUE</span>, <span class="at">echo=</span><span class="cn">TRUE</span>, <span class="at">cache=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"yulab.utils"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"treeio"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>treeio v1.35.0 Learn more at https://yulab-smu.top/contribution-tree-data/
+
+Please cite:
+
+LG Wang, TTY Lam, S Xu, Z Dai, L Zhou, T Feng, P Guo, CW Dunn, BR
+Jones, T Bradley, H Zhu, Y Guan, Y Jiang, G Yu. treeio: an R package
+for phylogenetic tree input and output with richly annotated and
+associated data. Molecular Biology and Evolution. 2020, 37(2):599-603.
+doi: 10.1093/molbev/msz240</code></pre>
+</div>
+</div>
+<p>Integrating user data to annotate a phylogenetic tree can be done at different levels. The <a href="http://bioconductor.org/packages/treeio">treeio</a> package <span class="citation" data-cites="wang_treeio_2020">(<a href="#ref-wang_treeio_2020" role="doc-biblioref">Wang et al., 2020</a>)</span> implements <code>full_join()</code> methods to combine tree data to phylogenetic tree object. The <a href="https://CRAN.R-project.org/package=tidytree">tidytree</a> package supports linking tree data to phylogeny using tidyverse verbs (see also <a href="#chapter2">Chapter 2</a>). The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> package <span class="citation" data-cites="yu_two_2018">(<a href="#ref-yu_two_2018" role="doc-biblioref">Yu et al., 2018</a>)</span> supports mapping external data to phylogeny for visualization and annotation on the fly. Although the feature of linking external data is overlapping among these packages, they have different application scopes. For example, in addition to the <code>treedata</code> object, <a href="http://bioconductor.org/packages/ggtree">ggtree</a> also supports several other tree objects (see <a href="#chapter9">Chapter 9</a>), including <code>phylo4d</code>, <code>phyloseq</code>, and <code>obkData</code> that were designed to contain domain-specific data. The design of these objects did not consider supporting linking external data to the object (it can not be done at the tree object level). We can visualize trees from these objects using <a href="http://bioconductor.org/packages/ggtree">ggtree</a> and link external data at the visualization level <span class="citation" data-cites="yu_two_2018">(<a href="#ref-yu_two_2018" role="doc-biblioref">Yu et al., 2018</a>)</span>.</p>
+<p>The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> package provides two general methods for mapping and visualizing associated external data on phylogenies. <a href="#attach-operator">Method 1</a> allows external data to be mapped on the tree structure and used as visual characteristics in the tree and data visualization. <a href="#facet_plot">Method 2</a> plots the data with the tree side-by-side using different geometric functions after reordering the data based on the tree structure. These two methods integrate data with phylogeny for further exploration and comparison in the evolutionary biology context. The <a href="http://bioconductor.org/packages/ggtreeExtra">ggtreeExtra</a> provides a better implementation of the Method 2 proposed in <a href="http://bioconductor.org/packages/ggtree">ggtree</a> (see also <a href="#chapter10">Chapter 10</a>) and works with both rectangular and circular layouts <span class="citation" data-cites="ggtreeExtra_2021">(<a href="#ref-ggtreeExtra_2021" role="doc-biblioref">Xu et al., 2021</a>)</span>.</p>
+<section id="sec-attach-operator" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="sec-attach-operator"><span class="header-section-number">6.1</span> Mapping Data to The tree Structure</h2>
+<p>In <a href="http://bioconductor.org/packages/ggtree">ggtree</a>, we implemented an operator, <code>%&lt;+%</code>, to attach annotation data to a <code>ggtree</code> graphic object. Any data that contains a column of “node” or the first column of taxa labels can be integrated using the <code>%&lt;+%</code> operator. Multiple datasets can be attached progressively. When the data are attached, all the information stored in the data serves as numerical/categorical node attributes and can be directly used to visualize the tree by scaling the attributes as different colors or line sizes, labeling the tree using the original values of the attributes or parsing them as <a href="#faq-formatting-label">math expression</a>, <a href="#phylomoji">emoji</a> or <a href="#ggimage">silhouette image</a>. The following example uses the <code>%&lt;+%</code> operator to integrate taxon (<code>df_tip_data</code>) and internal node (<code>df_inode_data</code>) information and map the data to different colors or shapes of symbolic points and labels (Figure <span class="quarto-unresolved-ref">?fig-attacher</span>). The tip data contains <code>imageURL</code> that links to online figures of the species, which can be parsed and used as tip labels in <a href="http://bioconductor.org/packages/ggtree">ggtree</a> (see <a href="#chapter8">Chapter 8</a>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggimage)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TDbook)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># load `tree_boots`, `df_tip_data`, and `df_inode_data` from 'TDbook'</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree_boots) <span class="sc">%&lt;+%</span> df_tip_data <span class="sc">+</span> <span class="fu">xlim</span>(<span class="sc">-</span>.<span class="dv">1</span>, <span class="dv">4</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_tiplab</span>(<span class="at">offset =</span> .<span class="dv">6</span>, <span class="at">hjust =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tippoint</span>(<span class="fu">aes</span>(<span class="at">shape =</span> trophic_habit, <span class="at">color =</span> trophic_habit, </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">size =</span> mass_in_kg)) <span class="sc">+</span> </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>) <span class="sc">+</span> </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">10</span>))</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>p2 <span class="sc">%&lt;+%</span> df_inode_data <span class="sc">+</span> </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> vernacularName.y, <span class="at">fill =</span> posterior)) <span class="sc">+</span> </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_gradientn</span>(<span class="at">colors =</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="dv">3</span>, <span class="st">"YlGnBu"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="07_ggtree_tree_with_data_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><strong>Example of attaching multiple datasets</strong>. External datasets including tip data (e.g., trophic habit and body weight) and node data (e.g., clade posterior and vernacular name) were attached to the <code>ggtree</code> graphic via the <code>%&lt;+%</code> operator and the data was used to annotate the tree.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Although the data integrated by the <code>%&lt;+%</code> operator in <a href="http://bioconductor.org/packages/ggtree">ggtree</a> is for tree visualization, the data attached to the <code>ggtree</code> graphic object can be converted to <code>treedata</code> object that contains the tree and the attached data (see <a href="#ggtree_object">session 7.5</a>).</p>
+</section>
+<section id="sec-facet_plot" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="sec-facet_plot"><span class="header-section-number">6.2</span> Aligning Graph to the Tree Based on the Tree Structure</h2>
+<p>For associating phylogenetic tree with different types of plot produced by user’s data, <a href="http://bioconductor.org/packages/ggtree">ggtree</a> provides <code>geom_facet()</code> layer and <code>facet_plot()</code> function which accept an input <code>data.frame</code> and a <code>geom</code> layer to draw the input data. The data will be displayed in an additional panel of the plot. The <code>geom_facet()</code> (or <code>facet_plot</code>) is a general solution for linking the graphic layer to a tree. The function internally re-orders the input data based on the tree structure and visualizes the data at the specific panel by the geometric layer. Users are free to visualize several panels to plot different types of data as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-phyloseq</span> and to use different geometric layers to plot the same dataset (Figure <span class="quarto-unresolved-ref">?fig-jv2017</span>) or different datasets on the same panel.</p>
+<p>The <code>geom_facet()</code> is designed to work with most of the <code>geom</code> layers defined in <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> and other <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a>-based packages. A list of the geometric layers that work seamlessly with <code>geom_facet()</code> and <code>facet_plot()</code> can be found in Table <span class="quarto-unresolved-ref">?tbl-facet-geom</span>. As the <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> community keeps expanding and more <code>geom</code> layers will be implemented in either <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> or other extensions, <code>geom_facet()</code> and <code>facet_plot()</code> will gain more power to present data in the future. Note that different <code>geom</code> layers can be combined to present data on the same panel and the combinations of different <code>geom</code> layers create the possibility to present more complex data with phylogeny (see also Figures <span class="quarto-unresolved-ref">?fig-jv2017</span> and <span class="quarto-unresolved-ref">?fig-gggenes</span>). Users can progressively add multiple panels to present and compare different datasets in the evolutionary context (Figure <span class="quarto-unresolved-ref">?fig-plottree</span>). Detailed descriptions can be found in the <a href="https://github.com/GuangchuangYu/plotting_tree_with_data/">supplemental file</a> of <span class="citation" data-cites="yu_two_2018">(<a href="#ref-yu_two_2018" role="doc-biblioref">Yu et al., 2018</a>)</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TDbook)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="do">## load `tree_nwk`, `df_info`, `df_alleles`, and `df_bar_data` from 'TDbook'</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> tree_nwk</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>snps <span class="ot">&lt;-</span> df_alleles</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>snps_strainCols <span class="ot">&lt;-</span> snps[<span class="dv">1</span>,] </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>snps<span class="ot">&lt;-</span>snps[<span class="sc">-</span><span class="dv">1</span>,] <span class="co"># drop strain names</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(snps) <span class="ot">&lt;-</span> snps_strainCols</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>gapChar <span class="ot">&lt;-</span> <span class="st">"?"</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>snp <span class="ot">&lt;-</span> <span class="fu">t</span>(snps)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>lsnp <span class="ot">&lt;-</span> <span class="fu">apply</span>(snp, <span class="dv">1</span>, <span class="cf">function</span>(x) {</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        x <span class="sc">!=</span> snp[<span class="dv">1</span>,] <span class="sc">&amp;</span> x <span class="sc">!=</span> gapChar <span class="sc">&amp;</span> snp[<span class="dv">1</span>,] <span class="sc">!=</span> gapChar</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>lsnp <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(lsnp)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>lsnp<span class="sc">$</span>pos <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">rownames</span>(lsnp))</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>lsnp <span class="ot">&lt;-</span> tidyr<span class="sc">::</span><span class="fu">gather</span>(lsnp, name, value, <span class="sc">-</span>pos)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>snp_data <span class="ot">&lt;-</span> lsnp[lsnp<span class="sc">$</span>value, <span class="fu">c</span>(<span class="st">"name"</span>, <span class="st">"pos"</span>)]</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="do">## visualize the tree </span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree) </span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="do">## attach the sampling information data set </span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="do">## and add symbols colored by location</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">%&lt;+%</span> df_info <span class="sc">+</span> <span class="fu">geom_tippoint</span>(<span class="fu">aes</span>(<span class="at">color=</span>location))</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="do">## visualize SNP and Trait data using dot and bar charts,</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="do">## and align them based on tree structure</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_facet</span>(<span class="at">panel =</span> <span class="st">"SNP"</span>, <span class="at">data =</span> snp_data, <span class="at">geom =</span> geom_point, </span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>               <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x =</span> pos, <span class="at">color =</span> location), <span class="at">shape =</span> <span class="st">'|'</span>) <span class="sc">+</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_facet</span>(<span class="at">panel =</span> <span class="st">"Trait"</span>, <span class="at">data =</span> df_bar_data, <span class="at">geom =</span> geom_col, </span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> dummy_bar_value, <span class="at">color =</span> location, </span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>                <span class="at">fill =</span> location), <span class="at">orientation =</span> <span class="st">'y'</span>, <span class="at">width =</span> .<span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_tree2</span>(<span class="at">legend.position=</span><span class="fu">c</span>(.<span class="dv">05</span>, .<span class="dv">85</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="07_ggtree_tree_with_data_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><strong>Example of plotting SNP and trait data</strong>. The ‘location’ information was attached to the tree and used to color tip symbols (Tree panel), and other datasets. SNP and Trait data were visualized as dot chart (SNP panel) and bar chart (Trait panel).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Companion functions to adjust <a href="#facet_widths">panel widths</a> and <a href="#facet_labeller">rename panel names</a> are described in <a href="#facet-utils">session 12.1</a>. Removing the panel name is also possible and an example was presented in Figure <span class="quarto-unresolved-ref">?fig-gggenes</span>. We can also use <a href="https://CRAN.R-project.org/package=aplot">aplot</a> or <a href="https://CRAN.R-project.org/package=patchwork">patchwork</a> to create composite plots as described in <a href="#composite_plot">session 7.5</a>.</p>
+<p>The <code>geom_facet()</code> (or <code>facet_plot()</code>) internally used <code>ggplot2::facet_grid()</code> and only works with Cartesian coordinate system. To align the graph to the tree for the polar system (e.g., for circular or fan layouts), we developed another Bioconductor package, <a href="http://bioconductor.org/packages/ggtreeExtra">ggtreeExtra</a>. The <a href="http://bioconductor.org/packages/ggtreeExtra">ggtreeExtra</a> package provides the <code>geom_fruit()</code> layer that works similar to <code>geom_facet()</code> (details described in <a href="#chapter10">Chapter 10</a>). The <code>geom_fruit()</code> is a better implementation of the Method 2 proposed in <span class="citation" data-cites="yu_two_2018">(<a href="#ref-yu_two_2018" role="doc-biblioref">Yu et al., 2018</a>)</span>.</p>
+</section>
+<section id="sec-gheatmap" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="sec-gheatmap"><span class="header-section-number">6.3</span> Visualize a Tree with an Associated Matrix</h2>
+<p>The <code>gheatmap()</code> function is designed to visualize the phylogenetic tree with a heatmap of an associated matrix (either numerical or categorical). The <code>geom_facet()</code> layer is a general solution for plotting data with the tree, including heatmap. The <code>gheatmap()</code> function is specifically designed for plotting heatmap with a tree and provides a shortcut for handling column labels and color palettes. Another difference is that <code>geom_facet()</code> only supports rectangular and slanted tree layouts, while <code>gheatmap()</code> supports rectangular, slanted, and circular (Figure <span class="quarto-unresolved-ref">?fig-mgheatmap</span>) layouts.</p>
+<p>In the following example, we visualized a tree of H3 influenza viruses with their associated genotypes (Figure <span class="quarto-unresolved-ref">?fig-gheatmapA</span>).</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>beast_file <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"examples/MCC_FluA_H3.tree"</span>, <span class="at">package=</span><span class="st">"ggtree"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>beast_tree <span class="ot">&lt;-</span> <span class="fu">read.beast</span>(beast_file)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>genotype_file <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"examples/Genotype.txt"</span>, <span class="at">package=</span><span class="st">"ggtree"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>genotype <span class="ot">&lt;-</span> <span class="fu">read.table</span>(genotype_file, <span class="at">sep=</span><span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">stringsAsFactor=</span>F)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(genotype) <span class="ot">&lt;-</span> <span class="fu">sub</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">.$"</span>, <span class="st">""</span>, <span class="fu">colnames</span>(genotype))</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(beast_tree, <span class="at">mrsd=</span><span class="st">"2013-01-01"</span>) <span class="sc">+</span> </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_treescale</span>(<span class="at">x=</span><span class="dv">2008</span>, <span class="at">y=</span><span class="dv">1</span>, <span class="at">offset=</span><span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="at">size=</span><span class="dv">2</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">gheatmap</span>(p, genotype, <span class="at">offset=</span><span class="dv">5</span>, <span class="at">width=</span><span class="fl">0.5</span>, <span class="at">font.size=</span><span class="dv">3</span>, </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">colnames_angle=</span><span class="sc">-</span><span class="dv">45</span>, <span class="at">hjust=</span><span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="st">"HuH3N2"</span>, <span class="st">"pdm"</span>, <span class="st">"trig"</span>), </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">values=</span><span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"firebrick"</span>, <span class="st">"darkgreen"</span>), <span class="at">name=</span><span class="st">"genotype"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The <code>width</code> parameter is to control the width of the heatmap. It supports another parameter <code>offset</code> for controlling the distance between the tree and the heatmap, such as allocating space for tip labels.</p>
+<p>For a timescaled tree, as in this example, it’s more common to use <em>x</em>-axis by using <code>theme_tree2</code>. But with this solution, the heatmap is just another layer and will change the <em>x</em>-axis. To overcome this issue, we implemented <code>scale_x_ggtree()</code> to set the <em>x</em>-axis more reasonably (Figure <span class="quarto-unresolved-ref">?fig-gheatmapB</span>).</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(beast_tree, <span class="at">mrsd=</span><span class="st">"2013-01-01"</span>) <span class="sc">+</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="at">size=</span><span class="dv">2</span>, <span class="at">align=</span><span class="cn">TRUE</span>, <span class="at">linesize=</span>.<span class="dv">5</span>) <span class="sc">+</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_tree2</span>()</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">gheatmap</span>(p, genotype, <span class="at">offset=</span><span class="dv">8</span>, <span class="at">width=</span><span class="fl">0.6</span>, </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">colnames=</span><span class="cn">FALSE</span>, <span class="at">legend_title=</span><span class="st">"genotype"</span>) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_ggtree</span>() <span class="sc">+</span> </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">expand=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="07_ggtree_tree_with_data_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption><strong>Example of plotting matrix with <code>gheatmap()</code></strong>. A H3 influenza tree with a genotype table visualized as a heatmap (A). Tips were aligned and with a tailored <em>x</em>-axis for divergence times (tree) and genomic segments (heatmap) (B).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="sec-gheatmap-ggnewscale" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="sec-gheatmap-ggnewscale"><span class="header-section-number">6.3.1</span> Visualize a tree with multiple associated matrices</h3>
+<p>Of course, we can use multiple <code>gheatmap()</code> function calls to align several associated matrices with the tree. However, <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> doesn’t allow us to use multiple <code>fill</code> scales<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>To solve this issue, we can use the <a href="https://CRAN.R-project.org/package=ggnewscale">ggnewscale</a> package to create new <code>fill</code> scales. Here is an example of using <a href="https://CRAN.R-project.org/package=ggnewscale">ggnewscale</a> with <code>gheatmap()</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>nwk <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"sample.nwk"</span>, <span class="at">package=</span><span class="st">"treeio"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(nwk)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>circ <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree, <span class="at">layout =</span> <span class="st">"circular"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">first=</span><span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"a"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>, <span class="st">"d"</span>, <span class="st">"a"</span>, </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"b"</span>, <span class="st">"e"</span>, <span class="st">"e"</span>, <span class="st">"f"</span>, <span class="st">"c"</span>, <span class="st">"f"</span>),</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">second=</span> <span class="fu">c</span>(<span class="st">"z"</span>, <span class="st">"z"</span>, <span class="st">"z"</span>, <span class="st">"z"</span>, <span class="st">"y"</span>, <span class="st">"y"</span>, </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"y"</span>, <span class="st">"y"</span>, <span class="st">"x"</span>, <span class="st">"x"</span>, <span class="st">"x"</span>, <span class="st">"a"</span>, <span class="st">"a"</span>))</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(df) <span class="ot">&lt;-</span> tree<span class="sc">$</span>tip.label</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">39</span>), <span class="at">ncol=</span><span class="dv">3</span>))</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(df2) <span class="ot">&lt;-</span> tree<span class="sc">$</span>tip.label</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df2) <span class="ot">&lt;-</span> LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">gheatmap</span>(circ, df, <span class="at">offset=</span>.<span class="dv">8</span>, <span class="at">width=</span>.<span class="dv">2</span>,</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>               <span class="at">colnames_angle=</span><span class="dv">95</span>, <span class="at">colnames_offset_y =</span> .<span class="dv">25</span>) <span class="sc">+</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_viridis_d</span>(<span class="at">option=</span><span class="st">"D"</span>, <span class="at">name=</span><span class="st">"discrete</span><span class="sc">\n</span><span class="st">value"</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggnewscale)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p1 <span class="sc">+</span> <span class="fu">new_scale_fill</span>()</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="fu">gheatmap</span>(p2, df2, <span class="at">offset=</span><span class="dv">15</span>, <span class="at">width=</span>.<span class="dv">3</span>,</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>         <span class="at">colnames_angle=</span><span class="dv">90</span>, <span class="at">colnames_offset_y =</span> .<span class="dv">25</span>) <span class="sc">+</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_viridis_c</span>(<span class="at">option=</span><span class="st">"A"</span>, <span class="at">name=</span><span class="st">"continuous</span><span class="sc">\n</span><span class="st">value"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="07_ggtree_tree_with_data_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><strong>Example of plotting multiple matrix with <code>gheatmap()</code></strong>. A data frame (with ‘first’ and ‘second’ columns) was visualized as a discrete heatmap and another data frame (with ‘A’, ‘B’ and ‘C’ columns) was visualized as a continuous heatmap with corresponding discrete and continuous palette of colors (Figure <span class="quarto-unresolved-ref">?fig-mgheatmap</span>).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-msaplot" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="sec-msaplot"><span class="header-section-number">6.4</span> Visualize a Tree with Multiple Sequence Alignments</h2>
+<p>The <code>msaplot()</code> accepts a tree (output of <code>ggtree()</code>) and a fasta file, then it can visualize the tree with sequence alignment. We can specify the <code>width</code> (relative to the tree) of the alignment and adjust the relative position by <code>offset</code>, which is similar to the <code>gheatmap()</code> function (Figure <span class="quarto-unresolved-ref">?fig-msaplotA</span>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TDbook)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># load `tree_seq_nwk` and `AA_sequence` from 'TDbook'</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree_seq_nwk) <span class="sc">+</span> <span class="fu">geom_tiplab</span>(<span class="at">size=</span><span class="dv">3</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">msaplot</span>(p, AA_sequence, <span class="at">offset=</span><span class="dv">3</span>, <span class="at">width=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07_ggtree_tree_with_data_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A specific slice of the alignment can also be displayed by specifying the <code>window</code> parameter (Figure <span class="quarto-unresolved-ref">?fig-msaplotB</span>)..</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree_seq_nwk, <span class="at">layout=</span><span class="st">'circular'</span>) <span class="sc">+</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="at">offset=</span><span class="dv">4</span>, <span class="at">align=</span><span class="cn">TRUE</span>) <span class="sc">+</span> <span class="fu">xlim</span>(<span class="cn">NA</span>, <span class="dv">12</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">msaplot</span>(p, AA_sequence, <span class="at">window=</span><span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">200</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="07_ggtree_tree_with_data_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><strong>Example of plotting multiple sequence alignments with a tree</strong>. Whole MSA sequences were visualized with a tree in rectangular layout (A). Circular layout with a slice of alignment window (B).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>To better support visualizing multiple sequence alignments with a tree and other associated data, we developed the <a href="http://bioconductor.org/packages/ggmsa">ggmsa</a> package with the ability to label the sequences and color the sequences with different color schemes <span class="citation" data-cites="yu_cp_2020">(<a href="#ref-yu_cp_2020" role="doc-biblioref">Yu, 2020</a>)</span>. The <code>ggmsa()</code> output is compatible with <code>geom_facet()</code> and <code>ggtreeExtra::geom_fruit()</code> and can be used to visualize a tree, multiple sequence alignments, and different types of associated data to explore their underlying linkages/associations.</p>
+</section>
+<section id="sec-composite_plot" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="sec-composite_plot"><span class="header-section-number">6.5</span> Composite Plots</h2>
+<p>In addition to aligning graphs to a tree using <code>geom_facet()</code> or <code>ggtreeExtra::geom_fruit()</code> and special cases using the <code>gheatmap()</code> and <code>msaplot()</code> functions, users can use <a href="https://CRAN.R-project.org/package=cowplot">cowplot</a>, <a href="https://CRAN.R-project.org/package=patchwork">patchwork</a>, <a href="https://CRAN.R-project.org/package=gtable">gtable</a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> or other packages to create composite plots. However, extra efforts need to be done to make sure all the plots are aligned properly. The <a href="#tiporder"><code>ggtree::get_taxa_name()</code></a> function is quite useful for users to re-order their data based on the tree structure. To remove this obstacle, we created an R package <a href="https://CRAN.R-project.org/package=aplot">aplot</a> that can re-order the internal data of a <code>ggplot</code> object and create composite plots that align properly with a tree.</p>
+<p>In the following example, we have a tree with two associated datasets.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2019-10-31</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">10</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># only some labels match</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">c</span>(tr<span class="sc">$</span>tip.label[<span class="fu">sample</span>(<span class="dv">5</span>, <span class="dv">5</span>)], <span class="st">"A"</span>),</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">6</span>))</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">rep</span>(tr<span class="sc">$</span>tip.label, <span class="dv">5</span>),</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">category =</span> <span class="fu">rep</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">each=</span><span class="dv">10</span>),</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="dv">0</span>, <span class="dv">3</span>)) </span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tr) <span class="sc">+</span> <span class="fu">geom_tiplab</span>(<span class="at">align=</span><span class="cn">TRUE</span>) <span class="sc">+</span> <span class="fu">hexpand</span>(.<span class="dv">01</span>)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d1, <span class="fu">aes</span>(label, value)) <span class="sc">+</span> <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">fill=</span>label)) <span class="sc">+</span> </span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label=</span>label, <span class="at">y=</span> value<span class="fl">+.1</span>)) <span class="sc">+</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">theme_tree2</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">'none'</span>)</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d2, <span class="fu">aes</span>(<span class="at">x=</span>category, <span class="at">y=</span>label)) <span class="sc">+</span> </span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill=</span>value)) <span class="sc">+</span> <span class="fu">scale_fill_viridis_c</span>() <span class="sc">+</span> </span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">xlab</span>(<span class="cn">NULL</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="cn">NULL</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<!-- 
+We can extract coordinates from `ggtree` object using [dplyr](https://CRAN.R-project.org/package=dplyr) verbs implemented in [tidytree](https://CRAN.R-project.org/package=tidytree), and merge the y-coordinates to our datasets.
+
+``` r
+library(dplyr)
+library(tidytree) 
+
+d <- filter(g, isTip) %>% select(c(label, y))
+
+dd1 <- left_join(d1, d, by='label')
+dd2 <- left_join(d2, d, by='label') 
+```
+
+Now we can visualize our datasets using the y-coordinates that match corresponding labels in the `ggtree` object. 
+
+-->
+<!-- 
+If we combine these two plots with `ggtree` using either [cowplot](https://CRAN.R-project.org/package=cowplot) or [patchwork](https://github.com/thomasp85/patchwork), they do not align properly. 
+
+To address this issue, [ggtree](http://bioconductor.org/packages/ggtree) provides a `ylim2()` function to reconcile y limits^[the implementation was inspired by <https://thackl.github.io/ggtree-composite-plots>]. 
+
+``` r message=TRUE
+p1 <- p1 + ylim2(g)  
+p2 <- p2 + ylim2(g)
+```
+
+Now we can plot our tree and the data side by side, and perfectly aligned.
+
+
+## library(patchwork) 
+## g + p1 + p2 + plot_annotation(tag_levels="A")
+
+library(cowplot) 
+plot_grid(g, p1, p2, ncol=3, align='h', 
+    labels=LETTERS[1:3], rel_widths = c(1, .5, .8))
+
+
+The `ylim2()` is not designed specific for [ggtree](http://bioconductor.org/packages/ggtree), it works fine with `ggplot` object. Another function `xlim2()` that works for x limits is also provided. See [session 10.5](#axis_align) for more details.
+
+-->
+<p>If we align them using <a href="https://CRAN.R-project.org/package=cowplot">cowplot</a>, the composite plots are not aligned properly as we anticipated (Figure <span class="quarto-unresolved-ref">?fig-compositeA</span>).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(g, p2, p1, <span class="at">ncol=</span><span class="dv">3</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Using <a href="https://CRAN.R-project.org/package=aplot">aplot</a>, it will do all the dirty work for us and all the subplots are aligned properly as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-compositeB</span>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(aplot)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="sc">%&gt;%</span> <span class="fu">insert_left</span>(g) <span class="sc">%&gt;%</span> <span class="fu">insert_right</span>(p1, <span class="at">width=</span>.<span class="dv">5</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="07_ggtree_tree_with_data_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><strong>Example of aligning tree with data side-by-side to create composite plot</strong>. <code>r CRANpkg("cowplot")`` just places the subplots together (A), while</code>r CRANpkg(“aplot”)` does extra work to make sure that tree-associated subplots are properly ordered according to the tree structure (B). Note: The ‘A’ category in the bar plot that is not matched with the tree was removed.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<!--
+
+## The `ggtree` object {#sec-ggtree_object}
+
+
+to be finished.
+
+
+
+## Update tree view with a new tree
+
+In previous example, we have a _`p`_ object that stored the tree viewing of 13 tips and internal nodes highlighted with specific colored big dots. If users want to apply this pattern (we can imaging a more complex one) to a new tree, you don't need to build the tree step by step. `ggtree` provides an operator, _`%<%`_, for applying the visualization pattern to a new tree.
+
+For example, the pattern in the _`p`_ object will be applied to a new tree with 50 tips as shown below:
+``` r fig.width=3, fig.height=3, fig.align="center"}
+p %<% rtree(50)
+```
+-->
+</section>
+<section id="sec-summary7" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="sec-summary7"><span class="header-section-number">6.6</span> Summary</h2>
+<p>Although there are many software packages that support visualizing phylogenetic trees, plotting a tree with data is often missing or with only limited support. Some of the packages define <code>S4</code> classes to store phylogenetic tree with domain-specific data, such as <a href="https://CRAN.R-project.org/package=OutbreakTools">OutbreakTools</a> <span class="citation" data-cites="jombart_outbreaktools_2014">(<a href="#ref-jombart_outbreaktools_2014" role="doc-biblioref">Jombart et al., 2014</a>)</span> defined <code>obkData</code> for storing tree with epidemiology data and <a href="http://bioconductor.org/packages/phyloseq">phyloseq</a> <span class="citation" data-cites="mcmurdie_phyloseq_2013">(<a href="#ref-mcmurdie_phyloseq_2013" role="doc-biblioref">McMurdie &amp; Holmes, 2013</a>)</span> defines <code>phyloseq</code> for storing tree with microbiome data. These packages are capable of presenting some of the data stored in the object on the tree. However, not all the associated data are supported. For example, species abundance stored in the <code>phyloseq</code> object is not supported to be visualized using the <a href="http://bioconductor.org/packages/phyloseq">phyloseq</a> package. These packages did not provide any utilities to integrate external data for tree visualization. None of these packages support visualizing external data and aligning the plot to a tree based on the tree structure.</p>
+<p>The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> package provides two general solutions for integrating data. Method 1, the <code>%&lt;+%</code> operator, can integrate external and internal node data and map the data as a visual characteristic to visualize the tree and other datasets used in <code>geom_facet()</code> or <code>ggtreeExtra::geom_fruit()</code>. Method 2, the <code>geom_facet</code> layer or <code>ggtreeExtra::geom_fruit()</code>, has no restriction of input data as long as there is a <code>geom</code> function available to plot the data (<em>e.g.</em>, species abundance displayed by <code>geom_density_ridges</code> as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-phyloseq</span>). Users are free to combine different panels and combine different <code>geom</code> layers in the same panel (Figure <span class="quarto-unresolved-ref">?fig-jv2017</span>).</p>
+<div style="page-break-after: always;"></div>
+<p>The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> package has many unique features that cannot be found in other implementations <span class="citation" data-cites="yu_two_2018">(<a href="#ref-yu_two_2018" role="doc-biblioref">Yu et al., 2018</a>)</span>:</p>
+<ol type="1">
+<li>Integrating node/edge data to the tree can be mapped to visual characteristics of the tree or other datasets (Figure <span class="quarto-unresolved-ref">?fig-attacher</span>).</li>
+<li>Capable of parsing expressions (math symbols or text formatting), emoji, and image files (<a href="#chapter8">Chapter 8</a>).</li>
+<li>No pre-definition of input data types or how the data should be plotted in <code>geom_facet()</code> (Table <span class="quarto-unresolved-ref">?tbl-facet-geom</span>).</li>
+<li>Combining different <code>geom</code> functions to visualize associated data is supported (Figure <span class="quarto-unresolved-ref">?fig-jv2017</span>).</li>
+<li>Visualizing different datasets on the same panel is supported.</li>
+<li>Data integrated by <code>%&lt;+%</code> can be used in <code>geom_facet()</code> layer.</li>
+<li>Able to add further annotations to specific layers.</li>
+<li>Modular design by separating tree visualization, data integration (Method 1), and graph alignment (Method 2).</li>
+</ol>
+<p>Modular design is a unique feature for <a href="http://bioconductor.org/packages/ggtree">ggtree</a> to stand out from other packages. The tree can be visualized with data stored in the tree object or external data linked by the <code>%&lt;+%</code> operator, and fully annotated with multiple layers of annotations (Figures <span class="quarto-unresolved-ref">?fig-attacher</span> and <span class="quarto-unresolved-ref">?fig-jv2017</span>), before passing it to <code>geom_facet()</code> layer. The <code>geom_facet()</code> layer can be called progressively to add multiple panels or multiple layers on the same panels (Figure <span class="quarto-unresolved-ref">?fig-jv2017</span>). This creates the possibility of plotting a full annotated tree with complex data panels that contain multiple graphic layers.</p>
+<p>The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> package fits the <code>R</code> ecosystem and extends the abilities to integrate and present data with trees to existing phylogenetic packages. As demonstrated in Figure <span class="quarto-unresolved-ref">?fig-phyloseq</span>, we can plot species abundance distributions with the <code>phyloseq</code> object. This cannot be easily done without <a href="http://bioconductor.org/packages/ggtree">ggtree</a>. With <a href="http://bioconductor.org/packages/ggtree">ggtree</a>, we are able to attach additional data to tree objects using the <code>%&lt;+%</code> operator and align graphs to a tree using the <code>geom_facet()</code> layer. Integrating <a href="http://bioconductor.org/packages/ggtree">ggtree</a> into existing workflows will extend the abilities and broaden the applications to present phylogeny-associated data, especially for comparative studies.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-jombart_outbreaktools_2014" class="csl-entry" role="listitem">
+Jombart, T., Aanensen, D. M., Baguelin, M., Birrell, P., Cauchemez, S., Camacho, A., Colijn, C., Collins, C., Cori, A., Didelot, X., Fraser, C., Frost, S., Hens, N., Hugues, J., Höhle, M., Opatowski, L., Rambaut, A., Ratmann, O., Soubeyrand, S., … Ferguson, N. (2014). <span>OutbreakTools</span>: A new platform for disease outbreak analysis using the <span>R</span> software. <em>Epidemics</em>, <em>7</em>, 28–34. <a href="https://doi.org/10.1016/j.epidem.2014.04.003">https://doi.org/10.1016/j.epidem.2014.04.003</a>
+</div>
+<div id="ref-mcmurdie_phyloseq_2013" class="csl-entry" role="listitem">
+McMurdie, P. J., &amp; Holmes, S. (2013). Phyloseq: An <span>R</span> package for reproducible interactive analysis and graphics of microbiome census data. <em>PloS One</em>, <em>8</em>(4), e61217. <a href="https://doi.org/10.1371/journal.pone.0061217">https://doi.org/10.1371/journal.pone.0061217</a>
+</div>
+<div id="ref-wang_treeio_2020" class="csl-entry" role="listitem">
+Wang, L.-G., Lam, T. T.-Y., Xu, S., Dai, Z., Zhou, L., Feng, T., Guo, P., Dunn, C. W., Jones, B. R., Bradley, T., Zhu, H., Guan, Y., Jiang, Y., &amp; Yu, G. (2020). Treeio: An r package for phylogenetic tree input and output with richly annotated and associated data. <em>Molecular Biology and Evolution</em>, <em>37</em>(2), 599–603. <a href="https://doi.org/10.1093/molbev/msz240">https://doi.org/10.1093/molbev/msz240</a>
+</div>
+<div id="ref-ggtreeExtra_2021" class="csl-entry" role="listitem">
+Xu, S., Dai, Z., Guo, P., Fu, X., Liu, S., Zhou, L., Tang, W., Feng, T., Chen, M., Zhan, L., Wu, T., Hu, E., Jiang, Y., Bo, X., &amp; Yu, G. (2021). <span class="nocase">ggtreeExtra: Compact Visualization of Richly Annotated Phylogenetic Data</span>. <em>Molecular Biology and Evolution</em>, <em>38</em>(9), 4039–4042. <a href="https://doi.org/10.1093/molbev/msab166">https://doi.org/10.1093/molbev/msab166</a>
+</div>
+<div id="ref-yu_cp_2020" class="csl-entry" role="listitem">
+Yu, G. (2020). Using ggtree to visualize data on tree-like structures. <em>Current Protocols in Bioinformatics</em>, <em>69</em>(1), e96. <a href="https://doi.org/10.1002/cpbi.96">https://doi.org/10.1002/cpbi.96</a>
+</div>
+<div id="ref-yu_two_2018" class="csl-entry" role="listitem">
+Yu, G., Lam, T. T.-Y., Zhu, H., &amp; Guan, Y. (2018). Two methods for mapping and visualizing associated data on phylogeny using ggtree. <em>Molecular Biology and Evolution</em>, <em>35</em>(12), 3041–3043. <a href="https://doi.org/10.1093/molbev/msy194">https://doi.org/10.1093/molbev/msy194</a>
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>See also discussion in <a href="https://github.com/GuangchuangYu/ggtree/issues/78" class="uri">https://github.com/GuangchuangYu/ggtree/issues/78</a> and <a href="https://groups.google.com/d/msg/bioc-ggtree/VQqbF79NAWU/IjIvpQOBGwAJ" class="uri">https://groups.google.com/d/msg/bioc-ggtree/VQqbF79NAWU/IjIvpQOBGwAJ</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://github.com/YuLab-SMU/ggtree/issues/313" class="uri">https://github.com/YuLab-SMU/ggtree/issues/313</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./06_ggtree_manipulation.html" class="pagination-link" aria-label="Visual Exploration of Phylogenetic Trees">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visual Exploration of Phylogenetic Trees</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./08_ggtree_with_silhouette.html" class="pagination-link" aria-label="Annotating Tree with Silhouette Images and Sub-plots">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Annotating Tree with Silhouette Images and Sub-plots</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/YuLab-SMU/treedata-book/edit/main/07_ggtree_tree_with_data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/blob/main/07_ggtree_tree_with_data.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>

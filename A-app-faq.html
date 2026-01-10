@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Master ggtree package suite to handle tree with data.">
+
+<title>(APPENDIX) Appendix – Data Integration, Manipulation and Visualization of Phylogenetic Trees</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./A-app-tools.html" rel="next">
+<link href="./13_ggtree_gallery.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./A-app-faq.html">Appendix</a></li><li class="breadcrumb-item"><a href="./A-app-faq.html">(APPENDIX) Appendix</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Integration, Manipulation and Visualization of Phylogenetic Trees</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/YuLab-SMU/treedata-book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Integration, Manipulation and Visualization of Phylogenetic Trees</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_author.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Author</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_treeio_importing_tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(PART*) Part I: Tree data input, output, and manipulation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_tidytree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Manipulating Tree with Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_treeio_exporting_tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exporting tree with data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_ggtree_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(PART*) Part II: Tree data visualization and annotation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_ggtree_annotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Phylogenetic Tree Annotation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_ggtree_manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visual Exploration of Phylogenetic Trees</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_ggtree_tree_with_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Plotting tree with data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_ggtree_with_silhouette.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Annotating Tree with Silhouette Images and Sub-plots</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_ggtree_tree_objects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">ggtree for Other Tree-like Objects</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_ggtree_exts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(PART*) Part III: ggtree extensions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_ggtree_exts-others.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Other ggtree Extensions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_ggtree_utilities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(PART*) Part IV: Miscellaneous topics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_ggtree_gallery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Gallery of Reproducible Examples</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendix</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A-app-faq.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">(APPENDIX) Appendix</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A-app-tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Related Tools</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A-app-fig-tab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Figures and Tables</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./B-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-faq" id="toc-sec-faq" class="nav-link active" data-scroll-target="#sec-faq">Frequently Asked Questions</a>
+  <ul class="collapse">
+  <li><a href="#sec-installation" id="toc-sec-installation" class="nav-link" data-scroll-target="#sec-installation">Installation</a></li>
+  <li><a href="#sec-faq-r" id="toc-sec-faq-r" class="nav-link" data-scroll-target="#sec-faq-r">Basic R Related</a>
+  <ul class="collapse">
+  <li><a href="#sec-faq-local-file" id="toc-sec-faq-local-file" class="nav-link" data-scroll-target="#sec-faq-local-file">Use your local file</a></li>
+  </ul></li>
+  <li><a href="#sec-faq-aes-mapping" id="toc-sec-faq-aes-mapping" class="nav-link" data-scroll-target="#sec-faq-aes-mapping">Aesthetic mapping</a>
+  <ul class="collapse">
+  <li><a href="#sec-faq-inherit-aes" id="toc-sec-faq-inherit-aes" class="nav-link" data-scroll-target="#sec-faq-inherit-aes">Inherit aesthetic mapping</a></li>
+  <li><a href="#sec-faq-dollar-aes" id="toc-sec-faq-dollar-aes" class="nav-link" data-scroll-target="#sec-faq-dollar-aes">Never use <code>$</code> in aesthetic mapping</a></li>
+  </ul></li>
+  <li><a href="#sec-faq-text" id="toc-sec-faq-text" class="nav-link" data-scroll-target="#sec-faq-text">Text and Label</a>
+  <ul class="collapse">
+  <li><a href="#sec-faq-label-truncated" id="toc-sec-faq-label-truncated" class="nav-link" data-scroll-target="#sec-faq-label-truncated">Tip label truncated</a></li>
+  <li><a href="#sec-faq-modify-label" id="toc-sec-faq-modify-label" class="nav-link" data-scroll-target="#sec-faq-modify-label">Modify (tip) labels</a></li>
+  <li><a href="#sec-faq-formatting-label" id="toc-sec-faq-formatting-label" class="nav-link" data-scroll-target="#sec-faq-formatting-label">Formatting (tip) labels</a></li>
+  <li><a href="#sec-faq-ggrepel" id="toc-sec-faq-ggrepel" class="nav-link" data-scroll-target="#sec-faq-ggrepel">Avoid overlapping text labels</a></li>
+  <li><a href="#sec-faq-bootstrap" id="toc-sec-faq-bootstrap" class="nav-link" data-scroll-target="#sec-faq-bootstrap">Bootstrap values from Newick format</a></li>
+  </ul></li>
+  <li><a href="#branch-setting" id="toc-branch-setting" class="nav-link" data-scroll-target="#branch-setting">Branch Setting</a>
+  <ul class="collapse">
+  <li><a href="#plot-the-same-tree-as-in-plot.phylo" id="toc-plot-the-same-tree-as-in-plot.phylo" class="nav-link" data-scroll-target="#plot-the-same-tree-as-in-plot.phylo">Plot the same tree as in <code>plot.phylo()</code></a></li>
+  <li><a href="#specifying-the-order-of-the-tips" id="toc-specifying-the-order-of-the-tips" class="nav-link" data-scroll-target="#specifying-the-order-of-the-tips">Specifying the order of the tips</a></li>
+  <li><a href="#shrink-outlier-long-branch" id="toc-shrink-outlier-long-branch" class="nav-link" data-scroll-target="#shrink-outlier-long-branch">Shrink outlier long branch</a></li>
+  <li><a href="#sec-bind-tip" id="toc-sec-bind-tip" class="nav-link" data-scroll-target="#sec-bind-tip">Attach a new tip to a tree</a></li>
+  <li><a href="#change-colors-or-line-types-of-arbitrarily-selected-branches" id="toc-change-colors-or-line-types-of-arbitrarily-selected-branches" class="nav-link" data-scroll-target="#change-colors-or-line-types-of-arbitrarily-selected-branches">Change colors or line types of arbitrarily selected branches</a></li>
+  <li><a href="#sec-arbitrary-point" id="toc-sec-arbitrary-point" class="nav-link" data-scroll-target="#sec-arbitrary-point">Add an arbitrary point to a branch</a></li>
+  </ul></li>
+  <li><a href="#different-x-axis-labels-for-different-facet-panels" id="toc-different-x-axis-labels-for-different-facet-panels" class="nav-link" data-scroll-target="#different-x-axis-labels-for-different-facet-panels">Different <em>X</em>-axis Labels for Different Facet Panels</a></li>
+  <li><a href="#sec-faq-under-the-tree" id="toc-sec-faq-under-the-tree" class="nav-link" data-scroll-target="#sec-faq-under-the-tree">Plot Something behind the Phylogeny</a></li>
+  <li><a href="#sec-faq-enlarge-center-space" id="toc-sec-faq-enlarge-center-space" class="nav-link" data-scroll-target="#sec-faq-enlarge-center-space">Enlarge Center Space in Circular/Fan Layout Tree</a></li>
+  <li><a href="#use-the-most-distant-tip-from-the-root-as-the-origin-of-the-timescale" id="toc-use-the-most-distant-tip-from-the-root-as-the-origin-of-the-timescale" class="nav-link" data-scroll-target="#use-the-most-distant-tip-from-the-root-as-the-origin-of-the-timescale">Use the Most Distant Tip from the Root as the Origin of the Timescale</a></li>
+  <li><a href="#sec-circular-blank" id="toc-sec-circular-blank" class="nav-link" data-scroll-target="#sec-circular-blank">Remove Blank Margins for Circular Layout Tree</a></li>
+  <li><a href="#sec-export-edit" id="toc-sec-export-edit" class="nav-link" data-scroll-target="#sec-export-edit">Edit Tree Graphic Details</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/YuLab-SMU/treedata-book/edit/main/A-app-faq.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/blob/main/A-app-faq.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./A-app-faq.html">Appendix</a></li><li class="breadcrumb-item"><a href="./A-app-faq.html">(APPENDIX) Appendix</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">(APPENDIX) Appendix</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div style="page-break-after: always;"></div>
+<section id="sec-faq" class="level1">
+<h1>Frequently Asked Questions</h1>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"yulab.utils"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(treeio)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>treeio v1.35.0 Learn more at https://yulab-smu.top/contribution-tree-data/
+
+Please cite:
+
+LG Wang, TTY Lam, S Xu, Z Dai, L Zhou, T Feng, P Guo, CW Dunn, BR
+Jones, T Bradley, H Zhu, Y Guan, Y Jiang, G Yu. treeio: an R package
+for phylogenetic tree input and output with richly annotated and
+associated data. Molecular Biology and Evolution. 2020, 37(2):599-603.
+doi: 10.1093/molbev/msz240</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"software-link.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The <a href="https://groups.google.com/forum/?#!forum/bioc-ggtree">ggtree mailing-list</a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> is a great place to get help, once you have created a reproducible example that illustrates your problem.</p>
+<section id="sec-installation" class="level2">
+<h2 class="anchored" data-anchor-id="sec-installation">Installation</h2>
+<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> is released within the Bioconductor project; you need to use <a href="https://CRAN.R-project.org/package=BiocManager"><strong>BiocManager</strong></a> to install it.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## you need to install BiocManager before using it</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages("BiocManager")</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BiocManager)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install</span>(<span class="st">"ggtree"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Bioconductor release is adhered to a specific R version. Please make sure you are using the latest version of R if you want to install the latest release of Bioconductor packages, including <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>. Beware that bugs will only be fixed in the current release and develop branches. If you find a bug, please follow the guide<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> to report it.</p>
+<p>To make it easy to install and load multiple core packages in a single step, we created a meta-package, <a href="https://github.com/YuLab-SMU/treedataverse"><strong>treedataverse</strong></a>. Users can install the package via the following command:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"YuLab-SMU/treedataverse"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Once it is installed, loading the package will also load the core <a href="https://github.com/YuLab-SMU/treedataverse"><strong>treedataverse</strong></a> packages, including <a href="https://CRAN.R-project.org/package=tidytree"><strong>tidytree</strong></a>, <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a>, <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>, and <a href="http://bioconductor.org/packages/ggtreeExtra"><strong>ggtreeExtra</strong></a>.</p>
+</section>
+<section id="sec-faq-r" class="level2">
+<h2 class="anchored" data-anchor-id="sec-faq-r">Basic R Related</h2>
+<section id="sec-faq-local-file" class="level3">
+<h3 class="anchored" data-anchor-id="sec-faq-local-file">Use your local file</h3>
+<p>If you are new to <code>R</code> and want to use <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> for tree visualization, please do learn some basic <code>R</code> and <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a>.</p>
+<p>A very common issue is that users copy and paste commands without looking at the function’s behavior. The <code>system.file()</code> function was used in some of our examples to find files packed in the packages.</p>
+<pre><code>system.file                package:base                R Documentation
+
+Find Names of R System Files
+
+Description:
+
+     Finds the full file names of files in packages etc.
+
+Usage:
+
+     system.file(..., package = "base", lib.loc = NULL,
+                 mustWork = FALSE)</code></pre>
+<p>For users who want to use their files, please just use relative or absolute file path (<em>e.g.</em>, <code>file = "your/folder/filename"</code>).</p>
+</section>
+</section>
+<section id="sec-faq-aes-mapping" class="level2">
+<h2 class="anchored" data-anchor-id="sec-faq-aes-mapping">Aesthetic mapping</h2>
+<section id="sec-faq-inherit-aes" class="level3">
+<h3 class="anchored" data-anchor-id="sec-faq-inherit-aes">Inherit aesthetic mapping</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(<span class="fu">rtree</span>(<span class="dv">30</span>)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For example, we can add symbolic points to nodes with <code>geom_point()</code> directly. The magic here is we don’t need to map the <code>x</code> and <code>y</code> position of the points by providing <code>aes(x, y)</code> to <code>geom_point()</code> since it was already mapped by the <code>ggtree()</code> function and it serves as a global mapping for all layers.</p>
+<p>But what if we provide a dataset in a layer and the dataset doesn’t contain columns of <code>x</code> and/or <code>y</code>, the layer function also tries to map <code>x</code> and <code>y</code> and also others if you map them in the <code>ggtree()</code> function. As these variables are not available in your dataset, you will get the following error:</p>
+<pre><code>Error in eval(expr, envir, enclos) : object 'x' not found</code></pre>
+<p>This can be fixed by using the parameter <code>inherit.aes=FALSE</code> which will disable inheriting mapping from the <code>ggtree()</code> function.</p>
+</section>
+<section id="sec-faq-dollar-aes" class="level3">
+<h3 class="anchored" data-anchor-id="sec-faq-dollar-aes">Never use <code>$</code> in aesthetic mapping</h3>
+<p>Never do this<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> and please refer to the explanation in the <a href="https://github.com/hadley/ggplot2-book/blob/master/layers.Rmd#L185">ggplot2 book 2ed</a> <span class="citation" data-cites="wickham_ggplot2_2016">(<a href="#ref-wickham_ggplot2_2016" role="doc-biblioref">Wickham, 2016</a>)</span>:</p>
+<blockquote class="blockquote">
+<p>Never refer to a variable with <code>$</code> (e.g., <code>diamonds$carat</code>) in <code>aes()</code>. This breaks containment so that the plot no longer contains everything it needs and causes problems if ggplot2 changes the order of the rows, as it does when facetting.</p>
+</blockquote>
+</section>
+</section>
+<section id="sec-faq-text" class="level2">
+<h2 class="anchored" data-anchor-id="sec-faq-text">Text and Label</h2>
+<section id="sec-faq-label-truncated" class="level3">
+<h3 class="anchored" data-anchor-id="sec-faq-label-truncated">Tip label truncated</h3>
+<p>The reason for this issue is that <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a> can’t auto-adjust <code>xlim</code> based on added text<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="do">## example tree from https://support.bioconductor.org/p/72398/</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="at">text=</span> <span class="fu">paste</span>(<span class="st">"(Organism1.006G249400.1:0.03977,"</span>, </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"(Organism2.022118m:0.01337,(Organism3.J34265.1:0.00284,"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Organism4.G02633.1:0.00468)0.51:0.0104):0.02469);"</span>))</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree) <span class="sc">+</span> <span class="fu">geom_tiplab</span>()  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In this example, the tip labels displayed in Figure <span class="quarto-unresolved-ref">?fig-truncatedTipA</span> are truncated. This is because the units are in two different spaces (data and pixel). Users can use <code>xlim</code> to allocate more spaces for tip labels (Figure <span class="quarto-unresolved-ref">?fig-truncatedTipB</span>).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="fl">0.08</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Another solution is to set <code>clip = "off"</code> to allow drawing outside of the plot panel. We may also need to set <code>plot.margin</code> to allocate more spaces for margin (Figure <span class="quarto-unresolved-ref">?fig-truncatedTipC</span>).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">coord_cartesian</span>(<span class="at">clip =</span> <span class="st">'off'</span>) <span class="sc">+</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_tree2</span>(<span class="at">plot.margin=</span><span class="fu">margin</span>(<span class="dv">6</span>, <span class="dv">120</span>, <span class="dv">6</span>, <span class="dv">6</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>ggtree v4.1.1.003 Learn more at https://yulab-smu.top/contribution-tree-data/
+
+Please cite:
+
+Shuangbin Xu, Lin Li, Xiao Luo, Meijun Chen, Wenli Tang, Li Zhan, Zehan
+Dai, Tommy T. Lam, Yi Guan, Guangchuang Yu. Ggtree: A serialized data
+object for visualization of a phylogenetic tree and annotation data.
+iMeta 2022, 1(4):e56. doi:10.1002/imt2.56</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="A-app-faq_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><strong>Allocating more spaces for truncated tip labels.</strong> Long tip labels may be truncated (A). One solution is to allocate more spaces for plot panel (B), and another solution is to allow plotting labels outside the plot panel (C).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The third solution is to use <code>hexpand()</code> as demonstrated in <a href="#ggexpand">session 12.4</a>.</p>
+<p>For rectangular/dendrogram layout trees, users can display tip labels as <em>y</em>-axis labels. In this case, no matter how long the labels are, they will not be truncated (see Figure <span class="quarto-unresolved-ref">?fig-tiplabC</span>).</p>
+</section>
+<section id="sec-faq-modify-label" class="level3">
+<h3 class="anchored" data-anchor-id="sec-faq-modify-label">Modify (tip) labels</h3>
+<p>If you want to modify tip labels of the tree, you can use <code>treeio::rename_taxa()</code> to rename a <code>phylo</code> or <code>treedata</code> object.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="at">text =</span> <span class="st">"((A, B), (C, D));"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">label =</span> LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">label2 =</span> <span class="fu">c</span>(<span class="st">"sunflower"</span>, <span class="st">"tree"</span>, <span class="st">"snail"</span>, <span class="st">"mushroom"</span>))</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="do">## rename_taxa use 1st column as key and 2nd column as value by default                </span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="do">## rename_taxa(tree, d)</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rename_taxa</span>(tree, d, label, label2) <span class="sc">%&gt;%</span> write.tree</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "((sunflower,tree),(snail,mushroom));"</code></pre>
+</div>
+</div>
+<p>If the input tree object is a <code>treedata</code> instance, you can use <code>write.beast()</code> to export the tree with associated data to a BEAST compatible NEXUS file (see <a href="#chapter3">Chapter 3</a>).</p>
+<p>Renaming phylogeny tip labels seems not to be a good idea, since it may introduce problems when mapping the original sequence alignment to the tree. Personally, I recommend storing the new labels as a tip annotation in <code>treedata</code> object.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>tree2 <span class="ot">&lt;-</span> <span class="fu">full_join</span>(tree, d, <span class="at">by =</span> <span class="st">"label"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>tree2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'treedata' S4 object'.
+
+...@ phylo:
+
+Phylogenetic tree with 4 tips and 3 internal nodes.
+
+Tip labels:
+  A, B, C, D
+
+Rooted; no branch length.
+
+with the following features available:
+  '', 'label2'.
+
+# The associated data tibble abstraction: 7 × 4
+# The 'node', 'label' and 'isTip' are from the phylo tree.
+   node label isTip label2   
+  &lt;int&gt; &lt;chr&gt; &lt;lgl&gt; &lt;chr&gt;    
+1     1 A     TRUE  sunflower
+2     2 B     TRUE  tree     
+3     3 C     TRUE  snail    
+4     4 D     TRUE  mushroom 
+5     5 &lt;NA&gt;  FALSE &lt;NA&gt;     
+6     6 &lt;NA&gt;  FALSE &lt;NA&gt;     
+7     7 &lt;NA&gt;  FALSE &lt;NA&gt;     </code></pre>
+</div>
+</div>
+<p>If you just want to show different or additional information when plotting the tree, you don’t need to modify tip labels. This could be easily done via the <code>%&lt;+%</code> operator to attach the modified version of the labels and then use the <code>geom_tiplab()</code> layer to display the modified version (Figure <span class="quarto-unresolved-ref">?fig-renameTip</span>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree) <span class="sc">+</span> <span class="fu">xlim</span>(<span class="cn">NA</span>, <span class="dv">3</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_tiplab</span>()</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="do">## the following command will produce an identical figure of p2</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="do">## ggtree(tree2) + geom_tiplab(aes(label = label2))</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p <span class="sc">%&lt;+%</span> d <span class="sc">+</span> <span class="fu">geom_tiplab</span>(<span class="fu">aes</span>(<span class="at">label=</span>label2))</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_list</span>(p1, p2, <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">tag_levels =</span> <span class="st">"A"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="A-app-faq_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><strong>Alternative tip labels.</strong> Original tip labels (A) and a modified version (B).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-faq-formatting-label" class="level3">
+<h3 class="anchored" data-anchor-id="sec-faq-formatting-label">Formatting (tip) labels</h3>
+<p>If you want to format labels, you need to set <code>parse=TRUE</code> in the <code>geom_text()</code>/<code>geom_tiplab()</code>/<code>geom_nodelab()</code> and the <code>label</code> should be a string that can be parsed into expression and displayed as described in <code>?plotmath</code>. Users can use the <a href="https://CRAN.R-project.org/package=latex2exp"><strong>latex2exp</strong></a> package to convert LaTeX math formulas to R’s plotmath expressions, or use the <a href="https://CRAN.R-project.org/package=ggtext"><strong>ggtext</strong></a> package to render Markdown or HTML.</p>
+<p>For example, the tip labels contain several parts (<em>e.g.</em>, genus, species, and geo), we can differentiate these pieces of information with different formats (Figure <span class="quarto-unresolved-ref">?fig-formatTipA</span>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="at">text =</span> <span class="st">"((a,(b,c)),d);"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>genus <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Gorilla"</span>, <span class="st">"Pan"</span>, <span class="st">"Homo"</span>, <span class="st">"Pongo"</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>species <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"gorilla"</span>, <span class="st">"spp."</span>, <span class="st">"sapiens"</span>, <span class="st">"pygmaeus"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>geo <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Africa"</span>, <span class="st">"Africa"</span>, <span class="st">"World"</span>, <span class="st">"Asia"</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">label =</span> tree<span class="sc">$</span>tip.label, <span class="at">genus =</span> genus,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">species =</span> species, <span class="at">geo =</span> geo)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">mutate</span>(d, </span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">lab =</span> <span class="fu">glue</span>(<span class="st">"italic({genus})~bolditalic({species})~({geo})"</span>),</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="fu">c</span>(<span class="st">"#E495A5"</span>, <span class="st">"#ABB065"</span>, <span class="st">"#39BEB1"</span>, <span class="st">"#ACA4E2"</span>),</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">glue</span>(<span class="st">"&lt;i style='color:{color}'&gt;{genus} **{species}**&lt;/i&gt; ({geo})"</span>)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree) <span class="sc">%&lt;+%</span> d2 <span class="sc">+</span> <span class="fu">xlim</span>(<span class="cn">NA</span>, <span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="fu">aes</span>(<span class="at">label=</span>lab), <span class="at">parse=</span>T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Using Markdown or HTML to format text may be easier, and this is supported via the <a href="https://CRAN.R-project.org/package=ggtext"><strong>ggtext</strong></a> package (Figure <span class="quarto-unresolved-ref">?fig-formatTipB</span>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtext)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree) <span class="sc">%&lt;+%</span> d2 <span class="sc">+</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_richtext</span>(<span class="at">data=</span><span class="fu">td_filter</span>(isTip), </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">label=</span>name), <span class="at">label.color=</span><span class="cn">NA</span>) <span class="sc">+</span> </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hexpand</span>(.<span class="dv">3</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_list</span>(p1, p2, <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">tag_levels =</span> <span class="st">'A'</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="sec-faq-ggrepel" class="level3">
+<h3 class="anchored" data-anchor-id="sec-faq-ggrepel">Avoid overlapping text labels</h3>
+<p>Users can use the <a href="https://CRAN.R-project.org/package=ggrepel"><strong>ggrepel</strong></a> package to repel overlapping text labels (Figure <span class="quarto-unresolved-ref">?fig-repelTip</span>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>raxml_file <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata/RAxML"</span>, </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"RAxML_bipartitionsBranchLabels.H3"</span>, <span class="at">package=</span><span class="st">"treeio"</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>raxml <span class="ot">&lt;-</span> <span class="fu">read.raxml</span>(raxml_file)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(raxml) <span class="sc">+</span> <span class="fu">geom_label_repel</span>(<span class="fu">aes</span>(<span class="at">label=</span>bootstrap, <span class="at">fill=</span>bootstrap)) <span class="sc">+</span> </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(.<span class="dv">1</span>, .<span class="dv">8</span>)) <span class="sc">+</span> <span class="fu">scale_fill_viridis_c</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 65 rows containing missing values or values outside the scale range
+(`geom_label_repel()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="A-app-faq_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><strong>Repel labels.</strong> Repel labels to avoid overlapping.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-faq-bootstrap" class="level3">
+<h3 class="anchored" data-anchor-id="sec-faq-bootstrap">Bootstrap values from Newick format</h3>
+<p>It is quite common to store <em>bootstrap</em> value as node label in the Newick format as in Figure <span class="quarto-unresolved-ref">?fig-nwkbs</span>. Visualizing node label is easy using <code>geom_text2(aes(subset = !isTip, label=label))</code>.</p>
+<p>If you want to only display a subset of <em>bootstrap</em> (<em>e.g.</em>, bootstrap &gt; 80), you can’t simply use <code>geom_text2(subset= (label &gt; 80), label=label)</code> (or <code>geom_label2</code>) since <code>label</code> is a character vector, which contains node label (bootstrap value) and tip label (taxa name). <code>geom_text2(subset=(as.numeric(label) &gt; 80), label=label)</code> won’t work either, since <code>NAs</code> were introduced by coercion. We need to convert <code>NAs</code> to logical <code>FALSE</code>. This can be done by the following code:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>nwk <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata/RAxML"</span>,<span class="st">"RAxML_bipartitions.H3"</span>, <span class="at">package=</span><span class="st">'treeio'</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(nwk)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tr) <span class="sc">+</span> <span class="fu">geom_label2</span>(<span class="fu">aes</span>(<span class="at">label=</span>label, </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">subset =</span> <span class="sc">!</span><span class="fu">is.na</span>(<span class="fu">as.numeric</span>(label)) <span class="sc">&amp;</span> <span class="fu">as.numeric</span>(label) <span class="sc">&gt;</span> <span class="dv">80</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in geom_label2(aes(label = label, subset = !is.na(as.numeric(label)) &amp;
+: Ignoring unknown parameters: `label.size`</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in FUN(X[[i]], ...): NAs introduced by coercion
+Warning in FUN(X[[i]], ...): NAs introduced by coercion</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="A-app-faq_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><strong>Bootstrap value stored in node label.</strong></figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>As this is a very common issue, we implemented a <code>read.newick()</code> function in the <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package to allow parsing internal node labels as supported values. As a result, it can be easier to display bootstrap values using the following code:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">&lt;-</span> <span class="fu">read.newick</span>(nwk, <span class="at">node.label=</span><span class="st">'support'</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tr) <span class="sc">+</span> <span class="fu">geom_nodelab</span>(<span class="at">geom=</span><span class="st">'label'</span>, <span class="fu">aes</span>(<span class="at">label=</span>support, <span class="at">subset=</span>support <span class="sc">&gt;</span> <span class="dv">80</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<!-- 
+
+Another solution is converting the bootstrap value outside `ggtree`.
+
+
+q <- ggtree(tr)
+d <- q$data
+d <- d[!d$isTip,]
+d$label <- as.numeric(d$label)
+d <- d[d$label > 80,]
+
+q + geom_text(data=d, aes(label=label))
+
+-->
+</section>
+</section>
+<section id="branch-setting" class="level2">
+<h2 class="anchored" data-anchor-id="branch-setting">Branch Setting</h2>
+<section id="plot-the-same-tree-as-in-plot.phylo" class="level3">
+<h3 class="anchored" data-anchor-id="plot-the-same-tree-as-in-plot.phylo">Plot the same tree as in <code>plot.phylo()</code></h3>
+<p>By default, <code>ggtree()</code> ladderizes the input tree so that the tree will appear less cluttered. This is the reason why the tree visualized by <code>ggtree()</code> is different from the one using <code>plot.phylo()</code> which displays a non-ladderized tree. To disable the ladderize effect, users can pass the parameter <code>ladderize = FALSE</code> to the <code>ggtree()</code> function as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-ggtreeladderize</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'ape'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:ggtree':
+
+    rotate</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:treeio':
+
+    drop.tip</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">5</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="A-app-faq_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(x, <span class="at">ladderize =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> <span class="fu">geom_tiplab</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="A-app-faq_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(x) <span class="sc">+</span> <span class="fu">geom_tiplab</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="A-app-faq_files/figure-html/unnamed-chunk-10-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplotify)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">5</span>)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co">#p1 &lt;- as.ggplot(~plot(x))</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="co">#p2 &lt;- ggtree(x, ladderize = FALSE) + geom_tiplab()</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="co">#p3 &lt;- ggtree(x) + geom_tiplab()</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="do">## don't know why throw error when combine them in bookdown</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="do">## it is OK in interactive R terminal</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="co"># plot_list(p1, p2, p3, ncol=3, tag_levels = 'A') </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="A-app-faq_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><strong>Ladderized and non-ladderized tree.</strong> <code>plot.phylo()</code> displays non-ladderized tree (A), use <code>ladderize = FALSE</code> to display non-ladderized tree in <code>ggtree()</code> (B), <code>ggtree()</code> displays ladderized tree by default (C).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="specifying-the-order-of-the-tips" class="level3">
+<h3 class="anchored" data-anchor-id="specifying-the-order-of-the-tips">Specifying the order of the tips</h3>
+<p>The <code>rotateConstr()</code> function provided in the <a href="https://CRAN.R-project.org/package=ape"><strong>ape</strong></a> package rotates internal branches based on the specified order of the tips, and the order should be followed when plotting the tree (from bottom to top). As <code>ggtree()</code> by default ladderizes the input tree, users need to disable by passing <code>ladderize = FALSE</code>. Then the order of the tree will be displayed as expected (Figure <span class="quarto-unresolved-ref">?fig-rotateConstr</span>). Users can also extract tip order displayed by <code>ggtree()</code> using the <code>get_taxa_name()</code> function as demonstrated in <a href="#tiporder">session 12.6</a>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> ape<span class="sc">::</span><span class="fu">rotateConstr</span>(x, <span class="fu">c</span>(<span class="st">'t4'</span>, <span class="st">'t2'</span>, <span class="st">'t5'</span>, <span class="st">'t1'</span>, <span class="st">'t3'</span>))</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(y, <span class="at">ladderize =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> <span class="fu">geom_tiplab</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="A-app-faq_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><strong>Specifying tree order.</strong> The order of the input tree will be maintained in <code>ggtree()</code> when <code>ladderize = FALSE</code>.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="shrink-outlier-long-branch" class="level3">
+<h3 class="anchored" data-anchor-id="shrink-outlier-long-branch">Shrink outlier long branch</h3>
+<p>When outgroups are on a very long branch length (Figure <span class="quarto-unresolved-ref">?fig-outgroupEdgeA</span>), we would like to keep the outgroups in the tree but ignore their branch lengths (Figure <span class="quarto-unresolved-ref">?fig-outgroupEdgeB</span>)<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. This can be easily done by modifying the coordinates of the outgroups (Figure <span class="quarto-unresolved-ref">?fig-outgroupEdgeB</span>). Another approach is to truncate the plot using the <a href="https://CRAN.R-project.org/package=ggbreak"><strong>ggbreak</strong></a> package (Figure <span class="quarto-unresolved-ref">?fig-outgroupEdgeC</span>) <span class="citation" data-cites="ggbreak">(<a href="#ref-ggbreak" role="doc-biblioref">Xu et al., 2021</a>)</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TDbook)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> tree_long_branch_example</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">MRCA</span>(x, <span class="dv">75</span>, <span class="dv">76</span>)</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">groupClade</span>(x, m)</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="do">## A</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p1 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(y, <span class="fu">aes</span>(<span class="at">linetype =</span> group)) <span class="sc">+</span> </span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tiplab</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>) </span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="do">## B</span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>data[p<span class="sc">$</span>data<span class="sc">$</span>node <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">75</span>, <span class="dv">76</span>), <span class="st">"x"</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(p<span class="sc">$</span>data<span class="sc">$</span>x)</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="do">## C</span></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggbreak)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ggbreak v0.1.6 Learn more at https://yulab-smu.top/</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>If you use ggbreak in published research, please cite the following
+paper:
+
+S Xu, M Chen, T Feng, L Zhan, L Zhou, G Yu. Use ggbreak to effectively
+utilize plotting space to deal with large datasets and outliers.
+Frontiers in Genetics. 2021, 12:774846. doi: 10.3389/fgene.2021.774846</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p1 <span class="sc">+</span> <span class="fu">scale_x_break</span>(<span class="fu">c</span>(<span class="fl">0.03</span>, <span class="fl">0.09</span>)) <span class="sc">+</span> <span class="fu">hexpand</span>(.<span class="dv">05</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="do">## align plot</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_list</span>(p1, p, p2, <span class="at">ncol=</span><span class="dv">3</span>, <span class="at">tag_levels=</span><span class="st">"A"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="A-app-faq_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><strong>Shrink outlier long branch.</strong> Original tree (A); reduced outgroup branch length (B); truncated tree plot (C).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-bind-tip" class="level3">
+<h3 class="anchored" data-anchor-id="sec-bind-tip">Attach a new tip to a tree</h3>
+<p>Sometimes there are known branches that are not in the tree, but we would like to have them on the tree. Another common scenario is when we have a new sequence species and would like to update the reference tree with this species by inferring its evolutionary position.</p>
+<p>Users can use <code>phytools::bind.tip()</code> <span class="citation" data-cites="revell_phytools_2012">(<a href="#ref-revell_phytools_2012" role="doc-biblioref">Revell, 2012</a>)</span> to attach a new tip to a tree. With <a href="https://CRAN.R-project.org/package=tidytree"><strong>tidytree</strong></a>, it is easy to add an annotation to differentiate newly introduced and original branches and to reflect the uncertainty of the added branch splits off, as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-bindTip</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phytools)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: maps</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'phytools'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:treeio':
+
+    read.newick</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytree)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>tidytree v0.4.7 Learn more at https://yulab-smu.top/contribution-tree-data/
+
+Please cite:
+
+Guangchuang Yu.  Data Integration, Manipulation and Visualization of
+Phylogenetic Trees (1st edition). Chapman and Hall/CRC. 2022,
+doi:10.1201/9781003279242, ISBN: 9781032233574</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'tidytree'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:ape':
+
+    drop.tip, keep.tip</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:treeio':
+
+    getNodeNum</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:stats':
+
+    filter</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2019-11-18</span>)</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">5</span>)</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>tr2 <span class="ot">&lt;-</span> <span class="fu">bind.tip</span>(tr, <span class="st">'U'</span>, <span class="at">edge.length =</span> <span class="fl">0.1</span>, <span class="at">where =</span> <span class="dv">7</span>, <span class="at">position=</span><span class="fl">0.15</span>)</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(tr2)</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>type <span class="ot">&lt;-</span> <span class="st">"original"</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>type[d<span class="sc">$</span>label <span class="sc">==</span> <span class="st">'U'</span>] <span class="ot">&lt;-</span> <span class="st">'newly introduced'</span></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>sd <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>sd[<span class="fu">parent</span>(d, <span class="st">'U'</span>)<span class="sc">$</span>node] <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>tr3 <span class="ot">&lt;-</span> <span class="fu">as.treedata</span>(d)</span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tr3, <span class="fu">aes</span>(<span class="at">linetype=</span>type)) <span class="sc">+</span>  <span class="fu">geom_tiplab</span>() <span class="sc">+</span></span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbarh</span>(<span class="fu">aes</span>(<span class="at">xmin=</span>x<span class="sc">-</span>sd, <span class="at">xmax=</span>x<span class="sc">+</span>sd, <span class="at">y =</span> y <span class="sc">-</span> <span class="fl">0.3</span>), </span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>                <span class="at">linetype=</span><span class="st">'dashed'</span>, <span class="at">height=</span><span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"newly introduced"</span> <span class="ot">=</span> <span class="st">"dashed"</span>, </span>
+<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"original"</span> <span class="ot">=</span> <span class="st">"solid"</span>)) <span class="sc">+</span> </span>
+<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="fu">c</span>(.<span class="dv">8</span>, .<span class="dv">2</span>)) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `geom_errorbarh()` was deprecated in ggplot2 4.0.0.
+ℹ Please use the `orientation` argument of `geom_errorbar()` instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`height` was translated to `width`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="A-app-faq_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><strong>Attaching a new tip to a tree.</strong> Different line types were employed to distinguish the newly introduced tip and an error bar was added to indicate the uncertainty of the added branch position.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="change-colors-or-line-types-of-arbitrarily-selected-branches" class="level3">
+<h3 class="anchored" data-anchor-id="change-colors-or-line-types-of-arbitrarily-selected-branches">Change colors or line types of arbitrarily selected branches</h3>
+<p>If you want to color or change line types of specific branches, you only need to prepare a data frame with variables of branch setting (e.g., selected and unselected). Applying the Method 1 described in <span class="citation" data-cites="yu_two_2018">(<a href="#ref-yu_two_2018" role="doc-biblioref">Yu et al., 2018</a>)</span> to map the data onto the tree will make it easy to set colors and line types (Figure <span class="quarto-unresolved-ref">?fig-btype</span>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">10</span>)</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="do">## binary choices of colors</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">node=</span><span class="dv">1</span><span class="sc">:</span><span class="fu">Nnode2</span>(x), <span class="at">colour =</span> <span class="st">'black'</span>)</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>d[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">14</span>,<span class="dv">15</span>), <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">"red"</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="do">## multiple choices of line types</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">node=</span><span class="dv">1</span><span class="sc">:</span><span class="fu">Nnode2</span>(x), <span class="at">lty =</span> <span class="dv">1</span>)</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>d2[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">13</span>, <span class="dv">14</span>), <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>,<span class="dv">4</span>)</span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(x) <span class="sc">+</span> <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label=</span>node))</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>p <span class="sc">%&lt;+%</span> d <span class="sc">%&lt;+%</span> d2 <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">colour=</span><span class="fu">I</span>(colour), <span class="at">linetype=</span><span class="fu">I</span>(lty))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="A-app-faq_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><strong>Change colors and line types of specific branches.</strong></figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Users can use the <a href="https://CRAN.R-project.org/package=gginnards"><strong>gginnards</strong></a> package to manipulate plot elements for more complicated scenarios.</p>
+</section>
+<section id="sec-arbitrary-point" class="level3">
+<h3 class="anchored" data-anchor-id="sec-arbitrary-point">Add an arbitrary point to a branch</h3>
+<p>If you want to add an arbitrary point to a branch<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>, you can use <code>geom_nodepoint()</code>, <code>geom_tippoint()</code>, or <code>geom_point2()</code> (works for both external and internal nodes) to filter selected node (the endpoint of the branch) via the <code>subset</code> aesthetic mapping and specify horizontal position by <code>x = x - offset</code> aesthetic mapping, where the offset can be an absolute value (Figure <span class="quarto-unresolved-ref">?fig-pointOnBranchA</span>) or in proportion to the branch length (Figure <span class="quarto-unresolved-ref">?fig-pointOnBranchB</span>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020-05-20</span>)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">10</span>)</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(x)</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_nodepoint</span>(<span class="fu">aes</span>(<span class="at">subset =</span> node <span class="sc">==</span> <span class="dv">13</span>, <span class="at">x =</span> x <span class="sc">-</span> .<span class="dv">1</span>),</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">size =</span> <span class="dv">5</span>, <span class="at">colour =</span> <span class="st">'firebrick'</span>, <span class="at">shape =</span> <span class="dv">21</span>)</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_nodepoint</span>(<span class="fu">aes</span>(<span class="at">subset =</span> node <span class="sc">==</span> <span class="dv">13</span>, <span class="at">x =</span> x <span class="sc">-</span> branch.length <span class="sc">*</span> <span class="fl">0.2</span>),</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>                        <span class="at">size =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">'firebrick'</span>) <span class="sc">+</span> </span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>       <span class="fu">geom_nodepoint</span>(<span class="fu">aes</span>(<span class="at">subset =</span> node <span class="sc">==</span> <span class="dv">13</span>, <span class="at">x =</span> x <span class="sc">-</span> branch.length <span class="sc">*</span> <span class="fl">0.8</span>),</span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>                        <span class="at">size =</span> <span class="dv">5</span>, <span class="at">colour =</span> <span class="st">'steelblue'</span>)</span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_list</span>(p1, p2, <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">tag_levels=</span><span class="st">"A"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="A-app-faq_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><strong>Add an arbitrary point on a branch.</strong> The position of the symbolic point can be adjusted by an absolute value (A) or in proportion to the branch length (B).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="different-x-axis-labels-for-different-facet-panels" class="level2">
+<h2 class="anchored" data-anchor-id="different-x-axis-labels-for-different-facet-panels">Different <em>X</em>-axis Labels for Different Facet Panels</h2>
+<p>This is not supported by <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a> in general. However, we can just draw text labels for each panel and put the labels beyond the plot panels as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-xlabFacets</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2019-05-02</span>)</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">30</span>)</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(x) <span class="sc">+</span> <span class="fu">geom_tiplab</span>()</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">label =</span> x<span class="sc">$</span>tip.label, </span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">value =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>))</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_facet</span>(<span class="at">panel =</span> <span class="st">"Dot"</span>, <span class="at">data =</span> d, </span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">geom =</span> geom_point, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> value)) </span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p2 <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlim_tree</span>(<span class="dv">5</span>) <span class="sc">+</span> <span class="fu">xlim_expand</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="st">'Dot'</span>) </span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a><span class="co"># .panel is the internal variable used in `geom_facet` for faceting.</span></span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">.panel =</span> <span class="fu">c</span>(<span class="st">'Tree'</span>, <span class="st">'Dot'</span>), </span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a>                <span class="at">lab =</span> <span class="fu">c</span>(<span class="st">"Distance"</span>, <span class="st">"Dot Units"</span>), </span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a>                <span class="at">x=</span><span class="fu">c</span>(<span class="fl">2.5</span>,<span class="dv">0</span>), <span class="at">y=</span><span class="sc">-</span><span class="dv">2</span>)</span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a>p2 <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">31</span>), </span>
+<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a>                        <span class="at">expand=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>), </span>
+<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a>                        <span class="at">oob=</span><span class="cf">function</span>(x, ...) x) <span class="sc">+</span></span>
+<span id="cb54-22"><a href="#cb54-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label=</span>lab), <span class="at">data=</span>d) <span class="sc">+</span> </span>
+<span id="cb54-23"><a href="#cb54-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_cartesian</span>(<span class="at">clip=</span><span class="st">'off'</span>)  <span class="sc">+</span> </span>
+<span id="cb54-24"><a href="#cb54-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">plot.margin=</span><span class="fu">margin</span>(<span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">40</span>, <span class="dv">6</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Scale for y is already present.
+Adding another scale for y, which will replace the existing scale.</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="A-app-faq_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><strong><em>X</em>-axis titles for different facet panels.</strong></figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-faq-under-the-tree" class="level2">
+<h2 class="anchored" data-anchor-id="sec-faq-under-the-tree">Plot Something behind the Phylogeny</h2>
+<p>The <code>ggtree()</code> function plots the tree structure, and normally we add layers on top of the tree.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1982</span>)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">5</span>)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(x) <span class="sc">+</span> <span class="fu">geom_hilight</span>(<span class="at">node=</span><span class="dv">7</span>, <span class="at">alpha=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>If we want the layers behind the tree layer, we can reverse the order of all the layers.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>layers <span class="ot">&lt;-</span> <span class="fu">rev</span>(p<span class="sc">$</span>layers)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Another solution is to use <code>ggplot()</code> instead of <code>ggtree()</code> and <code>+ geom_tree()</code> to add the layer of tree structure at the correct position of the layer stack (Figure <span class="quarto-unresolved-ref">?fig-treeLayerOrder</span>).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(x) <span class="sc">+</span> <span class="fu">geom_hilight</span>(<span class="at">node=</span><span class="dv">7</span>, <span class="at">alpha=</span><span class="dv">1</span>) <span class="sc">+</span> <span class="fu">geom_tree</span>() <span class="sc">+</span> <span class="fu">theme_tree</span>()     </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="A-app-faq_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><strong>Add layers behind the tree structure.</strong> A layer on top of the tree structure (A). Reverse layer order of A (B). Add layer behind the tree layer (C).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-faq-enlarge-center-space" class="level2">
+<h2 class="anchored" data-anchor-id="sec-faq-enlarge-center-space">Enlarge Center Space in Circular/Fan Layout Tree</h2>
+<p>This question for enlarging center space in circular/fan layout tree was asked several times<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>, and a published example can be found in <span class="citation" data-cites="barton_broad_2016">(<a href="#ref-barton_broad_2016" role="doc-biblioref">Barton et al., 2016</a>)</span>. Increasing the percentage of center white space in a circular tree is useful to avoid overlapping tip labels and to increase the readability of the tree by moving all nodes and branches further out. This can be done simply by using <code>xlim()</code> or <code>hexpand()</code> to allocate more space (Figure <span class="quarto-unresolved-ref">?fig-circular-spaceA</span>), just like in Figure <span class="quarto-unresolved-ref">?fig-layout2G</span>, or assigning a long root branch that is similar to the “Root Length” parameter in <a href="http://beast.community/figtree"><strong>FigTree</strong></a> (Figure <span class="quarto-unresolved-ref">?fig-circular-spaceB</span>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1982</span>)</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">30</span>)</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_list</span>(</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtree</span>(tree, <span class="at">layout=</span><span class="st">'circular'</span>) <span class="sc">+</span> <span class="fu">xlim</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="cn">NA</span>),</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtree</span>(tree, <span class="at">layout=</span><span class="st">'circular'</span>) <span class="sc">+</span> <span class="fu">geom_rootedge</span>(<span class="at">rootedge=</span><span class="dv">5</span>),</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">tag_levels =</span> <span class="st">"A"</span>, <span class="at">ncol=</span><span class="dv">2</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Unknown or uninitialised column: `subgroup`.
+Unknown or uninitialised column: `subgroup`.
+Unknown or uninitialised column: `subgroup`.
+Unknown or uninitialised column: `subgroup`.
+Unknown or uninitialised column: `subgroup`.
+Unknown or uninitialised column: `subgroup`.
+Unknown or uninitialised column: `subgroup`.
+Unknown or uninitialised column: `subgroup`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="A-app-faq_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><strong>Enlarge center space in circular tree.</strong> Allocate more space by <code>xlim</code> (A) or long root branch (B).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="use-the-most-distant-tip-from-the-root-as-the-origin-of-the-timescale" class="level2">
+<h2 class="anchored" data-anchor-id="use-the-most-distant-tip-from-the-root-as-the-origin-of-the-timescale">Use the Most Distant Tip from the Root as the Origin of the Timescale</h2>
+<p>The <code>revts()</code> will reverse the <em>x</em>-axis by setting the most recent tip to 0. We can use <code>scale_x_continuous(labels=abs)</code> to label <em>x</em>-axis using absolute values (Figure <span class="quarto-unresolved-ref">?fig-distantTip</span>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">10</span>)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tr) <span class="sc">+</span> <span class="fu">theme_tree2</span>()</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">revts</span>(p) <span class="sc">+</span> <span class="fu">scale_x_continuous</span>(<span class="at">labels=</span>abs)</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_list</span>(p, p2, <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">tag_levels=</span><span class="st">"A"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="A-app-faq_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><strong>Origin of the time scale.</strong> Forward: from the root to the tips (A). Backward: from the most distant tip to the root (B).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-circular-blank" class="level2">
+<h2 class="anchored" data-anchor-id="sec-circular-blank">Remove Blank Margins for Circular Layout Tree</h2>
+<p>For plots in polar coordinates, such as a circular layout tree, it is very common that extra spaces will be generated.</p>
+<p>If you are using <code>Rmarkdown</code>, you can set the following options for <a href="https://CRAN.R-project.org/package=knitr"><strong>knitr</strong></a> to remove extra white space automatically.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>knit_hooks<span class="sc">$</span><span class="fu">set</span>(<span class="at">crop =</span> hook_pdfcrop)</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">crop =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Otherwise, we can use command-line tools to remove extra white space:</p>
+<pre class="shell"><code>## for pdf
+pdfcrop x.pdf
+
+## for png
+convert -trim x.png x-crop.png</code></pre>
+<p>If you want to do it in R, you can use the <a href="https://CRAN.R-project.org/package=magick"><strong>magick</strong></a> package:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magick)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">image_read</span>(<span class="st">"x.png"</span>)</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="do">## x &lt;- image_read_pdf("x.pdf") # for PDF</span></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="fu">image_trim</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Here is an example (Figure <span class="quarto-unresolved-ref">?fig-trimSpace</span>):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magick)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Linking to ImageMagick 6.9.12.98
+Enabled features: fontconfig, freetype, fftw, heic, lcms, pango, raw, webp, x11
+Disabled features: cairo, ghostscript, rsvg</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Using 4 threads</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2021</span>)</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">30</span>)</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tr, <span class="at">size=</span><span class="dv">1</span>, <span class="at">colour=</span><span class="st">"purple"</span>, <span class="at">layout=</span><span class="st">'circular'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.
+ℹ The deprecated feature was likely used in the ggtree package.
+  Please report the issue at &lt;https://github.com/YuLab-SMU/ggtree/issues&gt;.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext=</span><span class="st">".png"</span>)</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> f, <span class="at">plot =</span> p, <span class="at">width=</span><span class="dv">7</span>, <span class="at">height=</span><span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Unknown or uninitialised column: `subgroup`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Unknown or uninitialised column: `subgroup`.
+Unknown or uninitialised column: `subgroup`.
+Unknown or uninitialised column: `subgroup`.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">image_read</span>(f, <span class="at">density=</span><span class="dv">300</span>)</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">image_trim</span>(x)</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>panel_border <span class="ot">&lt;-</span> <span class="fu">theme</span>(<span class="at">panel.border=</span><span class="fu">element_rect</span>(<span class="at">colour=</span><span class="st">'black'</span>, </span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">fill=</span><span class="cn">NA</span>, <span class="at">size=</span><span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.
+ℹ Please use the `linewidth` argument instead.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">image_ggplot</span>(x) <span class="sc">+</span> panel_border</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `aes_string()` was deprecated in ggplot2 3.0.0.
+ℹ Please use tidy evaluation idioms with `aes()`.
+ℹ See also `vignette("ggplot2-in-packages")` for more information.
+ℹ The deprecated feature was likely used in the magick package.
+  Please report the issue at &lt;https://github.com/ropensci/magick/issues&gt;.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>yy <span class="ot">&lt;-</span> <span class="fu">image_ggplot</span>(y) <span class="sc">+</span> panel_border</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_list</span>(xx, yy, <span class="at">tag_levels =</span> <span class="st">"A"</span>, <span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="A-app-faq_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><strong>Trim extra white space for polar coordinates.</strong> Original plot (A). Trimmed version (B).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-export-edit" class="level2">
+<h2 class="anchored" data-anchor-id="sec-export-edit">Edit Tree Graphic Details</h2>
+<p>It can be hard to modify plot details for ordinary users using <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a>/<a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>. We recommend using the <a href="https://CRAN.R-project.org/package=eoffice"><strong>eoffice</strong></a> package to export <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> output to a Microsoft Office Document and edit the tree graphic in PowerPoint.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-barton_broad_2016" class="csl-entry" role="listitem">
+Barton, K., Hiener, B., Winckelmann, A., Rasmussen, T. A., Shao, W., Byth, K., Lanfear, R., Solomon, A., McMahon, J., Harrington, S., Buzon, M., Lichterfeld, M., Denton, P. W., Olesen, R., Østergaard, L., Tolstrup, M., Lewin, S. R., Søgaard, O. S., &amp; Palmer, S. (2016). Broad activation of latent <span>HIV</span>-1 in vivo. <em>Nature Communications</em>, <em>7</em>, 12731. <a href="https://doi.org/10.1038/ncomms12731">https://doi.org/10.1038/ncomms12731</a>
+</div>
+<div id="ref-revell_phytools_2012" class="csl-entry" role="listitem">
+Revell, L. J. (2012). Phytools: An <span>R</span> package for phylogenetic comparative biology (and other things). <em>Methods in Ecology and Evolution</em>, <em>3</em>(2), 217–223. <a href="https://doi.org/10.1111/j.2041-210X.2011.00169.x">https://doi.org/10.1111/j.2041-210X.2011.00169.x</a>
+</div>
+<div id="ref-wickham_ggplot2_2016" class="csl-entry" role="listitem">
+Wickham, H. (2016). <em>ggplot2: Elegant graphics for data analysis</em>. Springer. <a href="http://ggplot2.org">http://ggplot2.org</a>
+</div>
+<div id="ref-ggbreak" class="csl-entry" role="listitem">
+Xu, S., Chen, M., Feng, T., Li, Z., Lang, Z., &amp; Yu, G. (2021). Use ggbreak to effectively utilize plotting space to deal with large datasets and outliers. <em>Frontiers in Genetics</em>, <em>12</em>, 774846. <a href="https://doi.org/10.3389/fgene.2021.774846">https://doi.org/10.3389/fgene.2021.774846</a>
+</div>
+<div id="ref-yu_two_2018" class="csl-entry" role="listitem">
+Yu, G., Lam, T. T.-Y., Zhu, H., &amp; Guan, Y. (2018). Two methods for mapping and visualizing associated data on phylogeny using ggtree. <em>Molecular Biology and Evolution</em>, <em>35</em>(12), 3041–3043. <a href="https://doi.org/10.1093/molbev/msy194">https://doi.org/10.1093/molbev/msy194</a>
+</div>
+</div>
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p><a href="https://groups.google.com/forum/?#!forum/bioc-ggtree" class="uri">https://groups.google.com/forum/?#!forum/bioc-ggtree</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://guangchuangyu.github.io/2016/07/how-to-bug-author/" class="uri">https://guangchuangyu.github.io/2016/07/how-to-bug-author/</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://groups.google.com/d/msg/bioc-ggtree/hViM6vRZF94/MsZT8qRgBwAJ" class="uri">https://groups.google.com/d/msg/bioc-ggtree/hViM6vRZF94/MsZT8qRgBwAJ</a> and <a href="https://github.com/GuangchuangYu/ggtree/issues/106" class="uri">https://github.com/GuangchuangYu/ggtree/issues/106</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://twitter.com/hadleywickham/status/600280284869697538" class="uri">https://twitter.com/hadleywickham/status/600280284869697538</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Example from: <a href="https://groups.google.com/d/msg/bioc-ggtree/T2ySvqv351g/mHsyljvBCwAJ" class="uri">https://groups.google.com/d/msg/bioc-ggtree/T2ySvqv351g/mHsyljvBCwAJ</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><a href="https://twitter.com/melanoidin/status/1262703932993871874" class="uri">https://twitter.com/melanoidin/status/1262703932993871874</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p><a href="https://groups.google.com/d/msg/bioc-ggtree/gruC4FztU8I/mwavqWCXAQAJ" class="uri">https://groups.google.com/d/msg/bioc-ggtree/gruC4FztU8I/mwavqWCXAQAJ</a>, <a href="https://groups.google.com/d/msg/bioc-ggtree/UoGQekWHIvw/ZswUUZKSGwAJ" class="uri">https://groups.google.com/d/msg/bioc-ggtree/UoGQekWHIvw/ZswUUZKSGwAJ</a> and <a href="https://github.com/GuangchuangYu/ggtree/issues/95" class="uri">https://github.com/GuangchuangYu/ggtree/issues/95</a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./13_ggtree_gallery.html" class="pagination-link" aria-label="Gallery of Reproducible Examples">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Gallery of Reproducible Examples</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./A-app-tools.html" class="pagination-link" aria-label="Related Tools">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Related Tools</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/YuLab-SMU/treedata-book/edit/main/A-app-faq.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/blob/main/A-app-faq.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>
