@@ -633,7 +633,7 @@ set.seed(1982)
 tree <- rtree(30)
 plot_list(
   ggtree(tree, layout='circular') + xlim(-10, NA),
-  ggtree(tree, layout='circular') + geom_rootedge(5),
+  ggtree(tree, layout='circular') + geom_rootedge(rootedge=5),
   tag_levels = "A", ncol=2
 )
 ```
