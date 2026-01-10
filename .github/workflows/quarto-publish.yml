@@ -63,6 +63,7 @@ jobs:
             any::pwalign
             any::tanggle
             any::gggenes
+            any::ggforce
             any::ggtext
             any::ggbreak
             any::rotl
