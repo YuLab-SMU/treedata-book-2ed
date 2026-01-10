@@ -80,6 +80,7 @@ jobs:
             any::ggrepel
             any::magick
             coolbutuseless/devout
+            any::devtools
             any::XML
             any::htmltools
             any::plotly
