@@ -383,10 +383,9 @@ Attaching package: 'MicrobiotaProcess'</code></pre>
 
 Please cite:
 
-Guangchuang Yu, Tommy Tsan-Yuk Lam, Huachen Zhu, Yi Guan. Two methods
-for mapping and visualizing associated data on phylogeny using ggtree.
-Molecular Biology and Evolution. 2018, 35(12):3041-3043.
-doi:10.1093/molbev/msy194</code></pre>
+Guangchuang Yu.  Data Integration, Manipulation and Visualization of
+Phylogenetic Trees (1st edition). Chapman and Hall/CRC. 2022,
+doi:10.1201/9781003279242, ISBN: 9781032233574</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The original kostic2012crc is a MPSE object</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(kostic2012crc)</span>
@@ -544,26 +543,26 @@ mrcaott770295ott3607692, Ponginae ott1082538, Hylobatidae ott166544</code></pre>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(d) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(d, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>NA                            
-NA  11                        
-NA   ¦--12                    
-NA   ¦   ¦--t1                
-NA   ¦   °--13                
-NA   ¦       ¦--14            
-NA   ¦       ¦   ¦--t4        
-NA   ¦       ¦   °--t10       
-NA   ¦       °--15            
-NA   ¦           ¦--16        
-NA   ¦           ¦   ¦--17    
-NA   ¦           ¦   ¦   ¦--t5
-NA   ¦           ¦   ¦   °--t2
-NA   ¦           ¦   °--t6    
-NA   ¦           °--t7        
-NA   °--18                    
-NA       ¦--19                
-NA       ¦   ¦--t9            
-NA       ¦   °--t3            
-NA       °--t8</code></pre>
+<pre><code>NA                         
+NA  11                     
+NA   ¦--12                 
+NA   ¦   ¦--13             
+NA   ¦   ¦   ¦--14         
+NA   ¦   ¦   ¦   ¦--t7     
+NA   ¦   ¦   ¦   °--15     
+NA   ¦   ¦   ¦       ¦--t3 
+NA   ¦   ¦   ¦       °--t10
+NA   ¦   ¦   °--t1         
+NA   ¦   °--16             
+NA   ¦       ¦--17         
+NA   ¦       ¦   ¦--18     
+NA   ¦       ¦   ¦   ¦--t5 
+NA   ¦       ¦   ¦   °--t9 
+NA   ¦       ¦   °--t8     
+NA   ¦       °--t6         
+NA   °--19                 
+NA       ¦--t4             
+NA       °--t2</code></pre>
 </div>
 </div>
 <p>It is neat to print ASCII-art of the phylogeny. Sometimes, we don’t want to plot the tree, but just take a glance at the tree structure without leaving the focus from the R console. However, it is not a good idea to print the whole tree as ASCII text if the tree is large. Sometimes, we just want to look at a specific portion of the tree and its immediate relatives. In this scenario, we can use <code>treeio::tree_subset()</code> function (see <a href="subsetting-tree-with-data">session 2.4</a>) to extract selected portion of a tree. Then we can print ASCII-art of the tree subset to explore the evolutionary relationship of the species of our interest in the R console.</p>
@@ -597,23 +596,23 @@ NA       °--t8</code></pre>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">dev.off</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NA                                                                                 
-NA                                    #####################                        
-NA                                    #                                            
-NA                   ##################                                            
-NA                   #                #                                            
-NA                   #                ###############################              
-NA                   #                                                             
-NA    ################                                                             
-NA    #              #                                                             
-NA    #              #                          ##########                         
-NA    #              #                          #                                  
-NA    #              ############################                                  
-NA    #                                         #                                  
-NA    #                                         ###############################    
+NA                                     ###########                                 
+NA                                     #                                           
+NA               #######################                                           
+NA               #                     #                                           
+NA               #                     ###################                         
+NA    ############                                                                 
+NA    #          #                                                                 
+NA    #          #                                                                 
+NA    #          ###########                                                       
 NA    #                                                                            
 NA    #                                                                            
 NA    #                                                                            
-NA    ###############                                                              
+NA    #                                    ####################################    
+NA    #                                    #                                       
+NA    ######################################                                       
+NA                                         #                                       
+NA                                         ###########                             
 NA                                                                                 
 NA </code></pre>
 </div>
