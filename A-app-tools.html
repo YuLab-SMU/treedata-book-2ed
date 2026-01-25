@@ -383,10 +383,10 @@ Attaching package: 'MicrobiotaProcess'</code></pre>
 
 Please cite:
 
-S Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L
-Zhan, T Wu, E Hu, Y Jiang, X Bo, G Yu. ggtreeExtra: Compact
-visualization of richly annotated phylogenetic data. Molecular Biology
-and Evolution. 2021, 38(9):4039-4042. doi: 10.1093/molbev/msab166</code></pre>
+Guangchuang Yu, Tommy Tsan-Yuk Lam, Huachen Zhu, Yi Guan. Two methods
+for mapping and visualizing associated data on phylogeny using ggtree.
+Molecular Biology and Evolution. 2018, 35(12):3041-3043.
+doi:10.1093/molbev/msy194</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The original kostic2012crc is a MPSE object</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(kostic2012crc)</span>
@@ -407,12 +407,6 @@ and Evolution. 2021, 38(9):4039-4042. doi: 10.1093/molbev/msab166</code></pre>
 ℹ The deprecated feature was likely used in the ggtree package.
   Please report the issue at &lt;https://github.com/YuLab-SMU/ggtree/issues&gt;.</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Unknown or uninitialised column: `subgroup`.
-Unknown or uninitialised column: `subgroup`.
-Unknown or uninitialised column: `subgroup`.
-Unknown or uninitialised column: `subgroup`.</code></pre>
-</div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -427,10 +421,10 @@ Unknown or uninitialised column: `subgroup`.</code></pre>
 <h2 data-number="11.2" class="anchored" data-anchor-id="sec-rtol"><span class="header-section-number">11.2</span> rtol: An R Interface to Open Tree API</h2>
 <p>The <a href="https://CRAN.R-project.org/package=rtol"><strong>rtol</strong></a> <span class="citation" data-cites="michonneau_rotl:_2016">(<a href="#ref-michonneau_rotl:_2016" role="doc-biblioref">Michonneau et al., 2016</a>)</span> is an R package to interact with the Open Tree of Life data APIs. Users can use it to query phylogenetic trees and visualize the trees with <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> to explore species relationships (Figure <span class="quarto-unresolved-ref">?fig-rotlSubtree</span>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## example from: https://github.com/ropensci/rotl</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rotl)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>apes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Pongo"</span>, <span class="st">"Pan"</span>, <span class="st">"Gorilla"</span>, <span class="st">"Hoolock"</span>, <span class="st">"Homo"</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>(resolved_names <span class="ot">&lt;-</span> <span class="fu">tnrs_match_names</span>(apes))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## example from: https://github.com/ropensci/rotl</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rotl)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>apes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Pongo"</span>, <span class="st">"Pan"</span>, <span class="st">"Gorilla"</span>, <span class="st">"Hoolock"</span>, <span class="st">"Homo"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>(resolved_names <span class="ot">&lt;-</span> <span class="fu">tnrs_match_names</span>(apes))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  search_string unique_name approximate_match score ott_id is_synonym
 1         pongo       Pongo             FALSE     1 417949      FALSE
@@ -445,7 +439,7 @@ Unknown or uninitialised column: `subgroup`.</code></pre>
 4                                                1
 5 extinct_inherited, sibling_higher              1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">&lt;-</span> <span class="fu">tol_induced_subtree</span>(<span class="at">ott_ids =</span> <span class="fu">ott_id</span>(resolved_names))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">&lt;-</span> <span class="fu">tol_induced_subtree</span>(<span class="at">ott_ids =</span> <span class="fu">ott_id</span>(resolved_names))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in collapse_singles(tr, show_progress): Dropping singleton nodes with
 labels: mrcaott83926ott6145147, mrcaott83926ott3607728, mrcaott83926ott3607876,
@@ -453,7 +447,7 @@ mrcaott83926ott3607873, mrcaott83926ott3607687, mrcaott83926ott3607716,
 mrcaott83926ott3607689, mrcaott83926ott3607732, mrcaott770295ott3607719,
 mrcaott770295ott3607692, Ponginae ott1082538, Hylobatidae ott166544</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tr) <span class="sc">+</span> <span class="fu">geom_tiplab</span>() <span class="sc">+</span> <span class="fu">xlim</span>(<span class="cn">NA</span>, <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tr) <span class="sc">+</span> <span class="fu">geom_tiplab</span>() <span class="sc">+</span> <span class="fu">xlim</span>(<span class="cn">NA</span>, <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -467,36 +461,36 @@ mrcaott770295ott3607692, Ponginae ott1082538, Hylobatidae ott166544</code></pre>
 <section id="sec-plotly" class="level2" data-number="11.3">
 <h2 data-number="11.3" class="anchored" data-anchor-id="sec-plotly"><span class="header-section-number">11.3</span> Convert a <code>ggtree</code> object to a <code>plotly</code> object</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"yulab.utils"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"yulab.utils"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>One way to make a quick interactive phylogenetic tree is using <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> with the <a href="https://CRAN.R-project.org/package=plotly"><strong>plotly</strong></a> package. The <a href="https://plotly-r.com/improving-ggplotly.html">ggplotly()</a> is able to convert <code>ggtree</code> object to a <code>plotly</code> object. Note that the <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package also supports interactive manipulation of the phylogenetic tree via the <a href="#identify">identify()</a> method.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example from https://twitter.com/drandersgs/status/965996335882059776</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># LOAD LIBS ---------------------------------------------------------------</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># CREATE A TREE -------------------------------------------------------------</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>n_samples <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>n_grp <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> ape<span class="sc">::</span><span class="fu">rtree</span>(<span class="at">n =</span> n_samples)</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># CREATE SOME METADATA ----------------------------------------------------</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>id <span class="ot">&lt;-</span> tree<span class="sc">$</span>tip.label</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>grp <span class="ot">&lt;-</span> <span class="fu">sample</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span>n_grp], <span class="at">size =</span> n_samples, <span class="at">replace =</span> T)</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">id =</span> id,</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>                      <span class="at">grp =</span> grp)</span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co"># PLOT THE TREE -----------------------------------------------------------</span></span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree)</span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>metat <span class="ot">&lt;-</span> p1<span class="sc">$</span>data <span class="sc">%&gt;%</span></span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">inner_join</span>(dat, <span class="fu">c</span>(<span class="st">'label'</span> <span class="ot">=</span> <span class="st">'id'</span>))</span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p1 <span class="sc">+</span></span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> metat,</span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> x,</span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> y,</span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>                 <span class="at">colour =</span> grp,</span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>                 <span class="at">label =</span> id))</span>
-<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>plotly<span class="sc">::</span><span class="fu">ggplotly</span>(p2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example from https://twitter.com/drandersgs/status/965996335882059776</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># LOAD LIBS ---------------------------------------------------------------</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># CREATE A TREE -------------------------------------------------------------</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>n_samples <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>n_grp <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> ape<span class="sc">::</span><span class="fu">rtree</span>(<span class="at">n =</span> n_samples)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co"># CREATE SOME METADATA ----------------------------------------------------</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>id <span class="ot">&lt;-</span> tree<span class="sc">$</span>tip.label</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>grp <span class="ot">&lt;-</span> <span class="fu">sample</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span>n_grp], <span class="at">size =</span> n_samples, <span class="at">replace =</span> T)</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">id =</span> id,</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>                      <span class="at">grp =</span> grp)</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co"># PLOT THE TREE -----------------------------------------------------------</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree)</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>metat <span class="ot">&lt;-</span> p1<span class="sc">$</span>data <span class="sc">%&gt;%</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">inner_join</span>(dat, <span class="fu">c</span>(<span class="st">'label'</span> <span class="ot">=</span> <span class="st">'id'</span>))</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p1 <span class="sc">+</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> metat,</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> x,</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> y,</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>                 <span class="at">colour =</span> grp,</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>                 <span class="at">label =</span> id))</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>plotly<span class="sc">::</span><span class="fu">ggplotly</span>(p2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -511,73 +505,73 @@ mrcaott770295ott3607692, Ponginae ott1082538, Hylobatidae ott166544</code></pre>
 <section id="sec-commicR" class="level2" data-number="11.4">
 <h2 data-number="11.4" class="anchored" data-anchor-id="sec-commicR"><span class="header-section-number">11.4</span> Comic (xkcd-like) phylogenetic tree</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(htmltools)    </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(XML)    </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridSVG)    </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)    </span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(comicR)    </span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(<span class="fu">rtree</span>(<span class="dv">30</span>), <span class="at">layout=</span><span class="st">"circular"</span>)  <span class="sc">+</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="fu">aes</span>(<span class="at">label=</span>label), <span class="at">color=</span><span class="st">"purple"</span>)</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p)</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>svg <span class="ot">&lt;-</span> <span class="fu">grid.export</span>(<span class="at">name=</span><span class="st">""</span>, <span class="at">res=</span><span class="dv">100</span>)<span class="sc">$</span>svg</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(htmltools)    </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(XML)    </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridSVG)    </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)    </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(comicR)    </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(<span class="fu">rtree</span>(<span class="dv">30</span>), <span class="at">layout=</span><span class="st">"circular"</span>)  <span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="fu">aes</span>(<span class="at">label=</span>label), <span class="at">color=</span><span class="st">"purple"</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>svg <span class="ot">&lt;-</span> <span class="fu">grid.export</span>(<span class="at">name=</span><span class="st">""</span>, <span class="at">res=</span><span class="dv">100</span>)<span class="sc">$</span>svg</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## need to convert it to png or pdf for pdfbook</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tagList</span>(</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">div</span>(</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">id =</span> <span class="st">"ggtree_comic"</span>,</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>             tags<span class="sc">$</span><span class="fu">style</span>(<span class="st">"#ggtree_comic text {font-family:Chalkduster;}"</span>),</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>             <span class="fu">HTML</span>(<span class="fu">saveXML</span>(svg)),</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>             <span class="fu">comicR</span>(<span class="st">"#ggtree_comic"</span>, <span class="at">ff=</span><span class="dv">5</span>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>         )</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>) <span class="co"># %&gt;% html_print()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">## need to convert it to png or pdf for pdfbook</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tagList</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">div</span>(</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">id =</span> <span class="st">"ggtree_comic"</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>             tags<span class="sc">$</span><span class="fu">style</span>(<span class="st">"#ggtree_comic text {font-family:Chalkduster;}"</span>),</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>             <span class="fu">HTML</span>(<span class="fu">saveXML</span>(svg)),</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>             <span class="fu">comicR</span>(<span class="st">"#ggtree_comic"</span>, <span class="at">ff=</span><span class="dv">5</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>         )</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>) <span class="co"># %&gt;% html_print()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="sec-ascii-tree" class="level2" data-number="11.5">
 <h2 data-number="11.5" class="anchored" data-anchor-id="sec-ascii-tree"><span class="header-section-number">11.5</span> Print ASCII-art Rooted Tree</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.tree)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">10</span>)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">as.Node</span>(tree))</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(d) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(d, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.tree)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">10</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">as.Node</span>(tree))</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(d) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(d, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>NA                        
-NA  11                    
-NA   ¦--12                
-NA   ¦   ¦--t8            
-NA   ¦   °--t4            
-NA   °--13                
-NA       ¦--14            
-NA       ¦   ¦--15        
-NA       ¦   ¦   ¦--t9    
-NA       ¦   ¦   °--t3    
-NA       ¦   °--16        
-NA       ¦       ¦--17    
-NA       ¦       ¦   ¦--t1
-NA       ¦       ¦   °--t6
-NA       ¦       °--t2    
-NA       °--18            
-NA           ¦--t7        
-NA           °--19        
-NA               ¦--t10   
-NA               °--t5</code></pre>
+<pre><code>NA                            
+NA  11                        
+NA   ¦--12                    
+NA   ¦   ¦--t4                
+NA   ¦   °--t3                
+NA   °--13                    
+NA       ¦--14                
+NA       ¦   ¦--15            
+NA       ¦   ¦   ¦--t8        
+NA       ¦   ¦   °--t10       
+NA       ¦   °--16            
+NA       ¦       ¦--17        
+NA       ¦       ¦   ¦--18    
+NA       ¦       ¦   ¦   ¦--t7
+NA       ¦       ¦   ¦   °--t2
+NA       ¦       ¦   °--t5    
+NA       ¦       °--19        
+NA       ¦           ¦--t1    
+NA       ¦           °--t9    
+NA       °--t6</code></pre>
 </div>
 </div>
 <p>It is neat to print ASCII-art of the phylogeny. Sometimes, we don’t want to plot the tree, but just take a glance at the tree structure without leaving the focus from the R console. However, it is not a good idea to print the whole tree as ASCII text if the tree is large. Sometimes, we just want to look at a specific portion of the tree and its immediate relatives. In this scenario, we can use <code>treeio::tree_subset()</code> function (see <a href="subsetting-tree-with-data">session 2.4</a>) to extract selected portion of a tree. Then we can print ASCII-art of the tree subset to explore the evolutionary relationship of the species of our interest in the R console.</p>
 <p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports parsing tip labels as emoji to create <a href="#phylomoji">phylomoji</a>. With the <a href="https://CRAN.R-project.org/package=data.tree"><strong>data.tree</strong></a> and <a href="https://CRAN.R-project.org/package=emojifont"><strong>emojifont</strong></a> packages, we can also print phylomoji as ASCII text (Figure <span class="quarto-unresolved-ref">?fig-emojidatatree</span>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.tree)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emojifont)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>tt <span class="ot">&lt;-</span> <span class="st">'((snail,mushroom),(((sunflower,evergreen_tree),leaves),green_salad));'</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="at">text =</span> tt)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>tree<span class="sc">$</span>tip.label <span class="ot">&lt;-</span> <span class="fu">emoji</span>(tree<span class="sc">$</span>tip.label)</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">as.Node</span>(tree))</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(d) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(d, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.tree)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emojifont)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>tt <span class="ot">&lt;-</span> <span class="st">'((snail,mushroom),(((sunflower,evergreen_tree),leaves),green_salad));'</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="at">text =</span> tt)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>tree<span class="sc">$</span>tip.label <span class="ot">&lt;-</span> <span class="fu">emoji</span>(tree<span class="sc">$</span>tip.label)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">as.Node</span>(tree))</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(d) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(d, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -591,29 +585,29 @@ NA               °--t5</code></pre>
 </div>
 <p>Another way to print ASCII-art of phylogeny is to use the <code>ascii()</code> device defined in the <a href="https://github.com/coolbutuseless/devout"><strong>devout</strong></a> package. Here is an example:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devout)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ascii</span>(<span class="at">width=</span><span class="dv">80</span>)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(<span class="fu">rtree</span>(<span class="dv">5</span>))</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">dev.off</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devout)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ascii</span>(<span class="at">width=</span><span class="dv">80</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(<span class="fu">rtree</span>(<span class="dv">5</span>))</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">dev.off</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NA                                                                                 
-NA                                                                 ######          
-NA                                                                 #               
-NA                                  ################################               
-NA                                  #                              #               
-NA                                  #                              ############    
-NA                   ################                                              
-NA                   #              #                                              
-NA                   #              #                                              
-NA    ################              ##############                                 
-NA    #              #                                                             
-NA    #              #                                                             
-NA    #              #                                                             
-NA    #              #################                                             
+NA                                         ###########################             
+NA                                         #                                       
+NA                 #########################                                       
+NA                 #                       #                                       
+NA                 #                       ####################################    
+NA                 #                                                               
+NA    ##############                                                               
+NA    #            #                                                               
+NA    #            #                                      ########                 
+NA    #            #                                      #                        
+NA    #            ########################################                        
+NA    #                                                   #                        
+NA    #                                                   #####################    
 NA    #                                                                            
 NA    #                                                                            
 NA    #                                                                            
-NA    ########                                                                     
+NA    ##############                                                               
 NA                                                                                 
 NA </code></pre>
 </div>
@@ -623,10 +617,10 @@ NA </code></pre>
 <h2 data-number="11.6" class="anchored" data-anchor-id="sec-facet-zoom"><span class="header-section-number">11.6</span> Zoom in on the Selected Portion</h2>
 <p>In addition to using <code>viewClade()</code> function, users can use the <a href="https://CRAN.R-project.org/package=ggforce"><strong>ggforce</strong></a> package to zoom in on a selected clade (Figure <span class="quarto-unresolved-ref">?fig-facetZoom</span>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2019-08-05</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">30</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>nn <span class="ot">&lt;-</span> tidytree<span class="sc">::</span><span class="fu">offspring</span>(x, <span class="dv">43</span>, <span class="at">self_include=</span><span class="cn">TRUE</span>)</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(x) <span class="sc">+</span> ggforce<span class="sc">::</span><span class="fu">facet_zoom</span>(<span class="at">xy =</span> node <span class="sc">%in%</span> nn)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2019-08-05</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">30</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>nn <span class="ot">&lt;-</span> tidytree<span class="sc">::</span><span class="fu">offspring</span>(x, <span class="dv">43</span>, <span class="at">self_include=</span><span class="cn">TRUE</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(x) <span class="sc">+</span> ggforce<span class="sc">::</span><span class="fu">facet_zoom</span>(<span class="at">xy =</span> node <span class="sc">%in%</span> nn)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -643,23 +637,23 @@ NA </code></pre>
 <section id="sec-ggimage-rm-image-bg" class="level3" data-number="11.7.1">
 <h3 data-number="11.7.1" class="anchored" data-anchor-id="sec-ggimage-rm-image-bg"><span class="header-section-number">11.7.1</span> Example 1: Remove background of images</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggimage)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggimage)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: ggplot2</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>imgdir <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata/frogs"</span>, <span class="at">package =</span> <span class="st">"TDbook"</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1982</span>)</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">5</span>)</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(x) <span class="sc">+</span> <span class="fu">theme_grey</span>()</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_nodelab</span>(<span class="at">image=</span><span class="fu">paste0</span>(imgdir, <span class="st">"/frog.jpg"</span>), </span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">geom=</span><span class="st">"image"</span>, <span class="at">size=</span>.<span class="dv">12</span>) <span class="sc">+</span> </span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggtitle</span>(<span class="st">"original image"</span>)</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_nodelab</span>(<span class="at">image=</span><span class="fu">paste0</span>(imgdir, <span class="st">"/frog.jpg"</span>), </span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">geom=</span><span class="st">"image"</span>, <span class="at">size=</span>.<span class="dv">12</span>,</span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">image_fun=</span> <span class="cf">function</span>(.) magick<span class="sc">::</span><span class="fu">image_transparent</span>(., <span class="st">"white"</span>)) <span class="sc">+</span> </span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggtitle</span>(<span class="st">"image with background removed"</span>)</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>aplot<span class="sc">::</span><span class="fu">plot_list</span>(p1, p2, <span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>imgdir <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata/frogs"</span>, <span class="at">package =</span> <span class="st">"TDbook"</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1982</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">5</span>)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(x) <span class="sc">+</span> <span class="fu">theme_grey</span>()</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_nodelab</span>(<span class="at">image=</span><span class="fu">paste0</span>(imgdir, <span class="st">"/frog.jpg"</span>), </span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">geom=</span><span class="st">"image"</span>, <span class="at">size=</span>.<span class="dv">12</span>) <span class="sc">+</span> </span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggtitle</span>(<span class="st">"original image"</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_nodelab</span>(<span class="at">image=</span><span class="fu">paste0</span>(imgdir, <span class="st">"/frog.jpg"</span>), </span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">geom=</span><span class="st">"image"</span>, <span class="at">size=</span>.<span class="dv">12</span>,</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">image_fun=</span> <span class="cf">function</span>(.) magick<span class="sc">::</span><span class="fu">image_transparent</span>(., <span class="st">"white"</span>)) <span class="sc">+</span> </span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggtitle</span>(<span class="st">"image with background removed"</span>)</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>aplot<span class="sc">::</span><span class="fu">plot_list</span>(p1, p2, <span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -674,9 +668,9 @@ NA </code></pre>
 <h3 data-number="11.7.2" class="anchored" data-anchor-id="sec-ggimage-bgimage"><span class="header-section-number">11.7.2</span> Example 2: Plot tree on a background image</h3>
 <p>The <code>geom_bgimage()</code> adds a layer of the image and puts the layer to the bottom of the layer stack. It is a normal layer and doesn’t change the structure of the output <code>ggtree</code> object. Users can add annotation layers without the background image layer (Figure <span class="quarto-unresolved-ref">?fig-bgimage</span>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(<span class="fu">rtree</span>(<span class="dv">20</span>), <span class="at">size=</span><span class="fl">1.5</span>, <span class="at">color=</span><span class="st">"white"</span>) <span class="sc">+</span> </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bgimage</span>(<span class="st">'img/blackboard.jpg'</span>) <span class="sc">+</span> </span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tiplab</span>(<span class="at">color=</span><span class="st">"white"</span>, <span class="at">size=</span><span class="dv">5</span>, <span class="at">family=</span><span class="st">'xkcd'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(<span class="fu">rtree</span>(<span class="dv">20</span>), <span class="at">size=</span><span class="fl">1.5</span>, <span class="at">color=</span><span class="st">"white"</span>) <span class="sc">+</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bgimage</span>(<span class="st">'img/blackboard.jpg'</span>) <span class="sc">+</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tiplab</span>(<span class="at">color=</span><span class="st">"white"</span>, <span class="at">size=</span><span class="dv">5</span>, <span class="at">family=</span><span class="st">'xkcd'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -691,8 +685,8 @@ NA </code></pre>
 <section id="run-ggtree-in-jupyter-notebook" class="level2" data-number="11.8">
 <h2 data-number="11.8" class="anchored" data-anchor-id="run-ggtree-in-jupyter-notebook"><span class="header-section-number">11.8</span> Run ggtree in Jupyter Notebook</h2>
 <p>If you have <a href="https://jupyter.org/">Jupyter notebook</a> installed on your system, you can install <a href="https://irkernel.github.io/">IRkernel</a> with the following command in R:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"IRkernel"</span>)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>IRkernel<span class="sc">::</span><span class="fu">installspec</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"IRkernel"</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>IRkernel<span class="sc">::</span><span class="fu">installspec</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then you can use <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> and other R packages in the Jupyter notebook (Figure <span class="quarto-unresolved-ref">?fig-jupyter</span>). Here is a screenshot of recreating Figure <span class="quarto-unresolved-ref">?fig-phylomoji1</span> in the Jupyter notebook.</p>
 <div class="cell">
 <div class="cell-output-display">
