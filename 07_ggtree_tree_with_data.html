@@ -8,7 +8,7 @@
 
 <meta name="description" content="Master ggtree package suite to handle tree with data.">
 
-<title>7&nbsp; Plotting tree with data – Data Integration, Manipulation and Visualization of Phylogenetic Trees</title>
+<title>9&nbsp; Plotting tree with data – Data Integration, Manipulation and Visualization of Phylogenetic Trees</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -140,7 +140,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07_ggtree_tree_with_data.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Plotting tree with data</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04_ggtree_visualization.html">Part II: Tree data visualization and annotation</a></li><li class="breadcrumb-item"><a href="./07_ggtree_tree_with_data.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Plotting tree with data</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -180,99 +180,143 @@ div.csl-indent {
  <span class="menu-text">About the Author</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./01_treeio_importing_tree.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">(PART*) Part I: Tree data input, output, and manipulation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./02_tidytree.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Manipulating Tree with Data</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./03_treeio_exporting_tree.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exporting tree with data</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./04_ggtree_visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">(PART*) Part II: Tree data visualization and annotation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./05_interactive_ggtree.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Interactive <code>ggtree</code></span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./05_ggtree_annotation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Phylogenetic Tree Annotation</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./06_ggtree_manipulation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Visual Exploration of Phylogenetic Trees</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./07_ggtree_tree_with_data.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Plotting tree with data</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./08_ggtree_with_silhouette.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Annotating Tree with Silhouette Images and Sub-plots</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./09_ggtree_tree_objects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">ggtree for Other Tree-like Objects</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./10_ggtree_exts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">(PART*) Part III: ggtree extensions</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./11_ggtree_exts-others.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Other ggtree Extensions</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./12_ggtree_utilities.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">(PART*) Part IV: Miscellaneous topics</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./13_ggtree_gallery.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Gallery of Reproducible Examples</span></span></a>
-  </div>
-</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendix</span></a>
+ <span class="menu-text">Part I: Tree data input, output, and manipulation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_treeio_importing_tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importing Tree with Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_tidytree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Manipulating Tree with Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_treeio_exporting_tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Exporting tree with data</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part II: Tree data visualization and annotation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_ggtree_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Phylogenetic Tree Visualization</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_interactive_ggtree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Interactive <code>ggtree</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_ggtree_annotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Phylogenetic Tree Annotation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_ggtree_manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visual Exploration of Phylogenetic Trees</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_ggtree_tree_with_data.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Plotting tree with data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_ggtree_with_silhouette.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Annotating Tree with Silhouette Images and Sub-plots</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_ggtree_tree_objects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">ggtree for Other Tree-like Objects</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part III: ggtree extensions</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_ggtree_exts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">ggtreeExtra for Presenting Data on a Circular Layout</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_ggtree_exts-others.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Other ggtree Extensions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part IV: Miscellaneous topics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_ggtree_utilities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">ggtree Utilities</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_ggtree_gallery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Gallery of Reproducible Examples</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendix</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./A-app-faq.html" class="sidebar-item-text sidebar-link">
@@ -282,13 +326,13 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./A-app-tools.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Related Tools</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Related Tools</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./A-app-fig-tab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Figures and Tables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Figures and Tables</span></span></a>
   </div>
 </li>
       </ul>
@@ -309,24 +353,24 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-attach-operator" id="toc-sec-attach-operator" class="nav-link active" data-scroll-target="#sec-attach-operator"><span class="header-section-number">7.1</span> Mapping Data to The tree Structure</a></li>
-  <li><a href="#sec-facet_plot" id="toc-sec-facet_plot" class="nav-link" data-scroll-target="#sec-facet_plot"><span class="header-section-number">7.2</span> Aligning Graph to the Tree Based on the Tree Structure</a></li>
-  <li><a href="#sec-gheatmap" id="toc-sec-gheatmap" class="nav-link" data-scroll-target="#sec-gheatmap"><span class="header-section-number">7.3</span> Visualize a Tree with an Associated Matrix</a>
+  <li><a href="#sec-attach-operator" id="toc-sec-attach-operator" class="nav-link active" data-scroll-target="#sec-attach-operator"><span class="header-section-number">9.1</span> Mapping Data to The tree Structure</a></li>
+  <li><a href="#sec-facet_plot" id="toc-sec-facet_plot" class="nav-link" data-scroll-target="#sec-facet_plot"><span class="header-section-number">9.2</span> Aligning Graph to the Tree Based on the Tree Structure</a></li>
+  <li><a href="#sec-gheatmap" id="toc-sec-gheatmap" class="nav-link" data-scroll-target="#sec-gheatmap"><span class="header-section-number">9.3</span> Visualize a Tree with an Associated Matrix</a>
   <ul class="collapse">
-  <li><a href="#sec-gheatmap-ggnewscale" id="toc-sec-gheatmap-ggnewscale" class="nav-link" data-scroll-target="#sec-gheatmap-ggnewscale"><span class="header-section-number">7.3.1</span> Visualize a tree with multiple associated matrices</a></li>
+  <li><a href="#sec-gheatmap-ggnewscale" id="toc-sec-gheatmap-ggnewscale" class="nav-link" data-scroll-target="#sec-gheatmap-ggnewscale"><span class="header-section-number">9.3.1</span> Visualize a tree with multiple associated matrices</a></li>
   </ul></li>
-  <li><a href="#sec-msaplot" id="toc-sec-msaplot" class="nav-link" data-scroll-target="#sec-msaplot"><span class="header-section-number">7.4</span> Visualize a Tree with Multiple Sequence Alignments</a></li>
-  <li><a href="#sec-composite_plot" id="toc-sec-composite_plot" class="nav-link" data-scroll-target="#sec-composite_plot"><span class="header-section-number">7.5</span> Composite Plots</a></li>
-  <li><a href="#sec-summary7" id="toc-sec-summary7" class="nav-link" data-scroll-target="#sec-summary7"><span class="header-section-number">7.6</span> Summary</a></li>
+  <li><a href="#sec-msaplot" id="toc-sec-msaplot" class="nav-link" data-scroll-target="#sec-msaplot"><span class="header-section-number">9.4</span> Visualize a Tree with Multiple Sequence Alignments</a></li>
+  <li><a href="#sec-composite_plot" id="toc-sec-composite_plot" class="nav-link" data-scroll-target="#sec-composite_plot"><span class="header-section-number">9.5</span> Composite Plots</a></li>
+  <li><a href="#sec-summary7" id="toc-sec-summary7" class="nav-link" data-scroll-target="#sec-summary7"><span class="header-section-number">9.6</span> Summary</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/YuLab-SMU/treedata-book/edit/main/07_ggtree_tree_with_data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/blob/main/07_ggtree_tree_with_data.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04_ggtree_visualization.html">Part II: Tree data visualization and annotation</a></li><li class="breadcrumb-item"><a href="./07_ggtree_tree_with_data.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Plotting tree with data</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-chapter7" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Plotting tree with data</span></span></h1>
+<h1 class="title"><span id="sec-chapter7" class="quarto-section-identifier"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Plotting tree with data</span></span></h1>
 </div>
 
 
@@ -363,9 +407,9 @@ doi: 10.1093/molbev/msz240</code></pre>
 </div>
 <p>Integrating user data to annotate a phylogenetic tree can be done at different levels. The <a href="http://bioconductor.org/packages/treeio">treeio</a> package <span class="citation" data-cites="wang_treeio_2020">(<a href="#ref-wang_treeio_2020" role="doc-biblioref">Wang et al., 2020</a>)</span> implements <code>full_join()</code> methods to combine tree data to phylogenetic tree object. The <a href="https://CRAN.R-project.org/package=tidytree">tidytree</a> package supports linking tree data to phylogeny using tidyverse verbs (see also <a href="#chapter2">Chapter 2</a>). The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> package <span class="citation" data-cites="yu_two_2018">(<a href="#ref-yu_two_2018" role="doc-biblioref">Yu et al., 2018</a>)</span> supports mapping external data to phylogeny for visualization and annotation on the fly. Although the feature of linking external data is overlapping among these packages, they have different application scopes. For example, in addition to the <code>treedata</code> object, <a href="http://bioconductor.org/packages/ggtree">ggtree</a> also supports several other tree objects (see <a href="#chapter9">Chapter 9</a>), including <code>phylo4d</code>, <code>phyloseq</code>, and <code>obkData</code> that were designed to contain domain-specific data. The design of these objects did not consider supporting linking external data to the object (it can not be done at the tree object level). We can visualize trees from these objects using <a href="http://bioconductor.org/packages/ggtree">ggtree</a> and link external data at the visualization level <span class="citation" data-cites="yu_two_2018">(<a href="#ref-yu_two_2018" role="doc-biblioref">Yu et al., 2018</a>)</span>.</p>
 <p>The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> package provides two general methods for mapping and visualizing associated external data on phylogenies. <a href="#attach-operator">Method 1</a> allows external data to be mapped on the tree structure and used as visual characteristics in the tree and data visualization. <a href="#facet_plot">Method 2</a> plots the data with the tree side-by-side using different geometric functions after reordering the data based on the tree structure. These two methods integrate data with phylogeny for further exploration and comparison in the evolutionary biology context. The <a href="http://bioconductor.org/packages/ggtreeExtra">ggtreeExtra</a> provides a better implementation of the Method 2 proposed in <a href="http://bioconductor.org/packages/ggtree">ggtree</a> (see also <a href="#chapter10">Chapter 10</a>) and works with both rectangular and circular layouts <span class="citation" data-cites="ggtreeExtra_2021">(<a href="#ref-ggtreeExtra_2021" role="doc-biblioref">Xu et al., 2021</a>)</span>.</p>
-<section id="sec-attach-operator" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="sec-attach-operator"><span class="header-section-number">7.1</span> Mapping Data to The tree Structure</h2>
-<p>In <a href="http://bioconductor.org/packages/ggtree">ggtree</a>, we implemented an operator, <code>%&lt;+%</code>, to attach annotation data to a <code>ggtree</code> graphic object. Any data that contains a column of “node” or the first column of taxa labels can be integrated using the <code>%&lt;+%</code> operator. Multiple datasets can be attached progressively. When the data are attached, all the information stored in the data serves as numerical/categorical node attributes and can be directly used to visualize the tree by scaling the attributes as different colors or line sizes, labeling the tree using the original values of the attributes or parsing them as <a href="#faq-formatting-label">math expression</a>, <a href="#phylomoji">emoji</a> or <a href="#ggimage">silhouette image</a>. The following example uses the <code>%&lt;+%</code> operator to integrate taxon (<code>df_tip_data</code>) and internal node (<code>df_inode_data</code>) information and map the data to different colors or shapes of symbolic points and labels (Figure <a href="#fig-attacher" class="quarto-xref">Figure&nbsp;<span>7.1</span></a>). The tip data contains <code>imageURL</code> that links to online figures of the species, which can be parsed and used as tip labels in <a href="http://bioconductor.org/packages/ggtree">ggtree</a> (see <a href="#chapter8">Chapter 8</a>).</p>
+<section id="sec-attach-operator" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="sec-attach-operator"><span class="header-section-number">9.1</span> Mapping Data to The tree Structure</h2>
+<p>In <a href="http://bioconductor.org/packages/ggtree">ggtree</a>, we implemented an operator, <code>%&lt;+%</code>, to attach annotation data to a <code>ggtree</code> graphic object. Any data that contains a column of “node” or the first column of taxa labels can be integrated using the <code>%&lt;+%</code> operator. Multiple datasets can be attached progressively. When the data are attached, all the information stored in the data serves as numerical/categorical node attributes and can be directly used to visualize the tree by scaling the attributes as different colors or line sizes, labeling the tree using the original values of the attributes or parsing them as <a href="#faq-formatting-label">math expression</a>, <a href="#phylomoji">emoji</a> or <a href="#ggimage">silhouette image</a>. The following example uses the <code>%&lt;+%</code> operator to integrate taxon (<code>df_tip_data</code>) and internal node (<code>df_inode_data</code>) information and map the data to different colors or shapes of symbolic points and labels (Figure <a href="#fig-attacher" class="quarto-xref">Figure&nbsp;<span>9.1</span></a>). The tip data contains <code>imageURL</code> that links to online figures of the species, which can be parsed and used as tip labels in <a href="http://bioconductor.org/packages/ggtree">ggtree</a> (see <a href="#chapter8">Chapter 8</a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggimage)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
@@ -389,7 +433,7 @@ doi: 10.1093/molbev/msz240</code></pre>
 <img src="07_ggtree_tree_with_data_files/figure-html/fig-attacher-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:attacherscap)">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-attacher-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.1: <strong>Example of attaching multiple datasets</strong>. External datasets including tip data (e.g., trophic habit and body weight) and node data (e.g., clade posterior and vernacular name) were attached to the <code>ggtree</code> graphic via the <code>%&lt;+%</code> operator and the data was used to annotate the tree.
+Figure&nbsp;9.1: <strong>Example of attaching multiple datasets</strong>. External datasets including tip data (e.g., trophic habit and body weight) and node data (e.g., clade posterior and vernacular name) were attached to the <code>ggtree</code> graphic via the <code>%&lt;+%</code> operator and the data was used to annotate the tree.
 </figcaption>
 </figure>
 </div>
@@ -397,15 +441,15 @@ Figure&nbsp;7.1: <strong>Example of attaching multiple datasets</strong>. Extern
 </div>
 <p>Although the data integrated by the <code>%&lt;+%</code> operator in <a href="http://bioconductor.org/packages/ggtree">ggtree</a> is for tree visualization, the data attached to the <code>ggtree</code> graphic object can be converted to <code>treedata</code> object that contains the tree and the attached data (see <a href="#ggtree_object">session 7.5</a>).</p>
 </section>
-<section id="sec-facet_plot" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="sec-facet_plot"><span class="header-section-number">7.2</span> Aligning Graph to the Tree Based on the Tree Structure</h2>
-<p>For associating phylogenetic tree with different types of plot produced by user’s data, <a href="http://bioconductor.org/packages/ggtree">ggtree</a> provides <code>geom_facet()</code> layer and <code>facet_plot()</code> function which accept an input <code>data.frame</code> and a <code>geom</code> layer to draw the input data. The data will be displayed in an additional panel of the plot. The <code>geom_facet()</code> (or <code>facet_plot</code>) is a general solution for linking the graphic layer to a tree. The function internally re-orders the input data based on the tree structure and visualizes the data at the specific panel by the geometric layer. Users are free to visualize several panels to plot different types of data as demonstrated in Figure <a href="09_ggtree_tree_objects.html#fig-phyloseq" class="quarto-xref">Figure&nbsp;<span>9.4</span></a> and to use different geometric layers to plot the same dataset (Figure <a href="13_ggtree_gallery.html#fig-jv2017" class="quarto-xref">Figure&nbsp;<span>11.1</span></a>) or different datasets on the same panel.</p>
-<p>The <code>geom_facet()</code> is designed to work with most of the <code>geom</code> layers defined in <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> and other <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a>-based packages. A list of the geometric layers that work seamlessly with <code>geom_facet()</code> and <code>facet_plot()</code> can be found in Table <a href="#tbl-facet-geom" class="quarto-xref">Table&nbsp;<span>7.1</span></a>. As the <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> community keeps expanding and more <code>geom</code> layers will be implemented in either <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> or other extensions, <code>geom_facet()</code> and <code>facet_plot()</code> will gain more power to present data in the future. Note that different <code>geom</code> layers can be combined to present data on the same panel and the combinations of different <code>geom</code> layers create the possibility to present more complex data with phylogeny (see also Figures <a href="13_ggtree_gallery.html#fig-jv2017" class="quarto-xref">Figure&nbsp;<span>11.1</span></a> and <a href="13_ggtree_gallery.html#fig-gggenes" class="quarto-xref">Figure&nbsp;<span>11.4</span></a>). Users can progressively add multiple panels to present and compare different datasets in the evolutionary context (Figure <a href="#fig-plottree" class="quarto-xref">Figure&nbsp;<span>7.2</span></a>). Detailed descriptions can be found in the <a href="https://github.com/GuangchuangYu/plotting_tree_with_data/">supplemental file</a> of <span class="citation" data-cites="yu_two_2018">(<a href="#ref-yu_two_2018" role="doc-biblioref">Yu et al., 2018</a>)</span>.</p>
+<section id="sec-facet_plot" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="sec-facet_plot"><span class="header-section-number">9.2</span> Aligning Graph to the Tree Based on the Tree Structure</h2>
+<p>For associating phylogenetic tree with different types of plot produced by user’s data, <a href="http://bioconductor.org/packages/ggtree">ggtree</a> provides <code>geom_facet()</code> layer and <code>facet_plot()</code> function which accept an input <code>data.frame</code> and a <code>geom</code> layer to draw the input data. The data will be displayed in an additional panel of the plot. The <code>geom_facet()</code> (or <code>facet_plot</code>) is a general solution for linking the graphic layer to a tree. The function internally re-orders the input data based on the tree structure and visualizes the data at the specific panel by the geometric layer. Users are free to visualize several panels to plot different types of data as demonstrated in Figure <a href="09_ggtree_tree_objects.html#fig-phyloseq" class="quarto-xref">Figure&nbsp;<span>11.4</span></a> and to use different geometric layers to plot the same dataset (Figure <a href="13_ggtree_gallery.html#fig-jv2017" class="quarto-xref">Figure&nbsp;<span>15.1</span></a>) or different datasets on the same panel.</p>
+<p>The <code>geom_facet()</code> is designed to work with most of the <code>geom</code> layers defined in <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> and other <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a>-based packages. A list of the geometric layers that work seamlessly with <code>geom_facet()</code> and <code>facet_plot()</code> can be found in Table <a href="#tbl-facet-geom" class="quarto-xref">Table&nbsp;<span>9.1</span></a>. As the <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> community keeps expanding and more <code>geom</code> layers will be implemented in either <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> or other extensions, <code>geom_facet()</code> and <code>facet_plot()</code> will gain more power to present data in the future. Note that different <code>geom</code> layers can be combined to present data on the same panel and the combinations of different <code>geom</code> layers create the possibility to present more complex data with phylogeny (see also Figures <a href="13_ggtree_gallery.html#fig-jv2017" class="quarto-xref">Figure&nbsp;<span>15.1</span></a> and <a href="13_ggtree_gallery.html#fig-gggenes" class="quarto-xref">Figure&nbsp;<span>15.4</span></a>). Users can progressively add multiple panels to present and compare different datasets in the evolutionary context (Figure <a href="#fig-plottree" class="quarto-xref">Figure&nbsp;<span>9.2</span></a>). Detailed descriptions can be found in the <a href="https://github.com/GuangchuangYu/plotting_tree_with_data/">supplemental file</a> of <span class="citation" data-cites="yu_two_2018">(<a href="#ref-yu_two_2018" role="doc-biblioref">Yu et al., 2018</a>)</span>.</p>
 <div class="cell">
 <div id="tbl-facet-geom" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-facet-geom-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;7.1: Geometric layers compatible with <code>geom_facet()</code> and <code>facet_plot()</code>.
+Table&nbsp;9.1: Geometric layers compatible with <code>geom_facet()</code> and <code>facet_plot()</code>.
 </figcaption>
 <div aria-describedby="tbl-facet-geom-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -507,19 +551,19 @@ Table&nbsp;7.1: Geometric layers compatible with <code>geom_facet()</code> and <
 <img src="07_ggtree_tree_with_data_files/figure-html/fig-plottree-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:plottreescap)">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plottree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.2: <strong>Example of plotting SNP and trait data</strong>. The ‘location’ information was attached to the tree and used to color tip symbols (Tree panel), and other datasets. SNP and Trait data were visualized as dot chart (SNP panel) and bar chart (Trait panel).
+Figure&nbsp;9.2: <strong>Example of plotting SNP and trait data</strong>. The ‘location’ information was attached to the tree and used to color tip symbols (Tree panel), and other datasets. SNP and Trait data were visualized as dot chart (SNP panel) and bar chart (Trait panel).
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Companion functions to adjust <a href="#facet_widths">panel widths</a> and <a href="#facet_labeller">rename panel names</a> are described in <a href="#facet-utils">session 12.1</a>. Removing the panel name is also possible and an example was presented in Figure <a href="13_ggtree_gallery.html#fig-gggenes" class="quarto-xref">Figure&nbsp;<span>11.4</span></a>. We can also use <a href="https://CRAN.R-project.org/package=aplot">aplot</a> or <a href="https://CRAN.R-project.org/package=patchwork">patchwork</a> to create composite plots as described in <a href="#composite_plot">session 7.5</a>.</p>
+<p>Companion functions to adjust <a href="#facet_widths">panel widths</a> and <a href="#facet_labeller">rename panel names</a> are described in <a href="#facet-utils">session 12.1</a>. Removing the panel name is also possible and an example was presented in Figure <a href="13_ggtree_gallery.html#fig-gggenes" class="quarto-xref">Figure&nbsp;<span>15.4</span></a>. We can also use <a href="https://CRAN.R-project.org/package=aplot">aplot</a> or <a href="https://CRAN.R-project.org/package=patchwork">patchwork</a> to create composite plots as described in <a href="#composite_plot">session 7.5</a>.</p>
 <p>The <code>geom_facet()</code> (or <code>facet_plot()</code>) internally used <code>ggplot2::facet_grid()</code> and only works with Cartesian coordinate system. To align the graph to the tree for the polar system (e.g., for circular or fan layouts), we developed another Bioconductor package, <a href="http://bioconductor.org/packages/ggtreeExtra">ggtreeExtra</a>. The <a href="http://bioconductor.org/packages/ggtreeExtra">ggtreeExtra</a> package provides the <code>geom_fruit()</code> layer that works similar to <code>geom_facet()</code> (details described in <a href="#chapter10">Chapter 10</a>). The <code>geom_fruit()</code> is a better implementation of the Method 2 proposed in <span class="citation" data-cites="yu_two_2018">(<a href="#ref-yu_two_2018" role="doc-biblioref">Yu et al., 2018</a>)</span>.</p>
 </section>
-<section id="sec-gheatmap" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="sec-gheatmap"><span class="header-section-number">7.3</span> Visualize a Tree with an Associated Matrix</h2>
-<p>The <code>gheatmap()</code> function is designed to visualize the phylogenetic tree with a heatmap of an associated matrix (either numerical or categorical). The <code>geom_facet()</code> layer is a general solution for plotting data with the tree, including heatmap. The <code>gheatmap()</code> function is specifically designed for plotting heatmap with a tree and provides a shortcut for handling column labels and color palettes. Another difference is that <code>geom_facet()</code> only supports rectangular and slanted tree layouts, while <code>gheatmap()</code> supports rectangular, slanted, and circular (Figure <a href="#fig-mgheatmap" class="quarto-xref">Figure&nbsp;<span>7.4</span></a>) layouts.</p>
-<p>In the following example, we visualized a tree of H3 influenza viruses with their associated genotypes (Figure <a href="#fig-gheatmap-1" class="quarto-xref">Figure&nbsp;<span>7.3 (a)</span></a>).</p>
+<section id="sec-gheatmap" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="sec-gheatmap"><span class="header-section-number">9.3</span> Visualize a Tree with an Associated Matrix</h2>
+<p>The <code>gheatmap()</code> function is designed to visualize the phylogenetic tree with a heatmap of an associated matrix (either numerical or categorical). The <code>geom_facet()</code> layer is a general solution for plotting data with the tree, including heatmap. The <code>gheatmap()</code> function is specifically designed for plotting heatmap with a tree and provides a shortcut for handling column labels and color palettes. Another difference is that <code>geom_facet()</code> only supports rectangular and slanted tree layouts, while <code>gheatmap()</code> supports rectangular, slanted, and circular (Figure <a href="#fig-mgheatmap" class="quarto-xref">Figure&nbsp;<span>9.4</span></a>) layouts.</p>
+<p>In the following example, we visualized a tree of H3 influenza viruses with their associated genotypes (Figure <a href="#fig-gheatmap-1" class="quarto-xref">Figure&nbsp;<span>9.3 (a)</span></a>).</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>beast_file <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"examples/MCC_FluA_H3.tree"</span>, <span class="at">package=</span><span class="st">"ggtree"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>beast_tree <span class="ot">&lt;-</span> <span class="fu">read.beast</span>(beast_file)</span>
@@ -536,7 +580,7 @@ Figure&nbsp;7.2: <strong>Example of plotting SNP and trait data</strong>. The �
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">values=</span><span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"firebrick"</span>, <span class="st">"darkgreen"</span>), <span class="at">name=</span><span class="st">"genotype"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The <code>width</code> parameter is to control the width of the heatmap. It supports another parameter <code>offset</code> for controlling the distance between the tree and the heatmap, such as allocating space for tip labels.</p>
-<p>For a timescaled tree, as in this example, it’s more common to use <em>x</em>-axis by using <code>theme_tree2</code>. But with this solution, the heatmap is just another layer and will change the <em>x</em>-axis. To overcome this issue, we implemented <code>scale_x_ggtree()</code> to set the <em>x</em>-axis more reasonably (Figure <a href="#fig-gheatmap-2" class="quarto-xref">Figure&nbsp;<span>7.3 (b)</span></a>).</p>
+<p>For a timescaled tree, as in this example, it’s more common to use <em>x</em>-axis by using <code>theme_tree2</code>. But with this solution, the heatmap is just another layer and will change the <em>x</em>-axis. To overcome this issue, we implemented <code>scale_x_ggtree()</code> to set the <em>x</em>-axis more reasonably (Figure <a href="#fig-gheatmap-2" class="quarto-xref">Figure&nbsp;<span>9.3 (b)</span></a>).</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(beast_tree, <span class="at">mrsd=</span><span class="st">"2013-01-01"</span>) <span class="sc">+</span> </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="at">size=</span><span class="dv">2</span>, <span class="at">align=</span><span class="cn">TRUE</span>, <span class="at">linesize=</span>.<span class="dv">5</span>) <span class="sc">+</span> </span>
@@ -579,12 +623,12 @@ Figure&nbsp;7.2: <strong>Example of plotting SNP and trait data</strong>. The �
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gheatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.3: Example of plotting matrix with <code>gheatmap()</code>.
+Figure&nbsp;9.3: Example of plotting matrix with <code>gheatmap()</code>.
 </figcaption>
 </figure>
 </div>
-<section id="sec-gheatmap-ggnewscale" class="level3" data-number="7.3.1">
-<h3 data-number="7.3.1" class="anchored" data-anchor-id="sec-gheatmap-ggnewscale"><span class="header-section-number">7.3.1</span> Visualize a tree with multiple associated matrices</h3>
+<section id="sec-gheatmap-ggnewscale" class="level3" data-number="9.3.1">
+<h3 data-number="9.3.1" class="anchored" data-anchor-id="sec-gheatmap-ggnewscale"><span class="header-section-number">9.3.1</span> Visualize a tree with multiple associated matrices</h3>
 <p>Of course, we can use multiple <code>gheatmap()</code> function calls to align several associated matrices with the tree. However, <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> doesn’t allow us to use multiple <code>fill</code> scales<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <p>To solve this issue, we can use the <a href="https://CRAN.R-project.org/package=ggnewscale">ggnewscale</a> package to create new <code>fill</code> scales. Here is an example of using <a href="https://CRAN.R-project.org/package=ggnewscale">ggnewscale</a> with <code>gheatmap()</code>.</p>
 <div class="cell">
@@ -621,7 +665,7 @@ Figure&nbsp;7.3: Example of plotting matrix with <code>gheatmap()</code>.
 <img src="07_ggtree_tree_with_data_files/figure-html/fig-mgheatmap-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:mgheatmapscap)">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mgheatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.4: <strong>Example of plotting multiple matrix with <code>gheatmap()</code></strong>. A data frame (with ‘first’ and ‘second’ columns) was visualized as a discrete heatmap and another data frame (with ‘A’, ‘B’ and ‘C’ columns) was visualized as a continuous heatmap with corresponding discrete and continuous palette of colors (Figure <a href="#fig-mgheatmap" class="quarto-xref">Figure&nbsp;<span>7.4</span></a>).
+Figure&nbsp;9.4: <strong>Example of plotting multiple matrix with <code>gheatmap()</code></strong>. A data frame (with ‘first’ and ‘second’ columns) was visualized as a discrete heatmap and another data frame (with ‘A’, ‘B’ and ‘C’ columns) was visualized as a continuous heatmap with corresponding discrete and continuous palette of colors (Figure <a href="#fig-mgheatmap" class="quarto-xref">Figure&nbsp;<span>9.4</span></a>).
 </figcaption>
 </figure>
 </div>
@@ -629,9 +673,9 @@ Figure&nbsp;7.4: <strong>Example of plotting multiple matrix with <code>gheatmap
 </div>
 </section>
 </section>
-<section id="sec-msaplot" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="sec-msaplot"><span class="header-section-number">7.4</span> Visualize a Tree with Multiple Sequence Alignments</h2>
-<p>The <code>msaplot()</code> accepts a tree (output of <code>ggtree()</code>) and a fasta file, then it can visualize the tree with sequence alignment. We can specify the <code>width</code> (relative to the tree) of the alignment and adjust the relative position by <code>offset</code>, which is similar to the <code>gheatmap()</code> function (Figure <a href="#fig-msaplot-1" class="quarto-xref">Figure&nbsp;<span>7.5 (a)</span></a>).</p>
+<section id="sec-msaplot" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="sec-msaplot"><span class="header-section-number">9.4</span> Visualize a Tree with Multiple Sequence Alignments</h2>
+<p>The <code>msaplot()</code> accepts a tree (output of <code>ggtree()</code>) and a fasta file, then it can visualize the tree with sequence alignment. We can specify the <code>width</code> (relative to the tree) of the alignment and adjust the relative position by <code>offset</code>, which is similar to the <code>gheatmap()</code> function (Figure <a href="#fig-msaplot-1" class="quarto-xref">Figure&nbsp;<span>9.5 (a)</span></a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TDbook)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -646,7 +690,7 @@ Figure&nbsp;7.4: <strong>Example of plotting multiple matrix with <code>gheatmap
 </div>
 </div>
 </div>
-<p>A specific slice of the alignment can also be displayed by specifying the <code>window</code> parameter (Figure <a href="#fig-msaplot-2" class="quarto-xref">Figure&nbsp;<span>7.5 (b)</span></a>)..</p>
+<p>A specific slice of the alignment can also be displayed by specifying the <code>window</code> parameter (Figure <a href="#fig-msaplot-2" class="quarto-xref">Figure&nbsp;<span>9.5 (b)</span></a>)..</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree_seq_nwk, <span class="at">layout=</span><span class="st">'circular'</span>) <span class="sc">+</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="at">offset=</span><span class="dv">4</span>, <span class="at">align=</span><span class="cn">TRUE</span>) <span class="sc">+</span> <span class="fu">xlim</span>(<span class="cn">NA</span>, <span class="dv">12</span>)</span>
@@ -683,14 +727,14 @@ Figure&nbsp;7.4: <strong>Example of plotting multiple matrix with <code>gheatmap
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-msaplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.5: Example of plotting multiple sequence alignments with a tree.
+Figure&nbsp;9.5: Example of plotting multiple sequence alignments with a tree.
 </figcaption>
 </figure>
 </div>
 <p>To better support visualizing multiple sequence alignments with a tree and other associated data, we developed the <a href="http://bioconductor.org/packages/ggmsa">ggmsa</a> package with the ability to label the sequences and color the sequences with different color schemes <span class="citation" data-cites="yu_cp_2020">(<a href="#ref-yu_cp_2020" role="doc-biblioref">Yu, 2020</a>)</span>. The <code>ggmsa()</code> output is compatible with <code>geom_facet()</code> and <code>ggtreeExtra::geom_fruit()</code> and can be used to visualize a tree, multiple sequence alignments, and different types of associated data to explore their underlying linkages/associations.</p>
 </section>
-<section id="sec-composite_plot" class="level2" data-number="7.5">
-<h2 data-number="7.5" class="anchored" data-anchor-id="sec-composite_plot"><span class="header-section-number">7.5</span> Composite Plots</h2>
+<section id="sec-composite_plot" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="sec-composite_plot"><span class="header-section-number">9.5</span> Composite Plots</h2>
 <p>In addition to aligning graphs to a tree using <code>geom_facet()</code> or <code>ggtreeExtra::geom_fruit()</code> and special cases using the <code>gheatmap()</code> and <code>msaplot()</code> functions, users can use <a href="https://CRAN.R-project.org/package=cowplot">cowplot</a>, <a href="https://CRAN.R-project.org/package=patchwork">patchwork</a>, <a href="https://CRAN.R-project.org/package=gtable">gtable</a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> or other packages to create composite plots. However, extra efforts need to be done to make sure all the plots are aligned properly. The <a href="#tiporder"><code>ggtree::get_taxa_name()</code></a> function is quite useful for users to re-order their data based on the tree structure. To remove this obstacle, we created an R package <a href="https://CRAN.R-project.org/package=aplot">aplot</a> that can re-order the internal data of a <code>ggplot</code> object and create composite plots that align properly with a tree.</p>
 <p>In the following example, we have a tree with two associated datasets.</p>
 <div class="cell">
@@ -760,9 +804,9 @@ plot_grid(g, p1, p2, ncol=3, align='h',
 The `ylim2()` is not designed specific for [ggtree](http://bioconductor.org/packages/ggtree), it works fine with `ggplot` object. Another function `xlim2()` that works for x limits is also provided. See [session 10.5](#axis_align) for more details.
 
 -->
-<p>If we align them using <a href="https://CRAN.R-project.org/package=cowplot">cowplot</a>, the composite plots are not aligned properly as we anticipated (Figure <a href="#fig-composite-1" class="quarto-xref">Figure&nbsp;<span>7.6 (a)</span></a>).</p>
+<p>If we align them using <a href="https://CRAN.R-project.org/package=cowplot">cowplot</a>, the composite plots are not aligned properly as we anticipated (Figure <a href="#fig-composite-1" class="quarto-xref">Figure&nbsp;<span>9.6 (a)</span></a>).</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(g, p2, p1, <span class="at">ncol=</span><span class="dv">3</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Using <a href="https://CRAN.R-project.org/package=aplot">aplot</a>, it will do all the dirty work for us and all the subplots are aligned properly as demonstrated in Figure <a href="#fig-composite-2" class="quarto-xref">Figure&nbsp;<span>7.6 (b)</span></a>.</p>
+<p>Using <a href="https://CRAN.R-project.org/package=aplot">aplot</a>, it will do all the dirty work for us and all the subplots are aligned properly as demonstrated in Figure <a href="#fig-composite-2" class="quarto-xref">Figure&nbsp;<span>9.6 (b)</span></a>.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(aplot)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="sc">%&gt;%</span> <span class="fu">insert_left</span>(g) <span class="sc">%&gt;%</span> <span class="fu">insert_right</span>(p1, <span class="at">width=</span>.<span class="dv">5</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="fig-composite" class="quarto-layout-panel">
@@ -798,7 +842,7 @@ The `ylim2()` is not designed specific for [ggtree](http://bioconductor.org/pack
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-composite-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.6: Example of aligning tree with data side-by-side to create composite plot.
+Figure&nbsp;9.6: Example of aligning tree with data side-by-side to create composite plot.
 </figcaption>
 </figure>
 </div>
@@ -821,24 +865,24 @@ p %<% rtree(50)
 ```
 -->
 </section>
-<section id="sec-summary7" class="level2" data-number="7.6">
-<h2 data-number="7.6" class="anchored" data-anchor-id="sec-summary7"><span class="header-section-number">7.6</span> Summary</h2>
+<section id="sec-summary7" class="level2" data-number="9.6">
+<h2 data-number="9.6" class="anchored" data-anchor-id="sec-summary7"><span class="header-section-number">9.6</span> Summary</h2>
 <p>Although there are many software packages that support visualizing phylogenetic trees, plotting a tree with data is often missing or with only limited support. Some of the packages define <code>S4</code> classes to store phylogenetic tree with domain-specific data, such as <a href="https://CRAN.R-project.org/package=OutbreakTools">OutbreakTools</a> <span class="citation" data-cites="jombart_outbreaktools_2014">(<a href="#ref-jombart_outbreaktools_2014" role="doc-biblioref">Jombart et al., 2014</a>)</span> defined <code>obkData</code> for storing tree with epidemiology data and <a href="http://bioconductor.org/packages/phyloseq">phyloseq</a> <span class="citation" data-cites="mcmurdie_phyloseq_2013">(<a href="#ref-mcmurdie_phyloseq_2013" role="doc-biblioref">McMurdie &amp; Holmes, 2013</a>)</span> defines <code>phyloseq</code> for storing tree with microbiome data. These packages are capable of presenting some of the data stored in the object on the tree. However, not all the associated data are supported. For example, species abundance stored in the <code>phyloseq</code> object is not supported to be visualized using the <a href="http://bioconductor.org/packages/phyloseq">phyloseq</a> package. These packages did not provide any utilities to integrate external data for tree visualization. None of these packages support visualizing external data and aligning the plot to a tree based on the tree structure.</p>
-<p>The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> package provides two general solutions for integrating data. Method 1, the <code>%&lt;+%</code> operator, can integrate external and internal node data and map the data as a visual characteristic to visualize the tree and other datasets used in <code>geom_facet()</code> or <code>ggtreeExtra::geom_fruit()</code>. Method 2, the <code>geom_facet</code> layer or <code>ggtreeExtra::geom_fruit()</code>, has no restriction of input data as long as there is a <code>geom</code> function available to plot the data (<em>e.g.</em>, species abundance displayed by <code>geom_density_ridges</code> as demonstrated in Figure <a href="09_ggtree_tree_objects.html#fig-phyloseq" class="quarto-xref">Figure&nbsp;<span>9.4</span></a>). Users are free to combine different panels and combine different <code>geom</code> layers in the same panel (Figure <a href="13_ggtree_gallery.html#fig-jv2017" class="quarto-xref">Figure&nbsp;<span>11.1</span></a>).</p>
+<p>The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> package provides two general solutions for integrating data. Method 1, the <code>%&lt;+%</code> operator, can integrate external and internal node data and map the data as a visual characteristic to visualize the tree and other datasets used in <code>geom_facet()</code> or <code>ggtreeExtra::geom_fruit()</code>. Method 2, the <code>geom_facet</code> layer or <code>ggtreeExtra::geom_fruit()</code>, has no restriction of input data as long as there is a <code>geom</code> function available to plot the data (<em>e.g.</em>, species abundance displayed by <code>geom_density_ridges</code> as demonstrated in Figure <a href="09_ggtree_tree_objects.html#fig-phyloseq" class="quarto-xref">Figure&nbsp;<span>11.4</span></a>). Users are free to combine different panels and combine different <code>geom</code> layers in the same panel (Figure <a href="13_ggtree_gallery.html#fig-jv2017" class="quarto-xref">Figure&nbsp;<span>15.1</span></a>).</p>
 <div style="page-break-after: always;"></div>
 <p>The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> package has many unique features that cannot be found in other implementations <span class="citation" data-cites="yu_two_2018">(<a href="#ref-yu_two_2018" role="doc-biblioref">Yu et al., 2018</a>)</span>:</p>
 <ol type="1">
-<li>Integrating node/edge data to the tree can be mapped to visual characteristics of the tree or other datasets (Figure <a href="#fig-attacher" class="quarto-xref">Figure&nbsp;<span>7.1</span></a>).</li>
+<li>Integrating node/edge data to the tree can be mapped to visual characteristics of the tree or other datasets (Figure <a href="#fig-attacher" class="quarto-xref">Figure&nbsp;<span>9.1</span></a>).</li>
 <li>Capable of parsing expressions (math symbols or text formatting), emoji, and image files (<a href="#chapter8">Chapter 8</a>).</li>
-<li>No pre-definition of input data types or how the data should be plotted in <code>geom_facet()</code> (Table <a href="#tbl-facet-geom" class="quarto-xref">Table&nbsp;<span>7.1</span></a>).</li>
-<li>Combining different <code>geom</code> functions to visualize associated data is supported (Figure <a href="13_ggtree_gallery.html#fig-jv2017" class="quarto-xref">Figure&nbsp;<span>11.1</span></a>).</li>
+<li>No pre-definition of input data types or how the data should be plotted in <code>geom_facet()</code> (Table <a href="#tbl-facet-geom" class="quarto-xref">Table&nbsp;<span>9.1</span></a>).</li>
+<li>Combining different <code>geom</code> functions to visualize associated data is supported (Figure <a href="13_ggtree_gallery.html#fig-jv2017" class="quarto-xref">Figure&nbsp;<span>15.1</span></a>).</li>
 <li>Visualizing different datasets on the same panel is supported.</li>
 <li>Data integrated by <code>%&lt;+%</code> can be used in <code>geom_facet()</code> layer.</li>
 <li>Able to add further annotations to specific layers.</li>
 <li>Modular design by separating tree visualization, data integration (Method 1), and graph alignment (Method 2).</li>
 </ol>
-<p>Modular design is a unique feature for <a href="http://bioconductor.org/packages/ggtree">ggtree</a> to stand out from other packages. The tree can be visualized with data stored in the tree object or external data linked by the <code>%&lt;+%</code> operator, and fully annotated with multiple layers of annotations (Figures <a href="#fig-attacher" class="quarto-xref">Figure&nbsp;<span>7.1</span></a> and <a href="13_ggtree_gallery.html#fig-jv2017" class="quarto-xref">Figure&nbsp;<span>11.1</span></a>), before passing it to <code>geom_facet()</code> layer. The <code>geom_facet()</code> layer can be called progressively to add multiple panels or multiple layers on the same panels (Figure <a href="13_ggtree_gallery.html#fig-jv2017" class="quarto-xref">Figure&nbsp;<span>11.1</span></a>). This creates the possibility of plotting a full annotated tree with complex data panels that contain multiple graphic layers.</p>
-<p>The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> package fits the <code>R</code> ecosystem and extends the abilities to integrate and present data with trees to existing phylogenetic packages. As demonstrated in Figure <a href="09_ggtree_tree_objects.html#fig-phyloseq" class="quarto-xref">Figure&nbsp;<span>9.4</span></a>, we can plot species abundance distributions with the <code>phyloseq</code> object. This cannot be easily done without <a href="http://bioconductor.org/packages/ggtree">ggtree</a>. With <a href="http://bioconductor.org/packages/ggtree">ggtree</a>, we are able to attach additional data to tree objects using the <code>%&lt;+%</code> operator and align graphs to a tree using the <code>geom_facet()</code> layer. Integrating <a href="http://bioconductor.org/packages/ggtree">ggtree</a> into existing workflows will extend the abilities and broaden the applications to present phylogeny-associated data, especially for comparative studies.</p>
+<p>Modular design is a unique feature for <a href="http://bioconductor.org/packages/ggtree">ggtree</a> to stand out from other packages. The tree can be visualized with data stored in the tree object or external data linked by the <code>%&lt;+%</code> operator, and fully annotated with multiple layers of annotations (Figures <a href="#fig-attacher" class="quarto-xref">Figure&nbsp;<span>9.1</span></a> and <a href="13_ggtree_gallery.html#fig-jv2017" class="quarto-xref">Figure&nbsp;<span>15.1</span></a>), before passing it to <code>geom_facet()</code> layer. The <code>geom_facet()</code> layer can be called progressively to add multiple panels or multiple layers on the same panels (Figure <a href="13_ggtree_gallery.html#fig-jv2017" class="quarto-xref">Figure&nbsp;<span>15.1</span></a>). This creates the possibility of plotting a full annotated tree with complex data panels that contain multiple graphic layers.</p>
+<p>The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> package fits the <code>R</code> ecosystem and extends the abilities to integrate and present data with trees to existing phylogenetic packages. As demonstrated in Figure <a href="09_ggtree_tree_objects.html#fig-phyloseq" class="quarto-xref">Figure&nbsp;<span>11.4</span></a>, we can plot species abundance distributions with the <code>phyloseq</code> object. This cannot be easily done without <a href="http://bioconductor.org/packages/ggtree">ggtree</a>. With <a href="http://bioconductor.org/packages/ggtree">ggtree</a>, we are able to attach additional data to tree objects using the <code>%&lt;+%</code> operator and align graphs to a tree using the <code>geom_facet()</code> layer. Integrating <a href="http://bioconductor.org/packages/ggtree">ggtree</a> into existing workflows will extend the abilities and broaden the applications to present phylogeny-associated data, especially for comparative studies.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
@@ -1274,12 +1318,12 @@ Yu, G., Lam, T. T.-Y., Zhu, H., &amp; Guan, Y. (2018). Two methods for mapping a
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./06_ggtree_manipulation.html" class="pagination-link" aria-label="Visual Exploration of Phylogenetic Trees">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Visual Exploration of Phylogenetic Trees</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visual Exploration of Phylogenetic Trees</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./08_ggtree_with_silhouette.html" class="pagination-link" aria-label="Annotating Tree with Silhouette Images and Sub-plots">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Annotating Tree with Silhouette Images and Sub-plots</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Annotating Tree with Silhouette Images and Sub-plots</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
