@@ -40,14 +40,14 @@ p2 <- p + geom_facet(panel = 'bar', data = df, geom = geom_bar,
 facet_widths(p2, widths = c(1, 2))
 ```
 
-It also supports using a name vector to set the widths of specific panels. The following code will display an identical figure to Figure @fig-facetWidthA.
+It also supports using a name vector to set the widths of specific panels. The following code will display an identical figure to Figure @fig-facetWidth-1.
 
 ```r
 facet_widths(p2, c(Tree = .5))
 ```
 
 
-The `facet_widths()` function also works with other `ggplot` objects as demonstrated in Figure @fig-facetWidthB.
+The `facet_widths()` function also works with other `ggplot` objects as demonstrated in Figure @fig-facetWidth-2.
 
 
 ```{r}
@@ -62,9 +62,15 @@ facet_widths(p, c(setosa = .5))
 #| echo: false
 #| fig-width: 6
 #| fig-height: 7
+#| label: fig-facetWidth
 #| fig-scap: "(ref:facetWidthscap)"
 #| fig-cap: |
-#|   **Adjust relative widths of ggplot facets.** The `facet_widths()` function works with `ggtree` (A) as well as `ggplot` (B).
+#|   Adjust relative widths of ggplot facets.
+#| fig-subcap:
+#|   - "facet_widths() applied to ggtree"
+#|   - "facet_widths() applied to ggplot"
+#| fig-show: hold
+#| layout-ncol: 1
 library(ggplot2)
 library(ggtree)
 library(reshape2)
@@ -94,7 +100,8 @@ gg = facet_widths(g, c(setosa = .5))
 #plot_grid(plot_grid(ggdraw(), pp, rel_widths=c(.04, 1)), 
 #        gg, ncol=1, labels = LETTERS[1:2], rel_heights=c(1.5, 1))
 
-plot_list(pp, gg, ncol=1, tag_levels='A', heights=c(1.5, 1))
+pp
+gg
 ```
 
 
@@ -119,16 +126,23 @@ facet_labeller(p2, c(Tree = "phylogeny")) %>% facet_widths(c(Tree = .4))
 #| echo: false
 #| fig-width: 6
 #| fig-height: 7
+#| label: fig-facetLab
 #| fig-scap: "(ref:facetLabscap)"
 #| fig-cap: |
 #|   **Rename facet labels.** Rename multiple labels simultaneously (A) or only for a specific one (B) are all supported. `facet_labeller()` can combine with `facet_widths()` to rename facet label and then adjust relative widths (B).
+#| fig-subcap:
+#|   - "Rename multiple labels simultaneously"
+#|   - "Rename a specific label and adjust relative widths"
+#| fig-show: hold
+#| layout-ncol: 1
 pg1 <- facet_labeller(p2, c(Tree = "phylogeny", bar = "HELLO")) 
 pg2 <- facet_labeller(p2, c(Tree = "phylogeny")) %>% facet_widths(c(Tree = .4))
 #plot_grid(plot_grid(ggdraw(), pg1, rel_widths=c(.04, 1)), 
 #        plot_grid(ggdraw(), pg2, rel_widths=c(.04, 1)), 
 #        ncol=1, labels = c("A", "B"))
  
-plot_list(pg1, pg2, ncol=1, tag_levels='A')
+pg1
+pg2
 ```
 
 ## Geometric Layers {#sec-geom2}
@@ -152,10 +166,16 @@ These layers works with both `r Biocpkg("ggtree")` and `r CRANpkg("ggplot2")` (F
 ```{r}
 #| fig-width: 11
 #| fig-height: 5
+#| label: fig-layer2
 #| fig-cap: |
-#|   **Geometric layers that support subsetting.** These layers work with `ggplot2` (A) and `ggtree` (B).
+#|   **Geometric layers that support subsetting.**
+#| fig-subcap:
+#|   - "These layers work with ggplot2"
+#|   - "These layers work with ggtree"
 #| fig-scap: "(ref:layer2scap)"
 #| out-width: "100%"
+#| fig-show: hold
+#| layout-ncol: 2
 library(ggplot2)
 library(ggtree)
 data(mpg)
@@ -171,7 +191,8 @@ p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 p2 <- ggtree(rtree(10)) + 
     geom_label2(aes(subset = node <5, label = label))
 
-plot_list(p, p2, ncol=2, tag_levels='A')
+p
+p2
 ```
 
 ## Layout Utilities
@@ -180,6 +201,9 @@ In [session 4.2](#tree-layouts), we introduce several layouts supported by `r Bi
 
 ```{r}
 #| echo: false
+#| label: tbl-layoutLayerTab
+#| tbl-cap: |
+#|   Layout transformers.
 layout.df = tibble::tribble(~Layout, ~Description,
     "layout_circular",      "transform rectangular layout to circular layout",
     "layout_dendrogram",    "transform rectangular layout to dendrogram layout",
@@ -188,7 +212,7 @@ layout.df = tibble::tribble(~Layout, ~Description,
     "layout_inward_circular",    "transform rectangular/circular layout to inward_circular layout"
     )
 
-knitr::kable(layout.df, caption = "Layout transformers.", booktabs = T)
+knitr::kable(layout.df, booktabs = TRUE)
 ```
 
 
@@ -211,10 +235,20 @@ p + layout_inward_circular(xlim=4) + geom_tiplab(hjust=1)
 #| fig-width: 10.8
 #| fig-height: 7.5
 #| message: false
+#| label: fig-layoutLayer
 #| fig-cap: |
-#|   **Layout functions for transforming among different layouts**. Default rectangular layout (A); transform rectangular to dendrogram layout (B); transform circular to rectangular layout (C); transform rectangular to circular layout (D); transform rectangular to fan layout (E); transform rectangular to inward circular layout (F).
+#|   **Layout functions for transforming among different layouts**.
+#| fig-subcap:
+#|   - "Default rectangular layout"
+#|   - "Transform rectangular to dendrogram layout"
+#|   - "Transform circular to rectangular layout"
+#|   - "Transform rectangular to circular layout"
+#|   - "Transform rectangular to fan layout"
+#|   - "Transform rectangular to inward circular layout"
 #| fig-scap: "(ref:layoutLayerscap)"
 #| out-width: '100%'
+#| fig-show: hold
+#| layout-ncol: 3
 set.seed(2019)
 x <- rtree(20)
 p <- ggtree(x)
@@ -237,13 +271,12 @@ pp2 <- cowplot::plot_grid(
 cowplot::plot_grid(pp1, pp2, ncol=1, rel_heights=c(2, 3))
 }
 
-plot_list(p, 
-    p + layout_dendrogram(), 
-    p + layout_circular() + layout_rectangular(), 
-    as.ggplot(p + layout_circular(), scale=1.2, hjust=-.1), 
-    as.ggplot(p + layout_fan(angle=90), scale=1.2),
-    as.ggplot(p + layout_inward_circular(xlim=4) + geom_tiplab(hjust=1), scale=1.2, hjust=.1),
-    ncol=3, heights=c(2, 3), tag_levels='A')
+p
+p + layout_dendrogram()
+p + layout_circular() + layout_rectangular()
+as.ggplot(p + layout_circular(), scale=1.2, hjust=-.1)
+as.ggplot(p + layout_fan(angle=90), scale=1.2)
+as.ggplot(p + layout_inward_circular(xlim=4) + geom_tiplab(hjust=1), scale=1.2, hjust=.1)
 ```
 
 
@@ -257,7 +290,7 @@ The `r Biocpkg("ggtree")` package provides several scale functions to manipulate
 
 ### Expand x limit for a specific facet panel {#sec-xlim_expand}
 
-Sometimes we need to set `xlim` for a specific facet panel (*e.g.*, allocate more space for [long tip labels](#faq-label-truncated) at `Tree` panel). However, the `ggplot2::xlim()` function applies to all the panels. The `r Biocpkg("ggtree")` provides `xlim_expand()` to adjust `xlim` for user-specific facet panel. It accepts two parameters, `xlim`, and `panel`, and can adjust all individual panels as demonstrated in Figure @fig-xlimExpandA. If you only want to adjust `xlim` of the `Tree` panel, you can use `xlim_tree()` as a shortcut.
+Sometimes we need to set `xlim` for a specific facet panel (*e.g.*, allocate more space for [long tip labels](#faq-label-truncated) at `Tree` panel). However, the `ggplot2::xlim()` function applies to all the panels. The `r Biocpkg("ggtree")` provides `xlim_expand()` to adjust `xlim` for user-specific facet panel. It accepts two parameters, `xlim`, and `panel`, and can adjust all individual panels as demonstrated in Figure @fig-xlimExpand-1. If you only want to adjust `xlim` of the `Tree` panel, you can use `xlim_tree()` as a shortcut.
 
 
 ```{r}
@@ -273,7 +306,7 @@ p2 + xlim_tree(6) + xlim_expand(c(-10, 10), 'Dot')
 
 
 
-The `xlim_expand()` function also works with `ggplot2::facet_grid()`. As demonstrated in Figure @fig-xlimExpandB, only the `xlim` of *virginica* panel was adjusted by `xlim_expand()`.
+The `xlim_expand()` function also works with `ggplot2::facet_grid()`. As demonstrated in Figure @fig-xlimExpand-2, only the `xlim` of *virginica* panel was adjusted by `xlim_expand()`.
 
 
 ```{r}
@@ -287,12 +320,18 @@ g + xlim_expand(c(0, 15), 'virginica')
 
 ```{r}
 #| echo: false
+#| label: fig-xlimExpand
 #| fig-cap: |
-#|   **Setting xlim for user-specific facet panels.** Using `xlim_tree()` to set the Tree panel of the `ggtree` output (A) and `xlim_expand()` to set the Dot panel of the `ggtree` output (A) and the Virginica panel of the `ggplot` output (B).
+#|   Setting xlim for user-specific facet panels.
+#| fig-subcap:
+#|   - "xlim_expand() applied to ggtree facets"
+#|   - "xlim_expand() applied to ggplot facets"
 #| fig-scap: "(ref:xlimExpandscap)"
 #| fig-width: 12
 #| fig-height: 5
 #| out-width: '100%'
+#| fig-show: hold
+#| layout-ncol: 2
 set.seed(2019-05-02)
 x <- rtree(30)
 p <- ggtree(x) + geom_tiplab()
@@ -307,8 +346,8 @@ g <- ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
 #plot_grid(plot_grid(ggdraw(), p2, rel_widths=c(.04, 1)),
 #    g + theme_grey() + xlim_expand(c(0, 15), 'virginica'),
 #    ncol=2, labels=c("A", "B"))
-plot_list(p2, g + theme_grey() + xlim_expand(c(0, 15), 'virginica'),
-    ncol=2, tag_levels = 'A')
+p2
+g + theme_grey() + xlim_expand(c(0, 15), 'virginica')
 ```
 
 ### Expand plot limit by the ratio of plot range {#sec-ggexpand}
@@ -325,10 +364,16 @@ We provide `hexpand()` function to expand x limit by specifying a fraction of th
 ```{r}
 #| fig-cap: |
 #|   **Expanding plot limits by a fraction of the x or y range.** Expand x limit at right-hand side by default (A), and expand x limit for left-hand side when direction = -1 and expand y limit at the upper side (B).
+#| label: fig-hexpand
 #| fig-scap: "(ref:hexpandscap)"
 #| fig-width: 12
 #| fig-height: 5
 #| out-width: '100%'
+#| fig-subcap:
+#|   - "Expand x limit at the right-hand side"
+#|   - "Expand x/y limits with direction = -1"
+#| fig-show: hold
+#| layout-ncol: 2
 x$tip.label <- paste0('to make the label longer_', x$tip.label)
 p1 <- ggtree(x) + geom_tiplab() + hexpand(.4)
 p2 <- ggplot(iris, aes(Sepal.Width, Petal.Width)) + 
@@ -336,7 +381,8 @@ p2 <- ggplot(iris, aes(Sepal.Width, Petal.Width)) +
     hexpand(.2, direction = -1) +
     vexpand(.2)
 
-plot_list(p1, p2, tag_levels="A", widths=c(.6, .4))
+p1
+p2
 ```
 
 ## Tree data utilities
@@ -348,9 +394,10 @@ The `r Biocpkg("ggtree")` package defined [several geom layers](#geom2) that sup
 
 
 ```{r}
+#| label: fig-tdFilter
 #| fig-cap: |
 #|   **Filtering ggtree plot data in geom layers.** Only selected tips (offspring of the node indicated by the blue circle point) were labeled.
-#| fig-scap: "(ref:tdfilterscap)"
+#| fig-scap: "Filtering ggtree plot data"
 #| fig-width: 7
 #| fig-height: 5
 library(tidytree)
@@ -384,19 +431,25 @@ d2  <- nest(d, value =value, group=group)
 d2
 ```
 
-Nested data is supported by the operator, `%<+%`, and can be mapped to the tree structure. If a geom layer can't directly support visualizing nested data, we need to flatten the data before applying the geom layer to display it. The `r Biocpkg("ggtree")` package provides a function, `td_unnest()`, which returns a function that works similar to `tidyr::unnest()` and can be used to flatten `ggtree` plot data as demonstrated in Figure @fig-tdUnnestA.
+Nested data is supported by the operator, `%<+%`, and can be mapped to the tree structure. If a geom layer can't directly support visualizing nested data, we need to flatten the data before applying the geom layer to display it. The `r Biocpkg("ggtree")` package provides a function, `td_unnest()`, which returns a function that works similar to `tidyr::unnest()` and can be used to flatten `ggtree` plot data as demonstrated in Figure @fig-tdUnnest-1.
 
-All tree data utilities provide a `.f` parameter to pass a function to pre-operate the data. This creates the possibility to combine different tree data utilities as demonstrated in Figure @fig-tdUnnestB. 
+All tree data utilities provide a `.f` parameter to pass a function to pre-operate the data. This creates the possibility to combine different tree data utilities as demonstrated in Figure @fig-tdUnnest-2. 
 
 
 
 ```{r}
+#| label: fig-tdUnnest
 #| fig-cap: |
-#|   **Flattening ggtree plot data.** List-columns can be flattened by `td_unnest()` and two circle points were displayed on each tip simultaneously (A). Different tree data utilities can be combined to work together, e.g., filter data by `td_filter()`, and then flatten it by `td_unnest()`) (B).
-#| fig-scap: "(ref:tdunnestscap)"
+#|   Flattening ggtree plot data.
+#| fig-subcap:
+#|   - "Flatten list-columns with td_unnest()"
+#|   - "Combine td_filter() with td_unnest()"
+#| fig-scap: "Flattening ggtree plot data"
 #| fig-width: 8
 #| fig-height: 5
 #| out-width: '100%'
+#| fig-show: hold
+#| layout-ncol: 2
 p <- ggtree(tr) %<+% d2
 p2 <- p + 
     geom_point(aes(x, y, size= value, colour=group), 
@@ -410,7 +463,8 @@ p3 <- p +
             alpha=.4) +
     scale_size(range=c(3,10), limits=c(3, 10))
 
-plot_list(p2, p3, tag_levels = 'A')
+p2
+p3
 ```
 
 
@@ -424,9 +478,10 @@ To create [composite plots](#composite_plot), users need to re-order their data 
 
 
 ```{r}
+#| label: fig-tiporder
 #| fig-cap: |
 #|   **An example tree for demonstrating `get_taxa_name()` function.**
-#| fig-scap: "(ref:tiporderscap)"
+#| fig-scap: "Extract tip order"
 #| fig-width: 5
 #| fig-height: 5
 set.seed(123)
@@ -476,10 +531,16 @@ This feature is useful if we want to align tip labels to the end as demonstrated
 ```{r}
 #| fig-width: 6.9
 #| fig-height: 3.4
+#| label: fig-labelpad
 #| fig-cap: |
-#|   **Align tip label to the end.** With a dotted line (A) and without a dotted line (B).
+#|   **Align tip label to the end.**
+#| fig-subcap:
+#|   - "With a dotted line"
+#|   - "Without a dotted line"
 #| fig-scap: "(ref:labelpadscap)"
 #| out-width: '100%'
+#| fig-show: hold
+#| layout-ncol: 2
 p <- ggtree(tree) %<+% d + xlim(NA, 5)
 p1 <- p + geom_tiplab(aes(label=newlabel), 
                     align=TRUE, family='mono',
@@ -487,7 +548,8 @@ p1 <- p + geom_tiplab(aes(label=newlabel),
 p2 <- p + geom_tiplab(aes(label=newlabel2), 
                     align=TRUE, family='mono',
                     linetype = NULL, offset=-.5) + xlim(NA, 5)
-plot_list(p1, p2, ncol=2, tag_levels = "A")                            
+p1
+p2
 ```
 
 

@@ -16,11 +16,14 @@ flip <- ggtree::flip
 ```
 
 
-The `r Biocpkg("ggtree")` [@yu_ggtree:_2017] supports many ways of manipulating the tree visually, including viewing selected clade to explore large tree (Figure @fig-viewClade), taxa clustering (Figure @fig-groupOTU), rotating clade or tree (Figure @fig-rfCladeB and @fig-rotateTree), zoom out or collapsing clades (Figure @fig-collapseExpandA and @fig-scaleClade), *etc.*. Details of the tree manipulation functions are summarized in Table @tbl-treeman.
+The `r Biocpkg("ggtree")` [@yu_ggtree:_2017] supports many ways of manipulating the tree visually, including viewing selected clade to explore large tree (Figure @fig-viewClade), taxa clustering (Figure @fig-groupOTU), rotating clade or tree (Figure @fig-rfClade-2 and @fig-rotateTree), zoom out or collapsing clades (Figure @fig-collapseExpand-1 and @fig-scaleClade), *etc.*. Details of the tree manipulation functions are summarized in Table @tbl-treeman.
 
 
 ```{r}
 #| echo: false
+#| label: tbl-treeman
+#| tbl-cap: |
+#|   Tree manipulation functions.
 #| out-extra: ''
 #| message: false
 treeman <- matrix(c(
@@ -37,7 +40,7 @@ treeman <- matrix(c(
 ), ncol=2, byrow=TRUE)
 treeman <- as.data.frame(treeman)
 colnames(treeman) <- c("Function", "Description")
-knitr::kable(treeman, caption = "Tree manipulation functions.", booktabs = T) %>%
+knitr::kable(treeman, booktabs = T) %>%
   kable_styling(latex_options = c("striped", "hold_position"), full_width = T)
 ```
 
@@ -47,7 +50,7 @@ knitr::kable(treeman, caption = "Tree manipulation functions.", booktabs = T) %>
 
 
 
-A clade is a monophyletic group that contains a single ancestor and all of its descendants. We can visualize a specifically selected clade via the `viewClade()` function as demonstrated in Figure @fig-viewCladeB. Another solution is to extract the selected clade as a new tree object as described in [session 2.5](#subsetting-tree-with-data). These functions are developed to help users explore a large tree.
+A clade is a monophyletic group that contains a single ancestor and all of its descendants. We can visualize a specifically selected clade via the `viewClade()` function as demonstrated in Figure @fig-viewClade-2. Another solution is to extract the selected clade as a new tree object as described in [session 2.5](#subsetting-tree-with-data). These functions are developed to help users explore a large tree.
 
 
 
@@ -67,19 +70,26 @@ viewClade(p, MRCA(p, "I", "L"))
 
 ```{r}
 #| echo: false
+#| label: fig-viewClade
 #| fig-cap: |
-#|   **Viewing a selected clade of a tree.** An example tree used to demonstrate how `r Biocpkg("ggtree")` supports exploring or manipulating phylogenetic tree visually (A). The `r Biocpkg("ggtree")` supports visualizing selected clade (B). A clade can be selected by specifying a node number or determined by the most recent common ancestor of selected tips.
+#|   Viewing a selected clade of a tree.
+#| fig-subcap:
+#|   - "Example tree used to demonstrate visual exploration"
+#|   - "Visualizing a selected clade"
 #| message: false
 #| warning: false
 #| fig-scap: "(ref:viewCladescap)"
 #| out-extra: ''
 #| out-width: '100%'
+#| fig-show: hold
+#| layout-ncol: 2
 library(ggtree)
 nwk <- system.file("extdata", "sample.nwk", package="treeio")
 tree <- read.tree(nwk)
 p <- ggtree(tree) + geom_tiplab()
 p2 <- viewClade(p, MRCA(p, "I", "L"))
-plot_list(p, p2, ncol=2, tag_levels="A")
+p
+p2
 ```
 
 
@@ -97,6 +107,7 @@ The `r Biocpkg("ggtree")` provides another option to zoom out (or compress) sele
 
 ```{r}
 #| message: false
+#| label: fig-scaleClade
 #| fig-cap: |
 #|   **Scaling selected clade.** Clades can be zoomed in (if `scale > 1`) to highlight or zoomed out to save space.
 #| fig-scap: "(ref:scaleCladescap)"
@@ -115,7 +126,7 @@ If users want to emphasize important clades, they can use the `scaleClade()` fun
 ## Collapsing and Expanding Clade
 
 
-It is a common practice to prune or collapse clades so that certain aspects of a tree can be emphasized. The `r Biocpkg("ggtree")` supports collapsing selected clades using the `collapse()` function as shown in Figure @fig-collapseExpandA.
+It is a common practice to prune or collapse clades so that certain aspects of a tree can be emphasized. The `r Biocpkg("ggtree")` supports collapsing selected clades using the `collapse()` function as shown in Figure @fig-collapseExpand-1.
 
 
 
@@ -138,24 +149,31 @@ expand(p2, node=23) %>% expand(node=21)
 
 ```{r}
 #| echo: false
+#| label: fig-collapseExpand
 #| fig-cap: |
-#|   **Collapsing selected clades and expanding collapsed clades.** Clades can be selected to collapse (A) and the collapsed clades can be expanded back (B) if necessary as `r Biocpkg("ggtree")` stored all information of species relationships. Green and red symbols were displayed on the tree to indicate the collapsed clades.
+#|   Collapsing selected clades and expanding collapsed clades.
+#| fig-subcap:
+#|   - "Collapsing selected clades"
+#|   - "Expanding collapsed clades back"
 #| fig-scap: "(ref:collapseExpandscap)"
 #| out-extra: ''
 #| fig-width: 8
 #| fig-height: 4
 #| out-width: '100%'
+#| fig-show: hold
+#| layout-ncol: 2
 p2 <- p %>% collapse(node=21) + 
   geom_point2(aes(subset=(node==21)), shape=21, size=5, fill='green')
 p2 <- collapse(p2, node=23) + 
   geom_point2(aes(subset=(node==23)), shape=23, size=5, fill='red')
 p3 <- expand(p2, node=23) %>% expand(node=21) 
-plot_list(p2, p3, ncol=2, tag_levels = "A")
+p2
+p3
 ```
 
-Here two clades were collapsed and labeled by the green circle and red square symbolic points. Collapsing is a common strategy to collapse clades that are too large for displaying in full or are not the primary interest of the study. In `r Biocpkg("ggtree")`, we can expand (*i.e.*, uncollapse) the collapsed branches back with the `expand()` function to show details of species relationships as demonstrated in Figure @fig-collapseExpandB.
+Here two clades were collapsed and labeled by the green circle and red square symbolic points. Collapsing is a common strategy to collapse clades that are too large for displaying in full or are not the primary interest of the study. In `r Biocpkg("ggtree")`, we can expand (*i.e.*, uncollapse) the collapsed branches back with the `expand()` function to show details of species relationships as demonstrated in Figure @fig-collapseExpand-2.
 
-Triangles are often used to represent the collapsed clade and `r Biocpkg("ggtree")` also supports it. The `collapse()` function provides a "mode" parameter, which by default is "none" and the selected clade was collapsed as a "tip". Users can specify the `mode` to "max" that uses the farthest tip (Figure @fig-collapseModeA), "min" that uses the closest tip (Figure @fig-collapseModeB), and "mixed" that uses both (Figure @fig-collapseModeC). 
+Triangles are often used to represent the collapsed clade and `r Biocpkg("ggtree")` also supports it. The `collapse()` function provides a "mode" parameter, which by default is "none" and the selected clade was collapsed as a "tip". Users can specify the `mode` to "max" that uses the farthest tip (Figure @fig-collapseMode-1), "min" that uses the closest tip (Figure @fig-collapseMode-2), and "mixed" that uses both (Figure @fig-collapseMode-3). 
 
 
 ```r
@@ -166,14 +184,14 @@ collapse(p2, node, 'min') %>% expand(node)
 collapse(p2, node, 'mixed') %>% expand(node)
 ```
 
-We can pass additional parameters to set the color and transparency of the triangles (Figure @fig-collapseModeD).
+We can pass additional parameters to set the color and transparency of the triangles (Figure @fig-collapseMode-4).
 
 ```r
 collapse(p, 21, 'mixed', fill='steelblue', alpha=.4) %>% 
   collapse(23, 'mixed', fill='firebrick', color='blue')
 ```  
 
-We can combine [scaleClade](#scale-clade) with `collapse` to zoom in/out of the triangles (Figure @fig-collapseModeE).
+We can combine [scaleClade](#scale-clade) with `collapse` to zoom in/out of the triangles (Figure @fig-collapseMode-5).
 
 ```r
 scaleClade(p, 23, .2) %>% collapse(23, 'min', fill="darkgreen")  
@@ -186,10 +204,19 @@ scaleClade(p, 23, .2) %>% collapse(23, 'min', fill="darkgreen")
 #| echo: false
 #| fig-width: 8
 #| fig-height: 8
+#| label: fig-collapseMode
 #| fig-cap: |
-#|   **Collapse clade as a triangle.** 'max' takes the position of most distant tip (A). 'min' takes the position of closest tip (B). 'mixed' takes the positions of both closest and distant tips (C), which looks more like the shape of the clade. Set color, fill, and alpha of the triangles (D). Combine with `scaleClade` to zoom out the triangle to save space (E).
+#|   Collapse clade as a triangle.
+#| fig-subcap:
+#|   - "Collapse mode max"
+#|   - "Collapse mode min"
+#|   - "Collapse mode mixed"
+#|   - "Set color, fill, and alpha"
+#|   - "Combine scaleClade() with collapse()"
 #| fig-scap: "(ref:collapseModescap)"
 #| out-width: '100%'
+#| fig-show: hold
+#| layout-ncol: 3
 p2 <- p + geom_tiplab()
 node <- 21
 g1 = expand(collapse(p2, node, 'max'), node)
@@ -205,7 +232,11 @@ pg2 <- scaleClade(p, 23, .2) %>% collapse(23, 'min', fill="darkgreen")
 ##gg <- plot_list(pg1, pg2, ncol=2, labels=LETTERS[4:5])
 ##plot_list(pp, gg, ncol=1)
 
-plot_list(g1, g2, g3, pg1, pg2, design="AABBCC\nDDDEEE", tag_levels='A')
+g1
+g2
+g3
+pg1
+pg2
 ```
 
 
@@ -225,6 +256,7 @@ A phylogenetic tree can be annotated by mapping different line types, sizes, col
 
 ```{r}
 #| message: false
+#| label: fig-groupOTU
 #| fig-cap: |
 #|   **Grouping OTUs.** OTU clustering based on their relationships. Selected OTUs and their ancestors up to the MRCA will be clustered together.
 #| fig-scap: "(ref:groupOTUscap)"
@@ -258,7 +290,7 @@ ggtree(tree_iris, aes(color=Species), layout = 'circular',
 
 ## Exploring Tree Structure
 
-To facilitate exploring the tree structure, `r Biocpkg("ggtree")` supports rotating selected clade by 180 degrees using the `rotate()` function (Figure @fig-rfCladeB). Position of immediate descendant clades of the internal node can be exchanged via `flip()` function (Figure @fig-rfCladeC).
+To facilitate exploring the tree structure, `r Biocpkg("ggtree")` supports rotating selected clade by 180 degrees using the `rotate()` function (Figure @fig-rfClade-2). Position of immediate descendant clades of the internal node can be exchanged via `flip()` function (Figure @fig-rfClade-3).
 
 
 
@@ -270,19 +302,28 @@ p2 <- rotate(p1, 16)
 flip(p2, 17, 21)
 ```          
 ```{r}
+#| label: fig-rfClade
 #| fig-cap: |
 #|   **Exploring tree structure.** A clade (indicated by a dark green circle) in a tree (A) can be rotated by 180&deg; (B) and the positions of its immediate descendant clades (colored by blue and red) can be exchanged (C).
+#| fig-subcap:
+#|   - "Original tree with selected clade"
+#|   - "Rotate selected clade by 180 degrees"
+#|   - "Flip immediate descendant clades"
 #| fig-scap: "(ref:rotateCladescap)"
 #| out-extra: ''
 #| fig-width: 7
 #| fig-height: 3
 #| echo: false
 #| out-width: '100%'
+#| fig-show: hold
+#| layout-ncol: 3
 p1 <- p + geom_tiplab() + 
         geom_point2(aes(subset=node==16), color='darkgreen', size=5)
 p2 <- rotate(p1, 16)
 p3 <- flip(p2, 17, 21)
-plot_list(p1, p2, p3, ncol=3, tag_levels='A')
+p1
+p2
+p3
 ```
 
 
@@ -302,6 +343,7 @@ print(p3)
 ```{r}
 #| fig-cap: |
 #|   **Transforming a tree to fan layout.** A tree can be transformed to a fan layout by `open_tree` with a specific `angle`.
+#| label: fig-openTree
 #| fig-scap: "(ref:openTreescap)"
 #| echo: false
 #| fig-width: 6
@@ -326,6 +368,7 @@ rotate_tree(p3, 180)
 #| echo: false
 #| fig-cap: |
 #|   **Rotating tree.** A circular/fan layout tree can be rotated by any specific `angle`.
+#| label: fig-rotateTree
 #| fig-scap: "(ref:rotateTreescap)"
 #| fig-width: 6
 #| fig-height: 3.2
@@ -363,9 +406,17 @@ knitr::include_graphics("img/rotate_clade.gif")
 ```{r}
 #| fig-width: 15
 #| fig-height: 6
+#| label: fig-rotategif
 #| fig-cap: |
 #|   **Rotate selected clades.** Four clades were randomly selected to rotate (indicated by the red symbol).
+#| fig-subcap:
+#|   - "Rotation 1"
+#|   - "Rotation 2"
+#|   - "Rotation 3"
+#|   - "Rotation 4"
 #| fig-scap: "(ref:rotategifscap)"
+#| fig-show: hold
+#| layout-ncol: 4
 set.seed(2016-05-29)
 x <- rtree(50)
 p <- ggtree(x) + geom_tiplab()
@@ -380,7 +431,10 @@ pp <- lapply(nn, function(n) {
     p + geom_point2(aes(subset=(node == n)), color='red', size=3)
 })
 
-plot_list(gglist=pp, tag_levels='A', nrow=1)
+pp[[1]]
+pp[[2]]
+pp[[3]]
+pp[[4]]
 ```
 
 <!--
@@ -416,16 +470,24 @@ pp <- lapply(angles, function(angle) {
   open_tree(p, angle=angle) + ggtitle(paste("open angle:", angle))
 })
 
-plot_list(gglist=pp, tag_levels='A', nrow=2)
+pp[[1]]
+pp[[2]]
+pp[[3]]
+pp[[4]]
+pp[[5]]
+pp[[6]]
 ```
 
 ```{r}
 #| fig-width: 6
 #| fig-height: 4
 #| message: false
+#| label: fig-fangif
 #| fig-cap: |
 #|   **Open tree with different angles.**
 #| fig-scap: "(ref:fangifscap)"
+#| fig-show: hold
+#| layout-ncol: 3
 set.seed(123)
 tr <- rtree(50)
 p <- ggtree(tr, layout='circular') 
@@ -435,8 +497,12 @@ pp <- lapply(angles, function(angle) {
   open_tree(p, angle=angle) + ggtitle(paste("open angle:", angle))
 })
 
-g <- plot_list(gglist=pp, tag_levels='A', nrow=2)
-ggplotify::as.ggplot(g, vjust=-.1,scale=1.1)
+pp[[1]]
+pp[[2]]
+pp[[3]]
+pp[[4]]
+pp[[5]]
+pp[[6]]
 ```
 
 
@@ -464,15 +530,23 @@ knitr::include_graphics("img/rotate_tree.gif")
 #| fig-height: 6
 #| echo: false
 #| message: false
+#| label: fig-rotatetreegif
 #| fig-cap: |
 #|   **Rotate tree with different angles.**
 #| fig-scap: "(ref:rotatetreegifscap)"
+#| fig-show: hold
+#| layout-ncol: 3
 p <- p + geom_tippoint(aes(subset = node == 1), colour = 'red', size=3)
 pp <- lapply(angles, function(angle) {
   rotate_tree(p, angle=angle) + ggtitle(paste("rotate angle:", angle))
 })
 
-plot_list(gglist=pp, tag_levels='A', nrow=2)
+pp[[1]]
+pp[[2]]
+pp[[3]]
+pp[[4]]
+pp[[5]]
+pp[[6]]
 ```
 
 

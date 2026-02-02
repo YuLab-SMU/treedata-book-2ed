@@ -7,6 +7,7 @@ book:
   author: "Guangchuang Yu"
   date: today
   description: "Master ggtree package suite to handle tree with data."
+  cover-image: 9781032233574_cover_review.png
   repo-url: https://github.com/YuLab-SMU/treedata-book
   repo-actions: [edit, issue, source]
   chapters:
@@ -46,9 +47,16 @@ format:
     documentclass: book
     classoption: [numberinsequence, twoside]
     keep-tex: true
-    include-in-header: latex/preamble.tex
-    include-before-body: latex/before_body.tex
-    include-after-body: latex/after_body.tex
+    include-in-header:
+      text: |
+        \usepackage{makeidx}
+        \makeindex
     citation-method: natbib
     lot: true
     lof: true
+    colorlinks: true
+    link-citations: true
+    fontsize: 11pt
+    monofont: "Source Code Pro"
+    monofontoptions: "Scale=0.7"
+    geometry: "left=35mm,right=35mm,top=25mm,bottom=25mm"

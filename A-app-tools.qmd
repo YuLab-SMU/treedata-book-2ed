@@ -17,11 +17,12 @@ Taxonomy (genus, family, ...) data are widely used in microbiome or ecology. Hie
 
 
 ```{r}
-#| fig-widht: 8
+#| label: fig-TaxaTree
+#| fig-width: 8
 #| fig-height: 8
 #| fig-cap: |
 #|   **Convert a `taxonomyTable` object to a `treedata` object.**
-#| fig-scap: "ref:TaxaToTreescap"
+#| fig-scap: "Convert taxonomyTable to treedata"
 library(MicrobiotaProcess)
 library(ggtree)
 
@@ -48,7 +49,13 @@ The `r CRANpkg("rtol")` [@michonneau_rotl:_2016] is an R package to interact wit
 
 
 
-```{r rotlSubtree, fig.width=8, fig.height=6, fig.cap="(ref:rotlSubtreecap)", fig.scap="(ref:rotlSubtreescap)", out.width='100%'} 
+```{r}
+#| label: fig-rotlSubtree
+#| fig-width: 8
+#| fig-height: 6
+#| fig-cap: "(ref:rotlSubtreecap)"
+#| fig-scap: "Open Tree of Life subtree"
+#| out-width: '100%'
 ## example from: https://github.com/ropensci/rotl
 library(rotl)
 apes <- c("Pongo", "Pan", "Gorilla", "Hoolock", "Homo")
@@ -106,7 +113,12 @@ print(d, row.names=FALSE)
 
 
 
-```{r emojidatatree, echo=FALSE, fig.cap="(ref:emojidatatreecap)", fig.scap="(ref:emojidatatreescap)", out.width='100%'} 
+```{r}
+#| echo: false
+#| label: fig-emojidatatree
+#| fig-cap: "(ref:emojidatatreecap)"
+#| fig-scap: "Phylomoji as ASCII text"
+#| out-width: '100%'
 knitr::include_graphics("img/data-tree-emojim.png")
 ```
 
@@ -130,11 +142,12 @@ In addition to using `viewClade()` function, users can use the `r CRANpkg("ggfor
 
 
 ```{r}
+#| label: fig-facetZoom
 #| fig-width: 6
 #| fig-height: 4
 #| fig-cap: |
 #|   **Zoom in on a selected clade.**
-#| fig-scap: "(ref:facetZoomscap)"
+#| fig-scap: "Zoom in on a selected clade"
 set.seed(2019-08-05)
 x <- rtree(30)
 nn <- tidytree::offspring(x, 43, self_include=TRUE)
@@ -151,7 +164,18 @@ The `r Biocpkg("ggtree")` supports annotating a tree with silhouette images via 
 
 
 
-```{r ggimagebg, fig.width=8, fig.height=4, fig.cap="(ref:ggimagebgcap)", fig.scap="(ref:ggimagebgscap)", out.width='100%'} 
+```{r}
+#| label: fig-ggimagebg
+#| fig-width: 8
+#| fig-height: 4
+#| fig-cap: "(ref:ggimagebgcap)"
+#| fig-scap: "(ref:ggimagebgscap)"
+#| out-width: '100%'
+#| fig-show: hold
+#| layout-ncol: 2
+#| fig-subcap:
+#|   - "Original image"
+#|   - "Image with background removed"
 library(ggimage)
 
 imgdir <- system.file("extdata/frogs", package = "TDbook")
@@ -166,7 +190,8 @@ p2 <- p + geom_nodelab(image=paste0(imgdir, "/frog.jpg"),
             geom="image", size=.12,
             image_fun= function(.) magick::image_transparent(., "white")) + 
       ggtitle("image with background removed")
-aplot::plot_list(p1, p2, ncol=2)
+p1
+p2
 ```
 
 ### Example 2: Plot tree on a background image {#sec-ggimage-bgimage}
@@ -176,7 +201,12 @@ The `geom_bgimage()` adds a layer of the image and puts the layer to the bottom 
 
 
 
-```{r bgimage, fig.width=6, fig.height=4, fig.cap="(ref:bgimagecap)", fig.scap="(ref:bgimagescap)"} 
+```{r}
+#| label: fig-bgimage
+#| fig-width: 6
+#| fig-height: 4
+#| fig-cap: "(ref:bgimagecap)"
+#| fig-scap: "Tree on a background image"
 ggtree(rtree(20), size=1.5, color="white") + 
   geom_bgimage('img/blackboard.jpg') + 
   geom_tiplab(color="white", size=5, family='xkcd')
@@ -199,9 +229,10 @@ Then you can use `r Biocpkg("ggtree")` and other R packages in the Jupyter noteb
 
 ```{r}
 #| echo: false
+#| label: fig-jupyter
 #| fig-cap: |
 #|   **ggtree in Jupyter notebook.** Running ggtree in Jupyter notebook via R kernel.
-#| fig-scap: "(ref:jupyterscap)"
+#| fig-scap: "ggtree in Jupyter notebook"
 #| out-width: '100%'
 ## htmltools::includeHTML("img/ggtree_jupyter.html")
 knitr::include_graphics("img/Screenshot_2019-06-24_ggtree-jupyter.png")

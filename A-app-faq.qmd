@@ -114,13 +114,13 @@ tree <- read.tree(text= paste("(Organism1.006G249400.1:0.03977,",
 p <- ggtree(tree) + geom_tiplab()  
 ```
 
-In this example, the tip labels displayed in Figure @fig-truncatedTipA are truncated. This is because the units are in two different spaces (data and pixel). Users can use `xlim` to allocate more spaces for tip labels (Figure @fig-truncatedTipB).
+In this example, the tip labels displayed in Figure @fig-truncatedTip-1 are truncated. This is because the units are in two different spaces (data and pixel). Users can use `xlim` to allocate more spaces for tip labels (Figure @fig-truncatedTip-2).
 
 ```r
 p + xlim(0, 0.08)
 ```
 
-Another solution is to set `clip = "off"` to allow drawing outside of the plot panel. We may also need to set `plot.margin` to allocate more spaces for margin (Figure @fig-truncatedTipC).
+Another solution is to set `clip = "off"` to allow drawing outside of the plot panel. We may also need to set `plot.margin` to allocate more spaces for margin (Figure @fig-truncatedTip-3).
 
 ```r
 p + coord_cartesian(clip = 'off') + 
@@ -134,10 +134,17 @@ p + coord_cartesian(clip = 'off') +
 #| fig-width: 12
 #| fig-height: 4
 #| echo: false
+#| label: fig-truncatedTip
 #| fig-cap: |
-#|   **Allocating more spaces for truncated tip labels.** Long tip labels may be truncated (A). One solution is to allocate more spaces for plot panel (B), and another solution is to allow plotting labels outside the plot panel (C).
-#| fig-scap: "(ref:truncatedTipscap)"
+#|   Allocating more spaces for truncated tip labels.
+#| fig-subcap:
+#|   - "Long tip labels may be truncated"
+#|   - "Allocate more space for plot panel"
+#|   - "Allow drawing outside the plot panel"
+#| fig-scap: "Allocating more spaces for truncated tip labels"
 #| out-width: '100%'
+#| fig-show: hold
+#| layout-ncol: 3
 library(ggplot2)
 library(ggtree)
 ## example tree from https://support.bioconductor.org/p/72398/
@@ -146,13 +153,15 @@ p <- ggtree(tree) + geom_tiplab()
 p2 <- ggtree(tree) + geom_tiplab() + xlim(0, 0.1)
 p3 <- p + coord_cartesian(clip = 'off') + 
   theme_tree2(plot.margin=margin(6, 140, 6, 6))
-plot_list(p, p2, p3, ncol=3, tag_levels="A")
+p
+p2
+p3
 ```
 
 The third solution is to use `hexpand()` as demonstrated in [session 12.4](#ggexpand). 
 
 
-For rectangular/dendrogram layout trees, users can display tip labels as *y*-axis labels. In this case, no matter how long the labels are, they will not be truncated (see Figure @fig-tiplabC).
+For rectangular/dendrogram layout trees, users can display tip labels as *y*-axis labels. In this case, no matter how long the labels are, they will not be truncated (see Figure @fig-tiplab-3).
 
 
 ### Modify (tip) labels {#sec-faq-modify-label}
@@ -190,23 +199,30 @@ the modified version (Figure @fig-renameTip).
 #| fig-width: 8
 #| fig-height: 3
 #| fig-cap: |
-#|   **Alternative tip labels.** Original tip labels (A) and a modified version (B).
-#| fig-scap: "(ref:renameTipscap)"
+#|   Alternative tip labels.
+#| label: fig-renameTip
+#| fig-subcap:
+#|   - "Original tip labels"
+#|   - "Modified tip labels"
+#| fig-scap: "Alternative tip labels"
 #| out-width: '100%'
+#| fig-show: hold
+#| layout-ncol: 2
 p <- ggtree(tree) + xlim(NA, 3)
 p1 <- p + geom_tiplab()
 
 ## the following command will produce an identical figure of p2
 ## ggtree(tree2) + geom_tiplab(aes(label = label2))
 p2 <- p %<+% d + geom_tiplab(aes(label=label2))
-plot_list(p1, p2, ncol=2, tag_levels = "A")
+p1
+p2
 ```
 
 ### Formatting (tip) labels {#sec-faq-formatting-label}
 
 If you want to format labels, you need to set `parse=TRUE` in the `geom_text()`/`geom_tiplab()`/`geom_nodelab()` and the `label` should be a string that can be parsed into expression and displayed as described in `?plotmath`. Users can use the `r CRANpkg("latex2exp")` package to convert LaTeX math formulas to R's plotmath expressions, or use the `r CRANpkg("ggtext")` package to render Markdown or HTML.
 
-For example, the tip labels contain several parts (*e.g.*, genus, species, and geo), we can differentiate these pieces of information with different formats (Figure @fig-formatTipA).
+For example, the tip labels contain several parts (*e.g.*, genus, species, and geo), we can differentiate these pieces of information with different formats (Figure @fig-formatTip-1).
 
 ```{r}
 #| eval: false
@@ -228,7 +244,7 @@ p1 <- ggtree(tree) %<+% d2 + xlim(NA, 6) +
     geom_tiplab(aes(label=lab), parse=T)
 ```
 
-Using Markdown or HTML to format text may be easier, and this is supported via the `r CRANpkg("ggtext")` package (Figure @fig-formatTipB).
+Using Markdown or HTML to format text may be easier, and this is supported via the `r CRANpkg("ggtext")` package (Figure @fig-formatTip-2).
 
 
 ```{r}
@@ -240,7 +256,8 @@ p2 <- ggtree(tree) %<+% d2 +
                 aes(label=name), label.color=NA) + 
   hexpand(.3)
 
-plot_list(p1, p2, ncol=2, tag_levels = 'A') 
+p1
+p2
 ```
 
 
@@ -249,11 +266,44 @@ plot_list(p1, p2, ncol=2, tag_levels = 'A')
 #| fig-width: 9.2
 #| fig-height: 4.2
 #| echo: false
+#| label: fig-formatTip
 #| fig-cap: |
-#|   **Formatting labels.** Formatting specific tip labels using `plotmath` expression (A), and Markdown/HTML (B).
-#| fig-scap: "(ref:formatTipscap)"
-#| ref-label: c('formatTip-A', 'formatTip-B')
+#|   Formatting labels.
+#| fig-subcap:
+#|   - "Format tip labels using plotmath expressions"
+#|   - "Format tip labels using Markdown/HTML"
+#| fig-scap: "Formatting labels"
 #| out-width: '100%'
+#| fig-show: hold
+#| layout-ncol: 2
+library(ggtree)
+library(tidytree)
+library(glue)
+library(dplyr)
+library(ggtext)
+
+tree <- read.tree(text = "((a,(b,c)),d);")
+genus <- c("Gorilla", "Pan", "Homo", "Pongo")
+species <- c("gorilla", "spp.", "sapiens", "pygmaeus")
+geo <- c("Africa", "Africa", "World", "Asia")
+d <- data.frame(label = tree$tip.label, genus = genus, species = species, geo = geo)
+
+d2 <- dplyr::mutate(
+  d,
+  lab = glue("italic({genus})~bolditalic({species})~({geo})"),
+  color = c("#E495A5", "#ABB065", "#39BEB1", "#ACA4E2"),
+  name = glue("<i style='color:{color}'>{genus} **{species}**</i> ({geo})")
+)
+
+p1 <- ggtree(tree) %<+% d2 + xlim(NA, 6) +
+  geom_tiplab(aes(label = lab), parse = TRUE)
+
+p2 <- ggtree(tree) %<+% d2 +
+  geom_richtext(data = td_filter(isTip), aes(label = name), label.color = NA) +
+  hexpand(.3)
+
+p1
+p2
 ```
 
 ### Avoid overlapping text labels {#sec-faq-ggrepel}
@@ -266,9 +316,10 @@ Users can use the `r CRANpkg("ggrepel")` package to repel overlapping text label
 ```{r}
 #| fig-width: 12
 #| fig-height: 8
+#| label: fig-repelTip
 #| fig-cap: |
 #|   **Repel labels.** Repel labels to avoid overlapping.
-#| fig-scap: "(ref:repelTipscap)"
+#| fig-scap: "Repel labels"
 #| out-width: '100%'
 library(ggrepel)
 library(ggtree)
@@ -291,9 +342,10 @@ If you want to only display a subset of *bootstrap* (*e.g.*, bootstrap > 80), yo
 ```{r}
 #| fig-width: 12
 #| fig-height: 8
+#| label: fig-nwkbs
 #| fig-cap: |
 #|   **Bootstrap value stored in node label.**
-#| fig-scap: "(ref:nwkbsscap)"
+#| fig-scap: "Bootstrap value stored in node label"
 #| out-width: '100%'
 nwk <- system.file("extdata/RAxML","RAxML_bipartitions.H3", package='treeio')
 tr <- read.tree(nwk)
@@ -363,9 +415,10 @@ x <- rtree(5)
 ```
 
 ```{r}
+#| label: fig-ggtreeladderize
 #| fig-cap: |
 #|   **Ladderized and non-ladderized tree.** `plot.phylo()` displays non-ladderized tree (A), use `ladderize = FALSE` to display non-ladderized tree in `ggtree()` (B), `ggtree()` displays ladderized tree by default (C).
-#| fig-scap: "(ref:ggtreeladderizescap)"
+#| fig-scap: "Ladderized and non-ladderized tree"
 #| fig-width: 8
 #| fig-height: 4
 #| echo: false
@@ -384,7 +437,8 @@ The `rotateConstr()` function provided in the `r CRANpkg("ape")` package rotates
 ```{r}
 #| fig-cap: |
 #|   **Specifying tree order.** The order of the input tree will be maintained in `ggtree()` when `ladderize = FALSE`.
-#| fig-scap: "(ref:rotateConstrscap)"
+#| fig-scap: "Specifying tree order"
+#| label: fig-rotateConstr
 #| fig-width: 6
 #| fig-height: 4
 #| out-width: "100%"
@@ -394,19 +448,26 @@ ggtree(y, ladderize = FALSE) + geom_tiplab()
 
 ### Shrink outlier long branch
 
-When outgroups are on a very long branch length (Figure @fig-outgroupEdgeA), we would like to keep the outgroups in the tree but ignore their branch lengths (Figure @fig-outgroupEdgeB)^[Example from: <https://groups.google.com/d/msg/bioc-ggtree/T2ySvqv351g/mHsyljvBCwAJ>]. This can be easily done by modifying the coordinates of the outgroups (Figure @fig-outgroupEdgeB). Another approach is to truncate the plot using the `r CRANpkg("ggbreak")` package (Figure @fig-outgroupEdgeC) [@ggbreak].
+When outgroups are on a very long branch length (Figure @fig-outgroupEdge-1), we would like to keep the outgroups in the tree but ignore their branch lengths (Figure @fig-outgroupEdge-2)^[Example from: <https://groups.google.com/d/msg/bioc-ggtree/T2ySvqv351g/mHsyljvBCwAJ>]. This can be easily done by modifying the coordinates of the outgroups (Figure @fig-outgroupEdge-2). Another approach is to truncate the plot using the `r CRANpkg("ggbreak")` package (Figure @fig-outgroupEdge-3) [@ggbreak].
 
 
 
 
 ```{r}
 #| fig-cap: |
-#|   **Shrink outlier long branch.** Original tree (A); reduced outgroup branch length (B); truncated tree plot (C).
-#| fig-scap: "(ref:outgroupEdgescap)"
+#|   Shrink outlier long branch.
+#| label: fig-outgroupEdge
+#| fig-subcap:
+#|   - "Original tree"
+#|   - "Reduced outgroup branch length"
+#|   - "Truncated tree plot"
+#| fig-scap: "Shrink outlier long branch"
 #| fig-width: 9
 #| fig-height: 5
 #| out-width: "100%"
-#| fig-keep: "last"
+#| fig-keep: "all"
+#| fig-show: hold
+#| layout-ncol: 3
 library(TDbook)
 library(ggtree)
 
@@ -427,7 +488,9 @@ library(ggbreak)
 p2 <- p1 + scale_x_break(c(0.03, 0.09)) + hexpand(.05)
 
 ## align plot
-plot_list(p1, p, p2, ncol=3, tag_levels="A")
+p1
+p
+p2
 ```
 
 
@@ -441,9 +504,10 @@ Users can use `phytools::bind.tip()` [@revell_phytools_2012] to attach a new tip
 
 
 ```{r}
+#| label: fig-bindTip
 #| fig-cap: |
 #|   **Attaching a new tip to a tree.** Different line types were employed to distinguish the newly introduced tip and an error bar was added to indicate the uncertainty of the added branch position.
-#| fig-scap: "(ref:bindTipscap)"
+#| fig-scap: "Attaching a new tip to a tree"
 #| fig-width: 6
 #| fig-height: 5
 #| out-width: "100%"
@@ -480,9 +544,10 @@ If you want to color or change line types of specific branches, you only need to
 
 
 ```{r}
+#| label: fig-btype
 #| fig-cap: |
 #|   **Change colors and line types of specific branches.**
-#| fig-scap: "(ref:btypescap)"
+#| fig-scap: "Change colors and line types of specific branches"
 #| fig-width: 7
 #| fig-height: 5
 #| out-width: "100%"
@@ -504,18 +569,24 @@ Users can use the `r CRANpkg("gginnards")` package to manipulate plot elements f
 
 ### Add an arbitrary point to a branch {#sec-arbitrary-point}
 
-If you want to add an arbitrary point to a branch^[<https://twitter.com/melanoidin/status/1262703932993871874>], you can use `geom_nodepoint()`, `geom_tippoint()`, or `geom_point2()` (works for both external and internal nodes) to filter selected node (the endpoint of the branch) via the `subset` aesthetic mapping and specify horizontal position by `x = x - offset` aesthetic mapping, where the offset can be an absolute value (Figure @fig-pointOnBranchA) or in proportion to the branch length (Figure @fig-pointOnBranchB).
+If you want to add an arbitrary point to a branch^[<https://twitter.com/melanoidin/status/1262703932993871874>], you can use `geom_nodepoint()`, `geom_tippoint()`, or `geom_point2()` (works for both external and internal nodes) to filter selected node (the endpoint of the branch) via the `subset` aesthetic mapping and specify horizontal position by `x = x - offset` aesthetic mapping, where the offset can be an absolute value (Figure @fig-pointOnBranch-1) or in proportion to the branch length (Figure @fig-pointOnBranch-2).
 
 
 
 
 ```{r}
 #| fig-cap: |
-#|   **Add an arbitrary point on a branch.** The position of the symbolic point can be adjusted by an absolute value (A) or in proportion to the branch length (B).
-#| fig-scap: "(ref:pointOnBranchscap)"
+#|   Add an arbitrary point on a branch.
+#| label: fig-pointOnBranch
+#| fig-subcap:
+#|   - "Adjust symbolic point by an absolute offset"
+#|   - "Adjust symbolic point by branch length proportion"
+#| fig-scap: "Add an arbitrary point on a branch"
 #| fig-width: 8
 #| fig-height: 4.5
 #| out-width: "100%"
+#| fig-show: hold
+#| layout-ncol: 2
 set.seed(2020-05-20)
 x <- rtree(10)
 p <- ggtree(x)
@@ -527,7 +598,8 @@ p2 <- p + geom_nodepoint(aes(subset = node == 13, x = x - branch.length * 0.2),
                         size = 3, colour = 'firebrick') + 
        geom_nodepoint(aes(subset = node == 13, x = x - branch.length * 0.8),
                         size = 5, colour = 'steelblue')
-plot_list(p1, p2, ncol=2, tag_levels="A")
+p1
+p2
 ```
 
 
@@ -542,9 +614,10 @@ This is not supported by `r CRANpkg("ggplot2")` in general. However, we can just
 ```{r}
 #| fig-width: 7
 #| fig-height: 5
+#| label: fig-xlabFacets
 #| fig-cap: |
 #|   ***X*-axis titles for different facet panels.**
-#| fig-scap: "(ref:xlabFacetsscap)"
+#| fig-scap: "X-axis titles for different facet panels"
 #| out-width: "100%"
 library(ggtree)
 library(ggplot2)
@@ -601,22 +674,29 @@ ggplot(x) + geom_hilight(node=7, alpha=1) + geom_tree() + theme_tree()
 #| echo: false
 #| fig-width: 6
 #| fig-height: 3
+#| label: fig-treeLayerOrder
 #| fig-cap: |
-#|   **Add layers behind the tree structure.** A layer on top of the tree structure (A). Reverse layer order of A (B). Add layer behind the tree layer (C).
+#|   **Add layers behind the tree structure.**
+#| fig-subcap:
+#|   - "Layer on top of the tree structure"
+#|   - "Reverse the layer order"
+#|   - "Add layer behind the tree layer"
 #| fig-scap: "(ref:treeLayerOrderscap)"
 #| out-width: "100%"
+#| fig-show: hold
+#| layout-ncol: 3
 g <- p
 p$layers <- rev(p$layers)
-aplot::plot_list(g, p, 
-  ggplot(x) + geom_hilight(node=7, alpha=1) + geom_tree() + theme_tree(),
-  ncol = 3, labels = LETTERS[1:3])     
+g
+p
+ggplot(x) + geom_hilight(node=7, alpha=1) + geom_tree() + theme_tree()
 ```
 
 
 
 ## Enlarge Center Space in Circular/Fan Layout Tree {#sec-faq-enlarge-center-space}
 
-This question for enlarging center space in circular/fan layout tree was asked several times^[<https://groups.google.com/d/msg/bioc-ggtree/gruC4FztU8I/mwavqWCXAQAJ>, <https://groups.google.com/d/msg/bioc-ggtree/UoGQekWHIvw/ZswUUZKSGwAJ> and <https://github.com/GuangchuangYu/ggtree/issues/95>], and a published example can be found in [@barton_broad_2016]. Increasing the percentage of center white space in a circular tree is useful to avoid overlapping tip labels and to increase the readability of the tree by moving all nodes and branches further out. This can be done simply by using `xlim()` or `hexpand()` to allocate more space (Figure @fig-circular-spaceA), just like in Figure @fig-layout2G, or assigning a long root branch that is similar to the "Root Length" parameter in `r pkg_figtree` (Figure @fig-circular-spaceB). 
+This question for enlarging center space in circular/fan layout tree was asked several times^[<https://groups.google.com/d/msg/bioc-ggtree/gruC4FztU8I/mwavqWCXAQAJ>, <https://groups.google.com/d/msg/bioc-ggtree/UoGQekWHIvw/ZswUUZKSGwAJ> and <https://github.com/GuangchuangYu/ggtree/issues/95>], and a published example can be found in [@barton_broad_2016]. Increasing the percentage of center white space in a circular tree is useful to avoid overlapping tip labels and to increase the readability of the tree by moving all nodes and branches further out. This can be done simply by using `xlim()` or `hexpand()` to allocate more space (Figure @fig-circular-space-1), just like in Figure @fig-layout2-7, or assigning a long root branch that is similar to the "Root Length" parameter in `r pkg_figtree` (Figure @fig-circular-space-2). 
 
 
 
@@ -626,16 +706,19 @@ This question for enlarging center space in circular/fan layout tree was asked s
 #| fig-width: 8
 #| fig-height: 4
 #| fig-cap: |
-#|   **Enlarge center space in circular tree.** Allocate more space by `xlim` (A) or long root branch (B).
-#| fig-scap: "(ref:innerspacescap)"
+#|   Enlarge center space in circular tree.
+#| label: fig-circular-space
+#| fig-subcap:
+#|   - "Allocate more space by xlim"
+#|   - "Allocate more space by adding a long root branch"
+#| fig-scap: "Enlarge center space in circular/fan layout tree"
 #| out-width: "100%"
+#| fig-show: hold
+#| layout-ncol: 2
 set.seed(1982)
 tree <- rtree(30)
-plot_list(
-  ggtree(tree, layout='circular') + xlim(-10, NA),
-  ggtree(tree, layout='circular') + geom_rootedge(rootedge=5),
-  tag_levels = "A", ncol=2
-)
+ggtree(tree, layout='circular') + xlim(-10, NA)
+ggtree(tree, layout='circular') + geom_rootedge(rootedge=5)
 ```
 
 ## Use the Most Distant Tip from the Root as the Origin of the Timescale
@@ -647,15 +730,22 @@ The `revts()` will reverse the *x*-axis by setting the most recent tip to 0. We 
 
 ```{r}
 #| fig-cap: |
-#|   **Origin of the time scale.** Forward: from the root to the tips (A). Backward: from the most distant tip to the root (B).
-#| fig-scap: "(ref:distantTipscap)"
+#|   **Origin of the time scale.**
+#| label: fig-distantTip
+#| fig-subcap:
+#|   - "Forward: from the root to the tips"
+#|   - "Backward: from the most distant tip to the root"
+#| fig-scap: "Plot distance between tips"
 #| fig-width: 6
 #| fig-height: 3
 #| out-width: "100%"
+#| fig-show: hold
+#| layout-ncol: 2
 tr <- rtree(10)
 p <- ggtree(tr) + theme_tree2()
 p2 <- revts(p) + scale_x_continuous(labels=abs)
-plot_list(p, p2, ncol=2, tag_levels="A")
+p
+p2
 ```
 
 ## Remove Blank Margins for Circular Layout Tree {#sec-circular-blank}
@@ -703,9 +793,15 @@ Here is an example (Figure @fig-trimSpace):
 #| fig-width: 8.8
 #| fig-height: 4.5
 #| fig-cap: |
-#|   **Trim extra white space for polar coordinates.** Original plot (A). Trimmed version (B).
-#| fig-scap: "(ref:trimSpacescap)"
+#|   **Trim extra white space for polar coordinates.**
+#| label: fig-trimSpace
+#| fig-subcap:
+#|   - "Original plot"
+#|   - "Trimmed version"
+#| fig-scap: "Trim white space in circular layout tree"
 #| out-width: "100%"
+#| fig-show: hold
+#| layout-ncol: 2
 library(ggplot2)
 library(ggtree)
 library(patchwork)
@@ -726,7 +822,8 @@ panel_border <- theme(panel.border=element_rect(colour='black',
 xx <- image_ggplot(x) + panel_border
 yy <- image_ggplot(y) + panel_border
 
-plot_list(xx, yy, tag_levels = "A", ncol=2)
+xx
+yy
 ``` 
 
 

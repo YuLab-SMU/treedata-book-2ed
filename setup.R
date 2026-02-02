@@ -4,6 +4,7 @@ if (!requireNamespace("pacman", quietly = TRUE)) {
 
 library(pacman)
 
+p_load(yulab.utils)
 p_load(ape)
 p_load(Biostrings)
 ## p_load(OutbreakTools)
@@ -92,3 +93,5 @@ squote <- function(string) {
 
 
 conflicts_prefer(base::setdiff)
+conflicts_prefer(yulab.utils::CRANpkg)
+conflicts_prefer(yulab.utils::Biocpkg)

@@ -35,10 +35,11 @@ The `r Biocpkg("MicrobiotaProcess")` package provides a LEfSe-like algorithm [@s
 ```{r}
 #| fig-width: 7
 #| fig-height: 7
+#| label: fig-CRCdiffclade
 #| message: false
 #| fig-cap: |
 #|   **Visualize differential taxonomy clade.**
-#| fig-scap: "(ref:CRCdiffscap)"
+#| fig-scap: "Visualize differential taxonomy clade"
 #| out-extra: ''
 #| warning: false
 #| results: 'hide'
@@ -85,10 +86,11 @@ The `r Biocpkg("tanggle")` package provides functions to display a split network
 ```{r}
 #| fig-width: 7
 #| fig-height: 7
+#| label: fig-phylonetworx
 #| message: false
 #| fig-cap: |
 #|   **Phylogenetic network**.
-#| fig-scap: "(ref:phylonetworxscap)"
+#| fig-scap: "Phylogenetic network"
 #| out-extra: ''
 #| warning: false
 library(ggplot2)

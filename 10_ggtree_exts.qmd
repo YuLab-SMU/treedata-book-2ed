@@ -30,10 +30,11 @@ The following example uses microbiome\index{microbiome} data provided in the `r 
 ```{r}
 #| fig-width: 9
 #| fig-height: 7
+#| label: fig-psbox
 #| message: false
 #| fig-cap: |
 #|   **Phylogenetic tree with OTU abundance distribution**. Species abundance distribution was aligned to the tree and visualized as boxplots. The Phylum information was used to color symbolic points on the tree and also species abundance distributions.
-#| fig-scap: "(ref:psboxplotscap)"
+#| fig-scap: "Phylogenetic tree with OTU abundance distribution"
 #| out-extra: ''
 #| warning: false
 #| out-width: "100%"
@@ -109,11 +110,12 @@ We are able to add multiple `geom_fruit()`\index{geom\textunderscore fruit} laye
 #| dpi: 300
 #| fig-width: 7
 #| fig-height: 7
+#| label: fig-HMPplot
 #| warning: false
 #| message: false
 #| fig-cap: |
 #|   **Presenting microbiome data (abundance and location) on a phylogenetic tree.** The tree was annotated with symbolic points, highlighted clades, and clade labels. Two `geom_fruit()` layers were used to visualize location and abundance information.
-#| fig-scap: "(ref:HMPscap)"
+#| fig-scap: "HMP microbiome data visualization"
 #| out-extra: ''
 #| out-width: "100%"
 library(ggtreeExtra)
@@ -232,11 +234,12 @@ The `geom_fruit()` layer supports rectangular layout. Users can either add a `ge
 #| dpi: 300
 #| fig-width: 7
 #| fig-height: 7
+#| label: fig-HMPplot2
 #| warning: false
 #| message: false
 #| fig-cap: |
 #|   **Illustration of using `geom_fruit()` in rectangular tree layout.** The figure was produced by transforming Figure @fig-HMPplot using the rectangular layout. Transforming a rectangular layout tree to a circular layout tree is also supported.
-#| fig-scap: "(ref:HMP2scap)"
+#| fig-scap: "Illustration of using geom_fruit() in rectangular tree layout"
 #| out-extra: ''
 #| out-width: "100%"
 p + layout_rectangular() + 
@@ -255,11 +258,12 @@ The `r Biocpkg("ggtree")` [@yu_ggtree:_2017] and `r Biocpkg("ggtreeExtra")` pack
 ```{r}
 #| fig-width: 7
 #| fig-height: 7
+#| label: fig-Caurisplot
 #| warning: false
 #| message: false
 #| fig-cap: |
 #|   **Antifungal susceptibility and point mutations in drug targets in *Candida Auris* **.
-#| fig-scap: "(ref:Cauriscap)"
+#| fig-scap: "Antifungal susceptibility in Candida Auris"
 #| out-extra: ''
 #| out-width: "100%"
 library(ggtree)
@@ -424,11 +428,12 @@ In this example, Figure @fig-Caurisplot shows the phylogenetic tree annotated wi
 ```{r}
 #| fig-width: 7
 #| fig-height: 7
+#| label: fig-Styphiplot
 #| warning: false
 #| message: false
 #| fig-cap: |
 #|   **Population structure of the 1,832 *S. Typhi* isolates**.
-#| fig-scap: "(ref:Styphiscap)"
+#| fig-scap: "Population structure of the S. Typhi isolates"
 #| out-extra: ''
 #| out-width: "100%"
 library(ggtreeExtra)

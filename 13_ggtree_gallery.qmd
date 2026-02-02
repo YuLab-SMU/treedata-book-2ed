@@ -131,10 +131,8 @@ acc <- sub("\\w+\\|", "", tl)
 names(tl) <- acc
 
 ## read sequences from GenBank directly into R
-## and convert the object to DNAStringSet
-tipseq <- ape::read.GenBank(acc) %>% as.character %>% 
-    lapply(., paste0, collapse = "") %>% unlist %>% 
-    DNAStringSet
+tipseq <- seqmagick::ncbi_fa_read(acc)
+
 ## align the sequences using muscle
 tipseq_aln <- muscle::muscle(tipseq)
 tipseq_aln <- DNAStringSet(tipseq_aln)
@@ -161,6 +159,7 @@ tipseq_aln <- TDbook::dna_HPV58_aln %>%
 ```{r}
 #| fig-width: 12
 #| fig-height: 12
+#| label: fig-jv2017
 #| fig-cap: |
 #|   **Phylogeny of HPV58 complete genomes with dot and line plots of pairwise nucleotide sequence distances**.
 #| fig-scap: "(ref:jv2017scap)"
@@ -203,7 +202,6 @@ We can cut the bootstrap values into several intervals, *e.g.*, to indicate whet
 
 
 ```{r}
-#| label: = FALSE
 ## phytools also have a read.newick function
 read.newick <- treeio::read.newick
 ```
@@ -211,6 +209,7 @@ read.newick <- treeio::read.newick
 ```{r}
 #| fig-width: 7.5
 #| fig-height: 8.6
+#| label: fig-bpinterval
 #| fig-cap: |
 #|   **Partitioning bootstrap values**. Bootstrap values were divided into three categories and this information was used to color circle points.
 #| fig-scap: "(ref:bpintervalscap)"
@@ -249,6 +248,7 @@ This example reproduces Figure 1 of [@larsen_identification_2019]. It used `grou
 #| fig-cap: |
 #|   **Phylogenetic tree of CTLDcps**. Using different background colors, line types and colors, and clade labels to distinguish groups.
 #| fig-scap: "(ref:treeLarsenscap)"
+#| label: fig-treeLarsen
 #| fig-width: 7.5
 #| fig-height: 6.3
 #| out-width: '100%'
@@ -353,6 +353,7 @@ The `geom_motif()` is defined in `r Biocpkg("ggtree")` and it is a wrapper layer
 ```{r}
 #| fig-width: 9
 #| fig-height: 4
+#| label: fig-gggenes
 #| fig-cap: |
 #|   **Genomic features with a phylogenetic tree.**
 #| fig-scap: "(ref:gggenesscap)"

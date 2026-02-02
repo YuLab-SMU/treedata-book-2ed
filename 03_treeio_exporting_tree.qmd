@@ -237,28 +237,26 @@ writeLines(x)
 ```
 
 Some software tools that do not support these outputs can be supported through data conversion. For example, we can convert the NHX file to BEAST file and use NHX tags to color the tree using
-`r pkg_figtree` (Figure @fig-beastFigtreeA) or convert `r pkg_codeml` output and use
-*d~N~/d~S~*, *d~N~*, or *d~S~* to color the tree in `r pkg_figtree` (Figure @fig-beastFigtreeB). Before conversion, these files could not be opened in Figtree. Treeio's conversion function makes data available to other software tools and expands the application range of these tools.
+`r pkg_figtree` (Figure @fig-beastFigtree-1) or convert `r pkg_codeml` output and use
+*d~N~/d~S~*, *d~N~*, or *d~S~* to color the tree in `r pkg_figtree` (Figure @fig-beastFigtree-2). Before conversion, these files could not be opened in Figtree. Treeio's conversion function makes data available to other software tools and expands the application range of these tools.
 
 
 
 ```{r}
+#| label: fig-beastFigtree
 #| fig-width: 8
 #| fig-height: 9.6
 #| echo: false
 #| fig-cap: |
-#|   **Visualizing BEAST file in FigTree.** Directly visualizing `NHX` file (A) and `CodeML` output (B) in `FigTree` is not supported. `treeio` can convert these files to BEAST compatible NEXUS format which can be directly opened in `FigTree` and visualized together with annotated data.
+#|   **Visualizing BEAST file in FigTree.** Directly visualizing `NHX` file and `CodeML` output in `FigTree` is not supported. `treeio` can convert these files to BEAST compatible NEXUS format which can be directly opened in `FigTree` and visualized together with annotated data.
+#| fig-subcap:
+#|   - "NHX file"
+#|   - "CodeML output"
+#| layout-ncol: 1
 #| fig-scap: "(ref:beastFigtreescap)"
 #| out-width: "100%"
-# knitr::include_graphics("img/phyldog.png")
-# knitr::include_graphics("img/codeml.png")
-
-p1 = magick::image_read("img/phyldog.png")
-p2 = magick::image_read("img/codeml.png")
-g1 = ggplotify::as.ggplot(p1)
-g2 = ggplotify::as.ggplot(p2)
-cowplot::plot_grid(g1, g2, ncol=1, labels=c("A", "B"), 
-    rel_heights=c(1.18, 1))
+knitr::include_graphics("img/phyldog.png", auto_pdf = TRUE)
+knitr::include_graphics("img/codeml.png", auto_pdf = TRUE)
 ```
 
 

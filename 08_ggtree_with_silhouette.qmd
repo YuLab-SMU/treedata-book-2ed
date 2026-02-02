@@ -33,6 +33,7 @@ Online tools such as `r pkg_itol` [@letunic_interactive_2007] and `r pkg_evolvie
 #| warning: false
 #| dev: 'png'
 #| dpi: 150
+#| label: fig-frogimage
 #| fig-cap: |
 #|   **Labelling taxa with images.** Users need to specify `geom = "image"` and map the image file names onto the `image` aesthetics.
 #| fig-scap: "(ref:frogimagescap)"
@@ -113,7 +114,8 @@ p <- ggtree(tree) %<+% d +
 
 ```{r}
 #| fig-width: 7.17
-#| figh-height: 4.3
+#| fig-height: 4.3
+#| label: fig-phylopic
 #| fig-cap: |
 #|   **Labelling taxa with phylopic images.** The `r Biocpkg("ggtree")` will automatically download phylopic figures by querying provided UID. The figures can be colored using numerical or categorical values.
 #| fig-scap: "(ref:phylopicscap)"
@@ -131,7 +133,7 @@ The `r Biocpkg("ggtree")` package provides a layer, `geom_inset()`, for adding s
 ### Annotate with bar charts
 
 
-This example uses `ape::ace()` function to estimate ancestral character states. The likelihoods of the stats were visualized as stacked bar charts which were overlayed onto internal nodes of the tree using the `geom_inset()` layer (Figure @fig-pieInsetA)\index{geom\textunderscore inset}. 
+This example uses `ape::ace()` function to estimate ancestral character states. The likelihoods of the stats were visualized as stacked bar charts which were overlayed onto internal nodes of the tree using the `geom_inset()` layer (Figure @fig-pieInset-1)\index{geom\textunderscore inset}. 
 
 
 
@@ -174,7 +176,7 @@ The `x` position can be one of `r squote('node')` or `r squote('branch')` and ca
 
 ### Annotate with pie charts
 
-Similarly, users can use the `nodepie()` function to generate a list of pie charts and place these charts to annotate corresponding nodes (Figure @fig-pieInsetB). Both `nodebar()` and `nodepie()` accept a parameter of `alpha` to allow transparency. 
+Similarly, users can use the `nodepie()` function to generate a list of pie charts and place these charts to annotate corresponding nodes (Figure @fig-pieInset-2). Both `nodebar()` and `nodepie()` accept a parameter of `alpha` to allow transparency. 
 
 
 
@@ -183,15 +185,22 @@ Similarly, users can use the `nodepie()` function to generate a list of pie char
 ```{r}
 #| fig-width: 16
 #| fig-height: 9.6
+#| label: fig-pieInset
 #| fig-cap: |
-#|   **Annotate internal nodes with bar or pie charts.** Using bar charts (A) or pie charts (B) to display summary statistics of internal nodes.
+#|   Annotate internal nodes with bar or pie charts.
+#| fig-subcap:
+#|   - "Using bar charts to display summary statistics of internal nodes"
+#|   - "Using pie charts to display summary statistics of internal nodes"
 #| fig-scap: "(ref:pieInsetscap)"
 #| out-width: '100%'
+#| fig-show: hold
+#| layout-ncol: 2
 pies <- nodepie(ancstats, cols = 1:6)
 pies <- lapply(pies, function(g) g+scale_fill_manual(values = cols))
 p2 <- p + geom_inset(pies, width = .1, height = .1) 
 
-plot_list(p1, p2, guides='collect', tag_levels='A')
+p1
+p2
 ```
 
 
@@ -206,6 +215,7 @@ The `geom_inset()` layer accepts a list of `r squote('ggplot')` graphic objects 
 ```{r}
 #| fig-width: 10
 #| fig-height: 9.6
+#| label: fig-barpieInset
 #| fig-cap: |
 #|   **Annotate internal nodes with different types of subplots.**
 #| fig-scap: "(ref:barpieInsetscap)"
@@ -248,6 +258,7 @@ p <- ggtree(tree, linetype = "dashed", size=1, color='firebrick') %<+% d +
 ```{r}
 #| fig-width: 7
 #| fig-height: 5
+#| label: fig-phylomoji1
 #| warning: false
 #| fig-cap: |
 #|   **Parsing label as emoji.** Text (*e.g.*, node or tip labels) can be parsed as emoji.
@@ -294,6 +305,7 @@ p2 %>% rotate_tree(-90)
 ```{r}
 #| fig-width: 9.2
 #| fig-height: 7.3
+#| label: fig-emojifan
 #| warning: false
 #| echo: false
 #| fig-cap: |
@@ -316,9 +328,9 @@ p3x <- ggplot() + ylim(0, 1) + xlim(0.5, 1) + theme_tree() +
   annotation_custom(ggplotGrob(p3), 
                     ymin=-.1, ymax=1.1, xmin=-.25, xmax=1.25)
 
-a <- plot_list(p, labels='A')
-b <- plot_list(p2x, labels='B')
-c <- plot_list(p3x, labels='C')
+a <- p + ggtitle("A")
+b <- p2x + ggtitle("B")
+c <- p3x + ggtitle("C")
 g <- ggplot() + xlim(0,1) + ylim(0,1) 
 
 gg <- g + annotation_custom(ggplotGrob(c), xmin=.5, xmax=1, ymin=0, ymax=1) + 
@@ -357,6 +369,7 @@ Parsing clade labels as emojis is also supported in the `geom_cladelab()` layer.
 ```{r}
 #| fig-width: 6
 #| fig-height: 5
+#| label: fig-emojiclade
 #| fig-cap: |
 #|   **Emoji to label clades.**
 #| fig-scap: "(ref:emojicladescap)"
@@ -421,6 +434,7 @@ dev.off()
 
 
 ```{r}
+#| label: fig-applemoji
 #| out-width: "100%"
 #| echo: false
 #| fig-scap: "(ref:applemojiscap)"

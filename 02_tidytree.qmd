@@ -183,12 +183,13 @@ by `r pkg_beast` on the same branches.
 
 
 ```{r}
+#| label: fig-correlations
 #| fig-width: 9
 #| fig-height: 3
 #| warning: false
 #| fig-cap: |
 #|   **Correlation of *d~N~/d~S~*, *d~N~*, and *d~S~* vs. substitution rate.** After merging the *BEAST* and *CodeML* outputs, the branch-specific estimates (substitution rate, *d~N~/d~S~* , *d~N~*, and *d~S~*) from the two analysis programs are compared on the same branch basis. The associations of *d~N~/d~S~*, *d~N~*, and *d~S~* vs. *rate* are visualized in hexbin scatter plots.
-#| fig-scap: "(ref:correlationscap)"
+#| fig-scap: "Correlation of dN/dS vs. substitution rate"
 #| out-extra: ''
 #| out-width: "100%"
 library(dplyr)
@@ -380,9 +381,15 @@ Then we can reroot the tree with the associated data mapping to the branches and
 ```{r}
 #| fig-width: 14
 #| fig-height: 5
+#| label: fig-reroot
 #| fig-cap: |
-#|   **Reroot a phylogenetic tree with associated data.** Original tree (A) and  re-rooted tree (B) with associated data mapped to the branches or nodes of the tree correctly. (A) and (B) present before and after rooting on the branch leading to the tip node 'Suricata_suricatta', respectively.
+#|   **Reroot a phylogenetic tree with associated data.**
+#| fig-subcap:
+#|   - "Original tree"
+#|   - "Rerooted tree, with associated data mapped correctly"
 #| fig-scap: "(ref:rerootscap)"
+#| fig-show: hold
+#| layout-ncol: 2
 # reroot
 trda2 <- root(trda, outgroup = "Suricata_suricatta", edgelabel = TRUE)
 # The original tree
@@ -449,7 +456,8 @@ p2 <- trda2 %>%
       scale_fill_gradientn(colors = RColorBrewer::brewer.pal(3, "YlGnBu")) +
       theme(legend.position = "right")
 
-plot_list(p1, p2, tag_levels='A', ncol=2)
+p1
+p2
 ```
 
 
@@ -466,16 +474,25 @@ Phylogenetic data can be merged for joint analysis (Figure @fig-correlations). T
 #| fig-height: 4.5
 #| message: false
 #| echo: true
+#| label: fig-rescale
 #| fig-cap: |
-#|   **Rescaling tree branches.** The tree with branches scaled in time (year from the root) (A). The tree was rescaled using *d~N~* as branch lengths (B). The tree was rescaled using substitution rates (C).
+#|   Rescaling tree branches.
+#| fig-subcap:
+#|   - "Branches scaled in time (year from the root)"
+#|   - "Rescaled using dN as branch lengths"
+#|   - "Rescaled using substitution rates"
 #| fig-scap: "(ref:rescalescap)"
 #| out-extra: ''
 #| out-width: "100%"
+#| fig-show: hold
+#| layout-ncol: 3
 p1 <- ggtree(merged_tree) + theme_tree2()
 p2 <- ggtree(rescale_tree(merged_tree, 'dN')) + theme_tree2()
 p3 <- ggtree(rescale_tree(merged_tree, 'rate')) + theme_tree2()
 
-plot_list(p1, p2, p3, ncol=3, tag_levels='A')
+p1
+p2
+p3
 ```
 
 Modifying branch lengths in the tree object in addtion to using the `rescale_tree()` function, users can directly specify a variable as branch length in `ggtree()` as demonstrated in [session 4.3.6](#rescale-tree). 
@@ -487,7 +504,7 @@ Modifying branch lengths in the tree object in addtion to using the `rescale_tre
 
 Sometimes we want to remove selected tips from a phylogenetic tree. This is due to several reasons, including low sequence quality, errors in sequence assembly, an alignment error in part of the sequence, an error in phylogenetic inference, *etc*.
 
-Let's say that we want to remove three tips (colored red) from the tree (Figure @fig-removeTipA), the `drop.tip()` method removes specified tips and updates the tree (Figure @fig-removeTipB). All associated data will be maintained in the updated tree. 
+Let's say that we want to remove three tips (colored red) from the tree (Figure @fig-removeTip-1), the `drop.tip()` method removes specified tips and updates the tree (Figure @fig-removeTip-2). All associated data will be maintained in the updated tree. 
 
 
 
@@ -495,10 +512,16 @@ Let's say that we want to remove three tips (colored red) from the tree (Figure 
 ```{r}
 #| fig-width: 12
 #| fig-height: 6
+#| label: fig-removeTip
 #| fig-cap: |
-#|   **Removing tips from a tree.** Original tree with three tips (colored red) to remove (A). The updated tree removed selected tips (B).
+#|   Removing tips from a tree.
+#| fig-subcap:
+#|   - "Original tree with three tips to remove"
+#|   - "Updated tree after removing selected tips"
 #| fig-scap: "(ref:removeTipscap)"
 #| out-width: "100%"
+#| fig-show: hold
+#| layout-ncol: 2
 f <- system.file("extdata/NHX", "phyldog.nhx", package="treeio")
 nhx <- read.nhx(f)
 to_drop <- c("Physonect_sp_@2066767",
@@ -509,17 +532,18 @@ p1 <- ggtree(nhx) + geom_tiplab(aes(color = label %in% to_drop)) +
 
 nhx_reduced <- drop.tip(nhx, to_drop)
 p2 <- ggtree(nhx_reduced) + geom_tiplab() + xlim(0, 0.8)  
-plot_list(p1, p2, ncol=2, tag_levels = "A")
+p1
+p2
 ```
 
 
 ### Subsetting tree by tip label {#sec-subset-tip}
 
-Sometimes a tree can be large and difficult to look at only the portions of interest. The `tree_subset()` function was created in the `r Biocpkg("treeio")` package [@wang_treeio_2020] to extract a subset of the tree portion while still maintaining the structure of the tree portion. The `beast_tree` in Figure @fig-subsetTipA is slightly crowded. Obviously, we can make the figure taller to allow more space for the labels (similar to using the "Expansion" slider in `FigTree`) or we can make the text smaller. However, these solutions are not always applicable when you have a lot of tips (*e.g.*, hundreds or thousands of tips). In particular, when you are only interested in the portion of the tree around a particular tip, you certainly don't want to explore a large tree to find the certain species you are interested in.
+Sometimes a tree can be large and difficult to look at only the portions of interest. The `tree_subset()` function was created in the `r Biocpkg("treeio")` package [@wang_treeio_2020] to extract a subset of the tree portion while still maintaining the structure of the tree portion. The `beast_tree` in Figure @fig-subsetTip-1 is slightly crowded. Obviously, we can make the figure taller to allow more space for the labels (similar to using the "Expansion" slider in `FigTree`) or we can make the text smaller. However, these solutions are not always applicable when you have a lot of tips (*e.g.*, hundreds or thousands of tips). In particular, when you are only interested in the portion of the tree around a particular tip, you certainly don't want to explore a large tree to find the certain species you are interested in.
 
-Let's say you are interested in tip *A/Swine/HK/168/2012* from the tree (Figure @fig-subsetTipA) and you want to look at the immediate relatives of this tip. 
+Let's say you are interested in tip *A/Swine/HK/168/2012* from the tree (Figure @fig-subsetTip-1) and you want to look at the immediate relatives of this tip. 
 
-The `tree_subset()` function allows you to look at the portions of the tree that are of interest. By default, the `tree_subset()` function will internally call the [`groupOTU()`](#groupotu) to assign the group specified tip from the rest of the other tips (Figure @fig-subsetTipB). Additionally, the branch lengths and related associated data are maintained after subsetting (Figure @fig-subsetTipC). The root of the tree is always anchored at zero for the subset tree by default and all the distances are relative to this root. If you want all the distances to be relative to the original root, you can specify the root position (by `root.position` parameter) to the root edge of the subset tree, which is the sum of branch lengths from the original root to the root of the subset tree (Figures @fig-subsetTipD and E).
+The `tree_subset()` function allows you to look at the portions of the tree that are of interest. By default, the `tree_subset()` function will internally call the [`groupOTU()`](#groupotu) to assign the group specified tip from the rest of the other tips (Figure @fig-subsetTip-2). Additionally, the branch lengths and related associated data are maintained after subsetting (Figure @fig-subsetTip-3). The root of the tree is always anchored at zero for the subset tree by default and all the distances are relative to this root. If you want all the distances to be relative to the original root, you can specify the root position (by `root.position` parameter) to the root edge of the subset tree, which is the sum of branch lengths from the original root to the root of the subset tree (Figures @fig-subsetTip-4 and @fig-subsetTip-5).
 
 
 
@@ -527,11 +551,20 @@ The `tree_subset()` function allows you to look at the portions of the tree that
 #| fig-width: 12
 #| fig-height: 7
 #| echo: true
+#| label: fig-subsetTip
 #| fig-cap: |
-#|   **Subsetting tree for a specific tip.** Original tree (A). Subset tree (B). Subset tree with data (C). Visualize the subset tree relative to the original position, without rootedge (D) and with rootedge (E).
+#|   Subsetting tree for a specific tip.
+#| fig-subcap:
+#|   - "Original tree"
+#|   - "Subset tree"
+#|   - "Subset tree with data"
+#|   - "Subset tree relative to original position without rootedge"
+#|   - "Subset tree relative to original position with rootedge"
 #| fig-scap: "(ref:subsetTipscap)"
 #| out-extra: ''
 #| out-width: "100%"
+#| fig-show: hold
+#| layout-ncol: 3
 beast_file <- system.file("examples/MCC_FluA_H3.tree", package="ggtree")
 beast_tree <- read.beast(beast_file)
 
@@ -557,15 +590,18 @@ p4 <- ggtree(tree2, aes(color=group),
 p5 <- p4 + 
   geom_rootedge() + xlim(0, 50) 
 
-plot_list(p1, p2, p3, p4, p5, 
-        design="AABBCC\nAADDEE", tag_levels='A')
+p1
+p2
+p3
+p4
+p5
 ```
 
 
 
 ### Subsetting tree by internal node number {#sec-subset-node}
 
-If you are interested in a certain clade, you can specify the input node as an internal node number. The `tree_subset()` function will take the clade as a whole and also trace it back to particular levels to look at the immediate relatives of the clade (Figures @fig-subsetNodeA and B). We can use the `tree_subset()` function to zoom in selected portions and plot a whole tree with the portion of it, which is similar to the `ape::zoom()` function to explore a very large tree (Figures @fig-subsetNodeC and D). Users can also use `viewClade()` function to restrict tree visualization at specific clade as demonstrated in [session 6.1](#viewing-selected-clade).
+If you are interested in a certain clade, you can specify the input node as an internal node number. The `tree_subset()` function will take the clade as a whole and also trace it back to particular levels to look at the immediate relatives of the clade (Figures @fig-subsetNode-1 and @fig-subsetNode-2). We can use the `tree_subset()` function to zoom in selected portions and plot a whole tree with the portion of it, which is similar to the `ape::zoom()` function to explore a very large tree (Figures @fig-subsetNode-3 and @fig-subsetNode-4). Users can also use `viewClade()` function to restrict tree visualization at specific clade as demonstrated in [session 6.1](#viewing-selected-clade).
 
 
 
@@ -573,11 +609,19 @@ If you are interested in a certain clade, you can specify the input node as an i
 #| fig-width: 10
 #| fig-height: 10
 #| echo: true
+#| label: fig-subsetNode
 #| fig-cap: |
-#|   **Subsetting tree for the specific clade.** Extracting a clade (A). Extracting a clade and tracing it back to look at its immediate relatives (B). Viewing a very large tree (C) and a selected portion of it (D).
+#|   Subsetting tree for the specific clade.
+#| fig-subcap:
+#|   - "Extract a clade"
+#|   - "Extract a clade and trace back to immediate relatives"
+#|   - "View a very large tree"
+#|   - "View a selected portion of the tree"
 #| fig-scap: "(ref:subsetNodescap)"
 #| out-extra: ''
 #| out-width: "100%"
+#| fig-show: hold
+#| layout-ncol: 2
 clade <- tree_subset(beast_tree, node=121, levels_back=0)
 clade2 <- tree_subset(beast_tree, node=121, levels_back=2)
 p1 <- ggtree(clade) + geom_tiplab() + xlim(0, 5)
@@ -601,8 +645,10 @@ p3 <- ggtree(chiroptera, aes(colour = group)) +
   scale_color_manual(values=c("black", "red")) +
   theme(legend.position = "none")
 p4 <- ggtree(x) + geom_tiplab() + xlim(0, 6)
-plot_list(p1, p2, p3, p4, 
-  ncol=2, tag_levels = 'A')
+p1
+p2
+p3
+p4
 ```
 
 
@@ -616,13 +662,14 @@ Here is an example to plot two trees face-to-face that is similar to a graph pro
 
 
 ```{r}
+#| label: fig-cophylo
 #| fig-width: 8
 #| fig-height: 6
 #| message: false
 #| echo: true
 #| fig-cap: |
 #|   **Plot two phylogenetic trees face-to-face.** Plotting a tree using `ggtree()` (left-hand side) and subsequently adding another layer of a tree by `geom_tree()` (right-hand side). The relative positions of the plotted trees can be manually adjusted and adding layers to each of the trees (*e.g.*, tip labels and highlighting clades) is independent.
-#| fig-scap: "(ref:cophyloscap)"
+#| fig-scap: "Plot two phylogenetic trees face-to-face"
 #| out-extra: ''
 #| out-width: "100%"
 library(dplyr)
@@ -674,13 +721,14 @@ It is quite easy to plot multiple trees and connect taxa in one figure; for inst
 
 
 ```{r}
+#| label: fig-cophylo3
 #| fig-width: 8
 #| fig-height: 6
 #| message: false
 #| echo: true
 #| fig-cap: |
 #|   **Plot multiple phylogenetic trees side-by-side.** Plotting a tree using `ggtree()` and subsequently adding multiple layers of trees by `geom_tree()`.
-#| fig-scap: "(ref:cophylo3scap)"
+#| fig-scap: "Plot multiple phylogenetic trees side-by-side"
 #| out-extra: ''
 #| out-width: "100%"
 z <- rtree(30)

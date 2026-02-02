@@ -29,10 +29,16 @@ The `r Biocpkg("ggtree")` package supports `phylo4d` object and all the associat
 #| warning: false
 #| fig-width: 10
 #| fig-height: 6.2
+#| label: fig-fp4d
 #| fig-cap: |
-#|   **Visualizing `phylo4d` data using ggtree.** Reproduce the output of the `plot()` method provided in the `r CRANpkg("phylobase")` package (A). Visualize the trait data as a heatmap which is not supported in the `r CRANpkg("phylobase")` package (B).
+#|   **Visualizing `phylo4d` data using ggtree.**
+#| fig-subcap:
+#|   - "Reproduce the output of the plot() method provided in the phylobase package"
+#|   - "Visualize trait data as a heatmap, which is not supported in phylobase"
 #| fig-scap: "(ref:fp4dscap)"
 #| out-width: "90%"
+#| fig-show: hold
+#| layout-ncol: 2
 library(phylobase)
 data(geospiza_raw)
 g1 <- as(geospiza_raw$tree, "phylo4")
@@ -58,7 +64,8 @@ p2 <- gheatmap(ggtree(g1), data=geospiza_raw$data, colnames_angle=45) +
   geom_tiplab(offset=1) + hexpand(.2) + vexpand(.05, -1) + 
   theme(legend.position = c(.1, .75))
 
-aplot::plot_list(p1, p2, ncol=2, tag_levels='A')    
+p1
+p2
 ```
 
 
@@ -72,6 +79,7 @@ The `phylog` is defined in the `r CRANpkg("ade4")` package. The package is desig
 ```{r}
 #| fig-width: 7
 #| fig-height: 4.8
+#| label: fig-phylog
 #| fig-cap: |
 #|   **Visualizing a `phylog` tree object.**
 #| fig-scap: "(ref:phylogscap)"
@@ -98,6 +106,7 @@ The `phyloseq` class defined in the `r Biocpkg("phyloseq")` package was designed
 ```{r}
 #| fig-height: 7
 #| fig-width: 9.5
+#| label: fig-reproducephyloseq
 #| message: false
 #| fig-cap: |
 #|   **Visualizing a `phyloseq` tree object.** This example mimics the output of the `plot_tree()` function provided in the `r Biocpkg("phyloseq")` package.
@@ -131,6 +140,7 @@ Figure @fig-reproducephyloseq reproduces the output of the `phyloseq::plot_tree(
 ```{r}
 #| fig-height: 6.6
 #| fig-width: 7
+#| label: fig-phyloseq
 #| message: false
 #| fig-cap: |
 #|   **Phylogenetic tree with OTU abundance densities.** Tips were colored by Phylum, and the corresponding abundances across different samples were visualized as density ridgelines and sorted according to the tree structure.
@@ -172,7 +182,7 @@ This example uses microbiome data provided in the `r Biocpkg("phyloseq")` packag
 
 ### The obkData object {#sec-obkdata}
 
-The `okbData` is defined in the `r CRANpkg("OutbreakTools")` package to store incidence-based outbreak data, including meta data of sampling and information of infected individuals such as age and onset of symptoms. The `ggtree` supports the `obkData` object and the information can be used to annotate the tree as shown in Figure @fig-outbreaktools.
+The `okbData` is defined in the `r CRANpkg("OutbreakTools")` package to store incidence-based outbreak data, including meta data of sampling and information of infected individuals such as age and onset of symptoms. The `ggtree` supports the `obkData` object and the information can be used to annotate the tree as shown in the following example.
 
 
 
@@ -218,6 +228,46 @@ den <- as.dendrogram(hc)
 den
 ```
 
+```{r}
+#| echo: false
+#| label: tbl-tree-objects
+#| tbl-cap: |
+#|   Supported tree-like objects in `r Biocpkg("ggtree")`.
+tree_objects <- data.frame(
+  Object = c(
+    "phylo",
+    "multiPhylo",
+    "phylo4",
+    "phylo4d",
+    "phyloseq",
+    "obkData",
+    "hclust",
+    "dendrogram",
+    "agnes",
+    "diana",
+    "twins",
+    "pvclust",
+    "igraph (tree graph)"
+  ),
+  Package = c(
+    "ape",
+    "ape",
+    "phylobase",
+    "phylobase",
+    "phyloseq",
+    "OutbreakTools",
+    "stats",
+    "stats",
+    "cluster",
+    "cluster",
+    "cluster",
+    "pvclust",
+    "igraph"
+  )
+)
+knitr::kable(tree_objects)
+```
+
 The `r Biocpkg("ggtree")` package supports most of the hierarchical clustering objects defined in the R community, including `hclust` and `dendrogram` as well as `agnes`, `diana`, and `twins` that are defined in the `r CRANpkg("cluster")` package, and the `pvclust` object defined in the `r CRANpkg("pvclust")` package (Table @tbl-tree-objects). Users can use `ggtree(object)` to display its tree structure, and use other layers and utilities to customize the graph and of course, add annotations to the tree.
 
 The `r Biocpkg("ggtree")` provides `layout_dendrogram()` to layout the tree top-down, and `theme_dendrogram()` to display tree height (similar to `theme_tree2()` for phylogenetic tree) as demonstrated in Figure @fig-ggtreehclust (see also the example in [@yu_cp_2020]).
@@ -232,6 +282,7 @@ MRCA = ggtree:::MRCA.ggtree
 ```{r}
 #| fig-width: 9
 #| fig-height: 5
+#| label: fig-ggtreehclust
 #| fig-cap: |
 #|   **Visualizing dendrogram.** Use `cutree()` to split the tree into several groups and `groupClade()` to assign this grouping information. The tree was displayed in the classic top-down layout with branches colored by the grouping information and the tips were colored and labeled by the number of cylinders.
 #| fig-scap: "(ref:ggtreehclustscap)"
@@ -272,6 +323,7 @@ The tree graph (as  an `igraph` object) can be converted to a `phylo` object usi
 ```{r}
 #| fig-width: 10
 #| fig-height: 5
+#| label: fig-treeGraph
 #| fig-cap: |
 #|   **Visualizing a tree graph.** The lines with arrows indicate the relationship between the parent node and the child node. All nodes were indicated by steelblue circle points.
 #| fig-scap: "(ref:treeGraphscap)"
@@ -298,6 +350,7 @@ The `r Biocpkg("ggtree")` package can be used to visualize any data in a hierarc
 ```{r}
 #| fig-width: 12
 #| fig-height: 10
+#| label: fig-gni2014
 #| fig-cap: |
 #|   **Visualizing data in any hierarchical structure.** Hierarchical data represented as nodes connected by edges can be converted to a `phylo` object and visualized by `r Biocpkg("ggtree")` to explore their relationships or other properties that are associated with the relationships\index{dendrogram}.
 #| fig-scap: "(ref:gni2014scap)"

@@ -29,6 +29,7 @@ In `r Biocpkg("ggtree")`, we implemented an operator, `%<+%`, to attach annotati
 #| fig-height: 6.2
 #| warning: false
 #| message: false
+#| label: fig-attacher
 #| fig-cap: |
 #|   **Example of attaching multiple datasets**. External datasets including tip data (e.g., trophic habit and body weight) and node data (e.g., clade posterior and vernacular name) were attached to the `ggtree` graphic via the `%<+%` operator and the data was used to annotate the tree.
 #| fig-scap: "(ref:attacherscap)"
@@ -61,6 +62,25 @@ For associating phylogenetic tree with different types of plot produced by user'
 
 The `geom_facet()` is designed to work with most of the `geom` layers defined in `r CRANpkg("ggplot2")` and other `r CRANpkg("ggplot2")`-based packages. A list of the geometric layers that work seamlessly with `geom_facet()` and `facet_plot()` can be found in Table @tbl-facet-geom. As the `r CRANpkg("ggplot2")` community keeps expanding and more `geom` layers will be implemented in either `r CRANpkg("ggplot2")` or other extensions, `geom_facet()` and `facet_plot()` will gain more power to present data in the future. Note that different `geom` layers can be combined to present data on the same panel and the combinations of different `geom` layers create the possibility to present more complex data with phylogeny (see also Figures @fig-jv2017 and @fig-gggenes). Users can progressively add multiple panels to present and compare different datasets in the evolutionary context (Figure @fig-plottree). Detailed descriptions can be found in the [supplemental file](https://github.com/GuangchuangYu/plotting_tree_with_data/) of [@yu_two_2018]\index{geom\textunderscore facet}.
 
+```{r}
+#| echo: false
+#| label: tbl-facet-geom
+#| tbl-cap: |
+#|   Geometric layers compatible with `geom_facet()` and `facet_plot()`.
+facet_geoms <- data.frame(
+  Geom = c(
+    "geom_point", "geom_col", "geom_bar", "geom_line", "geom_area",
+    "geom_boxplot", "geom_violin", "geom_tile", "geom_text", "geom_label"
+  ),
+  Description = c(
+    "Points", "Columns", "Bars", "Lines", "Areas",
+    "Boxplots", "Violin plots", "Tiles/heatmaps", "Text labels", "Label boxes"
+  ),
+  stringsAsFactors = FALSE
+)
+knitr::kable(facet_geoms, booktabs = TRUE)
+```
+
 
 
 
@@ -68,6 +88,7 @@ The `geom_facet()` is designed to work with most of the `geom` layers defined in
 #| fig-width: 12
 #| fig-height: 7
 #| message: false
+#| label: fig-plottree
 #| fig-cap: |
 #|   **Example of plotting SNP and trait data**. The 'location' information was attached to the tree and used to color tip symbols (Tree panel), and other datasets. SNP and Trait data were visualized as dot chart (SNP panel) and bar chart (Trait panel).
 #| fig-scap: "(ref:plottreescap)"
@@ -118,7 +139,7 @@ The `geom_facet()` (or `facet_plot()`) internally used `ggplot2::facet_grid()` a
 
 The `gheatmap()` function is designed to visualize the phylogenetic tree with a heatmap of an associated matrix (either numerical or categorical). The `geom_facet()` layer is a general solution for plotting data with the tree, including heatmap. The `gheatmap()` function is specifically designed for plotting heatmap with a tree and provides a shortcut for handling column labels and color palettes. Another difference is that `geom_facet()` only supports rectangular and slanted tree layouts, while `gheatmap()` supports rectangular, slanted, and circular (Figure @fig-mgheatmap) layouts\index{heatmap}. 
 
-In the following example, we visualized a tree of H3 influenza viruses with their associated genotypes (Figure @fig-gheatmapA).
+In the following example, we visualized a tree of H3 influenza viruses with their associated genotypes (Figure @fig-gheatmap-1).
 
 ```{r}
 #| fig-height: 6
@@ -144,7 +165,7 @@ gheatmap(p, genotype, offset=5, width=0.5, font.size=3,
 The `width` parameter is to control the width of the heatmap. It supports another parameter `offset` for controlling the distance between the tree and the heatmap, such as allocating space for tip labels.
 
 
-For a timescaled tree, as in this example, it's more common to use *x*-axis by using `theme_tree2`. But with this solution, the heatmap is just another layer and will change the *x*-axis. To overcome this issue, we implemented `scale_x_ggtree()` to set the *x*-axis more reasonably (Figure @fig-gheatmapB).
+For a timescaled tree, as in this example, it's more common to use *x*-axis by using `theme_tree2`. But with this solution, the heatmap is just another layer and will change the *x*-axis. To overcome this issue, we implemented `scale_x_ggtree()` to set the *x*-axis more reasonably (Figure @fig-gheatmap-2).
 
 
 ```{r}
@@ -170,10 +191,16 @@ gheatmap(p, genotype, offset=8, width=0.6,
 #| warning: false
 #| message: false
 #| echo: false
+#| label: fig-gheatmap
 #| fig-cap: |
-#|   **Example of plotting matrix with `gheatmap()`**. A H3 influenza tree with a genotype table visualized as a heatmap (A). Tips were aligned and with a tailored *x*-axis for divergence times (tree) and genomic segments (heatmap) (B).
+#|   Example of plotting matrix with `gheatmap()`.
+#| fig-subcap:
+#|   - "H3 influenza tree with a genotype table visualized as a heatmap"
+#|   - "Aligned tips with tailored x-axis for divergence times and segments"
 #| fig-scap: "(ref:gheatmapscap)"
 #| out-width: '90%'
+#| fig-show: hold
+#| layout-ncol: 1
 beast_file <- system.file("examples/MCC_FluA_H3.tree", package="ggtree")
 beast_tree <- read.beast(beast_file)
 
@@ -199,7 +226,8 @@ g2 <- gheatmap(p2, genotype, offset=8, width=0.6,
     scale_x_ggtree() + 
     scale_y_continuous(expand=c(0, 0.3))
 
-plot_list(g1, g2, ncol=1, tag_levels='A')
+g1
+g2
 ```
 
 
@@ -214,6 +242,7 @@ To solve this issue, we can use the `r CRANpkg("ggnewscale")` package to create 
 ```{r}
 #| fig-width: 10
 #| fig-height: 8
+#| label: fig-mgheatmap
 #| fig-cap: |
 #|   **Example of plotting multiple matrix with `gheatmap()`**. A data frame (with 'first' and 'second' columns) was visualized as a discrete heatmap and another data frame (with 'A', 'B' and 'C' columns) was visualized as a continuous heatmap with corresponding discrete and continuous palette of colors (Figure @fig-mgheatmap).
 #| fig-scap: "(ref:mgheatmapscap)"
@@ -249,7 +278,7 @@ gheatmap(p2, df2, offset=15, width=.3,
 
 ## Visualize a Tree with Multiple Sequence Alignments {#sec-msaplot}
 
-The `msaplot()` accepts a tree (output of `ggtree()`) and a fasta file, then it can visualize the tree with sequence alignment. We can specify the `width` (relative to the tree) of the alignment and adjust the relative position by `offset`, which is similar to the `gheatmap()` function (Figure @fig-msaplotA)\index{MSA}.
+The `msaplot()` accepts a tree (output of `ggtree()`) and a fasta file, then it can visualize the tree with sequence alignment. We can specify the `width` (relative to the tree) of the alignment and adjust the relative position by `offset`, which is similar to the `gheatmap()` function (Figure @fig-msaplot-1)\index{MSA}.
 
 ```{r}
 library(TDbook)
@@ -261,7 +290,7 @@ msaplot(p, AA_sequence, offset=3, width=2)
 
 
 
-A specific slice of the alignment can also be displayed by specifying the `window` parameter (Figure @fig-msaplotB)..
+A specific slice of the alignment can also be displayed by specifying the `window` parameter (Figure @fig-msaplot-2)..
 
 ```{r}
 #| fig-height: 7
@@ -281,10 +310,16 @@ msaplot(p, AA_sequence, window=c(120, 200))
 #| fig-height: 7
 #| warning: false
 #| echo: false
+#| label: fig-msaplot
 #| fig-cap: |
-#|   **Example of plotting multiple sequence alignments with a tree**. Whole MSA sequences were visualized with a tree in rectangular layout (A). Circular layout with a slice of alignment window (B).
+#|   Example of plotting multiple sequence alignments with a tree.
+#| fig-subcap:
+#|   - "Whole MSA sequences visualized with a rectangular tree"
+#|   - "Circular tree layout with an alignment window slice"
 #| fig-scap: "(ref:msaplotscap)"
 #| out-width: '100%'
+#| fig-show: hold
+#| layout-ncol: 2
 library(ggtree)
 library(TDbook)
 
@@ -296,7 +331,8 @@ p2 <- ggtree(tree_seq_nwk, layout='circular') +
     geom_tiplab(offset=4, align=TRUE) + xlim(NA, 12) + 
     theme(legend.position="none")
 g2 = msaplot(p2, AA_sequence, window=c(120, 200))  
-plot_list(g1, g2, ncol=2, tag_levels='A')
+g1
+g2
 ```
 
 To better support visualizing multiple sequence alignments with a tree and other associated data, we developed the `r Biocpkg("ggmsa")` package with the ability to label the sequences and color the sequences with different color schemes [@yu_cp_2020]. The `ggmsa()` output is compatible with `geom_facet()` and `ggtreeExtra::geom_fruit()` and can be used to visualize a tree, multiple sequence alignments, and different types of associated data to explore their underlying linkages/associations. 
@@ -383,13 +419,13 @@ The `ylim2()` is not designed specific for `r Biocpkg("ggtree")`, it works fine 
 -->
 
 
-If we align them using `r CRANpkg("cowplot")`, the composite plots are not aligned properly as we anticipated (Figure @fig-compositeA).
+If we align them using `r CRANpkg("cowplot")`, the composite plots are not aligned properly as we anticipated (Figure @fig-composite-1).
 
 ```r
 cowplot::plot_grid(g, p2, p1, ncol=3) 
 ```
 
-Using `r CRANpkg("aplot")`, it will do all the dirty work for us and all the subplots are aligned properly as demonstrated in Figure @fig-compositeB.
+Using `r CRANpkg("aplot")`, it will do all the dirty work for us and all the subplots are aligned properly as demonstrated in Figure @fig-composite-2.
 
 ```r
 library(aplot)
@@ -402,15 +438,22 @@ p2 %>% insert_left(g) %>% insert_right(p1, width=.5)
 #| echo: false
 #| fig-width: 12
 #| fig-height: 10
+#| label: fig-composite
 #| fig-cap: |
-#|   **Example of aligning tree with data side-by-side to create composite plot**. `r CRANpkg("cowplot")`` just places the subplots together (A), while `r CRANpkg("aplot")` does extra work to make sure that tree-associated subplots are properly ordered according to the tree structure (B). Note: The 'A' category in the bar plot that is not matched with the tree was removed.
+#|   Example of aligning tree with data side-by-side to create composite plot.
+#| fig-subcap:
+#|   - "cowplot() just places subplots together"
+#|   - "aplot() reorders tree-associated subplots by tree structure"
 #| fig-scap: "(ref:compositescap)"
 #| out-width: '100%'
+#| fig-show: hold
+#| layout-ncol: 1
 pg1 <- cowplot::plot_grid(g, p2, p1, ncol=3)
 library(aplot)
 pg2 <- p2 %>% insert_left(g) %>% insert_right(p1, width=.5)
 pg2 <- ggplotify::as.ggplot(pg2)
-cowplot::plot_grid(pg1, pg2, ncol=1, labels=c("A", "B")) 
+pg1
+pg2
 ```
 
 <!--
