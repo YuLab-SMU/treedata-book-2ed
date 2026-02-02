@@ -17,6 +17,7 @@ book:
     - 02_tidytree.qmd
     - 03_treeio_exporting_tree.qmd
     - 04_ggtree_visualization.qmd
+    - 05_interactive_ggtree.qmd
     - 05_ggtree_annotation.qmd
     - 06_ggtree_manipulation.qmd
     - 07_ggtree_tree_with_data.qmd
