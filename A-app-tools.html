@@ -171,7 +171,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Integration, Manipulation and Visualization of Phylogenetic Trees</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">manual setting. the ropenscilabs/icons package will set up everything for you.</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -347,8 +347,8 @@ div.csl-indent {
 </div>
 <section id="sec-MicrobiotaProcess-taxonomy" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="sec-MicrobiotaProcess-taxonomy"><span class="header-section-number">11.1</span> MicrobiotaProcess: Convert Taxonomy Table to a <code>treedata</code> Object</h2>
-<p>Taxonomy (genus, family, …) data are widely used in microbiome or ecology. Hierarchical taxonomies are the tree-like structure that organizes items into subcategories and can be converted to a tree object (see also the <a href="#phylog">phylog object</a>). The <a href="http://bioconductor.org/packages/MicrobiotaProcess"><strong>MicrobiotaProcess</strong></a> supports converting a <code>taxonomyTable</code> object, defined in the <a href="http://bioconductor.org/packages/phyloseq"><strong>phyloseq</strong></a> package, to a <code>treedata</code> object, and the taxonomic hierarchical relationship can be visualized using <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> (Figure <span class="quarto-unresolved-ref">?fig-TaxaTree</span>). When there are taxonomy names that are <a href="https://github.com/YuLab-SMU/MicrobiotaProcess/issues/14">confused and missing</a>, the <code>as.treedata()</code> method for <code>taxonomyTable</code> objects will complete their upper-level taxonomic information automatically.</p>
-<div class="cell" data-fig-widht="8">
+<p>Taxonomy (genus, family, …) data are widely used in microbiome or ecology. Hierarchical taxonomies are the tree-like structure that organizes items into subcategories and can be converted to a tree object (see also the <a href="#phylog">phylog object</a>). The <a href="http://bioconductor.org/packages/MicrobiotaProcess"><strong>MicrobiotaProcess</strong></a> supports converting a <code>taxonomyTable</code> object, defined in the <a href="http://bioconductor.org/packages/phyloseq"><strong>phyloseq</strong></a> package, to a <code>treedata</code> object, and the taxonomic hierarchical relationship can be visualized using <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> (Figure <a href="#fig-TaxaTree" class="quarto-xref">Figure&nbsp;<span>11.1</span></a>). When there are taxonomy names that are <a href="https://github.com/YuLab-SMU/MicrobiotaProcess/issues/14">confused and missing</a>, the <code>as.treedata()</code> method for <code>taxonomyTable</code> objects will complete their upper-level taxonomic information automatically.</p>
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MicrobiotaProcess)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>MicrobiotaProcess v1.18.0 For help:
@@ -383,9 +383,10 @@ Attaching package: 'MicrobiotaProcess'</code></pre>
 
 Please cite:
 
-Guangchuang Yu.  Data Integration, Manipulation and Visualization of
-Phylogenetic Trees (1st edition). Chapman and Hall/CRC. 2022,
-doi:10.1201/9781003279242, ISBN: 9781032233574</code></pre>
+Shuangbin Xu, Lin Li, Xiao Luo, Meijun Chen, Wenli Tang, Li Zhan, Zehan
+Dai, Tommy T. Lam, Yi Guan, Guangchuang Yu. Ggtree: A serialized data
+object for visualization of a phylogenetic tree and annotation data.
+iMeta 2022, 1(4):e56. doi:10.1002/imt2.56</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The original kostic2012crc is a MPSE object</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(kostic2012crc)</span>
@@ -407,10 +408,14 @@ doi:10.1201/9781003279242, ISBN: 9781032233574</code></pre>
   Please report the issue at &lt;https://github.com/YuLab-SMU/ggtree/issues&gt;.</code></pre>
 </div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="A-app-tools_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption><strong>Convert a <code>taxonomyTable</code> object to a <code>treedata</code> object.</strong></figcaption>
+<div id="fig-TaxaTree" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Convert taxonomyTable to treedata">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-TaxaTree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="A-app-tools_files/figure-html/fig-TaxaTree-1.png" class="img-fluid figure-img" data-fig-scap="Convert taxonomyTable to treedata" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-TaxaTree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11.1: <strong>Convert a <code>taxonomyTable</code> object to a <code>treedata</code> object.</strong>
+</figcaption>
 </figure>
 </div>
 </div>
@@ -418,7 +423,7 @@ doi:10.1201/9781003279242, ISBN: 9781032233574</code></pre>
 </section>
 <section id="sec-rtol" class="level2" data-number="11.2">
 <h2 data-number="11.2" class="anchored" data-anchor-id="sec-rtol"><span class="header-section-number">11.2</span> rtol: An R Interface to Open Tree API</h2>
-<p>The <a href="https://CRAN.R-project.org/package=rtol"><strong>rtol</strong></a> <span class="citation" data-cites="michonneau_rotl:_2016">(<a href="#ref-michonneau_rotl:_2016" role="doc-biblioref">Michonneau et al., 2016</a>)</span> is an R package to interact with the Open Tree of Life data APIs. Users can use it to query phylogenetic trees and visualize the trees with <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> to explore species relationships (Figure <span class="quarto-unresolved-ref">?fig-rotlSubtree</span>).</p>
+<p>The <a href="https://CRAN.R-project.org/package=rtol"><strong>rtol</strong></a> <span class="citation" data-cites="michonneau_rotl:_2016">(<a href="#ref-michonneau_rotl:_2016" role="doc-biblioref">Michonneau et al., 2016</a>)</span> is an R package to interact with the Open Tree of Life data APIs. Users can use it to query phylogenetic trees and visualize the trees with <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> to explore species relationships (Figure <a href="#fig-rotlSubtree" class="quarto-xref">Figure&nbsp;<span>11.2</span></a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## example from: https://github.com/ropensci/rotl</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rotl)</span>
@@ -448,10 +453,14 @@ mrcaott770295ott3607692, Ponginae ott1082538, Hylobatidae ott166544</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tr) <span class="sc">+</span> <span class="fu">geom_tiplab</span>() <span class="sc">+</span> <span class="fu">xlim</span>(<span class="cn">NA</span>, <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="A-app-tools_files/figure-html/rotlSubtree-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>(ref:rotlSubtreecap)</figcaption>
+<div id="fig-rotlSubtree" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Open Tree of Life subtree">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rotlSubtree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="A-app-tools_files/figure-html/fig-rotlSubtree-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="Open Tree of Life subtree">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rotlSubtree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11.2: (ref:rotlSubtreecap)
+</figcaption>
 </figure>
 </div>
 </div>
@@ -537,30 +546,30 @@ mrcaott770295ott3607692, Ponginae ott1082538, Hylobatidae ott166544</code></pre>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(d) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(d, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>NA                                
-NA  11                            
-NA   ¦--12                        
-NA   ¦   ¦--13                    
-NA   ¦   ¦   ¦--t10               
-NA   ¦   ¦   °--14                
-NA   ¦   ¦       ¦--15            
-NA   ¦   ¦       ¦   ¦--t2        
-NA   ¦   ¦       ¦   °--16        
-NA   ¦   ¦       ¦       ¦--17    
-NA   ¦   ¦       ¦       ¦   ¦--t5
-NA   ¦   ¦       ¦       ¦   °--t1
-NA   ¦   ¦       ¦       °--t9    
-NA   ¦   ¦       °--t3            
-NA   ¦   °--18                    
-NA   ¦       ¦--19                
-NA   ¦       ¦   ¦--t7            
-NA   ¦       ¦   °--t8            
-NA   ¦       °--t6                
-NA   °--t4</code></pre>
+<pre><code>NA                         
+NA  11                     
+NA   ¦--12                 
+NA   ¦   ¦--13             
+NA   ¦   ¦   ¦--t6         
+NA   ¦   ¦   °--t8         
+NA   ¦   °--14             
+NA   ¦       ¦--t5         
+NA   ¦       °--15         
+NA   ¦           ¦--16     
+NA   ¦           ¦   ¦--t9 
+NA   ¦           ¦   °--t10
+NA   ¦           °--t7     
+NA   °--17                 
+NA       ¦--t2             
+NA       °--18             
+NA           ¦--19         
+NA           ¦   ¦--t4     
+NA           ¦   °--t1     
+NA           °--t3</code></pre>
 </div>
 </div>
 <p>It is neat to print ASCII-art of the phylogeny. Sometimes, we don’t want to plot the tree, but just take a glance at the tree structure without leaving the focus from the R console. However, it is not a good idea to print the whole tree as ASCII text if the tree is large. Sometimes, we just want to look at a specific portion of the tree and its immediate relatives. In this scenario, we can use <code>treeio::tree_subset()</code> function (see <a href="subsetting-tree-with-data">session 2.4</a>) to extract selected portion of a tree. Then we can print ASCII-art of the tree subset to explore the evolutionary relationship of the species of our interest in the R console.</p>
-<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports parsing tip labels as emoji to create <a href="#phylomoji">phylomoji</a>. With the <a href="https://CRAN.R-project.org/package=data.tree"><strong>data.tree</strong></a> and <a href="https://CRAN.R-project.org/package=emojifont"><strong>emojifont</strong></a> packages, we can also print phylomoji as ASCII text (Figure <span class="quarto-unresolved-ref">?fig-emojidatatree</span>).</p>
+<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports parsing tip labels as emoji to create <a href="#phylomoji">phylomoji</a>. With the <a href="https://CRAN.R-project.org/package=data.tree"><strong>data.tree</strong></a> and <a href="https://CRAN.R-project.org/package=emojifont"><strong>emojifont</strong></a> packages, we can also print phylomoji as ASCII text (Figure <a href="#fig-emojidatatree" class="quarto-xref">Figure&nbsp;<span>11.3</span></a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.tree)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emojifont)</span>
@@ -574,10 +583,14 @@ NA   °--t4</code></pre>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="img/data-tree-emojim.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>(ref:emojidatatreecap)</figcaption>
+<div id="fig-emojidatatree" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Phylomoji as ASCII text">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-emojidatatree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/data-tree-emojim.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="Phylomoji as ASCII text">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-emojidatatree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11.3: (ref:emojidatatreecap)
+</figcaption>
 </figure>
 </div>
 </div>
@@ -590,23 +603,23 @@ NA   °--t4</code></pre>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">dev.off</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NA                                                                                 
-NA                                                               ############      
-NA                                                               #                 
-NA                                       #########################                 
-NA                                       #                       #                 
-NA                                       #                       ##############    
-NA    ####################################                                         
-NA    #                                  #                                         
-NA    #                                  #                                         
-NA    #                                  #######################                   
+NA                                             ################################    
+NA                                             #                                   
+NA                    ##########################                                   
+NA                    #                        #                                   
+NA                    #                        ######                              
+NA                    #                                                            
+NA    #################                                                            
+NA    #               #                                                            
+NA    #               #   ###########################                              
+NA    #               #   #                                                        
+NA    #               #####                                                        
+NA    #                   #                                                        
+NA    #                   #################################                        
 NA    #                                                                            
 NA    #                                                                            
 NA    #                                                                            
-NA    #       ###########################################                          
-NA    #       #                                                                    
-NA    #########                                                                    
-NA            #                                                                    
-NA            #################################                                    
+NA    ############################                                                 
 NA                                                                                 
 NA </code></pre>
 </div>
@@ -614,17 +627,21 @@ NA </code></pre>
 </section>
 <section id="sec-facet-zoom" class="level2" data-number="11.6">
 <h2 data-number="11.6" class="anchored" data-anchor-id="sec-facet-zoom"><span class="header-section-number">11.6</span> Zoom in on the Selected Portion</h2>
-<p>In addition to using <code>viewClade()</code> function, users can use the <a href="https://CRAN.R-project.org/package=ggforce"><strong>ggforce</strong></a> package to zoom in on a selected clade (Figure <span class="quarto-unresolved-ref">?fig-facetZoom</span>).</p>
+<p>In addition to using <code>viewClade()</code> function, users can use the <a href="https://CRAN.R-project.org/package=ggforce"><strong>ggforce</strong></a> package to zoom in on a selected clade (Figure <a href="#fig-facetZoom" class="quarto-xref">Figure&nbsp;<span>11.4</span></a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2019-08-05</span>)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">30</span>)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>nn <span class="ot">&lt;-</span> tidytree<span class="sc">::</span><span class="fu">offspring</span>(x, <span class="dv">43</span>, <span class="at">self_include=</span><span class="cn">TRUE</span>)</span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(x) <span class="sc">+</span> ggforce<span class="sc">::</span><span class="fu">facet_zoom</span>(<span class="at">xy =</span> node <span class="sc">%in%</span> nn)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="A-app-tools_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="576"></p>
-<figcaption><strong>Zoom in on a selected clade.</strong></figcaption>
+<div id="fig-facetZoom" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Zoom in on a selected clade">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-facetZoom-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="A-app-tools_files/figure-html/fig-facetZoom-1.png" class="img-fluid figure-img" data-fig-scap="Zoom in on a selected clade" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-facetZoom-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11.4: <strong>Zoom in on a selected clade.</strong>
+</figcaption>
 </figure>
 </div>
 </div>
@@ -632,10 +649,9 @@ NA </code></pre>
 </section>
 <section id="sec-ggimage-tips" class="level2" data-number="11.7">
 <h2 data-number="11.7" class="anchored" data-anchor-id="sec-ggimage-tips"><span class="header-section-number">11.7</span> Tips for Using <code>ggtree</code> with <code>ggimage</code></h2>
-<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports annotating a tree with silhouette images via the <a href="https://CRAN.R-project.org/package=ggimage"><strong>ggimage</strong></a> package. The <a href="https://CRAN.R-project.org/package=ggimage"><strong>ggimage</strong></a> provides the grammar of graphic syntax to work with image files. It allows processing images on the fly via the <code>image_fun</code> parameter, which accepts a function to process <code>magick-image</code> objects (Figure <span class="quarto-unresolved-ref">?fig-ggimagebg</span>). The <a href="https://CRAN.R-project.org/package=magick"><strong>magick</strong></a> package provides several functions, and these functions can be combined to perform a particular task.</p>
+<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports annotating a tree with silhouette images via the <a href="https://CRAN.R-project.org/package=ggimage"><strong>ggimage</strong></a> package. The <a href="https://CRAN.R-project.org/package=ggimage"><strong>ggimage</strong></a> provides the grammar of graphic syntax to work with image files. It allows processing images on the fly via the <code>image_fun</code> parameter, which accepts a function to process <code>magick-image</code> objects (Figure <a href="#fig-ggimagebg" class="quarto-xref">Figure&nbsp;<span>11.5</span></a>). The <a href="https://CRAN.R-project.org/package=magick"><strong>magick</strong></a> package provides several functions, and these functions can be combined to perform a particular task.</p>
 <section id="sec-ggimage-rm-image-bg" class="level3" data-number="11.7.1">
 <h3 data-number="11.7.1" class="anchored" data-anchor-id="sec-ggimage-rm-image-bg"><span class="header-section-number">11.7.1</span> Example 1: Remove background of images</h3>
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggimage)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: ggplot2</code></pre>
@@ -652,29 +668,60 @@ NA </code></pre>
 <span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">geom=</span><span class="st">"image"</span>, <span class="at">size=</span>.<span class="dv">12</span>,</span>
 <span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">image_fun=</span> <span class="cf">function</span>(.) magick<span class="sc">::</span><span class="fu">image_transparent</span>(., <span class="st">"white"</span>)) <span class="sc">+</span> </span>
 <span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggtitle</span>(<span class="st">"image with background removed"</span>)</span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>aplot<span class="sc">::</span><span class="fu">plot_list</span>(p1, p2, <span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="A-app-tools_files/figure-html/ggimagebg-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>(ref:ggimagebgcap)</figcaption>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>p1</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>p2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-ggimagebg" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ggimagebg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-ggimagebg" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-ggimagebg-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:ggimagebgscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-ggimagebg-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="A-app-tools_files/figure-html/fig-ggimagebg-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:ggimagebgscap)" data-ref-parent="fig-ggimagebg">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-ggimagebg-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Original image
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-ggimagebg" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-ggimagebg-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:ggimagebgscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-ggimagebg-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="A-app-tools_files/figure-html/fig-ggimagebg-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:ggimagebgscap)" data-ref-parent="fig-ggimagebg">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-ggimagebg-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Image with background removed
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ggimagebg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11.5: (ref:ggimagebgcap)
+</figcaption>
+</figure>
+</div>
 </section>
 <section id="sec-ggimage-bgimage" class="level3" data-number="11.7.2">
 <h3 data-number="11.7.2" class="anchored" data-anchor-id="sec-ggimage-bgimage"><span class="header-section-number">11.7.2</span> Example 2: Plot tree on a background image</h3>
-<p>The <code>geom_bgimage()</code> adds a layer of the image and puts the layer to the bottom of the layer stack. It is a normal layer and doesn’t change the structure of the output <code>ggtree</code> object. Users can add annotation layers without the background image layer (Figure <span class="quarto-unresolved-ref">?fig-bgimage</span>).</p>
+<p>The <code>geom_bgimage()</code> adds a layer of the image and puts the layer to the bottom of the layer stack. It is a normal layer and doesn’t change the structure of the output <code>ggtree</code> object. Users can add annotation layers without the background image layer (Figure <a href="#fig-bgimage" class="quarto-xref">Figure&nbsp;<span>11.6</span></a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(<span class="fu">rtree</span>(<span class="dv">20</span>), <span class="at">size=</span><span class="fl">1.5</span>, <span class="at">color=</span><span class="st">"white"</span>) <span class="sc">+</span> </span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bgimage</span>(<span class="st">'img/blackboard.jpg'</span>) <span class="sc">+</span> </span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tiplab</span>(<span class="at">color=</span><span class="st">"white"</span>, <span class="at">size=</span><span class="dv">5</span>, <span class="at">family=</span><span class="st">'xkcd'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="A-app-tools_files/figure-html/bgimage-1.png" class="img-fluid figure-img" width="576"></p>
-<figcaption>(ref:bgimagecap)</figcaption>
+<div id="fig-bgimage" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Tree on a background image">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bgimage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="A-app-tools_files/figure-html/fig-bgimage-1.png" class="img-fluid figure-img" data-fig-scap="Tree on a background image" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bgimage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11.6: (ref:bgimagecap)
+</figcaption>
 </figure>
 </div>
 </div>
@@ -686,13 +733,17 @@ NA </code></pre>
 <p>If you have <a href="https://jupyter.org/">Jupyter notebook</a> installed on your system, you can install <a href="https://irkernel.github.io/">IRkernel</a> with the following command in R:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"IRkernel"</span>)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>IRkernel<span class="sc">::</span><span class="fu">installspec</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Then you can use <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> and other R packages in the Jupyter notebook (Figure <span class="quarto-unresolved-ref">?fig-jupyter</span>). Here is a screenshot of recreating Figure <span class="quarto-unresolved-ref">?fig-phylomoji1</span> in the Jupyter notebook.</p>
+<p>Then you can use <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> and other R packages in the Jupyter notebook (Figure <a href="#fig-jupyter" class="quarto-xref">Figure&nbsp;<span>11.7</span></a>). Here is a screenshot of recreating Figure <a href="08_ggtree_with_silhouette.html#fig-phylomoji1" class="quarto-xref">Figure&nbsp;<span>7.5</span></a> in the Jupyter notebook.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="img/Screenshot_2019-06-24_ggtree-jupyter.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>ggtree in Jupyter notebook.</strong> Running ggtree in Jupyter notebook via R kernel.</figcaption>
+<div id="fig-jupyter" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="ggtree in Jupyter notebook">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-jupyter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/Screenshot_2019-06-24_ggtree-jupyter.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="ggtree in Jupyter notebook">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-jupyter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11.7: <strong>ggtree in Jupyter notebook.</strong> Running ggtree in Jupyter notebook via R kernel.
+</figcaption>
 </figure>
 </div>
 </div>

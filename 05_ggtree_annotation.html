@@ -173,7 +173,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Integration, Manipulation and Visualization of Phylogenetic Trees</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">manual setting. the ropenscilabs/icons package will set up everything for you.</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -367,10 +367,9 @@ doi: 10.1093/molbev/msz240</code></pre>
 
 Please cite:
 
-Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam.
-ggtree: an R package for visualization and annotation of phylogenetic
-trees with their covariates and other associated data. Methods in
-Ecology and Evolution. 2017, 8(1):28-36. doi:10.1111/2041-210X.12628</code></pre>
+Guangchuang Yu.  Data Integration, Manipulation and Visualization of
+Phylogenetic Trees (1st edition). Chapman and Hall/CRC. 2022,
+doi:10.1201/9781003279242, ISBN: 9781032233574</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
@@ -418,16 +417,20 @@ Attaching package: 'ggtree'</code></pre>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption><strong>Annotating tree using the grammar of graphics.</strong> The NHX tree was annotated using the grammar of graphic syntax by combining different layers using the <code>+</code> operator. Species information was labeled in the middle of the branches. Duplication events were shown on the most recent common ancestor and clade bootstrap values were displayed near to it.</figcaption>
+<div id="fig-ggtreeNHX" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:ggtreeNHXscap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ggtreeNHX-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-ggtreeNHX-1.png" class="img-fluid figure-img" data-fig-scap="(ref:ggtreeNHXscap)" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ggtreeNHX-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.1: <strong>Annotating tree using the grammar of graphics.</strong> The NHX tree was annotated using the grammar of graphic syntax by combining different layers using the <code>+</code> operator. Species information was labeled in the middle of the branches. Duplication events were shown on the most recent common ancestor and clade bootstrap values were displayed near to it.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>Here, as an example, we visualized the tree with several layers to display annotation stored in NHX tags, including a layer of <code>geom_tiplab()</code> to display tip labels (gene name in this case), a layer using <code>geom_label()</code> to show species information (<code>S</code> tag) colored by light green, a layer of duplication event information (<code>D</code> tag) colored by steelblue and another layer using <code>geom_text()</code> to show bootstrap value (<code>B</code> tag).</p>
-<p>Layers defined in <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a> can be applied to <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> directly as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-ggtreeNHX</span> of using <code>geom_label()</code> and <code>geom_text()</code>. But <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a> does not provide graphic layers that are specifically designed for phylogenetic tree annotation. For instance, layers for tip labels, tree branch scale legend, highlight, or labeling clade are all unavailable. To make tree annotation more flexible, several layers have been implemented in <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> (Table <span class="quarto-unresolved-ref">?tbl-geoms</span>), enabling different ways of annotation on various parts/components of a phylogenetic tree.</p>
+<p>Layers defined in <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a> can be applied to <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> directly as demonstrated in Figure <a href="#fig-ggtreeNHX" class="quarto-xref">Figure&nbsp;<span>4.1</span></a> of using <code>geom_label()</code> and <code>geom_text()</code>. But <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a> does not provide graphic layers that are specifically designed for phylogenetic tree annotation. For instance, layers for tip labels, tree branch scale legend, highlight, or labeling clade are all unavailable. To make tree annotation more flexible, several layers have been implemented in <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> (Table <a href="04_ggtree_visualization.html#tbl-geoms" class="quarto-xref">Table&nbsp;<span>1.1</span></a>), enabling different ways of annotation on various parts/components of a phylogenetic tree.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small">
@@ -525,7 +528,7 @@ Attaching package: 'ggtree'</code></pre>
 <section id="colored-strips" class="level3" data-number="4.2.1">
 <h3 data-number="4.2.1" class="anchored" data-anchor-id="colored-strips"><span class="header-section-number">4.2.1</span> Colored strips</h3>
 <p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> <span class="citation" data-cites="yu_ggtree:_2017">(<a href="#ref-yu_ggtree:_2017" role="doc-biblioref">Yu et al., 2017</a>)</span> implements <code>geom_cladelab()</code> layer to annotate a selected clade with a bar indicating the clade with a corresponding label.</p>
-<p>The <code>geom_cladelab()</code> layer accepts a selected internal node number and labels the corresponding clade automatically (Figure <span class="quarto-unresolved-ref">?fig-cladelabelA</span>). To get the internal node number, please refer to <a href="#accesor-tidytree">Chapter 2</a>.</p>
+<p>The <code>geom_cladelab()</code> layer accepts a selected internal node number and labels the corresponding clade automatically (Figure <a href="#fig-cladelabel-1" class="quarto-xref">Figure&nbsp;<span>4.2 (a)</span></a>). To get the internal node number, please refer to <a href="#accesor-tidytree">Chapter 2</a>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2015-12-21</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">30</span>)</span>
@@ -536,12 +539,12 @@ Attaching package: 'ggtree'</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Users can set the parameter, <code>align = TRUE</code>, to align the clade label, <code>offset</code>, to adjust the position and color to set the color of the bar and label text, <em>etc.</em> (Figure <span class="quarto-unresolved-ref">?fig-cladelabelB</span>).</p>
+<p>Users can set the parameter, <code>align = TRUE</code>, to align the clade label, <code>offset</code>, to adjust the position and color to set the color of the bar and label text, <em>etc.</em> (Figure <a href="#fig-cladelabel-2" class="quarto-xref">Figure&nbsp;<span>4.2 (b)</span></a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_cladelab</span>(<span class="at">node=</span><span class="dv">45</span>, <span class="at">label=</span><span class="st">"test label"</span>, <span class="at">align=</span><span class="cn">TRUE</span>,  </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">offset =</span> .<span class="dv">2</span>, <span class="at">textcolor=</span><span class="st">'red'</span>, <span class="at">barcolor=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
@@ -550,12 +553,12 @@ Attaching package: 'ggtree'</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Users can change the <code>angle</code> of the clade label text and relative position from text to bar via the parameter <code>offset.text</code>. The size of the bar and text can be changed via the parameters <code>barsize</code> and <code>fontsize</code>, respectively (Figure <span class="quarto-unresolved-ref">?fig-cladelabelC</span>).</p>
+<p>Users can change the <code>angle</code> of the clade label text and relative position from text to bar via the parameter <code>offset.text</code>. The size of the bar and text can be changed via the parameters <code>barsize</code> and <code>fontsize</code>, respectively (Figure <a href="#fig-cladelabel-3" class="quarto-xref">Figure&nbsp;<span>4.2 (c)</span></a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_cladelab</span>(<span class="at">node=</span><span class="dv">45</span>, <span class="at">label=</span><span class="st">"test label"</span>, <span class="at">align=</span><span class="cn">TRUE</span>, <span class="at">angle=</span><span class="dv">270</span>, </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">hjust=</span><span class="st">'center'</span>, <span class="at">offset.text=</span>.<span class="dv">5</span>, <span class="at">barsize=</span><span class="fl">1.5</span>, <span class="at">fontsize=</span><span class="dv">8</span>) <span class="sc">+</span></span>
@@ -569,12 +572,12 @@ Attaching package: 'ggtree'</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Users can also use <code>geom_label()</code> to label the text and can set the background color by <code>fill</code> parameter (Figure <span class="quarto-unresolved-ref">?fig-cladelabelD</span>).</p>
+<p>Users can also use <code>geom_label()</code> to label the text and can set the background color by <code>fill</code> parameter (Figure <a href="#fig-cladelabel-4" class="quarto-xref">Figure&nbsp;<span>4.2 (d)</span></a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_cladelab</span>(<span class="at">node=</span><span class="dv">34</span>, <span class="at">label=</span><span class="st">"another clade"</span>, <span class="at">align=</span><span class="cn">TRUE</span>, </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">geom=</span><span class="st">'label'</span>, <span class="at">fill=</span><span class="st">'lightblue'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -585,26 +588,75 @@ Ignoring unknown parameters: `label.size`</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
 <pre><code>Warning in (function (mapping = NULL, data = NULL, ..., stat = "identity", :
 Ignoring unknown parameters: `label.size`</code></pre>
+<div id="fig-cladelabel" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cladelabel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-cladelabel" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-cladelabel-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:cladelabelscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-cladelabel-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-cladelabel-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:cladelabelscap)" data-ref-parent="fig-cladelabel">
 </div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Labeling clades.</strong> Default (A); aligning and coloring clade bar and text (B); changing size and angle (C) and using <code>geom_label()</code> with background color in the text (D).</figcaption>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-cladelabel-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Default
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-cladelabel" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-cladelabel-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:cladelabelscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-cladelabel-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-cladelabel-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:cladelabelscap)" data-ref-parent="fig-cladelabel">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-cladelabel-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Aligning and coloring clade bar and text
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>In addition, <code>geom_cladelab()</code> allows users to use the image or phylopic to annotate the clades, and supports using aesthetic mapping to automatically annotate the clade with bar and text label or image (<em>e.g.</em>, mapping variable to color the clade labels) (Figure <span class="quarto-unresolved-ref">?fig-cladelabaes</span>).</p>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-cladelabel" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-cladelabel-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:cladelabelscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-cladelabel-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-cladelabel-3.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:cladelabelscap)" data-ref-parent="fig-cladelabel">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-cladelabel-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Changing size and angle
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-cladelabel" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-cladelabel-4" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:cladelabelscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-cladelabel-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-cladelabel-4.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:cladelabelscap)" data-ref-parent="fig-cladelabel">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-cladelabel-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) Using geom_label() with background color
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cladelabel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.2: <strong>Labeling clades.</strong>
+</figcaption>
+</figure>
+</div>
+<p>In addition, <code>geom_cladelab()</code> allows users to use the image or phylopic to annotate the clades, and supports using aesthetic mapping to automatically annotate the clade with bar and text label or image (<em>e.g.</em>, mapping variable to color the clade labels) (Figure <a href="#fig-cladelabaes" class="quarto-xref">Figure&nbsp;<span>4.3</span></a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">node =</span> <span class="fu">c</span>(<span class="dv">45</span>, <span class="dv">34</span>), </span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"test label"</span>, <span class="st">"another clade"</span>))</span>
@@ -631,17 +683,54 @@ Ignoring unknown parameters: `label.size`</code></pre>
 <span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>                          <span class="at">image =</span> image, <span class="at">color =</span> name), </span>
 <span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>              <span class="at">geom =</span> <span class="st">"phylopic"</span>, <span class="at">offset =</span> <span class="dv">1</span>, <span class="at">offset.text=</span><span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Labeling clades using aesthetic mapping.</strong> The geom_cladelab() layer allows users to use aesthetic mapping to annotate the clades (A); it supports using images or phylopic to annotate clades (B); mapping variable to change color or size of the text or image is also supported (C).</figcaption>
+<div id="fig-cladelabaes" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cladelabaes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-cladelabaes" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-cladelabaes-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:cladelabaesscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-cladelabaes-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-cladelabaes-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:cladelabaesscap)" data-ref-parent="fig-cladelabaes">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-cladelabaes-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Use aesthetic mapping to annotate clades
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-cladelabaes" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-cladelabaes-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:cladelabaesscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-cladelabaes-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-cladelabaes-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:cladelabaesscap)" data-ref-parent="fig-cladelabaes">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-cladelabaes-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Use images or phylopic to annotate clades
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-cladelabaes" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-cladelabaes-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:cladelabaesscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-cladelabaes-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-cladelabaes-3.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:cladelabaesscap)" data-ref-parent="fig-cladelabaes">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-cladelabaes-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Map variables to change color or size of text or images
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The <code>geom_cladelab()</code> layer also supports unrooted tree layouts (Figure <span class="quarto-unresolved-ref">?fig-striplabelA</span>).</p>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cladelabaes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.3: <strong>Labeling clades using aesthetic mapping.</strong>
+</figcaption>
+</figure>
+</div>
+<p>The <code>geom_cladelab()</code> layer also supports unrooted tree layouts (Figure <a href="#fig-striplabel-1" class="quarto-xref">Figure&nbsp;<span>4.4 (a)</span></a>).</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree, <span class="at">layout=</span><span class="st">"daylight"</span>) <span class="sc">+</span> </span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_cladelab</span>(<span class="at">node=</span><span class="dv">35</span>, <span class="at">label=</span><span class="st">"test label"</span>, <span class="at">angle=</span><span class="dv">0</span>, </span>
@@ -649,7 +738,7 @@ Ignoring unknown parameters: `label.size`</code></pre>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_cladelab</span>(<span class="at">node=</span><span class="dv">55</span>, <span class="at">label=</span><span class="st">'another clade'</span>, </span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">angle=</span><span class="sc">-</span><span class="dv">95</span>, <span class="at">hjust=</span>.<span class="dv">5</span>, <span class="at">fontsize=</span><span class="dv">8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The <code>geom_cladelab()</code> is designed for labeling Monophyletic (Clade) while there are related taxa that do not form a clade. In <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>, we provide another layer, <code>geom_strip()</code>, to add a strip/bar to indicate the association with an optional label for Polyphyletic or Paraphyletic (Figure <span class="quarto-unresolved-ref">?fig-striplabelB</span>).</p>
+<p>The <code>geom_cladelab()</code> is designed for labeling Monophyletic (Clade) while there are related taxa that do not form a clade. In <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>, we provide another layer, <code>geom_strip()</code>, to add a strip/bar to indicate the association with an optional label for Polyphyletic or Paraphyletic (Figure <a href="#fig-striplabel-2" class="quarto-xref">Figure&nbsp;<span>4.4 (b)</span></a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_tiplab</span>() <span class="sc">+</span> </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_strip</span>(<span class="st">'t10'</span>, <span class="st">'t30'</span>, <span class="at">barsize=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">'red'</span>, </span>
@@ -659,25 +748,50 @@ Ignoring unknown parameters: `label.size`</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Labeling associated taxa.</strong> The <code>geom_cladelab()</code> is designed for labeling Monophyletic and supports unrooted layouts (A). The <code>geom_strip()</code> is designed for labeling all types of associated taxa, including Monophyletic, Polyphyletic, and Paraphyletic (B).</figcaption>
+<div id="fig-striplabel" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-striplabel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-striplabel" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-striplabel-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:striplabelscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-striplabel-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-striplabel-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:striplabelscap)" data-ref-parent="fig-striplabel">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-striplabel-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) geom_cladelab() supports unrooted layouts
+</figcaption>
 </figure>
 </div>
 </div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-striplabel" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-striplabel-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:striplabelscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-striplabel-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-striplabel-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:striplabelscap)" data-ref-parent="fig-striplabel">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-striplabel-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) geom_strip() labels all types of associated taxa
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-striplabel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.4: <strong>Labeling associated taxa.</strong>
+</figcaption>
+</figure>
 </div>
 </section>
 <section id="highlight-clades" class="level3" data-number="4.2.2">
 <h3 data-number="4.2.2" class="anchored" data-anchor-id="highlight-clades"><span class="header-section-number">4.2.2</span> Highlight clades</h3>
-<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> implements the <code>geom_hilight()</code> layer, which accepts an internal node number and adds a layer of a rectangle to highlight the selected clade (Figure <span class="quarto-unresolved-ref">?fig-hilight</span>)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> implements the <code>geom_hilight()</code> layer, which accepts an internal node number and adds a layer of a rectangle to highlight the selected clade (Figure <a href="#fig-hilight" class="quarto-xref">Figure&nbsp;<span>4.5</span></a>)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>nwk <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"sample.nwk"</span>, <span class="at">package=</span><span class="st">"treeio"</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(nwk)</span>
@@ -687,7 +801,7 @@ Ignoring unknown parameters: `label.size`</code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
 </figure>
 </div>
 </div>
@@ -697,12 +811,12 @@ Ignoring unknown parameters: `label.size`</code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-16-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-12-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The <code>geom_hilight</code> layer also supports highlighting clades for unrooted layout trees with round (‘encircle’) or rectangular (‘rect’) shape (Figure <span class="quarto-unresolved-ref">?fig-hilightC</span>).</p>
+<p>The <code>geom_hilight</code> layer also supports highlighting clades for unrooted layout trees with round (‘encircle’) or rectangular (‘rect’) shape (Figure <a href="#fig-hilight-3" class="quarto-xref">Figure&nbsp;<span>4.5 (c)</span></a>).</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="do">## type can be 'encircle' or 'rect'</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>pg <span class="sc">+</span> <span class="fu">geom_hilight</span>(<span class="at">node=</span><span class="dv">55</span>, <span class="at">linetype =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
@@ -710,19 +824,19 @@ Ignoring unknown parameters: `label.size`</code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Another way to highlight selected clades is by setting the clades with different colors and/or line types as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-scaleClade</span>.</p>
-<p>In addition to <code>geom_hilight()</code>, <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> also implements <code>geom_balance()</code> which is designed to highlight neighboring subclades of a given internal node (Figure <span class="quarto-unresolved-ref">?fig-hilightD</span>).</p>
+<p>Another way to highlight selected clades is by setting the clades with different colors and/or line types as demonstrated in Figure <a href="06_ggtree_manipulation.html#fig-scaleClade" class="quarto-xref">Figure&nbsp;<span>5.2</span></a>.</p>
+<p>In addition to <code>geom_hilight()</code>, <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> also implements <code>geom_balance()</code> which is designed to highlight neighboring subclades of a given internal node (Figure <a href="#fig-hilight-4" class="quarto-xref">Figure&nbsp;<span>4.5 (d)</span></a>).</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree) <span class="sc">+</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_balance</span>(<span class="at">node=</span><span class="dv">16</span>, <span class="at">fill=</span><span class="st">'steelblue'</span>, <span class="at">color=</span><span class="st">'white'</span>, <span class="at">alpha=</span><span class="fl">0.6</span>, <span class="at">extend=</span><span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_balance</span>(<span class="at">node=</span><span class="dv">19</span>, <span class="at">fill=</span><span class="st">'darkgreen'</span>, <span class="at">color=</span><span class="st">'white'</span>, <span class="at">alpha=</span><span class="fl">0.6</span>, <span class="at">extend=</span><span class="dv">1</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The <code>geom_hilight()</code> layer supports using aesthetic mapping to automatically highlight clades as demonstrated in Figures <span class="quarto-unresolved-ref">?fig-hilightE-F</span>. For plot in Cartesian coordinates (<em>e.g.</em>, rectangular layout), the rectangle can be rounded (Figure <span class="quarto-unresolved-ref">?fig-hilightE</span>) or filled with gradient colors (Figure <span class="quarto-unresolved-ref">?fig-hilightF</span>).</p>
+<p>The <code>geom_hilight()</code> layer supports using aesthetic mapping to automatically highlight clades as demonstrated in Figures <a href="#fig-hilight-5" class="quarto-xref">Figure&nbsp;<span>4.5 (e)</span></a> and <a href="#fig-hilight-6" class="quarto-xref">Figure&nbsp;<span>4.5 (f)</span></a>. For plot in Cartesian coordinates (<em>e.g.</em>, rectangular layout), the rectangle can be rounded (Figure <a href="#fig-hilight-5" class="quarto-xref">Figure&nbsp;<span>4.5 (e)</span></a>) or filled with gradient colors (Figure <a href="#fig-hilight-6" class="quarto-xref">Figure&nbsp;<span>4.5 (f)</span></a>).</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## using external data</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">node=</span><span class="fu">c</span>(<span class="dv">17</span>, <span class="dv">21</span>), <span class="at">type=</span><span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>))</span>
@@ -731,7 +845,7 @@ Ignoring unknown parameters: `label.size`</code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
 </figure>
 </div>
 </div>
@@ -745,27 +859,101 @@ Ignoring unknown parameters: `label.size`</code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-19-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Highlight selected clades.</strong> Rectangular layout (A), circular/fan (B), and unrooted layouts. Highlight neighboring subclades simultaneously (D). Highlight selected clades using associated data (E and F).</figcaption>
+<div id="fig-hilight" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-hilight-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-hilight" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-hilight-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:hilightscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-hilight-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-hilight-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:hilightscap)" data-ref-parent="fig-hilight">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-hilight-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Rectangular layout
+</figcaption>
 </figure>
 </div>
 </div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-hilight" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-hilight-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:hilightscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-hilight-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-hilight-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:hilightscap)" data-ref-parent="fig-hilight">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-hilight-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Circular layout
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-hilight" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-hilight-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:hilightscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-hilight-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-hilight-3.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:hilightscap)" data-ref-parent="fig-hilight">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-hilight-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Unrooted layout
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-hilight" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-hilight-4" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:hilightscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-hilight-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-hilight-4.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:hilightscap)" data-ref-parent="fig-hilight">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-hilight-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) Highlight neighboring subclades simultaneously
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-hilight" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-hilight-5" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:hilightscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-hilight-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-hilight-5.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:hilightscap)" data-ref-parent="fig-hilight">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-hilight-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(e) Highlight clades using external data
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-hilight" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-hilight-6" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:hilightscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-hilight-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-hilight-6.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:hilightscap)" data-ref-parent="fig-hilight">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-hilight-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(f) Highlight clades using tree-associated data
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hilight-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.5: <strong>Highlight selected clades.</strong>
+</figcaption>
+</figure>
 </div>
 </section>
 <section id="taxa-connection" class="level3" data-number="4.2.3">
 <h3 data-number="4.2.3" class="anchored" data-anchor-id="taxa-connection"><span class="header-section-number">4.2.3</span> Taxa connection</h3>
-<p>Some evolutionary events (<em>e.g.</em>, reassortment, horizontal gene transfer) cannot be modeled by a simple tree. The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> provides the <code>geom_taxalink()</code> layer that allows drawing straight or curved lines between any of two nodes in the tree, allowing it to represent evolutionary events by connecting taxa. It works with rectangular (Figure <span class="quarto-unresolved-ref">?fig-taxalinkA</span>), circular (Figure <span class="quarto-unresolved-ref">?fig-taxalinkB</span>), and inward circular (Figure <span class="quarto-unresolved-ref">?fig-taxalinkC</span>) layouts. The <code>geom_taxalink()</code> is not only useful for presenting evolutionary events, but it can also be used to combine evolutionary trees to present relationships or interactions between species <span class="citation" data-cites="ggtreeExtra_2021">(<a href="#ref-ggtreeExtra_2021" role="doc-biblioref">Xu et al., 2021</a>)</span>.</p>
-<p>The <code>geom_taxalink()</code> layout supports aesthetic mapping, which requires a <code>data.frame</code> that stores association information with/without meta-data as input (Figure <span class="quarto-unresolved-ref">?fig-taxalinkD</span>).</p>
-<div class="cell">
+<p>Some evolutionary events (<em>e.g.</em>, reassortment, horizontal gene transfer) cannot be modeled by a simple tree. The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> provides the <code>geom_taxalink()</code> layer that allows drawing straight or curved lines between any of two nodes in the tree, allowing it to represent evolutionary events by connecting taxa. It works with rectangular (Figure <a href="#fig-taxalink-1" class="quarto-xref">Figure&nbsp;<span>4.6 (a)</span></a>), circular (Figure <a href="#fig-taxalink-2" class="quarto-xref">Figure&nbsp;<span>4.6 (b)</span></a>), and inward circular (Figure <a href="#fig-taxalink-3" class="quarto-xref">Figure&nbsp;<span>4.6 (c)</span></a>) layouts. The <code>geom_taxalink()</code> is not only useful for presenting evolutionary events, but it can also be used to combine evolutionary trees to present relationships or interactions between species <span class="citation" data-cites="ggtreeExtra_2021">(<a href="#ref-ggtreeExtra_2021" role="doc-biblioref">Xu et al., 2021</a>)</span>.</p>
+<p>The <code>geom_taxalink()</code> layout supports aesthetic mapping, which requires a <code>data.frame</code> that stores association information with/without meta-data as input (Figure <a href="#fig-taxalink-4" class="quarto-xref">Figure&nbsp;<span>4.6 (d)</span></a>).</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree) <span class="sc">+</span> <span class="fu">geom_tiplab</span>() <span class="sc">+</span> <span class="fu">geom_taxalink</span>(<span class="at">taxa1=</span><span class="st">'A'</span>, <span class="at">taxa2=</span><span class="st">'E'</span>) <span class="sc">+</span> </span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_taxalink</span>(<span class="at">taxa1=</span><span class="st">'F'</span>, <span class="at">taxa2=</span><span class="st">'K'</span>, <span class="at">color=</span><span class="st">'red'</span>, <span class="at">linetype =</span> <span class="st">'dashed'</span>,</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrow=</span><span class="fu">arrow</span>(<span class="at">length=</span><span class="fu">unit</span>(<span class="fl">0.02</span>, <span class="st">"npc"</span>)))</span>
@@ -810,20 +998,76 @@ Ignoring unknown parameters: `label.size`</code></pre>
 <span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a>                         <span class="at">offset=</span><span class="fl">0.15</span>) <span class="sc">+</span> </span>
 <span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a>          <span class="fu">geom_tiplab</span>(<span class="at">hjust=</span><span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a>          <span class="fu">scale_size_continuous</span>(<span class="at">range=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
-<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_list</span>(p1, p2, p3, p4, <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">tag_levels=</span><span class="st">'A'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Linking related taxa.</strong> This can be used to indicate evolutionary events or relationships between species. Rectangular layout (A), circular layout (B), and inward circular layout (C and D). It supports aesthetic mapping to map variables to set line sizes and colors (D).</figcaption>
+<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a>p1</span>
+<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a>p2</span>
+<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a>p3</span>
+<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a>p4</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-taxalink" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-taxalink-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-taxalink" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-taxalink-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:taxalinkscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-taxalink-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-taxalink-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:taxalinkscap)" data-ref-parent="fig-taxalink">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-taxalink-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Rectangular layout
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-taxalink" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-taxalink-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:taxalinkscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-taxalink-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-taxalink-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:taxalinkscap)" data-ref-parent="fig-taxalink">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-taxalink-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Circular layout
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-taxalink" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-taxalink-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:taxalinkscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-taxalink-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-taxalink-3.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:taxalinkscap)" data-ref-parent="fig-taxalink">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-taxalink-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Inward circular layout
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-taxalink" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-taxalink-4" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:taxalinkscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-taxalink-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-taxalink-4.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:taxalinkscap)" data-ref-parent="fig-taxalink">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-taxalink-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) Aesthetic mapping
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-taxalink-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.6: <strong>Linking related taxa.</strong> This can be used to indicate evolutionary events or relationships between species.
+</figcaption>
+</figure>
+</div>
 </section>
 <section id="uncertainty-of-evolutionary-inference" class="level3" data-number="4.2.4">
 <h3 data-number="4.2.4" class="anchored" data-anchor-id="uncertainty-of-evolutionary-inference"><span class="header-section-number">4.2.4</span> Uncertainty of evolutionary inference</h3>
-<p>The <code>geom_range()</code> layer supports displaying interval (highest posterior density, confidence interval, range) as horizontal bars on tree nodes. The center of the interval will anchor to the corresponding node. The center by default is the mean value of the interval (Figure <span class="quarto-unresolved-ref">?fig-geomRangeA</span>). We can set the <code>center</code> to the estimated mean or median value (Figure <span class="quarto-unresolved-ref">?fig-geomRangeB</span>), or the observed value. As the tree branch and the interval may not be on the same scale, <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> provides <code>scale_x_range</code> to add a second <em>x</em>-axis for the range (Figure <span class="quarto-unresolved-ref">?fig-geomRangeC</span>). Note that <em>x</em>-axis is disabled by the default theme, and we need to enable it if we want to display it (<em>e.g.</em>, using <code>theme_tree2()</code>).</p>
+<p>The <code>geom_range()</code> layer supports displaying interval (highest posterior density, confidence interval, range) as horizontal bars on tree nodes. The center of the interval will anchor to the corresponding node. The center by default is the mean value of the interval (Figure <a href="#fig-geomRange-1" class="quarto-xref">Figure&nbsp;<span>4.7 (a)</span></a>). We can set the <code>center</code> to the estimated mean or median value (Figure <a href="#fig-geomRange-2" class="quarto-xref">Figure&nbsp;<span>4.7 (b)</span></a>), or the observed value. As the tree branch and the interval may not be on the same scale, <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> provides <code>scale_x_range</code> to add a second <em>x</em>-axis for the range (Figure <a href="#fig-geomRange-3" class="quarto-xref">Figure&nbsp;<span>4.7 (c)</span></a>). Note that <em>x</em>-axis is disabled by the default theme, and we need to enable it if we want to display it (<em>e.g.</em>, using <code>theme_tree2()</code>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata/MEGA7"</span>, <span class="st">"mtCDNA_timetree.nex"</span>, <span class="at">package =</span> <span class="st">"treeio"</span>)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">read.mega</span>(file)</span>
@@ -832,15 +1076,52 @@ Ignoring unknown parameters: `label.size`</code></pre>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">alpha=</span>.<span class="dv">3</span>, <span class="at">center=</span><span class="st">'reltime'</span>)  </span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> p2 <span class="sc">+</span> <span class="fu">scale_x_range</span>() <span class="sc">+</span> <span class="fu">theme_tree2</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Displaying uncertainty of evolutionary inference.</strong> The center (mean value of the range (A) or estimated value (B)) is anchored to the tree nodes. A second <em>x</em>-axis was used for range scaling (C).</figcaption>
+<div id="fig-geomRange" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-geomRange-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-geomRange" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-geomRange-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:geomRangescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-geomRange-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-geomRange-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:geomRangescap)" data-ref-parent="fig-geomRange">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-geomRange-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Mean value of the range
+</figcaption>
 </figure>
 </div>
 </div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-geomRange" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-geomRange-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:geomRangescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-geomRange-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-geomRange-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:geomRangescap)" data-ref-parent="fig-geomRange">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-geomRange-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Estimated value
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-geomRange" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-geomRange-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:geomRangescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-geomRange-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-geomRange-3.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:geomRangescap)" data-ref-parent="fig-geomRange">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-geomRange-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Second x-axis for range scaling
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-geomRange-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.7: <strong>Displaying uncertainty of evolutionary inference.</strong> The center is anchored to the tree nodes. A second <em>x</em>-axis was used for range scaling.
+</figcaption>
+</figure>
 </div>
 </section>
 </section>
@@ -848,7 +1129,7 @@ Ignoring unknown parameters: `label.size`</code></pre>
 <h2 data-number="4.3" class="anchored" data-anchor-id="tree-annotation-with-output-from-evolution-software"><span class="header-section-number">4.3</span> Tree Annotation with Output from Evolution Software</h2>
 <section id="tree-annotation-using-data-from-evolutionary-analysis-software" class="level3" data-number="4.3.1">
 <h3 data-number="4.3.1" class="anchored" data-anchor-id="tree-annotation-using-data-from-evolutionary-analysis-software"><span class="header-section-number">4.3.1</span> Tree annotation using data from evolutionary analysis software</h3>
-<p><a href="#chapter">Chapter 1</a> introduced using <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package <span class="citation" data-cites="wang_treeio_2020">(<a href="#ref-wang_treeio_2020" role="doc-biblioref">Wang et al., 2020</a>)</span> to parse different tree formats and commonly used software outputs to obtain phylogeny-associated data. These imported data, as <code>S4</code> objects, can be visualized directly using <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>. Figure <span class="quarto-unresolved-ref">?fig-ggtreeNHX</span> demonstrates a tree annotated using the information (species classification, duplication event, and bootstrap value) stored in the NHX file. <a href="http://pbil.univ-lyon1.fr/software/phyldog/"><strong>PHYLDOG</strong></a> and <code>pkg_revbayes</code> output NHX files that can be parsed by <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> and visualized by <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> with annotation using their inference data.</p>
+<p><a href="#chapter">Chapter 1</a> introduced using <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package <span class="citation" data-cites="wang_treeio_2020">(<a href="#ref-wang_treeio_2020" role="doc-biblioref">Wang et al., 2020</a>)</span> to parse different tree formats and commonly used software outputs to obtain phylogeny-associated data. These imported data, as <code>S4</code> objects, can be visualized directly using <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>. Figure <a href="#fig-ggtreeNHX" class="quarto-xref">Figure&nbsp;<span>4.1</span></a> demonstrates a tree annotated using the information (species classification, duplication event, and bootstrap value) stored in the NHX file. <a href="http://pbil.univ-lyon1.fr/software/phyldog/"><strong>PHYLDOG</strong></a> and <code>pkg_revbayes</code> output NHX files that can be parsed by <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> and visualized by <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> with annotation using their inference data.</p>
 <p>Furthermore, the evolutionary data from the inference of <a href="http://beast2.org/"><strong>BEAST</strong></a>, <a href="http://nbisweden.github.io/MrBayes/"><strong>MrBayes</strong></a>, and <a href="http://revbayes.github.io/intro.html"><strong>RevBayes</strong></a>, <em>d<sub>N</sub>/d<sub>S</sub></em> values inferred by <a href="http://abacus.gene.ucl.ac.uk/software/paml.html"><strong>CODEML</strong></a>, ancestral sequences inferred by <a href="https://veg.github.io/hyphy-site/"><strong>HyPhy</strong></a>, <a href="http://abacus.gene.ucl.ac.uk/software/paml.html"><strong>CODEML</strong></a>, or <a href="http://abacus.gene.ucl.ac.uk/software/paml.html"><strong>BASEML</strong></a> and short read placement by <a href="http://sco.h-its.org/exelixis/web/software/epa/index.html"><strong>EPA</strong></a> and <a href="http://matsen.fhcrc.org/pplacer/"><strong>PPLACER</strong></a> can be used to annotate the tree directly.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata/BEAST"</span>, <span class="st">"beast_mcc.tree"</span>, <span class="at">package=</span><span class="st">"treeio"</span>)</span>
@@ -859,16 +1140,20 @@ Ignoring unknown parameters: `label.size`</code></pre>
 <span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_continuous</span>(<span class="at">low=</span><span class="st">"darkgreen"</span>, <span class="at">high=</span><span class="st">"red"</span>) <span class="sc">+</span></span>
 <span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="fu">c</span>(.<span class="dv">1</span>, .<span class="dv">8</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Annotating <code>r pkg_beast</code> tree with <em>length_95%_HPD</em> and posterior.</strong> Branch length credible intervals (95% HPD) were displayed as red horizontal bars and clade posterior values were shown on the middle of branches.</figcaption>
+<div id="fig-beast" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Annotating BEAST tree">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-beast-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-beast-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="Annotating BEAST tree">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-beast-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.8: <strong>Annotating <code>r pkg_beast</code> tree with <em>length_95%_HPD</em> and posterior.</strong> Branch length credible intervals (95% HPD) were displayed as red horizontal bars and clade posterior values were shown on the middle of branches.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>In Figure <span class="quarto-unresolved-ref">?fig-beast</span>, the tree was visualized and annotated with posterior &gt;0.9 and demonstrated length uncertainty (95% Highest Posterior Density (HPD) interval).</p>
-<p>Ancestral sequences inferred by <a href="https://veg.github.io/hyphy-site/"><strong>HyPhy</strong></a> can be parsed using <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a>, whereas the substitutions along each tree branch were automatically computed and stored inside the phylogenetic tree object (<em>i.e.</em>, <code>S4</code> object). The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package can utilize this information stored in the object to annotate the tree, as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-hyphy</span>.</p>
+<p>In Figure <a href="#fig-beast" class="quarto-xref">Figure&nbsp;<span>4.8</span></a>, the tree was visualized and annotated with posterior &gt;0.9 and demonstrated length uncertainty (95% Highest Posterior Density (HPD) interval).</p>
+<p>Ancestral sequences inferred by <a href="https://veg.github.io/hyphy-site/"><strong>HyPhy</strong></a> can be parsed using <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a>, whereas the substitutions along each tree branch were automatically computed and stored inside the phylogenetic tree object (<em>i.e.</em>, <code>S4</code> object). The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package can utilize this information stored in the object to annotate the tree, as demonstrated in Figure <a href="#fig-hyphy" class="quarto-xref">Figure&nbsp;<span>4.9</span></a>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>nwk <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata/HYPHY"</span>, <span class="st">"labelledtree.tree"</span>, </span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">package=</span><span class="st">"treeio"</span>)</span>
@@ -880,15 +1165,19 @@ Ignoring unknown parameters: `label.size`</code></pre>
 <span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x=</span>branch, <span class="at">label=</span>AA_subs), <span class="at">size=</span><span class="dv">2</span>, </span>
 <span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust=</span><span class="sc">-</span>.<span class="dv">3</span>, <span class="at">color=</span><span class="st">"firebrick"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Annotating tree with amino acid substitution determined by ancestral sequences inferred by <code>r pkg_hyphy</code>.</strong> Amino acid substitutions were displayed in the middle of branches.</figcaption>
+<div id="fig-hyphy" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Annotating tree with HyPhy ancestral sequences">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-hyphy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-hyphy-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="Annotating tree with HyPhy ancestral sequences">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hyphy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.9: <strong>Annotating tree with amino acid substitution determined by ancestral sequences inferred by <code>r pkg_hyphy</code>.</strong> Amino acid substitutions were displayed in the middle of branches.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p><a href="http://abacus.gene.ucl.ac.uk/software/paml.html"><strong>PAML</strong></a>’s <a href="http://abacus.gene.ucl.ac.uk/software/paml.html"><strong>BASEML</strong></a> and <a href="http://abacus.gene.ucl.ac.uk/software/paml.html"><strong>CODEML</strong></a> can also be used to infer ancestral sequences, whereas <a href="http://abacus.gene.ucl.ac.uk/software/paml.html"><strong>CODEML</strong></a> can infer selection pressure. After parsing this information using <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a>, <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> can integrate this information into the same tree structure and be used for annotation as illustrated in Figure <span class="quarto-unresolved-ref">?fig-codeml</span>.</p>
+<p><a href="http://abacus.gene.ucl.ac.uk/software/paml.html"><strong>PAML</strong></a>’s <a href="http://abacus.gene.ucl.ac.uk/software/paml.html"><strong>BASEML</strong></a> and <a href="http://abacus.gene.ucl.ac.uk/software/paml.html"><strong>CODEML</strong></a> can also be used to infer ancestral sequences, whereas <a href="http://abacus.gene.ucl.ac.uk/software/paml.html"><strong>CODEML</strong></a> can infer selection pressure. After parsing this information using <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a>, <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> can integrate this information into the same tree structure and be used for annotation as illustrated in Figure <a href="#fig-codeml" class="quarto-xref">Figure&nbsp;<span>4.10</span></a>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>rstfile <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata/PAML_Codeml"</span>, <span class="st">"rst"</span>, </span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">package=</span><span class="st">"treeio"</span>)</span>
@@ -903,10 +1192,14 @@ Ignoring unknown parameters: `label.size`</code></pre>
 <span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust=</span><span class="sc">-</span>.<span class="dv">5</span>, <span class="at">color=</span><span class="st">'steelblue'</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
 <span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_tree2</span>(<span class="at">legend.position=</span><span class="fu">c</span>(.<span class="dv">9</span>, .<span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="05_ggtree_annotation_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Annotating tree with amino acid substitution and <em>d<sub>N</sub>/d<sub>S</sub></em> inferred by <code>r pkg_codeml</code>.</strong> Branches were rescaled and colored by <em>d<sub>N</sub>/d<sub>S</sub></em> values, and amino acid substitutions were displayed on the middle of branches.</figcaption>
+<div id="fig-codeml" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Annotating tree with CodeML dN/dS">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-codeml-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_ggtree_annotation_files/figure-html/fig-codeml-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="Annotating tree with CodeML dN/dS">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-codeml-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.10: <strong>Annotating tree with amino acid substitution and <em>d<sub>N</sub>/d<sub>S</sub></em> inferred by <code>r pkg_codeml</code>.</strong> Branches were rescaled and colored by <em>d<sub>N</sub>/d<sub>S</sub></em> values, and amino acid substitutions were displayed on the middle of branches.
+</figcaption>
 </figure>
 </div>
 </div>

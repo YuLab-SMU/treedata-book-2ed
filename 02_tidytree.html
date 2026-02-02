@@ -171,7 +171,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Integration, Manipulation and Visualization of Phylogenetic Trees</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">manual setting. the ropenscilabs/icons package will set up everything for you.</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -598,15 +598,19 @@ with the following features available:
 <span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(rate, value)) <span class="sc">+</span> <span class="fu">geom_hex</span>() <span class="sc">+</span> </span>
 <span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>type, <span class="at">scale=</span><span class="st">'free_y'</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="02_tidytree_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Correlation of <em>d<sub>N</sub>/d<sub>S</sub></em>, <em>d<sub>N</sub></em>, and <em>d<sub>S</sub></em> vs.&nbsp;substitution rate.</strong> After merging the <em>BEAST</em> and <em>CodeML</em> outputs, the branch-specific estimates (substitution rate, <em>d<sub>N</sub>/d<sub>S</sub></em> , <em>d<sub>N</sub></em>, and <em>d<sub>S</sub></em>) from the two analysis programs are compared on the same branch basis. The associations of <em>d<sub>N</sub>/d<sub>S</sub></em>, <em>d<sub>N</sub></em>, and <em>d<sub>S</sub></em> vs.&nbsp;<em>rate</em> are visualized in hexbin scatter plots.</figcaption>
+<div id="fig-correlations" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Correlation of dN/dS vs. substitution rate">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-correlations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_tidytree_files/figure-html/fig-correlations-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="Correlation of dN/dS vs. substitution rate">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correlations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.1: <strong>Correlation of <em>d<sub>N</sub>/d<sub>S</sub></em>, <em>d<sub>N</sub></em>, and <em>d<sub>S</sub></em> vs.&nbsp;substitution rate.</strong> After merging the <em>BEAST</em> and <em>CodeML</em> outputs, the branch-specific estimates (substitution rate, <em>d<sub>N</sub>/d<sub>S</sub></em> , <em>d<sub>N</sub></em>, and <em>d<sub>S</sub></em>) from the two analysis programs are compared on the same branch basis. The associations of <em>d<sub>N</sub>/d<sub>S</sub></em>, <em>d<sub>N</sub></em>, and <em>d<sub>S</sub></em> vs.&nbsp;<em>rate</em> are visualized in hexbin scatter plots.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The output is illustrated in Figure <span class="quarto-unresolved-ref">?fig-correlations</span>. We can then test the association of these node/branch-specific data using Pearson correlation, which in this case showed that <em>d<sub>N</sub></em> and <em>d<sub>S</sub></em>, but not <em>d<sub>N</sub>/d<sub>S</sub></em> are significantly (<em>p</em>-values) associated with <em>rate</em>.</p>
+<p>The output is illustrated in Figure <a href="#fig-correlations" class="quarto-xref">Figure&nbsp;<span>2.1</span></a>. We can then test the association of these node/branch-specific data using Pearson correlation, which in this case showed that <em>d<sub>N</sub></em> and <em>d<sub>S</sub></em>, but not <em>d<sub>N</sub>/d<sub>S</sub></em> are significantly (<em>p</em>-values) associated with <em>rate</em>.</p>
 <p>Using the <code>merge_tree()</code> function, we are able to compare analysis results using an identical model from different software packages or different models using different or identical software. It also allows users to integrate different analysis findings from different software packages. Merging tree data is not restricted to software findings, associating external data to analysis findings is also granted. The <code>merge_tree()</code> function is chainable and allows several tree objects to be merged into one.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>phylo <span class="ot">&lt;-</span> <span class="fu">as.phylo</span>(beast_tree)</span>
@@ -704,7 +708,7 @@ with the following features available:
 </section>
 <section id="grouping-taxa" class="level3" data-number="2.2.3">
 <h3 data-number="2.2.3" class="anchored" data-anchor-id="grouping-taxa"><span class="header-section-number">2.2.3</span> Grouping taxa</h3>
-<p>The <code>groupOTU()</code> and <code>groupClade()</code> methods are designed for adding taxa grouping information to the input tree object. The methods were implemented in <a href="https://CRAN.R-project.org/package=tidytree"><strong>tidytree</strong></a>, <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a>, and <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> respectively to support adding grouping information for the <code>tbl_tree</code>, <code>phylo</code> and <code>treedata</code>, and <code>ggtree</code> objects. This grouping information can be used directly in tree visualization (<em>e.g.</em>, <a href="#group-taxa-vis">coloring a tree based on grouping information</a>) with <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> (Figure <span class="quarto-unresolved-ref">?fig-groupOTU</span>).</p>
+<p>The <code>groupOTU()</code> and <code>groupClade()</code> methods are designed for adding taxa grouping information to the input tree object. The methods were implemented in <a href="https://CRAN.R-project.org/package=tidytree"><strong>tidytree</strong></a>, <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a>, and <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> respectively to support adding grouping information for the <code>tbl_tree</code>, <code>phylo</code> and <code>treedata</code>, and <code>ggtree</code> objects. This grouping information can be used directly in tree visualization (<em>e.g.</em>, <a href="#group-taxa-vis">coloring a tree based on grouping information</a>) with <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> (Figure <a href="06_ggtree_manipulation.html#fig-groupOTU" class="quarto-xref">Figure&nbsp;<span>5.5</span></a>).</p>
 <section id="groupclade" class="level4" data-number="2.2.3.1">
 <h4 data-number="2.2.3.1" class="anchored" data-anchor-id="groupclade"><span class="header-section-number">2.2.3.1</span> groupClade</h4>
 <p>The <code>groupClade()</code> method accepts an internal node or a vector of internal nodes to add grouping information of selected clade/clades.</p>
@@ -846,8 +850,7 @@ with the following features available:
 'infoURL.y', 'rank.y', 'bootstrap', 'posterior'.</code></pre>
 </div>
 </div>
-<p>Then we can reroot the tree with the associated data mapping to the branches and nodes correctly as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-reroot</span>. The figure was visualized using <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> (see also Chapters <a href="#chapter4">4</a> and <a href="#chapter5">5</a>).</p>
-<div class="cell">
+<p>Then we can reroot the tree with the associated data mapping to the branches and nodes correctly as demonstrated in Figure <a href="#fig-reroot" class="quarto-xref">Figure&nbsp;<span>2.2</span></a>. The figure was visualized using <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> (see also Chapters <a href="#chapter4">4</a> and <a href="#chapter5">5</a>).</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reroot</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>trda2 <span class="ot">&lt;-</span> <span class="fu">root</span>(trda, <span class="at">outgroup =</span> <span class="st">"Suricata_suricatta"</span>, <span class="at">edgelabel =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The original tree</span></span>
@@ -914,35 +917,101 @@ with the following features available:
 <span id="cb51-64"><a href="#cb51-64" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_fill_gradientn</span>(<span class="at">colors =</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="dv">3</span>, <span class="st">"YlGnBu"</span>)) <span class="sc">+</span></span>
 <span id="cb51-65"><a href="#cb51-65" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>)</span>
 <span id="cb51-66"><a href="#cb51-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-67"><a href="#cb51-67" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_list</span>(p1, p2, <span class="at">tag_levels=</span><span class="st">'A'</span>, <span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="02_tidytree_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="1344"></p>
-<figcaption><strong>Reroot a phylogenetic tree with associated data.</strong> Original tree (A) and re-rooted tree (B) with associated data mapped to the branches or nodes of the tree correctly. (A) and (B) present before and after rooting on the branch leading to the tip node ‘Suricata_suricatta’, respectively.</figcaption>
+<span id="cb51-67"><a href="#cb51-67" aria-hidden="true" tabindex="-1"></a>p1</span>
+<span id="cb51-68"><a href="#cb51-68" aria-hidden="true" tabindex="-1"></a>p2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-reroot" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-reroot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-reroot" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-reroot-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rerootscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-reroot-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_tidytree_files/figure-html/fig-reroot-1.png" class="img-fluid figure-img" data-fig-scap="(ref:rerootscap)" data-ref-parent="fig-reroot" width="1344">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-reroot-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Original tree
+</figcaption>
 </figure>
 </div>
 </div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-reroot" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-reroot-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rerootscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-reroot-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_tidytree_files/figure-html/fig-reroot-2.png" class="img-fluid figure-img" data-fig-scap="(ref:rerootscap)" data-ref-parent="fig-reroot" width="1344">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-reroot-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Rerooted tree, with associated data mapped correctly
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-reroot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.2: <strong>Reroot a phylogenetic tree with associated data.</strong>
+</figcaption>
+</figure>
 </div>
 <p>The <code>outgroup</code> parameter represents the specific new <code>outgroup</code>, it can be a node label (character) or node number. If it is a “single one” value, meaning using the node below this tip as the new root, if it has multiple values, meaning the most recent common of the values will be used as the new root. Note that, if the node labels should be treated as edge labels, the <code>edgelabel</code> should be set to <code>TRUE</code> to return the correct relationship between the <code>node</code> and <code>associated data</code>. For more details about re-root, including precautions and pitfalls, please refer to the review article <span class="citation" data-cites="reroot_review">(<a href="#ref-reroot_review" role="doc-biblioref">Czech et al., 2017</a>)</span>.</p>
 </section>
 <section id="sec-rescale-treeio" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="sec-rescale-treeio"><span class="header-section-number">2.4</span> Rescaling Tree Branches</h2>
-<p>Phylogenetic data can be merged for joint analysis (Figure <span class="quarto-unresolved-ref">?fig-correlations</span>). They can be displayed on the same tree structure as a more complex annotation to help visually inspection of their evolutionary patterns. All the numerical data stored in a <code>treedata</code> object can be used to re-scale tree branches. For example, CodeML infers d<sub>N</sub>/d<sub>S</sub>, d<sub>N</sub>, and d<sub>S</sub>, all these statistics can be used as branch lengths (Figure <span class="quarto-unresolved-ref">?fig-rescale</span>). All these values can also be used to color the tree (session <a href="04_ggtree_visualization.html#color-tree">4.3.4</a>) and can be projected to a vertical dimension to create a two-dimensional tree or phenogram (session <a href="#layouts-of-phylogenetic-tree">4.2.2</a> and Figures <span class="quarto-unresolved-ref">?fig-2d</span> and <span class="quarto-unresolved-ref">?fig-continuousColor</span>).</p>
-<div class="cell">
+<p>Phylogenetic data can be merged for joint analysis (Figure <a href="#fig-correlations" class="quarto-xref">Figure&nbsp;<span>2.1</span></a>). They can be displayed on the same tree structure as a more complex annotation to help visually inspection of their evolutionary patterns. All the numerical data stored in a <code>treedata</code> object can be used to re-scale tree branches. For example, CodeML infers d<sub>N</sub>/d<sub>S</sub>, d<sub>N</sub>, and d<sub>S</sub>, all these statistics can be used as branch lengths (Figure <a href="#fig-rescale" class="quarto-xref">Figure&nbsp;<span>2.3</span></a>). All these values can also be used to color the tree (session <a href="04_ggtree_visualization.html#color-tree">4.3.4</a>) and can be projected to a vertical dimension to create a two-dimensional tree or phenogram (session <a href="#layouts-of-phylogenetic-tree">4.2.2</a> and Figures <a href="04_ggtree_visualization.html#fig-2d" class="quarto-xref">Figure&nbsp;<span>1.5</span></a> and <a href="04_ggtree_visualization.html#fig-continuousColor" class="quarto-xref">Figure&nbsp;<span>1.11</span></a>).</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(merged_tree) <span class="sc">+</span> <span class="fu">theme_tree2</span>()</span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(<span class="fu">rescale_tree</span>(merged_tree, <span class="st">'dN'</span>)) <span class="sc">+</span> <span class="fu">theme_tree2</span>()</span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(<span class="fu">rescale_tree</span>(merged_tree, <span class="st">'rate'</span>)) <span class="sc">+</span> <span class="fu">theme_tree2</span>()</span>
 <span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_list</span>(p1, p2, p3, <span class="at">ncol=</span><span class="dv">3</span>, <span class="at">tag_levels=</span><span class="st">'A'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="02_tidytree_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Rescaling tree branches.</strong> The tree with branches scaled in time (year from the root) (A). The tree was rescaled using <em>d<sub>N</sub></em> as branch lengths (B). The tree was rescaled using substitution rates (C).</figcaption>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>p1</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>p2</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>p3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-rescale" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rescale-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rescale" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-rescale-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rescalescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rescale-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_tidytree_files/figure-html/fig-rescale-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:rescalescap)" data-ref-parent="fig-rescale">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rescale-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Branches scaled in time (year from the root)
+</figcaption>
 </figure>
 </div>
 </div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rescale" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-rescale-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rescalescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rescale-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_tidytree_files/figure-html/fig-rescale-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:rescalescap)" data-ref-parent="fig-rescale">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rescale-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Rescaled using dN as branch lengths
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rescale" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-rescale-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rescalescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rescale-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_tidytree_files/figure-html/fig-rescale-3.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:rescalescap)" data-ref-parent="fig-rescale">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rescale-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Rescaled using substitution rates
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rescale-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.3: Rescaling tree branches.
+</figcaption>
+</figure>
 </div>
 <p>Modifying branch lengths in the tree object in addtion to using the <code>rescale_tree()</code> function, users can directly specify a variable as branch length in <code>ggtree()</code> as demonstrated in <a href="04_ggtree_visualization.html#rescale-tree">session 4.3.6</a>.</p>
 </section>
@@ -951,8 +1020,7 @@ with the following features available:
 <section id="sec-remove-tip" class="level3" data-number="2.5.1">
 <h3 data-number="2.5.1" class="anchored" data-anchor-id="sec-remove-tip"><span class="header-section-number">2.5.1</span> Removing tips in a phylogenetic tree</h3>
 <p>Sometimes we want to remove selected tips from a phylogenetic tree. This is due to several reasons, including low sequence quality, errors in sequence assembly, an alignment error in part of the sequence, an error in phylogenetic inference, <em>etc</em>.</p>
-<p>Let’s say that we want to remove three tips (colored red) from the tree (Figure <span class="quarto-unresolved-ref">?fig-removeTipA</span>), the <code>drop.tip()</code> method removes specified tips and updates the tree (Figure <span class="quarto-unresolved-ref">?fig-removeTipB</span>). All associated data will be maintained in the updated tree.</p>
-<div class="cell">
+<p>Let’s say that we want to remove three tips (colored red) from the tree (Figure <a href="#fig-removeTip-1" class="quarto-xref">Figure&nbsp;<span>2.4 (a)</span></a>), the <code>drop.tip()</code> method removes specified tips and updates the tree (Figure <a href="#fig-removeTip-2" class="quarto-xref">Figure&nbsp;<span>2.4 (b)</span></a>). All associated data will be maintained in the updated tree.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata/NHX"</span>, <span class="st">"phyldog.nhx"</span>, <span class="at">package=</span><span class="st">"treeio"</span>)</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>nhx <span class="ot">&lt;-</span> <span class="fu">read.nhx</span>(f)</span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>to_drop <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Physonect_sp_@2066767"</span>,</span>
@@ -963,23 +1031,49 @@ with the following features available:
 <span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>nhx_reduced <span class="ot">&lt;-</span> <span class="fu">drop.tip</span>(nhx, to_drop)</span>
 <span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(nhx_reduced) <span class="sc">+</span> <span class="fu">geom_tiplab</span>() <span class="sc">+</span> <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="fl">0.8</span>)  </span>
-<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_list</span>(p1, p2, <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">tag_levels =</span> <span class="st">"A"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="02_tidytree_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Removing tips from a tree.</strong> Original tree with three tips (colored red) to remove (A). The updated tree removed selected tips (B).</figcaption>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>p1</span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>p2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-removeTip" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-removeTip-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-removeTip" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-removeTip-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:removeTipscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-removeTip-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_tidytree_files/figure-html/fig-removeTip-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:removeTipscap)" data-ref-parent="fig-removeTip">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-removeTip-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Original tree with three tips to remove
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-removeTip" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-removeTip-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:removeTipscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-removeTip-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_tidytree_files/figure-html/fig-removeTip-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:removeTipscap)" data-ref-parent="fig-removeTip">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-removeTip-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Updated tree after removing selected tips
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-removeTip-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.4: Removing tips from a tree.
+</figcaption>
+</figure>
+</div>
 </section>
 <section id="sec-subset-tip" class="level3" data-number="2.5.2">
 <h3 data-number="2.5.2" class="anchored" data-anchor-id="sec-subset-tip"><span class="header-section-number">2.5.2</span> Subsetting tree by tip label</h3>
-<p>Sometimes a tree can be large and difficult to look at only the portions of interest. The <code>tree_subset()</code> function was created in the <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package <span class="citation" data-cites="wang_treeio_2020">(<a href="#ref-wang_treeio_2020" role="doc-biblioref">Wang et al., 2020</a>)</span> to extract a subset of the tree portion while still maintaining the structure of the tree portion. The <code>beast_tree</code> in Figure <span class="quarto-unresolved-ref">?fig-subsetTipA</span> is slightly crowded. Obviously, we can make the figure taller to allow more space for the labels (similar to using the “Expansion” slider in <code>FigTree</code>) or we can make the text smaller. However, these solutions are not always applicable when you have a lot of tips (<em>e.g.</em>, hundreds or thousands of tips). In particular, when you are only interested in the portion of the tree around a particular tip, you certainly don’t want to explore a large tree to find the certain species you are interested in.</p>
-<p>Let’s say you are interested in tip <em>A/Swine/HK/168/2012</em> from the tree (Figure <span class="quarto-unresolved-ref">?fig-subsetTipA</span>) and you want to look at the immediate relatives of this tip.</p>
-<p>The <code>tree_subset()</code> function allows you to look at the portions of the tree that are of interest. By default, the <code>tree_subset()</code> function will internally call the <a href="#groupotu"><code>groupOTU()</code></a> to assign the group specified tip from the rest of the other tips (Figure <span class="quarto-unresolved-ref">?fig-subsetTipB</span>). Additionally, the branch lengths and related associated data are maintained after subsetting (Figure <span class="quarto-unresolved-ref">?fig-subsetTipC</span>). The root of the tree is always anchored at zero for the subset tree by default and all the distances are relative to this root. If you want all the distances to be relative to the original root, you can specify the root position (by <code>root.position</code> parameter) to the root edge of the subset tree, which is the sum of branch lengths from the original root to the root of the subset tree (Figures <span class="quarto-unresolved-ref">?fig-subsetTipD</span> and E).</p>
-<div class="cell">
+<p>Sometimes a tree can be large and difficult to look at only the portions of interest. The <code>tree_subset()</code> function was created in the <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package <span class="citation" data-cites="wang_treeio_2020">(<a href="#ref-wang_treeio_2020" role="doc-biblioref">Wang et al., 2020</a>)</span> to extract a subset of the tree portion while still maintaining the structure of the tree portion. The <code>beast_tree</code> in Figure <a href="#fig-subsetTip-1" class="quarto-xref">Figure&nbsp;<span>2.5 (a)</span></a> is slightly crowded. Obviously, we can make the figure taller to allow more space for the labels (similar to using the “Expansion” slider in <code>FigTree</code>) or we can make the text smaller. However, these solutions are not always applicable when you have a lot of tips (<em>e.g.</em>, hundreds or thousands of tips). In particular, when you are only interested in the portion of the tree around a particular tip, you certainly don’t want to explore a large tree to find the certain species you are interested in.</p>
+<p>Let’s say you are interested in tip <em>A/Swine/HK/168/2012</em> from the tree (Figure <a href="#fig-subsetTip-1" class="quarto-xref">Figure&nbsp;<span>2.5 (a)</span></a>) and you want to look at the immediate relatives of this tip.</p>
+<p>The <code>tree_subset()</code> function allows you to look at the portions of the tree that are of interest. By default, the <code>tree_subset()</code> function will internally call the <a href="#groupotu"><code>groupOTU()</code></a> to assign the group specified tip from the rest of the other tips (Figure <a href="#fig-subsetTip-2" class="quarto-xref">Figure&nbsp;<span>2.5 (b)</span></a>). Additionally, the branch lengths and related associated data are maintained after subsetting (Figure <a href="#fig-subsetTip-3" class="quarto-xref">Figure&nbsp;<span>2.5 (c)</span></a>). The root of the tree is always anchored at zero for the subset tree by default and all the distances are relative to this root. If you want all the distances to be relative to the original root, you can specify the root position (by <code>root.position</code> parameter) to the root edge of the subset tree, which is the sum of branch lengths from the original root to the root of the subset tree (Figures <a href="#fig-subsetTip-4" class="quarto-xref">Figure&nbsp;<span>2.5 (d)</span></a> and <a href="#fig-subsetTip-5" class="quarto-xref">Figure&nbsp;<span>2.5 (e)</span></a>).</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>beast_file <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"examples/MCC_FluA_H3.tree"</span>, <span class="at">package=</span><span class="st">"ggtree"</span>)</span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>beast_tree <span class="ot">&lt;-</span> <span class="fu">read.beast</span>(beast_file)</span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1005,22 +1099,88 @@ with the following features available:
 <span id="cb54-23"><a href="#cb54-23" aria-hidden="true" tabindex="-1"></a>p5 <span class="ot">&lt;-</span> p4 <span class="sc">+</span> </span>
 <span id="cb54-24"><a href="#cb54-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rootedge</span>() <span class="sc">+</span> <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">50</span>) </span>
 <span id="cb54-25"><a href="#cb54-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-26"><a href="#cb54-26" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_list</span>(p1, p2, p3, p4, p5, </span>
-<span id="cb54-27"><a href="#cb54-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">design=</span><span class="st">"AABBCC</span><span class="sc">\n</span><span class="st">AADDEE"</span>, <span class="at">tag_levels=</span><span class="st">'A'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="02_tidytree_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Subsetting tree for a specific tip.</strong> Original tree (A). Subset tree (B). Subset tree with data (C). Visualize the subset tree relative to the original position, without rootedge (D) and with rootedge (E).</figcaption>
+<span id="cb54-26"><a href="#cb54-26" aria-hidden="true" tabindex="-1"></a>p1</span>
+<span id="cb54-27"><a href="#cb54-27" aria-hidden="true" tabindex="-1"></a>p2</span>
+<span id="cb54-28"><a href="#cb54-28" aria-hidden="true" tabindex="-1"></a>p3</span>
+<span id="cb54-29"><a href="#cb54-29" aria-hidden="true" tabindex="-1"></a>p4</span>
+<span id="cb54-30"><a href="#cb54-30" aria-hidden="true" tabindex="-1"></a>p5</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-subsetTip" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-subsetTip-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-subsetTip" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-subsetTip-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:subsetTipscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-subsetTip-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_tidytree_files/figure-html/fig-subsetTip-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:subsetTipscap)" data-ref-parent="fig-subsetTip">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-subsetTip-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Original tree
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-subsetTip" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-subsetTip-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:subsetTipscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-subsetTip-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_tidytree_files/figure-html/fig-subsetTip-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:subsetTipscap)" data-ref-parent="fig-subsetTip">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-subsetTip-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Subset tree
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-subsetTip" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-subsetTip-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:subsetTipscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-subsetTip-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_tidytree_files/figure-html/fig-subsetTip-3.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:subsetTipscap)" data-ref-parent="fig-subsetTip">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-subsetTip-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Subset tree with data
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-subsetTip" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-subsetTip-4" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:subsetTipscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-subsetTip-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_tidytree_files/figure-html/fig-subsetTip-4.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:subsetTipscap)" data-ref-parent="fig-subsetTip">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-subsetTip-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) Subset tree relative to original position without rootedge
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-subsetTip" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-subsetTip-5" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:subsetTipscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-subsetTip-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_tidytree_files/figure-html/fig-subsetTip-5.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:subsetTipscap)" data-ref-parent="fig-subsetTip">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-subsetTip-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(e) Subset tree relative to original position with rootedge
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-subsetTip-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.5: Subsetting tree for a specific tip.
+</figcaption>
+</figure>
+</div>
 </section>
 <section id="sec-subset-node" class="level3" data-number="2.5.3">
 <h3 data-number="2.5.3" class="anchored" data-anchor-id="sec-subset-node"><span class="header-section-number">2.5.3</span> Subsetting tree by internal node number</h3>
-<p>If you are interested in a certain clade, you can specify the input node as an internal node number. The <code>tree_subset()</code> function will take the clade as a whole and also trace it back to particular levels to look at the immediate relatives of the clade (Figures <span class="quarto-unresolved-ref">?fig-subsetNodeA</span> and B). We can use the <code>tree_subset()</code> function to zoom in selected portions and plot a whole tree with the portion of it, which is similar to the <code>ape::zoom()</code> function to explore a very large tree (Figures <span class="quarto-unresolved-ref">?fig-subsetNodeC</span> and D). Users can also use <code>viewClade()</code> function to restrict tree visualization at specific clade as demonstrated in <a href="06_ggtree_manipulation.html#viewing-selected-clade">session 6.1</a>.</p>
-<div class="cell">
+<p>If you are interested in a certain clade, you can specify the input node as an internal node number. The <code>tree_subset()</code> function will take the clade as a whole and also trace it back to particular levels to look at the immediate relatives of the clade (Figures <a href="#fig-subsetNode-1" class="quarto-xref">Figure&nbsp;<span>2.6 (a)</span></a> and <a href="#fig-subsetNode-2" class="quarto-xref">Figure&nbsp;<span>2.6 (b)</span></a>). We can use the <code>tree_subset()</code> function to zoom in selected portions and plot a whole tree with the portion of it, which is similar to the <code>ape::zoom()</code> function to explore a very large tree (Figures <a href="#fig-subsetNode-3" class="quarto-xref">Figure&nbsp;<span>2.6 (c)</span></a> and <a href="#fig-subsetNode-4" class="quarto-xref">Figure&nbsp;<span>2.6 (d)</span></a>). Users can also use <code>viewClade()</code> function to restrict tree visualization at specific clade as demonstrated in <a href="06_ggtree_manipulation.html#viewing-selected-clade">session 6.1</a>.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>clade <span class="ot">&lt;-</span> <span class="fu">tree_subset</span>(beast_tree, <span class="at">node=</span><span class="dv">121</span>, <span class="at">levels_back=</span><span class="dv">0</span>)</span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>clade2 <span class="ot">&lt;-</span> <span class="fu">tree_subset</span>(beast_tree, <span class="at">node=</span><span class="dv">121</span>, <span class="at">levels_back=</span><span class="dv">2</span>)</span>
 <span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(clade) <span class="sc">+</span> <span class="fu">geom_tiplab</span>() <span class="sc">+</span> <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">5</span>)</span>
@@ -1044,23 +1204,77 @@ with the following features available:
 <span id="cb55-21"><a href="#cb55-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"red"</span>)) <span class="sc">+</span></span>
 <span id="cb55-22"><a href="#cb55-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
 <span id="cb55-23"><a href="#cb55-23" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(x) <span class="sc">+</span> <span class="fu">geom_tiplab</span>() <span class="sc">+</span> <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">6</span>)</span>
-<span id="cb55-24"><a href="#cb55-24" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_list</span>(p1, p2, p3, p4, </span>
-<span id="cb55-25"><a href="#cb55-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">tag_levels =</span> <span class="st">'A'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="02_tidytree_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Subsetting tree for the specific clade.</strong> Extracting a clade (A). Extracting a clade and tracing it back to look at its immediate relatives (B). Viewing a very large tree (C) and a selected portion of it (D).</figcaption>
+<span id="cb55-24"><a href="#cb55-24" aria-hidden="true" tabindex="-1"></a>p1</span>
+<span id="cb55-25"><a href="#cb55-25" aria-hidden="true" tabindex="-1"></a>p2</span>
+<span id="cb55-26"><a href="#cb55-26" aria-hidden="true" tabindex="-1"></a>p3</span>
+<span id="cb55-27"><a href="#cb55-27" aria-hidden="true" tabindex="-1"></a>p4</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-subsetNode" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-subsetNode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-subsetNode" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-subsetNode-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:subsetNodescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-subsetNode-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_tidytree_files/figure-html/fig-subsetNode-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:subsetNodescap)" data-ref-parent="fig-subsetNode">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-subsetNode-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Extract a clade
+</figcaption>
 </figure>
 </div>
 </div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-subsetNode" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-subsetNode-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:subsetNodescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-subsetNode-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_tidytree_files/figure-html/fig-subsetNode-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:subsetNodescap)" data-ref-parent="fig-subsetNode">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-subsetNode-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Extract a clade and trace back to immediate relatives
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-subsetNode" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-subsetNode-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:subsetNodescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-subsetNode-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_tidytree_files/figure-html/fig-subsetNode-3.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:subsetNodescap)" data-ref-parent="fig-subsetNode">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-subsetNode-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) View a very large tree
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-subsetNode" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-subsetNode-4" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:subsetNodescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-subsetNode-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_tidytree_files/figure-html/fig-subsetNode-4.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:subsetNodescap)" data-ref-parent="fig-subsetNode">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-subsetNode-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) View a selected portion of the tree
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-subsetNode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.6: Subsetting tree for the specific clade.
+</figcaption>
+</figure>
 </div>
 </section>
 </section>
 <section id="sec-ggtree-fortify" class="level2" data-number="2.6">
 <h2 data-number="2.6" class="anchored" data-anchor-id="sec-ggtree-fortify"><span class="header-section-number">2.6</span> Manipulating Tree Data for Visualization</h2>
 <p>Tree visualization is supported by <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> <span class="citation" data-cites="yu_ggtree:_2017">(<a href="#ref-yu_ggtree:_2017" role="doc-biblioref">Yu et al., 2017</a>)</span>. Although <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> implemented several methods for <a href="#chapter6">visual exploration of trees with data</a>, you may want to do something that is not supported directly. In this case, you need to manipulate tree data with node coordination positions that are used for visualization. This is quite easy with <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>. Users can use the <code>fortify()</code> method which internally calls <code>tidytree::as_tibble()</code> to convert the tree to a tidy data frame and add columns of coordination positions (<em>i.e.</em>, x, y, branch, and angle) that are used to plot the tree. You can also access the data via <code>ggtree(tree)$data</code>.</p>
-<p>Here is an example to plot two trees face-to-face that is similar to a graph produced by the <code>ape::cophyloplot()</code> function (Figure <span class="quarto-unresolved-ref">?fig-cophylo</span>).</p>
+<p>Here is an example to plot two trees face-to-face that is similar to a graph produced by the <code>ape::cophyloplot()</code> function (Figure <a href="#fig-cophylo" class="quarto-xref">Figure&nbsp;<span>2.7</span></a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
@@ -1105,15 +1319,19 @@ with the following features available:
 <span id="cb56-41"><a href="#cb56-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="at">data =</span> d2, <span class="at">hjust=</span><span class="dv">1</span>, <span class="at">geom =</span> <span class="st">'shadowtext'</span>, </span>
 <span id="cb56-42"><a href="#cb56-42" aria-hidden="true" tabindex="-1"></a>                <span class="at">bg.colour =</span> <span class="fu">alpha</span>(<span class="st">'firebrick'</span>, .<span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="02_tidytree_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Plot two phylogenetic trees face-to-face.</strong> Plotting a tree using <code>ggtree()</code> (left-hand side) and subsequently adding another layer of a tree by <code>geom_tree()</code> (right-hand side). The relative positions of the plotted trees can be manually adjusted and adding layers to each of the trees (<em>e.g.</em>, tip labels and highlighting clades) is independent.</figcaption>
+<div id="fig-cophylo" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Plot two phylogenetic trees face-to-face">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cophylo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_tidytree_files/figure-html/fig-cophylo-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="Plot two phylogenetic trees face-to-face">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cophylo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.7: <strong>Plot two phylogenetic trees face-to-face.</strong> Plotting a tree using <code>ggtree()</code> (left-hand side) and subsequently adding another layer of a tree by <code>geom_tree()</code> (right-hand side). The relative positions of the plotted trees can be manually adjusted and adding layers to each of the trees (<em>e.g.</em>, tip labels and highlighting clades) is independent.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>It is quite easy to plot multiple trees and connect taxa in one figure; for instance, plotting trees constructed from all internal gene segments of influenza virus and connecting equivalent strains across the trees <span class="citation" data-cites="venkatesh_avian_2018">(<a href="#ref-venkatesh_avian_2018" role="doc-biblioref">Venkatesh et al., 2018</a>)</span>. Figure <span class="quarto-unresolved-ref">?fig-cophylo3</span> demonstrates the usage of plotting multiple trees by combining multiple layers of <code>geom_tree()</code>.</p>
+<p>It is quite easy to plot multiple trees and connect taxa in one figure; for instance, plotting trees constructed from all internal gene segments of influenza virus and connecting equivalent strains across the trees <span class="citation" data-cites="venkatesh_avian_2018">(<a href="#ref-venkatesh_avian_2018" role="doc-biblioref">Venkatesh et al., 2018</a>)</span>. Figure <a href="#fig-cophylo3" class="quarto-xref">Figure&nbsp;<span>2.8</span></a> demonstrates the usage of plotting multiple trees by combining multiple layers of <code>geom_tree()</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">30</span>)</span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">fortify</span>(y)</span>
@@ -1127,10 +1345,14 @@ with the following features available:
 <span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> <span class="fu">geom_tree</span>(<span class="at">data =</span> d2) <span class="sc">+</span> <span class="fu">geom_tree</span>(<span class="at">data =</span> d3) <span class="sc">+</span> <span class="fu">geom_tiplab</span>(<span class="at">data=</span>d3) <span class="sc">+</span> </span>
 <span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(x, y, <span class="at">group=</span>label, <span class="at">color=</span>node <span class="sc">&lt;</span> <span class="dv">15</span>), <span class="at">data=</span>dd, <span class="at">alpha=</span>.<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="02_tidytree_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Plot multiple phylogenetic trees side-by-side.</strong> Plotting a tree using <code>ggtree()</code> and subsequently adding multiple layers of trees by <code>geom_tree()</code>.</figcaption>
+<div id="fig-cophylo3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Plot multiple phylogenetic trees side-by-side">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cophylo3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02_tidytree_files/figure-html/fig-cophylo3-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="Plot multiple phylogenetic trees side-by-side">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cophylo3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.8: <strong>Plot multiple phylogenetic trees side-by-side.</strong> Plotting a tree using <code>ggtree()</code> and subsequently adding multiple layers of trees by <code>geom_tree()</code>.
+</figcaption>
 </figure>
 </div>
 </div>

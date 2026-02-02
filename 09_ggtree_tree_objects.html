@@ -171,7 +171,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Integration, Manipulation and Visualization of Phylogenetic Trees</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">manual setting. the ropenscilabs/icons package will set up everything for you.</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -349,10 +349,10 @@ div.csl-indent {
 
 Please cite:
 
-Guangchuang Yu, Tommy Tsan-Yuk Lam, Huachen Zhu, Yi Guan. Two methods
-for mapping and visualizing associated data on phylogeny using ggtree.
-Molecular Biology and Evolution. 2018, 35(12):3041-3043.
-doi:10.1093/molbev/msy194</code></pre>
+S Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L
+Zhan, T Wu, E Hu, Y Jiang, X Bo, G Yu. ggtreeExtra: Compact
+visualization of richly annotated phylogenetic data. Molecular Biology
+and Evolution. 2021, 38(9):4039-4042. doi: 10.1093/molbev/msab166</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
@@ -369,8 +369,10 @@ Attaching package: 'tidytree'</code></pre>
 
 Please cite:
 
-Guangchuang Yu. Using ggtree to visualize data on tree-like structures.
-Current Protocols in Bioinformatics. 2020, 69:e96. doi:10.1002/cpbi.96</code></pre>
+Guangchuang Yu, Tommy Tsan-Yuk Lam, Huachen Zhu, Yi Guan. Two methods
+for mapping and visualizing associated data on phylogeny using ggtree.
+Molecular Biology and Evolution. 2018, 35(12):3041-3043.
+doi:10.1093/molbev/msy194</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"software-link.R"</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"setup.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -397,17 +399,18 @@ Current Protocols in Bioinformatics. 2020, 69:e96. doi:10.1002/cpbi.96</code></p
 [conflicted] Will prefer ggplot2::geom_errorbarh over any other package.
 [conflicted] Will prefer MicrobiotaProcess::tax_table over any other package.
 [conflicted] Will prefer BiocGenerics::as.data.frame over any other package.
-[conflicted] Will prefer base::setdiff over any other package.</code></pre>
+[conflicted] Will prefer base::setdiff over any other package.
+[conflicted] Will prefer yulab.utils::CRANpkg over any other package.
+[conflicted] Will prefer yulab.utils::Biocpkg over any other package.</code></pre>
 </div>
 </div>
 <section id="ggtree-for-phylogenetic-tree-objects" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="ggtree-for-phylogenetic-tree-objects"><span class="header-section-number">8.1</span> ggtree for Phylogenetic Tree Objects</h2>
-<p>The <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> packages <span class="citation" data-cites="wang_treeio_2020">(<a href="#ref-wang_treeio_2020" role="doc-biblioref">Wang et al., 2020</a>)</span> allow parsing evolutionary inferences from several software outputs and linking external data to the tree structure. It serves as an infrastructure to bring evolutionary data to the R community. The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package <span class="citation" data-cites="yu_ggtree:_2017">(<a href="#ref-yu_ggtree:_2017" role="doc-biblioref">Yu et al., 2017</a>)</span> works seamlessly with <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> to visualize tree-associated data to annotate the tree. The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package is a general tool for tree visualization and annotation and it fits the ecosystem of R packages. Most of the S3/S4 tree objects defined by other R packages are also supported by <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>, including <code>phylo</code> (<a href="04_ggtree_visualization.html#visualizing-phylogenetic-tree-with-ggtree">session 4.2</a>), <code>multiPhylo</code> (<a href="04_ggtree_visualization.html#visualize-a-list-of-trees">session 4.4</a>), <code>phylo4</code>, <code>phylo4d</code>, <code>phyloseq</code>, and <code>obkData</code>. With <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>, we are able to generate more complex tree graphs which is not possible or easy to do with other packages. For example, the visualization of the <code>phyloseq</code> object in Figure <span class="quarto-unresolved-ref">?fig-phyloseq</span> is not supported by the <a href="http://bioconductor.org/packages/phyloseq"><strong>phyloseq</strong></a> package. The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package also extends the possibility of linking external data to these tree objects <span class="citation" data-cites="yu_two_2018">(<a href="#ref-yu_two_2018" role="doc-biblioref">Yu et al., 2018</a>)</span>.</p>
+<p>The <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> packages <span class="citation" data-cites="wang_treeio_2020">(<a href="#ref-wang_treeio_2020" role="doc-biblioref">Wang et al., 2020</a>)</span> allow parsing evolutionary inferences from several software outputs and linking external data to the tree structure. It serves as an infrastructure to bring evolutionary data to the R community. The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package <span class="citation" data-cites="yu_ggtree:_2017">(<a href="#ref-yu_ggtree:_2017" role="doc-biblioref">Yu et al., 2017</a>)</span> works seamlessly with <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> to visualize tree-associated data to annotate the tree. The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package is a general tool for tree visualization and annotation and it fits the ecosystem of R packages. Most of the S3/S4 tree objects defined by other R packages are also supported by <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>, including <code>phylo</code> (<a href="04_ggtree_visualization.html#visualizing-phylogenetic-tree-with-ggtree">session 4.2</a>), <code>multiPhylo</code> (<a href="04_ggtree_visualization.html#visualize-a-list-of-trees">session 4.4</a>), <code>phylo4</code>, <code>phylo4d</code>, <code>phyloseq</code>, and <code>obkData</code>. With <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>, we are able to generate more complex tree graphs which is not possible or easy to do with other packages. For example, the visualization of the <code>phyloseq</code> object in Figure <a href="#fig-phyloseq" class="quarto-xref">Figure&nbsp;<span>8.4</span></a> is not supported by the <a href="http://bioconductor.org/packages/phyloseq"><strong>phyloseq</strong></a> package. The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package also extends the possibility of linking external data to these tree objects <span class="citation" data-cites="yu_two_2018">(<a href="#ref-yu_two_2018" role="doc-biblioref">Yu et al., 2018</a>)</span>.</p>
 <section id="sec-phylobase" class="level3" data-number="8.1.1">
 <h3 data-number="8.1.1" class="anchored" data-anchor-id="sec-phylobase"><span class="header-section-number">8.1.1</span> The phylo4 and phylo4d objects</h3>
 <p>The <code>phylo4</code> and <code>phylo4d</code> are defined in the <a href="https://CRAN.R-project.org/package=phylobase"><strong>phylobase</strong></a> package. The <code>phylo4</code> object is an S4 version of <code>phylo</code>, while <code>phylo4d</code> extends <code>phylo4</code> with a data frame that contains trait data. The <a href="https://CRAN.R-project.org/package=phylobase"><strong>phylobase</strong></a> package provides a <code>plot()</code> method, which is internally called the <code>treePlot()</code> function, to display the tree with the data. However, there are some restrictions of the <code>plot()</code> method, it can only plot numeric values for tree-associated data as bubbles and cannot generate figure legend. <code>Phylobase</code> doesn’t implement a visualization method to display categorical values. Using associated data as visual characteristics such as color, size, and shape, is also not supported. Although it is possible to color the tree using associated data, it requires users to extract the data and map them to the color vector manually followed by passing the color vector to the <code>plot</code> method. This is tedious and error-prone since the order of the color vector needs to be consistent with the edge list stored in the object.</p>
-<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package supports <code>phylo4d</code> object and all the associated data stored in the <code>phylo4d</code> object can be used directly to annotate the tree (Figure <span class="quarto-unresolved-ref">?fig-fp4d</span>).</p>
-<div class="cell">
+<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package supports <code>phylo4d</code> object and all the associated data stored in the <code>phylo4d</code> object can be used directly to annotate the tree (Figure <a href="#fig-fp4d" class="quarto-xref">Figure&nbsp;<span>8.1</span></a>).</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phylobase)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(geospiza_raw)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">as</span>(geospiza_raw<span class="sc">$</span>tree, <span class="st">"phylo4"</span>)</span>
@@ -433,20 +436,47 @@ Current Protocols in Bioinformatics. 2020, 69:e96. doi:10.1002/cpbi.96</code></p
 <span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tiplab</span>(<span class="at">offset=</span><span class="dv">1</span>) <span class="sc">+</span> <span class="fu">hexpand</span>(.<span class="dv">2</span>) <span class="sc">+</span> <span class="fu">vexpand</span>(.<span class="dv">05</span>, <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span> </span>
 <span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(.<span class="dv">1</span>, .<span class="dv">75</span>))</span>
 <span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>aplot<span class="sc">::</span><span class="fu">plot_list</span>(p1, p2, <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">tag_levels=</span><span class="st">'A'</span>)    </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="09_ggtree_tree_objects_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
-<figcaption><strong>Visualizing <code>phylo4d</code> data using ggtree.</strong> Reproduce the output of the <code>plot()</code> method provided in the <code>r CRANpkg("phylobase")</code> package (A). Visualize the trait data as a heatmap which is not supported in the <code>r CRANpkg("phylobase")</code> package (B).</figcaption>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>p1</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>p2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-fp4d" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fp4d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-fp4d" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-fp4d-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:fp4dscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-fp4d-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="09_ggtree_tree_objects_files/figure-html/fig-fp4d-1.png" class="img-fluid figure-img" style="width:90.0%" data-fig-scap="(ref:fp4dscap)" data-ref-parent="fig-fp4d">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-fp4d-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Reproduce the output of the plot() method provided in the phylobase package
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-fp4d" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-fp4d-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:fp4dscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-fp4d-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="09_ggtree_tree_objects_files/figure-html/fig-fp4d-2.png" class="img-fluid figure-img" style="width:90.0%" data-fig-scap="(ref:fp4dscap)" data-ref-parent="fig-fp4d">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-fp4d-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Visualize trait data as a heatmap, which is not supported in phylobase
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fp4d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.1: <strong>Visualizing <code>phylo4d</code> data using ggtree.</strong>
+</figcaption>
+</figure>
+</div>
 </section>
 <section id="sec-phylog" class="level3" data-number="8.1.2">
 <h3 data-number="8.1.2" class="anchored" data-anchor-id="sec-phylog"><span class="header-section-number">8.1.2</span> The phylog object</h3>
-<p>The <code>phylog</code> is defined in the <a href="https://CRAN.R-project.org/package=ade4"><strong>ade4</strong></a> package. The package is designed for analyzing ecological data and provides <code>newick2phylog()</code>, <code>hclust2phylog()</code>, and <code>taxo2phylog()</code> functions to create phylogeny from Newick string, hierarchical clustering result, or a taxonomy (see also the <a href="http://bioconductor.org/packages/MicrobiotaProcess"><strong>MicrobiotaProcess</strong></a> package described in <a href="#chapter11">Chapter 11</a>). The <code>phylog</code> object is also supported by <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-phylog</span>.</p>
+<p>The <code>phylog</code> is defined in the <a href="https://CRAN.R-project.org/package=ade4"><strong>ade4</strong></a> package. The package is designed for analyzing ecological data and provides <code>newick2phylog()</code>, <code>hclust2phylog()</code>, and <code>taxo2phylog()</code> functions to create phylogeny from Newick string, hierarchical clustering result, or a taxonomy (see also the <a href="http://bioconductor.org/packages/MicrobiotaProcess"><strong>MicrobiotaProcess</strong></a> package described in <a href="#chapter11">Chapter 11</a>). The <code>phylog</code> object is also supported by <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> as demonstrated in Figure <a href="#fig-phylog" class="quarto-xref">Figure&nbsp;<span>8.2</span></a>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ade4)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(taxo.eg)</span>
@@ -493,10 +523,14 @@ $droot  numeric 31     distance to root                            </code></pre>
 Ignoring unknown parameters: `label.size`</code></pre>
 </div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="09_ggtree_tree_objects_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Visualizing a <code>phylog</code> tree object.</strong></figcaption>
+<div id="fig-phylog" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:phylogscap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-phylog-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="09_ggtree_tree_objects_files/figure-html/fig-phylog-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:phylogscap)">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-phylog-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.2: <strong>Visualizing a <code>phylog</code> tree object.</strong>
+</figcaption>
 </figure>
 </div>
 </div>
@@ -504,7 +538,7 @@ Ignoring unknown parameters: `label.size`</code></pre>
 </section>
 <section id="sec-phyloseq" class="level3" data-number="8.1.3">
 <h3 data-number="8.1.3" class="anchored" data-anchor-id="sec-phyloseq"><span class="header-section-number">8.1.3</span> The phyloseq object</h3>
-<p>The <code>phyloseq</code> class defined in the <a href="http://bioconductor.org/packages/phyloseq"><strong>phyloseq</strong></a> package was designed for storing microbiome data, including a phylogenetic tree, associated sample data, and taxonomy assignment. It can import data from popular pipelines, such as <a href="http://qiime.org/"><strong>QIIME</strong></a> <span class="citation" data-cites="kuczynski_using_2011">(<a href="#ref-kuczynski_using_2011" role="doc-biblioref">Kuczynski et al., 2011</a>)</span>, <a href="http://mothur.org/"><strong>mothur</strong></a> <span class="citation" data-cites="schloss_introducing_2009">(<a href="#ref-schloss_introducing_2009" role="doc-biblioref">Schloss et al., 2009</a>)</span>, <a href="http://bioconductor.org/packages/dada2"><strong>dada2</strong></a> <span class="citation" data-cites="callahan_dada2_2016">(<a href="#ref-callahan_dada2_2016" role="doc-biblioref">Callahan et al., 2016</a>)</span> and <a href="http://pyrotagger.jgi-psf.org/"><strong>PyroTagger</strong></a> <span class="citation" data-cites="kunin_pyrotagger_2010">(<a href="#ref-kunin_pyrotagger_2010" role="doc-biblioref">Kunin &amp; Hugenholtz, 2010</a>)</span>, <em>etc</em>. The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports visualizing the phylogenetic tree stored in the <code>phyloseq</code> object and related data can be used to annotate the tree as demonstrated in Figures <span class="quarto-unresolved-ref">?fig-reproducephyloseq</span> and <span class="quarto-unresolved-ref">?fig-phyloseq</span>.</p>
+<p>The <code>phyloseq</code> class defined in the <a href="http://bioconductor.org/packages/phyloseq"><strong>phyloseq</strong></a> package was designed for storing microbiome data, including a phylogenetic tree, associated sample data, and taxonomy assignment. It can import data from popular pipelines, such as <a href="http://qiime.org/"><strong>QIIME</strong></a> <span class="citation" data-cites="kuczynski_using_2011">(<a href="#ref-kuczynski_using_2011" role="doc-biblioref">Kuczynski et al., 2011</a>)</span>, <a href="http://mothur.org/"><strong>mothur</strong></a> <span class="citation" data-cites="schloss_introducing_2009">(<a href="#ref-schloss_introducing_2009" role="doc-biblioref">Schloss et al., 2009</a>)</span>, <a href="http://bioconductor.org/packages/dada2"><strong>dada2</strong></a> <span class="citation" data-cites="callahan_dada2_2016">(<a href="#ref-callahan_dada2_2016" role="doc-biblioref">Callahan et al., 2016</a>)</span> and <a href="http://pyrotagger.jgi-psf.org/"><strong>PyroTagger</strong></a> <span class="citation" data-cites="kunin_pyrotagger_2010">(<a href="#ref-kunin_pyrotagger_2010" role="doc-biblioref">Kunin &amp; Hugenholtz, 2010</a>)</span>, <em>etc</em>. The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports visualizing the phylogenetic tree stored in the <code>phyloseq</code> object and related data can be used to annotate the tree as demonstrated in Figures <a href="#fig-reproducephyloseq" class="quarto-xref">Figure&nbsp;<span>8.3</span></a> and <a href="#fig-phyloseq" class="quarto-xref">Figure&nbsp;<span>8.4</span></a>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phyloseq)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
@@ -522,15 +556,19 @@ Ignoring unknown parameters: `label.size`</code></pre>
 <span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size_continuous</span>(<span class="at">trans=</span><span class="fu">log_trans</span>(<span class="dv">5</span>)) <span class="sc">+</span></span>
 <span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>) <span class="sc">+</span> <span class="fu">hexpand</span>(.<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="09_ggtree_tree_objects_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Visualizing a <code>phyloseq</code> tree object.</strong> This example mimics the output of the <code>plot_tree()</code> function provided in the <code>r Biocpkg("phyloseq")</code> package.</figcaption>
+<div id="fig-reproducephyloseq" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:reproducephyloseqscap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-reproducephyloseq-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="09_ggtree_tree_objects_files/figure-html/fig-reproducephyloseq-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:reproducephyloseqscap)">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-reproducephyloseq-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.3: <strong>Visualizing a <code>phyloseq</code> tree object.</strong> This example mimics the output of the <code>plot_tree()</code> function provided in the <code>r Biocpkg("phyloseq")</code> package.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Figure <span class="quarto-unresolved-ref">?fig-reproducephyloseq</span> reproduces the output of the <code>phyloseq::plot_tree()</code> function. Users of <a href="http://bioconductor.org/packages/phyloseq"><strong>phyloseq</strong></a> will find <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> useful for visualizing microbiome data and for further annotation since <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports high-level annotation using the grammar of graphics and can add tree data layers that are not available in <a href="http://bioconductor.org/packages/phyloseq"><strong>phyloseq</strong></a>.</p>
+<p>Figure <a href="#fig-reproducephyloseq" class="quarto-xref">Figure&nbsp;<span>8.3</span></a> reproduces the output of the <code>phyloseq::plot_tree()</code> function. Users of <a href="http://bioconductor.org/packages/phyloseq"><strong>phyloseq</strong></a> will find <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> useful for visualizing microbiome data and for further annotation since <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports high-level annotation using the grammar of graphics and can add tree data layers that are not available in <a href="http://bioconductor.org/packages/phyloseq"><strong>phyloseq</strong></a>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -558,19 +596,23 @@ Ignoring unknown parameters: `label.size`</code></pre>
 <span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>            <span class="at">color=</span><span class="st">'grey80'</span>, <span class="at">lwd=</span>.<span class="dv">3</span>) <span class="sc">+</span></span>
 <span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">ncol=</span><span class="dv">1</span>))          </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="09_ggtree_tree_objects_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Phylogenetic tree with OTU abundance densities.</strong> Tips were colored by Phylum, and the corresponding abundances across different samples were visualized as density ridgelines and sorted according to the tree structure.</figcaption>
+<div id="fig-phyloseq" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:phyloseqscap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-phyloseq-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="09_ggtree_tree_objects_files/figure-html/fig-phyloseq-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:phyloseqscap)">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-phyloseq-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.4: <strong>Phylogenetic tree with OTU abundance densities.</strong> Tips were colored by Phylum, and the corresponding abundances across different samples were visualized as density ridgelines and sorted according to the tree structure.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>This example uses microbiome data provided in the <a href="http://bioconductor.org/packages/phyloseq"><strong>phyloseq</strong></a> package and density ridgeline is employed to visualize species abundance data. The <code>geom_facet()</code> layer automatically re-arranges the abundance data according to the tree structure, visualizes the data using the specified <code>geom</code> function, <em>i.e.</em>, <code>geom_density_ridges()</code>, and aligns the density curves with the tree as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-phyloseq</span>. Note that data stored in the <code>phyloseq</code> object is visible to <code>ggtree()</code> and can be used directly in tree visualization (<code>Phylum</code> was used to color tips and density ridgelines in this example). The source code of this example was firstly published in the supplemental file of <span class="citation" data-cites="yu_two_2018">(<a href="#ref-yu_two_2018" role="doc-biblioref">Yu et al., 2018</a>)</span>.</p>
+<p>This example uses microbiome data provided in the <a href="http://bioconductor.org/packages/phyloseq"><strong>phyloseq</strong></a> package and density ridgeline is employed to visualize species abundance data. The <code>geom_facet()</code> layer automatically re-arranges the abundance data according to the tree structure, visualizes the data using the specified <code>geom</code> function, <em>i.e.</em>, <code>geom_density_ridges()</code>, and aligns the density curves with the tree as demonstrated in Figure <a href="#fig-phyloseq" class="quarto-xref">Figure&nbsp;<span>8.4</span></a>. Note that data stored in the <code>phyloseq</code> object is visible to <code>ggtree()</code> and can be used directly in tree visualization (<code>Phylum</code> was used to color tips and density ridgelines in this example). The source code of this example was firstly published in the supplemental file of <span class="citation" data-cites="yu_two_2018">(<a href="#ref-yu_two_2018" role="doc-biblioref">Yu et al., 2018</a>)</span>.</p>
 </section>
 <section id="sec-obkdata" class="level3" data-number="8.1.4">
 <h3 data-number="8.1.4" class="anchored" data-anchor-id="sec-obkdata"><span class="header-section-number">8.1.4</span> The obkData object</h3>
-<p>The <code>okbData</code> is defined in the <a href="https://CRAN.R-project.org/package=OutbreakTools"><strong>OutbreakTools</strong></a> package to store incidence-based outbreak data, including meta data of sampling and information of infected individuals such as age and onset of symptoms. The <code>ggtree</code> supports the <code>obkData</code> object and the information can be used to annotate the tree as shown in Figure <span class="quarto-unresolved-ref">?fig-outbreaktools</span>.</p>
+<p>The <code>okbData</code> is defined in the <a href="https://CRAN.R-project.org/package=OutbreakTools"><strong>OutbreakTools</strong></a> package to store incidence-based outbreak data, including meta data of sampling and information of infected individuals such as age and onset of symptoms. The <code>ggtree</code> supports the <code>obkData</code> object and the information can be used to annotate the tree as shown in the following example.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: outbreaktools</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.width: 6.3</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.height: 7</span></span>
@@ -619,8 +661,83 @@ Number of objects: 32 </code></pre>
 <pre><code>'dendrogram' with 2 branches and 32 members total, at height 425.3447 </code></pre>
 </div>
 </div>
-<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package supports most of the hierarchical clustering objects defined in the R community, including <code>hclust</code> and <code>dendrogram</code> as well as <code>agnes</code>, <code>diana</code>, and <code>twins</code> that are defined in the <a href="https://CRAN.R-project.org/package=cluster"><strong>cluster</strong></a> package, and the <code>pvclust</code> object defined in the <a href="https://CRAN.R-project.org/package=pvclust"><strong>pvclust</strong></a> package (Table <span class="quarto-unresolved-ref">?tbl-tree-objects</span>). Users can use <code>ggtree(object)</code> to display its tree structure, and use other layers and utilities to customize the graph and of course, add annotations to the tree.</p>
-<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> provides <code>layout_dendrogram()</code> to layout the tree top-down, and <code>theme_dendrogram()</code> to display tree height (similar to <code>theme_tree2()</code> for phylogenetic tree) as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-ggtreehclust</span> (see also the example in <span class="citation" data-cites="yu_cp_2020">(<a href="#ref-yu_cp_2020" role="doc-biblioref">Yu, 2020</a>)</span>).</p>
+<div class="cell">
+<div id="tbl-tree-objects" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-tree-objects-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8.1: Supported tree-like objects in <code>r Biocpkg("ggtree")</code>.
+</figcaption>
+<div aria-describedby="tbl-tree-objects-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Object</th>
+<th style="text-align: left;">Package</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">phylo</td>
+<td style="text-align: left;">ape</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">multiPhylo</td>
+<td style="text-align: left;">ape</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">phylo4</td>
+<td style="text-align: left;">phylobase</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">phylo4d</td>
+<td style="text-align: left;">phylobase</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">phyloseq</td>
+<td style="text-align: left;">phyloseq</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">obkData</td>
+<td style="text-align: left;">OutbreakTools</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hclust</td>
+<td style="text-align: left;">stats</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">dendrogram</td>
+<td style="text-align: left;">stats</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">agnes</td>
+<td style="text-align: left;">cluster</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">diana</td>
+<td style="text-align: left;">cluster</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">twins</td>
+<td style="text-align: left;">cluster</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pvclust</td>
+<td style="text-align: left;">pvclust</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">igraph (tree graph)</td>
+<td style="text-align: left;">igraph</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package supports most of the hierarchical clustering objects defined in the R community, including <code>hclust</code> and <code>dendrogram</code> as well as <code>agnes</code>, <code>diana</code>, and <code>twins</code> that are defined in the <a href="https://CRAN.R-project.org/package=cluster"><strong>cluster</strong></a> package, and the <code>pvclust</code> object defined in the <a href="https://CRAN.R-project.org/package=pvclust"><strong>pvclust</strong></a> package (Table <a href="#tbl-tree-objects" class="quarto-xref">Table&nbsp;<span>8.1</span></a>). Users can use <code>ggtree(object)</code> to display its tree structure, and use other layers and utilities to customize the graph and of course, add annotations to the tree.</p>
+<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> provides <code>layout_dendrogram()</code> to layout the tree top-down, and <code>theme_dendrogram()</code> to display tree height (similar to <code>theme_tree2()</code> for phylogenetic tree) as demonstrated in Figure <a href="#fig-ggtreehclust" class="quarto-xref">Figure&nbsp;<span>8.5</span></a> (see also the example in <span class="citation" data-cites="yu_cp_2020">(<a href="#ref-yu_cp_2020" role="doc-biblioref">Yu, 2020</a>)</span>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>MRCA <span class="ot">=</span> ggtree<span class="sc">:::</span>MRCA.ggtree</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -646,10 +763,14 @@ Number of objects: 32 </code></pre>
 <span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dendrogram</span>(<span class="at">plot.margin=</span><span class="fu">margin</span>(<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">80</span>,<span class="dv">6</span>)) <span class="sc">+</span></span>
 <span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="fu">c</span>(.<span class="dv">9</span>, .<span class="dv">6</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="09_ggtree_tree_objects_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Visualizing dendrogram.</strong> Use <code>cutree()</code> to split the tree into several groups and <code>groupClade()</code> to assign this grouping information. The tree was displayed in the classic top-down layout with branches colored by the grouping information and the tips were colored and labeled by the number of cylinders.</figcaption>
+<div id="fig-ggtreehclust" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:ggtreehclustscap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ggtreehclust-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="09_ggtree_tree_objects_files/figure-html/fig-ggtreehclust-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:ggtreehclustscap)">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ggtreehclust-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.5: <strong>Visualizing dendrogram.</strong> Use <code>cutree()</code> to split the tree into several groups and <code>groupClade()</code> to assign this grouping information. The tree was displayed in the classic top-down layout with branches colored by the grouping information and the tips were colored and labeled by the number of cylinders.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -660,7 +781,7 @@ Number of objects: 32 </code></pre>
 </section>
 <section id="sec-igraph" class="level2" data-number="8.3">
 <h2 data-number="8.3" class="anchored" data-anchor-id="sec-igraph"><span class="header-section-number">8.3</span> ggtree for Tree Graph</h2>
-<p>The tree graph (as an <code>igraph</code> object) can be converted to a <code>phylo</code> object using <code>as.phylo()</code> method provided in the <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package (Table <span class="quarto-unresolved-ref">?tbl-tree-objects</span>). The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports directly visualizing tree graph as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-treeGraph</span>. Note that currently not all <code>igraph</code> objects can be supported by <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>. Currently, it can only be supported when it is a tree graph.</p>
+<p>The tree graph (as an <code>igraph</code> object) can be converted to a <code>phylo</code> object using <code>as.phylo()</code> method provided in the <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package (Table <a href="#tbl-tree-objects" class="quarto-xref">Table&nbsp;<span>8.1</span></a>). The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports directly visualizing tree graph as demonstrated in Figure <a href="#fig-treeGraph" class="quarto-xref">Figure&nbsp;<span>8.6</span></a>. Note that currently not all <code>igraph</code> objects can be supported by <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>. Currently, it can only be supported when it is a tree graph.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">graph.tree</span>(<span class="dv">40</span>, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -673,10 +794,14 @@ Number of objects: 32 </code></pre>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">5</span>, <span class="at">color=</span><span class="st">'steelblue'</span>, <span class="at">alpha=</span>.<span class="dv">6</span>) <span class="sc">+</span> </span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tiplab</span>(<span class="at">hjust=</span>.<span class="dv">5</span>,<span class="at">vjust=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">layout_dendrogram</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="09_ggtree_tree_objects_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Visualizing a tree graph.</strong> The lines with arrows indicate the relationship between the parent node and the child node. All nodes were indicated by steelblue circle points.</figcaption>
+<div id="fig-treeGraph" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:treeGraphscap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-treeGraph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="09_ggtree_tree_objects_files/figure-html/fig-treeGraph-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:treeGraphscap)">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-treeGraph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.6: <strong>Visualizing a tree graph.</strong> The lines with arrows indicate the relationship between the parent node and the child node. All nodes were indicated by steelblue circle points.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -684,7 +809,7 @@ Number of objects: 32 </code></pre>
 </section>
 <section id="ggtree-for-other-tree-like-structures" class="level2" data-number="8.4">
 <h2 data-number="8.4" class="anchored" data-anchor-id="ggtree-for-other-tree-like-structures"><span class="header-section-number">8.4</span> ggtree for Other Tree-like Structures</h2>
-<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package can be used to visualize any data in a hierarchical structure. Here, we use the GNI (Gross National Income) numbers in 2014 as an example. After preparing an edge list, that is a matrix or data frame that contains two columns indicating the relationship of parent and child nodes, we can use the <code>as.phylo()</code> method provided by the <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package to convert the edge list to a <code>phylo</code> object. Then it can be visualized using <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> with associated data. In this example, the population was used to scale the size of circle points for each country (Figure <span class="quarto-unresolved-ref">?fig-gni2014</span>).</p>
+<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package can be used to visualize any data in a hierarchical structure. Here, we use the GNI (Gross National Income) numbers in 2014 as an example. After preparing an edge list, that is a matrix or data frame that contains two columns indicating the relationship of parent and child nodes, we can use the <code>as.phylo()</code> method provided by the <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package to convert the edge list to a <code>phylo</code> object. Then it can be visualized using <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> with associated data. In this example, the population was used to scale the size of circle points for each country (Figure <a href="#fig-gni2014" class="quarto-xref">Figure&nbsp;<span>8.7</span></a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(treeio)</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -706,10 +831,14 @@ Number of objects: 32 </code></pre>
 <span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="fu">aes</span>(<span class="at">label=</span>country), <span class="at">offset=</span>.<span class="dv">05</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
 <span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlim</span>(<span class="cn">NA</span>, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="09_ggtree_tree_objects_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Visualizing data in any hierarchical structure.</strong> Hierarchical data represented as nodes connected by edges can be converted to a <code>phylo</code> object and visualized by <code>r Biocpkg("ggtree")</code> to explore their relationships or other properties that are associated with the relationships.</figcaption>
+<div id="fig-gni2014" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:gni2014scap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-gni2014-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="09_ggtree_tree_objects_files/figure-html/fig-gni2014-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:gni2014scap)">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gni2014-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.7: <strong>Visualizing data in any hierarchical structure.</strong> Hierarchical data represented as nodes connected by edges can be converted to a <code>phylo</code> object and visualized by <code>r Biocpkg("ggtree")</code> to explore their relationships or other properties that are associated with the relationships.
+</figcaption>
 </figure>
 </div>
 </div>

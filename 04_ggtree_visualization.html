@@ -171,7 +171,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Integration, Manipulation and Visualization of Phylogenetic Trees</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">manual setting. the ropenscilabs/icons package will set up everything for you.</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -379,10 +379,9 @@ doi: 10.1093/molbev/msz240</code></pre>
 
 Please cite:
 
-Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam.
-ggtree: an R package for visualization and annotation of phylogenetic
-trees with their covariates and other associated data. Methods in
-Ecology and Evolution. 2017, 8(1):28-36. doi:10.1111/2041-210X.12628</code></pre>
+Guangchuang Yu.  Data Integration, Manipulation and Visualization of
+Phylogenetic Trees (1st edition). Chapman and Hall/CRC. 2022,
+doi:10.1201/9781003279242, ISBN: 9781032233574</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
@@ -417,7 +416,9 @@ Attaching package: 'ggtree'</code></pre>
 [conflicted] Will prefer ggplot2::geom_errorbarh over any other package.
 [conflicted] Will prefer MicrobiotaProcess::tax_table over any other package.
 [conflicted] Will prefer BiocGenerics::as.data.frame over any other package.
-[conflicted] Will prefer base::setdiff over any other package.</code></pre>
+[conflicted] Will prefer base::setdiff over any other package.
+[conflicted] Will prefer yulab.utils::CRANpkg over any other package.
+[conflicted] Will prefer yulab.utils::Biocpkg over any other package.</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"software-link.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -430,11 +431,74 @@ Attaching package: 'ggtree'</code></pre>
 <section id="visualizing-phylogenetic-tree-with-ggtree" class="level2">
 <h2 class="anchored" data-anchor-id="visualizing-phylogenetic-tree-with-ggtree">Visualizing Phylogenetic Tree with <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a></h2>
 <p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package <span class="citation" data-cites="yu_ggtree:_2017">(<a href="#ref-yu_ggtree:_2017" role="doc-biblioref">Yu et al., 2017</a>)</span> is designed for annotating phylogenetic trees with their associated data of different types and from various sources. These data could come from users or analysis programs and might include evolutionary rates, ancestral sequences, <em>etc.</em> that are associated with the taxa from real samples, or with the internal nodes representing hypothetic ancestor strain/species, or with the tree branches indicating evolutionary time courses <span class="citation" data-cites="wang_treeio_2020">(<a href="#ref-wang_treeio_2020" role="doc-biblioref">Wang et al., 2020</a>)</span>. For instance, the data could be the geographic positions of the sampled avian influenza viruses (informed by the survey locations) and the ancestral nodes (by phylogeographic inference) in the viral gene tree <span class="citation" data-cites="lam_phylodynamics_2012">(<a href="#ref-lam_phylodynamics_2012" role="doc-biblioref">Lam et al., 2012</a>)</span>.</p>
-<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a>’s graphical language, which allows a high level of customization, is intuitive and flexible. Notably, <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a> itself does not provide low-level geometric objects or other support for tree-like structures, and hence <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> is a useful extension in that regard. Even though the other two phylogenetics-related R packages, <a href="https://CRAN.R-project.org/package=OutbreakTools"><strong>OutbreakTools</strong></a>, and <a href="http://bioconductor.org/packages/phyloseq"><strong>phyloseq</strong></a>, are developed based on <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a>, the most valuable part of the <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a> syntax - adding layers of annotations - is not supported in these packages. For example, if we have plotted a tree without taxa labels, <a href="https://CRAN.R-project.org/package=OutbreakTools"><strong>OutbreakTools</strong></a> and <a href="http://bioconductor.org/packages/phyloseq"><strong>phyloseq</strong></a> provide no easy way for general <code>R</code> users, who have little knowledge about the infrastructures of these packages, to add a layer of taxa labels. The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> extends <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a> to support tree objects by implementing a geometric layer, <code>geom_tree()</code>, to support visualizing tree structure. In <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>, viewing a phylogenetic tree is relatively easy, via the command <code>ggplot(tree_object) + geom_tree() + theme_tree()</code> or <code>ggtree(tree_object)</code> for short. Layers of annotations can be added one-by-one via the <code>+</code> operator. To facilitate tree visualization, <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> provides several geometric layers, including <code>geom_treescale()</code> for adding legend of tree branch scale (genetic distance, divergence time, <em>etc.</em>), <code>geom_range()</code> for displaying uncertainty of branch lengths (confidence interval or range, <em>etc.</em>), <code>geom_tiplab()</code> for adding taxa label, <code>geom_tippoint()</code> and <code>geom_nodepoint()</code> for adding symbols of tips and internal nodes, <code>geom_hilight()</code> for highlighting clades with rectangle, and <code>geom_cladelab()</code> for annotating selected clades with bar and text label, <em>etc.</em>. A full list of geometric layers provided by <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> is summarized in Table <span class="quarto-unresolved-ref">?tbl-geoms</span>.</p>
+<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a>’s graphical language, which allows a high level of customization, is intuitive and flexible. Notably, <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a> itself does not provide low-level geometric objects or other support for tree-like structures, and hence <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> is a useful extension in that regard. Even though the other two phylogenetics-related R packages, <a href="https://CRAN.R-project.org/package=OutbreakTools"><strong>OutbreakTools</strong></a>, and <a href="http://bioconductor.org/packages/phyloseq"><strong>phyloseq</strong></a>, are developed based on <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a>, the most valuable part of the <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a> syntax - adding layers of annotations - is not supported in these packages. For example, if we have plotted a tree without taxa labels, <a href="https://CRAN.R-project.org/package=OutbreakTools"><strong>OutbreakTools</strong></a> and <a href="http://bioconductor.org/packages/phyloseq"><strong>phyloseq</strong></a> provide no easy way for general <code>R</code> users, who have little knowledge about the infrastructures of these packages, to add a layer of taxa labels. The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> extends <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a> to support tree objects by implementing a geometric layer, <code>geom_tree()</code>, to support visualizing tree structure. In <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>, viewing a phylogenetic tree is relatively easy, via the command <code>ggplot(tree_object) + geom_tree() + theme_tree()</code> or <code>ggtree(tree_object)</code> for short. Layers of annotations can be added one-by-one via the <code>+</code> operator. To facilitate tree visualization, <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> provides several geometric layers, including <code>geom_treescale()</code> for adding legend of tree branch scale (genetic distance, divergence time, <em>etc.</em>), <code>geom_range()</code> for displaying uncertainty of branch lengths (confidence interval or range, <em>etc.</em>), <code>geom_tiplab()</code> for adding taxa label, <code>geom_tippoint()</code> and <code>geom_nodepoint()</code> for adding symbols of tips and internal nodes, <code>geom_hilight()</code> for highlighting clades with rectangle, and <code>geom_cladelab()</code> for annotating selected clades with bar and text label, <em>etc.</em>. A full list of geometric layers provided by <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> is summarized in Table <a href="#tbl-geoms" class="quarto-xref">Table&nbsp;<span>1.1</span></a>.</p>
+<div class="cell">
+<div id="tbl-geoms" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-geoms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1.1: A selection of <code>r Biocpkg("ggtree")</code> geometric layers.
+</figcaption>
+<div aria-describedby="tbl-geoms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Layer</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">geom_tree()</td>
+<td style="text-align: left;">draw tree branches</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">geom_tiplab()</td>
+<td style="text-align: left;">add tip labels</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">geom_tippoint()</td>
+<td style="text-align: left;">add points for tips</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">geom_nodepoint()</td>
+<td style="text-align: left;">add points for internal nodes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">geom_treescale()</td>
+<td style="text-align: left;">add a scale bar</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">geom_range()</td>
+<td style="text-align: left;">display uncertainty ranges</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">geom_rootedge()</td>
+<td style="text-align: left;">draw root edge</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">geom_hilight()</td>
+<td style="text-align: left;">highlight a clade</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">geom_cladelab()</td>
+<td style="text-align: left;">label a clade with bar and text</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">geom_nodelab()</td>
+<td style="text-align: left;">label internal nodes</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
 <p>To view a phylogenetic tree, we first need to parse the tree file into <code>R</code>. The <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package is able to parse diverse annotation data from different software outputs into <code>S4</code> phylogenetic data objects (see also <a href="01_treeio_importing_tree.html#chapter1">Chapter 1</a>). The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package mainly utilizes these <code>S4</code> objects to display and annotate the tree. Other R packages defined <code>S3</code>/<code>S4</code> classes to store phylogenetic trees with domain-specific associated data, including <code>phylo4</code> and <code>phylo4d</code> defined in the <a href="https://CRAN.R-project.org/package=phylobase"><strong>phylobase</strong></a> package, <code>obkdata</code> defined in the <a href="https://CRAN.R-project.org/package=OutbreakTools"><strong>OutbreakTools</strong></a> package, and <code>phyloseq</code> defined in the <a href="http://bioconductor.org/packages/phyloseq"><strong>phyloseq</strong></a> package, <em>etc</em>. All these tree objects are also supported in <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> and their specific annotation data can be used to annotate the tree directly in <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> (see also <a href="#chapter9">Chapter 9</a>). Such compatibility of <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> facilitates the integration of data and analysis results. In addition, <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> also supports other tree-like structures, including <a href="#dendrogram">dendrogram</a> and <a href="#igraph">tree graphs</a>.</p>
 <section id="basic-tree-visualization" class="level3">
 <h3 class="anchored" data-anchor-id="basic-tree-visualization">Basic Tree Visualization</h3>
-<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package extends <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a> <span class="citation" data-cites="wickham_ggplot2_2016">(<a href="#ref-wickham_ggplot2_2016" role="doc-biblioref">Wickham, 2016</a>)</span> package to support viewing a phylogenetic tree. It implements <code>geom_tree()</code> layer for displaying a phylogenetic tree, as shown below in Figure <span class="quarto-unresolved-ref">?fig-basicvizA</span>.</p>
+<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package extends <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a> <span class="citation" data-cites="wickham_ggplot2_2016">(<a href="#ref-wickham_ggplot2_2016" role="doc-biblioref">Wickham, 2016</a>)</span> package to support viewing a phylogenetic tree. It implements <code>geom_tree()</code> layer for displaying a phylogenetic tree, as shown below in Figure <a href="#fig-basicviz-1" class="quarto-xref">Figure&nbsp;<span>1.1 (a)</span></a>.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"treeio"</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggtree"</span>)</span>
@@ -445,38 +509,85 @@ Attaching package: 'ggtree'</code></pre>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tree, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_tree</span>() <span class="sc">+</span> <span class="fu">theme_tree</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The function, <code>ggtree()</code>, was implemented as a shortcut to visualize a tree, and it works exactly the same as shown above.</p>
-<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package takes all the advantages of <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a>. For example, we can change the color, size, and type of the lines as we do with <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a> (Figure <span class="quarto-unresolved-ref">?fig-basicvizB</span>).</p>
+<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package takes all the advantages of <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a>. For example, we can change the color, size, and type of the lines as we do with <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a> (Figure <a href="#fig-basicviz-2" class="quarto-xref">Figure&nbsp;<span>1.1 (b)</span></a>).</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree, <span class="at">color=</span><span class="st">"firebrick"</span>, <span class="at">size=</span><span class="dv">2</span>, <span class="at">linetype=</span><span class="st">"dotted"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>By default, the tree is viewed in ladderize form, user can set the parameter <code>ladderize = FALSE</code> to disable it (Figure <span class="quarto-unresolved-ref">?fig-basicvizC</span>, see also <a href="A-app-faq.html#branch-setting">FAQ A.5</a>).</p>
+<p>By default, the tree is viewed in ladderize form, user can set the parameter <code>ladderize = FALSE</code> to disable it (Figure <a href="#fig-basicviz-3" class="quarto-xref">Figure&nbsp;<span>1.1 (c)</span></a>, see also <a href="A-app-faq.html#branch-setting">FAQ A.5</a>).</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree, <span class="at">ladderize=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The <code>branch.length</code> is used to scale the edge, user can set the parameter <code>branch.length = "none"</code> to only view the tree topology (cladogram, Figure <span class="quarto-unresolved-ref">?fig-basicvizD</span>) or other numerical variables to scale the tree (<em>e.g.</em>, <em>d<sub>N</sub>/d<sub>S</sub></em>, see also in <a href="#chapter5">Chapter 5</a>).</p>
+<p>The <code>branch.length</code> is used to scale the edge, user can set the parameter <code>branch.length = "none"</code> to only view the tree topology (cladogram, Figure <a href="#fig-basicviz-4" class="quarto-xref">Figure&nbsp;<span>1.1 (d)</span></a>) or other numerical variables to scale the tree (<em>e.g.</em>, <em>d<sub>N</sub>/d<sub>S</sub></em>, see also in <a href="#chapter5">Chapter 5</a>).</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree, <span class="at">branch.length=</span><span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
 <pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ℹ Please use `linewidth` instead.
 ℹ The deprecated feature was likely used in the ggtree package.
   Please report the issue at &lt;https://github.com/YuLab-SMU/ggtree/issues&gt;.</code></pre>
+<div id="fig-basicviz" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-basicviz-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-basicviz" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div id="fig-basicviz-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:basicvizscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-basicviz-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-basicviz-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:basicvizscap)" data-ref-parent="fig-basicviz">
 </div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Basic tree visualization.</strong> Default ggtree output with ladderized effect (A), non-variable setting (<em>e.g.</em>, color, size, line type) (B), non-ladderized tree (C), cladogram that only displays tree topology without branch length information (D).</figcaption>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-basicviz-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Default ggtree output with ladderized effect
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-basicviz" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div id="fig-basicviz-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:basicvizscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-basicviz-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-basicviz-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:basicvizscap)" data-ref-parent="fig-basicviz">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-basicviz-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Non-variable setting (e.g., color, size, line type)
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-basicviz" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div id="fig-basicviz-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:basicvizscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-basicviz-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-basicviz-3.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:basicvizscap)" data-ref-parent="fig-basicviz">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-basicviz-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Non-ladderized tree
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-basicviz" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div id="fig-basicviz-4" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:basicvizscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-basicviz-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-basicviz-4.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:basicvizscap)" data-ref-parent="fig-basicviz">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-basicviz-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) Cladogram without branch length information
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-basicviz-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.1: <strong>Basic tree visualization.</strong>
+</figcaption>
+</figure>
+</div>
 </section>
 <section id="sec-tree-layouts" class="level3">
 <h3 class="anchored" data-anchor-id="sec-tree-layouts">Layouts of a phylogenetic tree</h3>
-<p>Viewing phylogenetic with <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> is quite simple, just pass the tree object to the <code>ggtree()</code> function. We have developed several types of layouts for tree presentation (Figure <span class="quarto-unresolved-ref">?fig-layout</span>), including <em>rectangular</em> (by default), <em>roundrect</em> (rounded rectangular), <em>ellipse</em>, <em>slanted</em>, <em>circular</em>, <em>fan</em>, <em>unrooted</em> (equal angle and daylight methods), time-scaled, and two-dimensional layouts.</p>
+<p>Viewing phylogenetic with <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> is quite simple, just pass the tree object to the <code>ggtree()</code> function. We have developed several types of layouts for tree presentation (Figure <a href="#fig-layout" class="quarto-xref">Figure&nbsp;<span>1.2</span></a>), including <em>rectangular</em> (by default), <em>roundrect</em> (rounded rectangular), <em>ellipse</em>, <em>slanted</em>, <em>circular</em>, <em>fan</em>, <em>unrooted</em> (equal angle and daylight methods), time-scaled, and two-dimensional layouts.</p>
 <p>Here are examples of visualizing a tree with different layouts:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
@@ -486,7 +597,7 @@ Attaching package: 'ggtree'</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -494,7 +605,7 @@ Attaching package: 'ggtree'</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -502,7 +613,7 @@ Attaching package: 'ggtree'</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-7-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-6-3.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -510,7 +621,7 @@ Attaching package: 'ggtree'</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-7-4.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-6-4.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -518,7 +629,7 @@ Attaching package: 'ggtree'</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-7-5.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-6-5.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -530,7 +641,7 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-7-6.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-6-6.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -538,7 +649,7 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-7-7.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-6-7.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -550,7 +661,7 @@ Average angle change [2] 0.0378727344045303</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-7-8.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-6-8.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -558,7 +669,7 @@ Average angle change [2] 0.0378727344045303</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-7-9.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-6-9.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -566,7 +677,7 @@ Average angle change [2] 0.0378727344045303</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-7-10.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-6-10.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -574,7 +685,7 @@ Average angle change [2] 0.0378727344045303</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-7-11.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-6-11.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -586,22 +697,171 @@ Average angle change [2] 0.029681180299634</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-7-12.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-6-12.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Tree layouts.</strong> Phylogram: rectangular layout (A), rounded rectangular layout (B), slanted layout (C), ellipse layout (D), circular layout (E), and fan layout (F). Unrooted: equal-angle method (G) and daylight method (H). Cladogram: rectangular layout (I), ellipse (J), circular layout (K), and unrooted layout (L). Slanted and fan layouts for cladogram are also supported.</figcaption>
+<div id="fig-layout" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-layout-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layout" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div id="fig-layout-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layoutscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layout-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-layout-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layoutscap)" data-ref-parent="fig-layout">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layout-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Phylogram: rectangular layout
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layout" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div id="fig-layout-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layoutscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layout-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-layout-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layoutscap)" data-ref-parent="fig-layout">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layout-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Phylogram: rounded rectangular layout
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layout" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div id="fig-layout-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layoutscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layout-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-layout-3.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layoutscap)" data-ref-parent="fig-layout">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layout-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Phylogram: slanted layout
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layout" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div id="fig-layout-4" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layoutscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layout-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-layout-4.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layoutscap)" data-ref-parent="fig-layout">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layout-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) Phylogram: ellipse layout
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Other possible layouts that can be drawn by modifying scales/coordination (Figure <span class="quarto-unresolved-ref">?fig-layout2</span>).</p>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layout" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div id="fig-layout-5" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layoutscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layout-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-layout-5.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layoutscap)" data-ref-parent="fig-layout">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layout-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(e) Phylogram: circular layout
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layout" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div id="fig-layout-6" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layoutscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layout-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-layout-6.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layoutscap)" data-ref-parent="fig-layout">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layout-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(f) Phylogram: fan layout
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layout" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div id="fig-layout-7" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layoutscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layout-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-layout-7.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layoutscap)" data-ref-parent="fig-layout">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layout-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(g) Unrooted: equal-angle method
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layout" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div id="fig-layout-8" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layoutscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layout-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-layout-8.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layoutscap)" data-ref-parent="fig-layout">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layout-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(h) Unrooted: daylight method
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layout" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div id="fig-layout-9" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layoutscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layout-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-layout-9.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layoutscap)" data-ref-parent="fig-layout">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layout-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(i) Cladogram: rectangular layout
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layout" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div id="fig-layout-10" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layoutscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layout-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-layout-10.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layoutscap)" data-ref-parent="fig-layout">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layout-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(j) Cladogram: ellipse
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layout" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div id="fig-layout-11" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layoutscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layout-11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-layout-11.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layoutscap)" data-ref-parent="fig-layout">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layout-11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(k) Cladogram: circular layout
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layout" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div id="fig-layout-12" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layoutscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layout-12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-layout-12.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layoutscap)" data-ref-parent="fig-layout">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layout-12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(l) Cladogram: unrooted layout
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-layout-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.2: <strong>Tree layouts.</strong>
+</figcaption>
+</figure>
+</div>
+<p>Other possible layouts that can be drawn by modifying scales/coordination (Figure <a href="#fig-layout2" class="quarto-xref">Figure&nbsp;<span>1.3</span></a>).</p>
 <!-- for examples, [reverse label of time
 scale](https://github.com/GuangchuangYu/ggtree/issues/87), [repropotion
 circular/fan tree](
@@ -611,7 +871,7 @@ https://groups.google.com/d/msg/bioc-ggtree/UoGQekWHIvw/ZswUUZKSGwAJ), *etc.*. -
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -619,7 +879,7 @@ https://groups.google.com/d/msg/bioc-ggtree/UoGQekWHIvw/ZswUUZKSGwAJ), *etc.*. -
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -627,7 +887,7 @@ https://groups.google.com/d/msg/bioc-ggtree/UoGQekWHIvw/ZswUUZKSGwAJ), *etc.*. -
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-9-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-7-3.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -669,7 +929,7 @@ viewport</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-9-4.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-7-4.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -677,7 +937,7 @@ viewport</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-9-5.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-7-5.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -685,7 +945,7 @@ viewport</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-9-6.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-7-6.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -693,7 +953,7 @@ viewport</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-9-7.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-7-7.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -705,7 +965,7 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-9-8.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-7-8.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -717,24 +977,137 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-9-9.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-7-9.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Derived Tree layouts.</strong> right-to-left rectangular layout (A), bottom-up rectangular layout (B), top-down rectangular layout (Dendrogram) (C), rotated rectangular layout (D), bottom-up slanted layout (E), top-down slanted layout (Cladogram) (F), circular layout (G), circular inward layout (H and I).</figcaption>
+<div id="fig-layout2" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-layout2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layout2" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-layout2-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layout2scap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layout2-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-layout2-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layout2scap)" data-ref-parent="fig-layout2">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layout2-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Right-to-left rectangular layout
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layout2" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-layout2-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layout2scap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layout2-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-layout2-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layout2scap)" data-ref-parent="fig-layout2">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layout2-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Bottom-up rectangular layout
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layout2" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-layout2-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layout2scap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layout2-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-layout2-3.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layout2scap)" data-ref-parent="fig-layout2">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layout2-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Top-down rectangular layout (dendrogram)
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p><strong>Phylogram.</strong> Layouts of <em>rectangular</em>, <em>roundrect</em>, <em>slanted</em>, <em>ellipse</em>, <em>circular</em>, and <em>fan</em> are supported to visualize phylogram (by default, with branch length scaled) as demonstrated in Figures <span class="quarto-unresolved-ref">?fig-layoutA-F</span>.</p>
-<p><strong>Unrooted layout.</strong> Unrooted (also called ‘radial’) layout is supported by equal-angle and daylight algorithms; users can specify unrooted layout algorithm by passing “equal_angle” or “daylight” to <code>layout</code> parameter to visualize the tree. The equal-angle method was proposed by Christopher Meacham in <em>PLOTREE</em>, which was incorporated in <a href="https://evolution.genetics.washington.edu/phylip.html"><strong>PHYLIP</strong></a> <span class="citation" data-cites="retief_phylogenetic_2000">(<a href="#ref-retief_phylogenetic_2000" role="doc-biblioref">Retief, 2000</a>)</span>. This method starts from the root of the tree and allocates arcs of angle to each subtree proportional to the number of tips in it. It iterates from root to tips and subdivides the angle allocated to a subtree into angles for its dependent subtrees. This method is fast and was implemented in many software packages. As shown in Figure <span class="quarto-unresolved-ref">?fig-layoutG</span>, the equal angle method has a drawback that tips tend to be clustered together, which will leave many spaces unused. The daylight method starts from an initial tree built by equal angle and iteratively improves it by successively going to each interior node and swinging subtrees so that the arcs of “daylight” are equal (Figure <span class="quarto-unresolved-ref">?fig-layoutH</span>). This method was firstly implemented in <a href="https://paup.phylosolutions.com/"><strong>PAUP*</strong></a> <span class="citation" data-cites="wilgenbusch_inferring_2003">(<a href="#ref-wilgenbusch_inferring_2003" role="doc-biblioref">Wilgenbusch &amp; Swofford, 2003</a>)</span>.</p>
-<p><strong>Cladogram.</strong> To visualize a cladogram that is without branch length scaling and only displays the tree structure, <code>branch.length</code> is set to “none” and it works for all types of layouts (Figures <span class="quarto-unresolved-ref">?fig-layoutI-L</span>).</p>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layout2" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-layout2-4" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layout2scap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layout2-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-layout2-4.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layout2scap)" data-ref-parent="fig-layout2">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layout2-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) Rotated rectangular layout
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layout2" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-layout2-5" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layout2scap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layout2-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-layout2-5.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layout2scap)" data-ref-parent="fig-layout2">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layout2-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(e) Bottom-up slanted layout
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layout2" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-layout2-6" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layout2scap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layout2-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-layout2-6.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layout2scap)" data-ref-parent="fig-layout2">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layout2-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(f) Top-down slanted layout (cladogram)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layout2" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-layout2-7" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layout2scap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layout2-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-layout2-7.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layout2scap)" data-ref-parent="fig-layout2">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layout2-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(g) Circular layout
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layout2" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-layout2-8" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layout2scap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layout2-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-layout2-8.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layout2scap)" data-ref-parent="fig-layout2">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layout2-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(h) Circular inward layout
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layout2" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-layout2-9" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layout2scap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layout2-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-layout2-9.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layout2scap)" data-ref-parent="fig-layout2">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layout2-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(i) Circular inward layout (custom xlim)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-layout2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.3: <strong>Derived Tree layouts.</strong>
+</figcaption>
+</figure>
+</div>
+<p><strong>Phylogram.</strong> Layouts of <em>rectangular</em>, <em>roundrect</em>, <em>slanted</em>, <em>ellipse</em>, <em>circular</em>, and <em>fan</em> are supported to visualize phylogram (by default, with branch length scaled) as demonstrated in Figures <a href="#fig-layout-1" class="quarto-xref">Figure&nbsp;<span>1.2 (a)</span></a>–<a href="#fig-layout-6" class="quarto-xref">Figure&nbsp;<span>1.2 (f)</span></a>.</p>
+<p><strong>Unrooted layout.</strong> Unrooted (also called ‘radial’) layout is supported by equal-angle and daylight algorithms; users can specify unrooted layout algorithm by passing “equal_angle” or “daylight” to <code>layout</code> parameter to visualize the tree. The equal-angle method was proposed by Christopher Meacham in <em>PLOTREE</em>, which was incorporated in <a href="https://evolution.genetics.washington.edu/phylip.html"><strong>PHYLIP</strong></a> <span class="citation" data-cites="retief_phylogenetic_2000">(<a href="#ref-retief_phylogenetic_2000" role="doc-biblioref">Retief, 2000</a>)</span>. This method starts from the root of the tree and allocates arcs of angle to each subtree proportional to the number of tips in it. It iterates from root to tips and subdivides the angle allocated to a subtree into angles for its dependent subtrees. This method is fast and was implemented in many software packages. As shown in Figure <a href="#fig-layout-7" class="quarto-xref">Figure&nbsp;<span>1.2 (g)</span></a>, the equal angle method has a drawback that tips tend to be clustered together, which will leave many spaces unused. The daylight method starts from an initial tree built by equal angle and iteratively improves it by successively going to each interior node and swinging subtrees so that the arcs of “daylight” are equal (Figure <a href="#fig-layout-8" class="quarto-xref">Figure&nbsp;<span>1.2 (h)</span></a>). This method was firstly implemented in <a href="https://paup.phylosolutions.com/"><strong>PAUP*</strong></a> <span class="citation" data-cites="wilgenbusch_inferring_2003">(<a href="#ref-wilgenbusch_inferring_2003" role="doc-biblioref">Wilgenbusch &amp; Swofford, 2003</a>)</span>.</p>
+<p><strong>Cladogram.</strong> To visualize a cladogram that is without branch length scaling and only displays the tree structure, <code>branch.length</code> is set to “none” and it works for all types of layouts (Figures <a href="#fig-layout-9" class="quarto-xref">Figure&nbsp;<span>1.2 (i)</span></a>–<a href="#fig-layout-12" class="quarto-xref">Figure&nbsp;<span>1.2 (l)</span></a>).</p>
 <p><strong>Timescaled layout.</strong> For a timescaled tree, the most recent sampling date must be specified via the <code>mrsd</code> parameter, and <code>ggtree()</code> will scale the tree by sampling (tip) and divergence (internal node) time, and a timescale axis will be displayed under the tree by default. Users can use the <a href="https://CRAN.R-project.org/package=deeptime"><strong>deeptime</strong></a> package to add geologic timescale (e.g., periods and eras) to a <code>ggtree()</code> plot.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>beast_file <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"examples/MCC_FluA_H3.tree"</span>, </span>
@@ -742,16 +1115,20 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>beast_tree <span class="ot">&lt;-</span> <span class="fu">read.beast</span>(beast_file)</span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(beast_tree, <span class="at">mrsd=</span><span class="st">"2013-01-01"</span>) <span class="sc">+</span> <span class="fu">theme_tree2</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption><strong>Timescaled layout.</strong> The <em>x</em>-axis is the timescale (in units of the year). The divergence time in this example was inferred by <code>r pkg_beast</code> using the molecular clock model.</figcaption>
+<div id="fig-timescaled" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Timescaled layout">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-timescaled-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-timescaled-1.png" class="img-fluid figure-img" data-fig-scap="Timescaled layout" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-timescaled-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.4: <strong>Timescaled layout.</strong> The <em>x</em>-axis is the timescale (in units of the year). The divergence time in this example was inferred by <code>r pkg_beast</code> using the molecular clock model.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p><strong>Two-dimensional tree layout.</strong> A two-dimensional tree is a projection of the phylogenetic tree in a space defined by the associated phenotype (numerical or categorical trait, on the <em>y</em>-axis) and tree branch scale (<em>e.g.</em>, evolutionary distance, divergent time, on the <em>x</em>-axis). The phenotype can be a measure of certain biological characteristics of the taxa and hypothetical ancestors in the tree. This layout is useful to track the virus phenotypes or other behaviors (<em>y</em>-axis) changing with the virus evolution (<em>x</em>-axis). In fact, the analysis of phenotypes or genotypes over evolutionary time have been widely used for study of influenza virus evolution <span class="citation" data-cites="neher_prediction_2016">(<a href="#ref-neher_prediction_2016" role="doc-biblioref">Neher et al., 2016</a>)</span>, though such analysis diagrams are not tree-like, <em>i.e.</em>, no connection between data points, unlike our two-dimensional tree layout that connects data points with the corresponding tree branches. Therefore, this new layout we provided will make such data analysis easier and more scalable for large sequence datasets.</p>
-<p>In this example, we used the previous timescaled tree of H3 human and swine influenza viruses (Figure <span class="quarto-unresolved-ref">?fig-timescaled</span>; data published in <span class="citation" data-cites="liang_expansion_2014">(<a href="#ref-liang_expansion_2014" role="doc-biblioref">Liang et al., 2014</a>)</span>) and scaled the <em>y</em>-axis based on the predicted <em>N</em>-linked glycosylation sites (NLG) for each of the taxon and ancestral sequences of hemagglutinin proteins. The NLG sites were predicted using the <a href="http://www.cbs.dtu.dk/services/NetNGlyc/">NetNGlyc 1.0 Server</a>. To scale the <em>y</em>-axis, the parameter <code>yscale</code> in the <code>ggtree()</code> function is set to a numerical or categorical variable. If <code>yscale</code> is a categorical variable as in this example, users should specify how the categories are to be mapped to numerical values via the <code>yscale_mapping</code> variables.</p>
+<p>In this example, we used the previous timescaled tree of H3 human and swine influenza viruses (Figure <a href="#fig-timescaled" class="quarto-xref">Figure&nbsp;<span>1.4</span></a>; data published in <span class="citation" data-cites="liang_expansion_2014">(<a href="#ref-liang_expansion_2014" role="doc-biblioref">Liang et al., 2014</a>)</span>) and scaled the <em>y</em>-axis based on the predicted <em>N</em>-linked glycosylation sites (NLG) for each of the taxon and ancestral sequences of hemagglutinin proteins. The NLG sites were predicted using the <a href="http://www.cbs.dtu.dk/services/NetNGlyc/">NetNGlyc 1.0 Server</a>. To scale the <em>y</em>-axis, the parameter <code>yscale</code> in the <code>ggtree()</code> function is set to a numerical or categorical variable. If <code>yscale</code> is a categorical variable as in this example, users should specify how the categories are to be mapped to numerical values via the <code>yscale_mapping</code> variables.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>NAG_file <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"examples/NAG_inHA1.txt"</span>, <span class="at">package=</span><span class="st">"ggtree"</span>)</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -786,22 +1163,26 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <span id="cb44-31"><a href="#cb44-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="fl">1992.3</span>, <span class="fl">5.2</span>, <span class="at">hjust=</span><span class="dv">0</span>, <span class="at">size=</span><span class="dv">4</span>,</span>
 <span id="cb44-32"><a href="#cb44-32" aria-hidden="true" tabindex="-1"></a>           <span class="at">label=</span><span class="st">"Tip nodes (blue: human; red: swine)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Two-dimensional tree layout.</strong> The trunk and other branches are highlighted in red (for swine) and blue (for humans). The <em>x</em>-axis is scaled to the branch length (in units of year) of the timescaled tree. The <em>y</em>-axis is scaled to the node attribute variable, in this case, the number of predicted <em>N</em>-linked glycosylation sites (NLG) on the hemagglutinin protein. Colored circles indicate the different types of tree nodes. Note that nodes assigned the same <em>x</em>- (temporal) and <em>y</em>- (NLG) coordinates are superimposed in this representation and appear as one node, which is shaded based on the colors of all the nodes at that point.</figcaption>
+<div id="fig-2d" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Two-dimensional tree layout">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-2d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-2d-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="Two-dimensional tree layout">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-2d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.5: <strong>Two-dimensional tree layout.</strong> The trunk and other branches are highlighted in red (for swine) and blue (for humans). The <em>x</em>-axis is scaled to the branch length (in units of year) of the timescaled tree. The <em>y</em>-axis is scaled to the node attribute variable, in this case, the number of predicted <em>N</em>-linked glycosylation sites (NLG) on the hemagglutinin protein. Colored circles indicate the different types of tree nodes. Note that nodes assigned the same <em>x</em>- (temporal) and <em>y</em>- (NLG) coordinates are superimposed in this representation and appear as one node, which is shaded based on the colors of all the nodes at that point.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>As shown in Figure <span class="quarto-unresolved-ref">?fig-2d</span>, a two-dimensional tree is good at visualizing the change of phenotype over the evolution in the phylogenetic tree. In this example, it is shown that the H3 gene of the human influenza A virus maintained a high level of <em>N</em>-linked glycosylation sites (n=8 to 9) over the last two decades and dropped significantly to 5 or 6 in a separate viral lineage transmitted to swine populations and established there. It was indeed hypothesized that the human influenza virus with a high level of glycosylation on the viral hemagglutinin protein provides a better shielding effect to protect the antigenic sites from exposure to the herd immunity, and thus has a selective advantage in human populations that maintain a high level of herd immunity against the circulating human influenza virus strains. For the viral lineage that newly jumped across the species barrier and transmitted to the swine population, the shielding effect of the high-level surface glycan oppositely imposes selective disadvantage because the receptor-binding domain may also be shielded which greatly affects the viral fitness of the lineage that newly adapted to a new host species. Another example of a two-dimensional tree can be found in Figure <span class="quarto-unresolved-ref">?fig-phenogram</span>.</p>
+<p>As shown in Figure <a href="#fig-2d" class="quarto-xref">Figure&nbsp;<span>1.5</span></a>, a two-dimensional tree is good at visualizing the change of phenotype over the evolution in the phylogenetic tree. In this example, it is shown that the H3 gene of the human influenza A virus maintained a high level of <em>N</em>-linked glycosylation sites (n=8 to 9) over the last two decades and dropped significantly to 5 or 6 in a separate viral lineage transmitted to swine populations and established there. It was indeed hypothesized that the human influenza virus with a high level of glycosylation on the viral hemagglutinin protein provides a better shielding effect to protect the antigenic sites from exposure to the herd immunity, and thus has a selective advantage in human populations that maintain a high level of herd immunity against the circulating human influenza virus strains. For the viral lineage that newly jumped across the species barrier and transmitted to the swine population, the shielding effect of the high-level surface glycan oppositely imposes selective disadvantage because the receptor-binding domain may also be shielded which greatly affects the viral fitness of the lineage that newly adapted to a new host species. Another example of a two-dimensional tree can be found in Figure <a href="#fig-phenogram" class="quarto-xref">Figure&nbsp;<span>1.12</span></a>.</p>
 </section>
 </section>
 <section id="displaying-tree-components" class="level2">
 <h2 class="anchored" data-anchor-id="displaying-tree-components">Displaying Tree Components</h2>
 <section id="sec-geom-trescale" class="level3">
 <h3 class="anchored" data-anchor-id="sec-geom-trescale">Displaying treescale (evolution distance)</h3>
-<p>To show treescale, the user can use <code>geom_treescale()</code> layer (Figures <span class="quarto-unresolved-ref">?fig-treescaleA-C</span>).</p>
+<p>To show treescale, the user can use <code>geom_treescale()</code> layer (Figures <a href="#fig-treescale-1" class="quarto-xref">Figure&nbsp;<span>1.6 (a)</span></a>–<a href="#fig-treescale-3" class="quarto-xref">Figure&nbsp;<span>1.6 (c)</span></a>).</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree) <span class="sc">+</span> <span class="fu">geom_treescale</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -819,7 +1200,7 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -827,30 +1208,81 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>We can also use <code>theme_tree2()</code> to display the treescale by adding <em>x axis</em> (Figure <span class="quarto-unresolved-ref">?fig-treescaleD</span>).</p>
+<p>We can also use <code>theme_tree2()</code> to display the treescale by adding <em>x axis</em> (Figure <a href="#fig-treescale-4" class="quarto-xref">Figure&nbsp;<span>1.6 (d)</span></a>).</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree) <span class="sc">+</span> <span class="fu">theme_tree2</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Display treescale.</strong> <code>geom_treescale()</code> automatically add a scale bar for evolutionary distance (A). Users can modify the color, width, and position of the scale (B) as well as the size of the scale bar and text and their relative position (C). Another possible solution is to enable the <em>x</em>-axis which is useful for the timescaled tree (D).</figcaption>
+<div id="fig-treescale" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-treescale-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-treescale" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-treescale-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:treescalescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-treescale-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-treescale-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:treescalescap)" data-ref-parent="fig-treescale">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-treescale-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Default treescale
+</figcaption>
 </figure>
 </div>
 </div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-treescale" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-treescale-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:treescalescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-treescale-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-treescale-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:treescalescap)" data-ref-parent="fig-treescale">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-treescale-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Modify color, width, and position
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-treescale" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-treescale-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:treescalescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-treescale-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-treescale-3.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:treescalescap)" data-ref-parent="fig-treescale">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-treescale-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Modify scale bar and text styling
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-treescale" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-treescale-4" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:treescalescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-treescale-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-treescale-4.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:treescalescap)" data-ref-parent="fig-treescale">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-treescale-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) Enable x-axis for timescaled tree
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-treescale-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.6: <strong>Display treescale.</strong>
+</figcaption>
+</figure>
 </div>
 <p>Treescale is not restricted to evolution distance, <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> can rescale the tree with other numerical variables (details described in <a href="#rescale-treeio">session 2.4</a>), and <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> allows users to specify a numerical variable to serve as branch length for visualization (details described in <a href="#rescale-tree">session 4.3</a>).</p>
 </section>
 <section id="sec-geom-nodepoint" class="level3">
 <h3 class="anchored" data-anchor-id="sec-geom-nodepoint">Displaying nodes/tips</h3>
-<p>Showing all the internal nodes and tips in the tree can be done by adding a layer of points using <code>geom_nodepoint()</code>, <code>geom_tippoint()</code>, or <code>geom_point()</code> (Figure <span class="quarto-unresolved-ref">?fig-nodeTip</span>).</p>
+<p>Showing all the internal nodes and tips in the tree can be done by adding a layer of points using <code>geom_nodepoint()</code>, <code>geom_tippoint()</code>, or <code>geom_point()</code> (Figure <a href="#fig-nodeTip" class="quarto-xref">Figure&nbsp;<span>1.7</span></a>).</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree) <span class="sc">+</span> </span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape=</span>isTip, <span class="at">color=</span>isTip), <span class="at">size=</span><span class="dv">3</span>)</span>
@@ -859,174 +1291,294 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_nodepoint</span>(<span class="at">color=</span><span class="st">"#b5e521"</span>, <span class="at">alpha=</span><span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="at">size=</span><span class="dv">10</span>) </span>
 <span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_tippoint</span>(<span class="at">color=</span><span class="st">"#FDAC4F"</span>, <span class="at">shape=</span><span class="dv">8</span>, <span class="at">size=</span><span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Display external and internal nodes.</strong> <code>geom_point()</code> automatically add symbolic points of all nodes (A). <code>geom_nodepoint()</code> adds symbolic points for internal nodes and <code>geom_tippoint()</code> adds symbolic points for external nodes (B).</figcaption>
+<div id="fig-nodeTip" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-nodeTip-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-nodeTip" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-nodeTip-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:nodeTipscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-nodeTip-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-nodeTip-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:nodeTipscap)" data-ref-parent="fig-nodeTip">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-nodeTip-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) geom_point() automatically adds symbolic points of all nodes
+</figcaption>
 </figure>
 </div>
 </div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-nodeTip" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-nodeTip-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:nodeTipscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-nodeTip-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-nodeTip-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:nodeTipscap)" data-ref-parent="fig-nodeTip">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-nodeTip-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) geom_nodepoint() adds internal nodes and geom_tippoint() adds external nodes
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-nodeTip-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.7: Display external and internal nodes.
+</figcaption>
+</figure>
 </div>
 </section>
 <section id="displaying-labels" class="level3">
 <h3 class="anchored" data-anchor-id="displaying-labels">Displaying labels</h3>
-<p>Users can use <code>geom_text()</code> or <code>geom_label()</code> to display the node (if available) and tip labels simultaneously or <code>geom_tiplab()</code> to only display tip labels (Figure <span class="quarto-unresolved-ref">?fig-tiplabA</span>).</p>
+<p>Users can use <code>geom_text()</code> or <code>geom_label()</code> to display the node (if available) and tip labels simultaneously or <code>geom_tiplab()</code> to only display tip labels (Figure <a href="#fig-tiplab-1" class="quarto-xref">Figure&nbsp;<span>1.8 (a)</span></a>).</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_tiplab</span>(<span class="at">size=</span><span class="dv">3</span>, <span class="at">color=</span><span class="st">"purple"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The <code>geom_tiplab()</code> layer not only supports using <em>text</em> or <em>label</em> geom to display labels, but it also supports <em>image</em> geom to label tip with image files (see <a href="#chapter7">Chapter 7</a>). A corresponding geom, <code>geom_nodelab()</code> is also provided for displaying node labels.</p>
-<p>For <em>circular</em> and <em>unrooted</em> layouts, <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports rotating node labels according to the angles of the branches (Figure <span class="quarto-unresolved-ref">?fig-tiplabB</span>).</p>
+<p>For <em>circular</em> and <em>unrooted</em> layouts, <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports rotating node labels according to the angles of the branches (Figure <a href="#fig-tiplab-2" class="quarto-xref">Figure&nbsp;<span>1.8 (b)</span></a>).</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree, <span class="at">layout=</span><span class="st">"circular"</span>) <span class="sc">+</span> <span class="fu">geom_tiplab</span>(<span class="fu">aes</span>(<span class="at">angle=</span>angle), <span class="at">color=</span><span class="st">'blue'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>For long tip labels, the label may be truncated. There are several ways to solve this issue (see <a href="#faq-label-truncated">FAQ: Tip label truncated</a>). Another solution to solve this issue is to display tip labels as <em>y</em>-axis labels (Figure <span class="quarto-unresolved-ref">?fig-tiplabC</span>). However, it only works for rectangular and dendrogram layouts and users need to use <code>theme()</code> to adjust tip labels in this case.</p>
+<p>For long tip labels, the label may be truncated. There are several ways to solve this issue (see <a href="#faq-label-truncated">FAQ: Tip label truncated</a>). Another solution to solve this issue is to display tip labels as <em>y</em>-axis labels (Figure <a href="#fig-tiplab-3" class="quarto-xref">Figure&nbsp;<span>1.8 (c)</span></a>). However, it only works for rectangular and dendrogram layouts and users need to use <code>theme()</code> to adjust tip labels in this case.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree) <span class="sc">+</span> <span class="fu">geom_tiplab</span>(<span class="at">as_ylab=</span><span class="cn">TRUE</span>, <span class="at">color=</span><span class="st">'firebrick'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
 <pre><code>Scale for y is already present.
 Adding another scale for y, which will replace the existing scale.</code></pre>
+<div id="fig-tiplab" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-tiplab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-tiplab" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-tiplab-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:tiplabscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-tiplab-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-tiplab-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:tiplabscap)" data-ref-parent="fig-tiplab">
 </div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Display tip labels.</strong> <code>geom_tiplab()</code> supports displaying tip labels (A). For the circular, fan, or unrooted tree layouts, the labels can be rotated to fit the angle of the branches (B). For dendrogram/rectangular layout, tip labels can be displayed as <em>y</em>-axis labels (C).</figcaption>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-tiplab-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) geom_tiplab() supports displaying tip labels
+</figcaption>
 </figure>
 </div>
 </div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-tiplab" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-tiplab-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:tiplabscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-tiplab-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-tiplab-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:tiplabscap)" data-ref-parent="fig-tiplab">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-tiplab-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) For the circular, fan, or unrooted layouts, labels can be rotated
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-tiplab" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-tiplab-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:tiplabscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-tiplab-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-tiplab-3.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:tiplabscap)" data-ref-parent="fig-tiplab">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-tiplab-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) For the dendrogram/rectangular layout, tip labels can be displayed as y-axis labels
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tiplab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.8: Display tip labels.
+</figcaption>
+</figure>
 </div>
 <p>By default, the positions to display text are based on the node positions; we can change them to be based on the middle of the branch/edge (by setting <code>aes(x = branch)</code>), which is very useful when annotating transition from the parent node to the child node.</p>
 </section>
 <section id="displaying-root-edge" class="level3">
 <h3 class="anchored" data-anchor-id="displaying-root-edge">Displaying root-edge</h3>
-<p>The <code>ggtree()</code> doesn’t plot the root-edge by default. Users can use <code>geom_rootedge()</code> to automatically display the root-edge (Figure <span class="quarto-unresolved-ref">?fig-rootedgeA</span>). If there is no root edge information, <code>geom_rootedge()</code> will display nothing by default (Figure <span class="quarto-unresolved-ref">?fig-rootedgeB</span>). Users can set the root-edge to the tree (Figure <span class="quarto-unresolved-ref">?fig-rootedgeC</span>) or specify <code>rootedge</code> in <code>geom_rootedge()</code> (Figure <span class="quarto-unresolved-ref">?fig-rootedgeD</span>). A long root length is useful to increase readability of the circular tree (see also <a href="#faq-enlarge-center-space">FAQ: Enlarge center space</a>).</p>
+<p>The <code>ggtree()</code> doesn’t plot the root-edge by default. Users can use <code>geom_rootedge()</code> to automatically display the root-edge (Figure <a href="#fig-rootedge-1" class="quarto-xref">Figure&nbsp;<span>1.9 (a)</span></a>). If there is no root edge information, <code>geom_rootedge()</code> will display nothing by default (Figure <a href="#fig-rootedge-2" class="quarto-xref">Figure&nbsp;<span>1.9 (b)</span></a>). Users can set the root-edge to the tree (Figure <a href="#fig-rootedge-3" class="quarto-xref">Figure&nbsp;<span>1.9 (c)</span></a>) or specify <code>rootedge</code> in <code>geom_rootedge()</code> (Figure <a href="#fig-rootedge-4" class="quarto-xref">Figure&nbsp;<span>1.9 (d)</span></a>). A long root length is useful to increase readability of the circular tree (see also <a href="#faq-enlarge-center-space">FAQ: Enlarge center space</a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="do">## with root-edge = 1</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>tree1 <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="at">text=</span><span class="st">'((A:1,B:2):3,C:2):1;'</span>)</span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree1) <span class="sc">+</span> <span class="fu">geom_tiplab</span>() <span class="sc">+</span> <span class="fu">geom_rootedge</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree1) <span class="sc">+</span> <span class="fu">geom_tiplab</span>() <span class="sc">+</span> <span class="fu">geom_rootedge</span>()</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="do">## without root-edge</span></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>tree2 <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="at">text=</span><span class="st">'((A:1,B:2):3,C:2);'</span>)</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree2) <span class="sc">+</span> <span class="fu">geom_tiplab</span>() <span class="sc">+</span> <span class="fu">geom_rootedge</span>()</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a><span class="do">## setting root-edge</span></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>tree2<span class="sc">$</span>root.edge <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree2) <span class="sc">+</span> <span class="fu">geom_tiplab</span>() <span class="sc">+</span> <span class="fu">geom_rootedge</span>()</span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a><span class="do">## specify the length of root edge for just plotting</span></span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a><span class="do">## this will ignore tree$root.edge</span></span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree2) <span class="sc">+</span> <span class="fu">geom_tiplab</span>() <span class="sc">+</span> <span class="fu">geom_rootedge</span>(<span class="at">rootedge =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="fig-rootedge" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rootedge-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rootedge" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-rootedge-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rootedgescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rootedge-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-rootedge-1.png" class="img-fluid figure-img" data-fig-scap="(ref:rootedgescap)" data-ref-parent="fig-rootedge" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rootedge-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) geom_rootedge() displays root-edge when present
+</figcaption>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="do">## without root-edge</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>tree2 <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="at">text=</span><span class="st">'((A:1,B:2):3,C:2);'</span>)</span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree2) <span class="sc">+</span> <span class="fu">geom_tiplab</span>() <span class="sc">+</span> <span class="fu">geom_rootedge</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-24-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rootedge" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-rootedge-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rootedgescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rootedge-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-rootedge-2.png" class="img-fluid figure-img" data-fig-scap="(ref:rootedgescap)" data-ref-parent="fig-rootedge" width="576">
 </div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="do">## setting root-edge</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>tree2<span class="sc">$</span>root.edge <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree2) <span class="sc">+</span> <span class="fu">geom_tiplab</span>() <span class="sc">+</span> <span class="fu">geom_rootedge</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-24-3.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="do">## specify the length of root edge for just plotting</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="do">## this will ignore tree$root.edge</span></span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree2) <span class="sc">+</span> <span class="fu">geom_tiplab</span>() <span class="sc">+</span> <span class="fu">geom_rootedge</span>(<span class="at">rootedge =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-24-4.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rootedge-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) No root-edge information results in no root-edge
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="576"></p>
-<figcaption><strong>Display root-edge.</strong> <code>geom_rootedge()</code> supports displaying root-edge if the root edge was presented (A). It shows nothing if there is no root-edge (B). In this case, users can manually set the root edge for the tree (C) or just specify the length of the root for plotting (D).</figcaption>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rootedge" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-rootedge-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rootedgescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rootedge-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-rootedge-3.png" class="img-fluid figure-img" data-fig-scap="(ref:rootedgescap)" data-ref-parent="fig-rootedge" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rootedge-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Manually setting root edge for the tree
+</figcaption>
 </figure>
 </div>
 </div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rootedge" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-rootedge-4" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rootedgescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rootedge-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-rootedge-4.png" class="img-fluid figure-img" data-fig-scap="(ref:rootedgescap)" data-ref-parent="fig-rootedge" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rootedge-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) Specifying root edge length only for plotting
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rootedge-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.9: Display root-edge.
+</figcaption>
+</figure>
 </div>
 </section>
 <section id="color-tree" class="level3">
 <h3 class="anchored" data-anchor-id="color-tree">Color tree</h3>
-<p>In <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> <span class="citation" data-cites="yu_two_2018">(<a href="#ref-yu_two_2018" role="doc-biblioref">Yu et al., 2018</a>)</span>, coloring phylogenetic tree is easy, by using <code>aes(color=VAR)</code> to map the color of the tree based on a specific variable (both numerical and categorical variables are supported, see Figure <span class="quarto-unresolved-ref">?fig-colortree</span>).</p>
+<p>In <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> <span class="citation" data-cites="yu_two_2018">(<a href="#ref-yu_two_2018" role="doc-biblioref">Yu et al., 2018</a>)</span>, coloring phylogenetic tree is easy, by using <code>aes(color=VAR)</code> to map the color of the tree based on a specific variable (both numerical and categorical variables are supported, see Figure <a href="#fig-colortree" class="quarto-xref">Figure&nbsp;<span>1.10</span></a>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(beast_tree, <span class="fu">aes</span>(<span class="at">color=</span>rate)) <span class="sc">+</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_continuous</span>(<span class="at">low=</span><span class="st">'darkgreen'</span>, <span class="at">high=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(beast_tree, <span class="fu">aes</span>(<span class="at">color=</span>rate)) <span class="sc">+</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_continuous</span>(<span class="at">low=</span><span class="st">'darkgreen'</span>, <span class="at">high=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="480"></p>
-<figcaption><strong>Color tree by continuous or discrete feature.</strong> Edges are colored by values associated with the child nodes.</figcaption>
+<div id="fig-colortree" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Color tree by continuous or discrete feature">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-colortree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-colortree-1.png" class="img-fluid figure-img" data-fig-scap="Color tree by continuous or discrete feature" width="480">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-colortree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.10: <strong>Color tree by continuous or discrete feature.</strong> Edges are colored by values associated with the child nodes.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Users can use any feature (if available), including clade posterior and <em>d<sub>N</sub>/d<sub>S</sub></em>, <em>etc.</em>, to scale the color of the tree. If the feature is a continuous numerical value, <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> provides a <code>continuous</code> parameter to support plotting continuous state transition in edges. Here, we use an example<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> to demonstrate this functionality (Figure <span class="quarto-unresolved-ref">?fig-continuousColorA</span>). If you want to add a thin black border in tree branches, you can place a tree with black and slightly thicker branches below your tree to emulate edge outlines as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-continuousColorB</span>.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(treeio)</span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytree)</span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TDbook)</span>
-<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="do">## ref: http://www.phytools.org/eqg2015/asr.html</span></span>
-<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="do">##</span></span>
-<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a><span class="do">## load `tree_anole` and `df_svl` from 'TDbook'</span></span>
-<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>svl <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(df_svl)[,<span class="dv">1</span>]</span>
-<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> phytools<span class="sc">::</span><span class="fu">fastAnc</span>(tree_anole, svl, <span class="at">vars=</span><span class="cn">TRUE</span>, <span class="at">CI=</span><span class="cn">TRUE</span>)</span>
-<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>td <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">node =</span> <span class="fu">nodeid</span>(tree_anole, <span class="fu">names</span>(svl)),</span>
-<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">trait =</span> svl)</span>
-<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a>nd <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">node =</span> <span class="fu">names</span>(fit<span class="sc">$</span>ace), <span class="at">trait =</span> fit<span class="sc">$</span>ace)</span>
-<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">rbind</span>(td, nd)</span>
-<span id="cb59-17"><a href="#cb59-17" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>node <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(d<span class="sc">$</span>node)</span>
-<span id="cb59-18"><a href="#cb59-18" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">full_join</span>(tree_anole, d, <span class="at">by =</span> <span class="st">'node'</span>)</span>
-<span id="cb59-19"><a href="#cb59-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-20"><a href="#cb59-20" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree, <span class="fu">aes</span>(<span class="at">color=</span>trait), <span class="at">layout =</span> <span class="st">'circular'</span>, </span>
-<span id="cb59-21"><a href="#cb59-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">ladderize =</span> <span class="cn">FALSE</span>, <span class="at">continuous =</span> <span class="st">'colour'</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb59-22"><a href="#cb59-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_gradientn</span>(<span class="at">colours=</span><span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">'orange'</span>, <span class="st">'green'</span>, <span class="st">'cyan'</span>, <span class="st">'blue'</span>)) <span class="sc">+</span></span>
-<span id="cb59-23"><a href="#cb59-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="at">hjust =</span> <span class="sc">-</span>.<span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb59-24"><a href="#cb59-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="fl">1.2</span>) <span class="sc">+</span> </span>
-<span id="cb59-25"><a href="#cb59-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(.<span class="dv">05</span>, .<span class="dv">85</span>)) </span>
-<span id="cb59-26"><a href="#cb59-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-27"><a href="#cb59-27" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree, <span class="at">layout=</span><span class="st">'circular'</span>, <span class="at">ladderize =</span> <span class="cn">FALSE</span>, <span class="at">size=</span><span class="fl">2.8</span>) <span class="sc">+</span> </span>
-<span id="cb59-28"><a href="#cb59-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tree</span>(<span class="fu">aes</span>(<span class="at">color=</span>trait), <span class="at">continuous =</span> <span class="st">'colour'</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span>  </span>
-<span id="cb59-29"><a href="#cb59-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_gradientn</span>(<span class="at">colours=</span><span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">'orange'</span>, <span class="st">'green'</span>, <span class="st">'cyan'</span>, <span class="st">'blue'</span>)) <span class="sc">+</span></span>
-<span id="cb59-30"><a href="#cb59-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="fu">aes</span>(<span class="at">color=</span>trait), <span class="at">hjust =</span> <span class="sc">-</span>.<span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb59-31"><a href="#cb59-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="fl">1.2</span>) <span class="sc">+</span> </span>
-<span id="cb59-32"><a href="#cb59-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(.<span class="dv">05</span>, .<span class="dv">85</span>)) </span>
-<span id="cb59-33"><a href="#cb59-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-34"><a href="#cb59-34" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_list</span>(p1, p2, <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">tag_levels=</span><span class="st">"A"</span>)    </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Continuous state transition in edges.</strong> Edges are colored by the values from ancestral trait to offspring.</figcaption>
+<p>Users can use any feature (if available), including clade posterior and <em>d<sub>N</sub>/d<sub>S</sub></em>, <em>etc.</em>, to scale the color of the tree. If the feature is a continuous numerical value, <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> provides a <code>continuous</code> parameter to support plotting continuous state transition in edges. Here, we use an example<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> to demonstrate this functionality (Figure <a href="#fig-continuousColor-1" class="quarto-xref">Figure&nbsp;<span>1.11 (a)</span></a>). If you want to add a thin black border in tree branches, you can place a tree with black and slightly thicker branches below your tree to emulate edge outlines as demonstrated in Figure <a href="#fig-continuousColor-2" class="quarto-xref">Figure&nbsp;<span>1.11 (b)</span></a>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(treeio)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytree)</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TDbook)</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="do">## ref: http://www.phytools.org/eqg2015/asr.html</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="do">## load `tree_anole` and `df_svl` from 'TDbook'</span></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>svl <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(df_svl)[,<span class="dv">1</span>]</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> phytools<span class="sc">::</span><span class="fu">fastAnc</span>(tree_anole, svl, <span class="at">vars=</span><span class="cn">TRUE</span>, <span class="at">CI=</span><span class="cn">TRUE</span>)</span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>td <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">node =</span> <span class="fu">nodeid</span>(tree_anole, <span class="fu">names</span>(svl)),</span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">trait =</span> svl)</span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a>nd <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">node =</span> <span class="fu">names</span>(fit<span class="sc">$</span>ace), <span class="at">trait =</span> fit<span class="sc">$</span>ace)</span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">rbind</span>(td, nd)</span>
+<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>node <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(d<span class="sc">$</span>node)</span>
+<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">full_join</span>(tree_anole, d, <span class="at">by =</span> <span class="st">'node'</span>)</span>
+<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-20"><a href="#cb56-20" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree, <span class="fu">aes</span>(<span class="at">color=</span>trait), <span class="at">layout =</span> <span class="st">'circular'</span>, </span>
+<span id="cb56-21"><a href="#cb56-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">ladderize =</span> <span class="cn">FALSE</span>, <span class="at">continuous =</span> <span class="st">'colour'</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb56-22"><a href="#cb56-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_gradientn</span>(<span class="at">colours=</span><span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">'orange'</span>, <span class="st">'green'</span>, <span class="st">'cyan'</span>, <span class="st">'blue'</span>)) <span class="sc">+</span></span>
+<span id="cb56-23"><a href="#cb56-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="at">hjust =</span> <span class="sc">-</span>.<span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb56-24"><a href="#cb56-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="fl">1.2</span>) <span class="sc">+</span> </span>
+<span id="cb56-25"><a href="#cb56-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(.<span class="dv">05</span>, .<span class="dv">85</span>)) </span>
+<span id="cb56-26"><a href="#cb56-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-27"><a href="#cb56-27" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree, <span class="at">layout=</span><span class="st">'circular'</span>, <span class="at">ladderize =</span> <span class="cn">FALSE</span>, <span class="at">size=</span><span class="fl">2.8</span>) <span class="sc">+</span> </span>
+<span id="cb56-28"><a href="#cb56-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tree</span>(<span class="fu">aes</span>(<span class="at">color=</span>trait), <span class="at">continuous =</span> <span class="st">'colour'</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span>  </span>
+<span id="cb56-29"><a href="#cb56-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_gradientn</span>(<span class="at">colours=</span><span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">'orange'</span>, <span class="st">'green'</span>, <span class="st">'cyan'</span>, <span class="st">'blue'</span>)) <span class="sc">+</span></span>
+<span id="cb56-30"><a href="#cb56-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="fu">aes</span>(<span class="at">color=</span>trait), <span class="at">hjust =</span> <span class="sc">-</span>.<span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb56-31"><a href="#cb56-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="fl">1.2</span>) <span class="sc">+</span> </span>
+<span id="cb56-32"><a href="#cb56-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(.<span class="dv">05</span>, .<span class="dv">85</span>)) </span>
+<span id="cb56-33"><a href="#cb56-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-34"><a href="#cb56-34" aria-hidden="true" tabindex="-1"></a>p1</span>
+<span id="cb56-35"><a href="#cb56-35" aria-hidden="true" tabindex="-1"></a>p2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-continuousColor" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-continuousColor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-continuousColor" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-continuousColor-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:continuousColorscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-continuousColor-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-continuousColor-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:continuousColorscap)" data-ref-parent="fig-continuousColor">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-continuousColor-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Map trait to edge color directly
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-continuousColor" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-continuousColor-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:continuousColorscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-continuousColor-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-continuousColor-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:continuousColorscap)" data-ref-parent="fig-continuousColor">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-continuousColor-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Overlay colored edges on a thicker black tree for outlines
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Besides, we can use a two-dimensional tree (as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-2d</span>) to visualize phenotype on the vertical dimension to create the phenogram Figure <span class="quarto-unresolved-ref">?fig-phenogram</span>. We can use the <a href="https://CRAN.R-project.org/package=ggrepel"><strong>ggrepel</strong></a> package to repel tip labels to avoid overlapping as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-repelTip</span>.</p>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-continuousColor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.11: Continuous state transition in edges.
+</figcaption>
+</figure>
+</div>
+<p>Besides, we can use a two-dimensional tree (as demonstrated in Figure <a href="#fig-2d" class="quarto-xref">Figure&nbsp;<span>1.5</span></a>) to visualize phenotype on the vertical dimension to create the phenogram Figure <a href="#fig-phenogram" class="quarto-xref">Figure&nbsp;<span>1.12</span></a>. We can use the <a href="https://CRAN.R-project.org/package=ggrepel"><strong>ggrepel</strong></a> package to repel tip labels to avoid overlapping as demonstrated in Figure <a href="A-app-faq.html#fig-repelTip" class="quarto-xref">Figure&nbsp;<span>1.4</span></a>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree, <span class="fu">aes</span>(<span class="at">color=</span>trait), <span class="at">continuous =</span> <span class="st">'colour'</span>, <span class="at">yscale =</span> <span class="st">"trait"</span>) <span class="sc">+</span> </span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_viridis_c</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree, <span class="fu">aes</span>(<span class="at">color=</span>trait), <span class="at">continuous =</span> <span class="st">'colour'</span>, <span class="at">yscale =</span> <span class="st">"trait"</span>) <span class="sc">+</span> </span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_viridis_c</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="576"></p>
-<figcaption><strong>Phenogram.</strong> Projecting the tree into a space defined by time (or genetic distance) on the horizontal axis and phenotype on the vertical dimension.</figcaption>
+<div id="fig-phenogram" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Phenogram">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-phenogram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-phenogram-1.png" class="img-fluid figure-img" data-fig-scap="Phenogram" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-phenogram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.12: <strong>Phenogram.</strong> Projecting the tree into a space defined by time (or genetic distance) on the horizontal axis and phenotype on the vertical dimension.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -1035,12 +1587,12 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <section id="rescale-tree" class="level3">
 <h3 class="anchored" data-anchor-id="rescale-tree">Rescale tree</h3>
 <p>Most of the phylogenetic trees are scaled by evolutionary distance (substitution/site). In <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>, users can rescale a phylogenetic tree by any numerical variable inferred by evolutionary analysis (<em>e.g.</em>, <em>d<sub>N</sub>/d<sub>S</sub></em>).</p>
-<p>This example displays a time tree (Figure <span class="quarto-unresolved-ref">?fig-rescaleTreeA</span>) and the branches were rescaled by substitution rate inferred by BEAST (Figure <span class="quarto-unresolved-ref">?fig-rescaleTreeB</span>).</p>
+<p>This example displays a time tree (Figure <a href="#fig-rescaleTree-1" class="quarto-xref">Figure&nbsp;<span>1.13 (a)</span></a>) and the branches were rescaled by substitution rate inferred by BEAST (Figure <a href="#fig-rescaleTree-2" class="quarto-xref">Figure&nbsp;<span>1.13 (b)</span></a>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"treeio"</span>)</span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>beast_file <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"examples/MCC_FluA_H3.tree"</span>, <span class="at">package=</span><span class="st">"ggtree"</span>)</span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>beast_tree <span class="ot">&lt;-</span> <span class="fu">read.beast</span>(beast_file)</span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>beast_tree</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"treeio"</span>)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>beast_file <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"examples/MCC_FluA_H3.tree"</span>, <span class="at">package=</span><span class="st">"ggtree"</span>)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>beast_tree <span class="ot">&lt;-</span> <span class="fu">read.beast</span>(beast_file)</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>beast_tree</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'treedata' S4 object that stored information
 of
@@ -1080,104 +1632,188 @@ with the following features available:
 #   length_range &lt;list&gt;, posterior &lt;dbl&gt;, rate &lt;dbl&gt;, rate_0.95_HPD &lt;list&gt;,
 #   rate_median &lt;dbl&gt;, rate_range &lt;list&gt;</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(beast_tree, <span class="at">mrsd=</span><span class="st">'2013-01-01'</span>) <span class="sc">+</span> <span class="fu">theme_tree2</span>() <span class="sc">+</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">caption=</span><span class="st">"Divergence time"</span>)</span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(beast_tree, <span class="at">branch.length=</span><span class="st">'rate'</span>) <span class="sc">+</span> <span class="fu">theme_tree2</span>() <span class="sc">+</span></span>
-<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">caption=</span><span class="st">"Substitution rate"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(beast_tree, <span class="at">mrsd=</span><span class="st">'2013-01-01'</span>) <span class="sc">+</span> <span class="fu">theme_tree2</span>() <span class="sc">+</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">caption=</span><span class="st">"Divergence time"</span>)</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(beast_tree, <span class="at">branch.length=</span><span class="st">'rate'</span>) <span class="sc">+</span> <span class="fu">theme_tree2</span>() <span class="sc">+</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">caption=</span><span class="st">"Substitution rate"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The following example draws a tree inferred by CodeML (Figure <span class="quarto-unresolved-ref">?fig-rescaleTreeC</span>), and the branches can be rescaled by using <em>d<sub>N</sub>/d<sub>S</sub></em> values (Figure <span class="quarto-unresolved-ref">?fig-rescaleTreeD</span>).</p>
+<p>The following example draws a tree inferred by CodeML (Figure <a href="#fig-rescaleTree-3" class="quarto-xref">Figure&nbsp;<span>1.13 (c)</span></a>), and the branches can be rescaled by using <em>d<sub>N</sub>/d<sub>S</sub></em> values (Figure <a href="#fig-rescaleTree-4" class="quarto-xref">Figure&nbsp;<span>1.13 (d)</span></a>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>mlcfile <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata/PAML_Codeml"</span>, <span class="st">"mlc"</span>, <span class="at">package=</span><span class="st">"treeio"</span>)</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>mlc_tree <span class="ot">&lt;-</span> <span class="fu">read.codeml_mlc</span>(mlcfile)</span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(mlc_tree) <span class="sc">+</span> <span class="fu">theme_tree2</span>() <span class="sc">+</span></span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">caption=</span><span class="st">"nucleotide substitutions per codon"</span>)</span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(mlc_tree, <span class="at">branch.length=</span><span class="st">'dN_vs_dS'</span>) <span class="sc">+</span> <span class="fu">theme_tree2</span>() <span class="sc">+</span></span>
-<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">caption=</span><span class="st">"dN/dS tree"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>mlcfile <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata/PAML_Codeml"</span>, <span class="st">"mlc"</span>, <span class="at">package=</span><span class="st">"treeio"</span>)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>mlc_tree <span class="ot">&lt;-</span> <span class="fu">read.codeml_mlc</span>(mlcfile)</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(mlc_tree) <span class="sc">+</span> <span class="fu">theme_tree2</span>() <span class="sc">+</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">caption=</span><span class="st">"nucleotide substitutions per codon"</span>)</span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(mlc_tree, <span class="at">branch.length=</span><span class="st">'dN_vs_dS'</span>) <span class="sc">+</span> <span class="fu">theme_tree2</span>() <span class="sc">+</span></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">caption=</span><span class="st">"dN/dS tree"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Rescale tree branches.</strong> A time-scaled tree inferred by BEAST (A) and its branches were rescaled by substitution rate (B). A tree was inferred by CodeML (C) and the branches were rescaled by <em>d<sub>N</sub>/d<sub>S</sub></em> values (D).</figcaption>
+<div id="fig-rescaleTree" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rescaleTree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rescaleTree" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-rescaleTree-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rescaleTreescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rescaleTree-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-rescaleTree-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:rescaleTreescap)" data-ref-parent="fig-rescaleTree">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rescaleTree-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Time-scaled tree inferred by BEAST
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rescaleTree" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-rescaleTree-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rescaleTreescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rescaleTree-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-rescaleTree-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:rescaleTreescap)" data-ref-parent="fig-rescaleTree">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rescaleTree-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Branches rescaled by substitution rate inferred by BEAST
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>This provides a very convenient way to allow us to explore the relationship between tree associated data and tree structure through visualization. In addition to specifying <code>branch.length</code> in tree visualization, users can change branch length stored in tree object by using <code>rescale_tree()</code> function provided by the <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package <span class="citation" data-cites="wang_treeio_2020">(<a href="#ref-wang_treeio_2020" role="doc-biblioref">Wang et al., 2020</a>)</span>, and the following command will display a tree that is identical to Figure <span class="quarto-unresolved-ref">?fig-rescaleTreeB</span>. The <code>rescale_tree()</code> function was documented in <a href="#rescale-treeio">session 2.4</a>.</p>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rescaleTree" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-rescaleTree-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rescaleTreescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rescaleTree-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-rescaleTree-3.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:rescaleTreescap)" data-ref-parent="fig-rescaleTree">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rescaleTree-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Tree inferred by CodeML
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rescaleTree" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-rescaleTree-4" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rescaleTreescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rescaleTree-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-rescaleTree-4.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:rescaleTreescap)" data-ref-parent="fig-rescaleTree">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rescaleTree-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) Branches rescaled by dN/dS values
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rescaleTree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.13: Rescale tree branches.
+</figcaption>
+</figure>
+</div>
+<p>This provides a very convenient way to allow us to explore the relationship between tree associated data and tree structure through visualization. In addition to specifying <code>branch.length</code> in tree visualization, users can change branch length stored in tree object by using <code>rescale_tree()</code> function provided by the <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package <span class="citation" data-cites="wang_treeio_2020">(<a href="#ref-wang_treeio_2020" role="doc-biblioref">Wang et al., 2020</a>)</span>, and the following command will display a tree that is identical to Figure <a href="#fig-rescaleTree-2" class="quarto-xref">Figure&nbsp;<span>1.13 (b)</span></a>. The <code>rescale_tree()</code> function was documented in <a href="#rescale-treeio">session 2.4</a>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>beast_tree2 <span class="ot">&lt;-</span> <span class="fu">rescale_tree</span>(beast_tree, <span class="at">branch.length=</span><span class="st">'rate'</span>)</span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(beast_tree2) <span class="sc">+</span> <span class="fu">theme_tree2</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>beast_tree2 <span class="ot">&lt;-</span> <span class="fu">rescale_tree</span>(beast_tree, <span class="at">branch.length=</span><span class="st">'rate'</span>)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(beast_tree2) <span class="sc">+</span> <span class="fu">theme_tree2</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="modify-components-of-a-theme" class="level3">
 <h3 class="anchored" data-anchor-id="modify-components-of-a-theme">Modify components of a theme</h3>
-<p>The <code>theme_tree()</code> defined a totally blank canvas, while <code>theme_tree2()</code> adds phylogenetic distance (via <em>x</em>-axis). These two themes all accept a parameter of <code>bgcolor</code> that defined the background color. Users can use any <a href="http://ggplot2.tidyverse.org/reference/theme.html">theme components</a> to the <code>theme_tree()</code> or <code>theme_tree2()</code> functions to modify them (Figure <span class="quarto-unresolved-ref">?fig-theme</span>).</p>
+<p>The <code>theme_tree()</code> defined a totally blank canvas, while <code>theme_tree2()</code> adds phylogenetic distance (via <em>x</em>-axis). These two themes all accept a parameter of <code>bgcolor</code> that defined the background color. Users can use any <a href="http://ggplot2.tidyverse.org/reference/theme.html">theme components</a> to the <code>theme_tree()</code> or <code>theme_tree2()</code> functions to modify them (Figure <a href="#fig-theme" class="quarto-xref">Figure&nbsp;<span>1.14</span></a>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2019</span>)</span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">30</span>)</span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(x, <span class="at">color=</span><span class="st">"#0808E5"</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span> <span class="fu">theme_tree</span>(<span class="st">"#FEE4E9"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2019</span>)</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">30</span>)</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(x, <span class="at">color=</span><span class="st">"#0808E5"</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span> <span class="fu">theme_tree</span>(<span class="st">"#FEE4E9"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(x, <span class="at">color=</span><span class="st">"orange"</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span> <span class="fu">theme_tree</span>(<span class="st">'grey30'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(x, <span class="at">color=</span><span class="st">"orange"</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span> <span class="fu">theme_tree</span>(<span class="st">'grey30'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-33-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-20-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Three themes.</strong> All ggplot2 theme components can be modified, and all the ggplot2 themes can be applied to <code>ggtree()</code> output.</figcaption>
+<div id="fig-theme" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-theme-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-theme" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-theme-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-scap="(ref:themescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-theme-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-theme-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-scap="(ref:themescap)" data-ref-parent="fig-theme">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-theme-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) theme_tree() with custom background
+</figcaption>
 </figure>
 </div>
 </div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-theme" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-theme-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-scap="(ref:themescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-theme-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-theme-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-fig-scap="(ref:themescap)" data-ref-parent="fig-theme">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-theme-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) theme_tree() with a different background
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-theme-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.14: <strong>Three themes.</strong> All ggplot2 theme components can be modified, and all the ggplot2 themes can be applied to <code>ggtree()</code> output.
+</figcaption>
+</figure>
 </div>
 <p>Users can also use an image file as the tree background, see example in <a href="#ggimage-bgimage">Appendix B</a>.</p>
 </section>
 </section>
 <section id="visualize-a-list-of-trees" class="level2">
 <h2 class="anchored" data-anchor-id="visualize-a-list-of-trees">Visualize a List of Trees</h2>
-<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports <code>multiPhylo</code> and <code>treedataList</code> objects and a list of trees can be viewed simultaneously. The trees will visualize one on top of another and can be plotted in different panels through <code>facet_wrap()</code> or <code>facet_grid()</code> functions (Figure <span class="quarto-unresolved-ref">?fig-multiPhylo</span>).</p>
+<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports <code>multiPhylo</code> and <code>treedataList</code> objects and a list of trees can be viewed simultaneously. The trees will visualize one on top of another and can be plotted in different panels through <code>facet_wrap()</code> or <code>facet_grid()</code> functions (Figure <a href="#fig-multiPhylo" class="quarto-xref">Figure&nbsp;<span>1.15</span></a>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="do">## trees &lt;- lapply(c(10, 20, 40), rtree)</span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="do">## class(trees) &lt;- "multiPhylo"</span></span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ggtree(trees) + facet_wrap(~.id, scale="free") + geom_tiplab()</span></span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata/r8s"</span>, <span class="st">"H3_r8s_output.log"</span>, <span class="at">package=</span><span class="st">"treeio"</span>)</span>
-<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>r8s <span class="ot">&lt;-</span> <span class="fu">read.r8s</span>(f)</span>
-<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(r8s) <span class="sc">+</span> <span class="fu">facet_wrap</span>( <span class="sc">~</span>.id, <span class="at">scale=</span><span class="st">"free"</span>) <span class="sc">+</span> <span class="fu">theme_tree2</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="do">## trees &lt;- lapply(c(10, 20, 40), rtree)</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="do">## class(trees) &lt;- "multiPhylo"</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ggtree(trees) + facet_wrap(~.id, scale="free") + geom_tiplab()</span></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata/r8s"</span>, <span class="st">"H3_r8s_output.log"</span>, <span class="at">package=</span><span class="st">"treeio"</span>)</span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>r8s <span class="ot">&lt;-</span> <span class="fu">read.r8s</span>(f)</span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(r8s) <span class="sc">+</span> <span class="fu">facet_wrap</span>( <span class="sc">~</span>.id, <span class="at">scale=</span><span class="st">"free"</span>) <span class="sc">+</span> <span class="fu">theme_tree2</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Visualizing multiPhylo object.</strong> The <code>ggtree()</code> function supports visualizing multiple trees stored in the <code>multiPhylo</code> or <code>treedataList</code> objects.</figcaption>
+<div id="fig-multiPhylo" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Visualizing multiPhylo object">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-multiPhylo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-multiPhylo-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="Visualizing multiPhylo object">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-multiPhylo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.15: <strong>Visualizing multiPhylo object.</strong> The <code>ggtree()</code> function supports visualizing multiple trees stored in the <code>multiPhylo</code> or <code>treedataList</code> objects.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>One hundred bootstrap trees can also be viewed simultaneously (Figure <span class="quarto-unresolved-ref">?fig-bp100</span>). This allows researchers to explore a large set of phylogenetic trees to find consensus and distinct trees. The consensus tree can be summarized via a density tree (Figure <span class="quarto-unresolved-ref">?fig-densiTree</span>).</p>
+<p>One hundred bootstrap trees can also be viewed simultaneously (Figure <a href="#fig-bp100" class="quarto-xref">Figure&nbsp;<span>1.16</span></a>). This allows researchers to explore a large set of phylogenetic trees to find consensus and distinct trees. The consensus tree can be summarized via a density tree (Figure <a href="#fig-densiTree" class="quarto-xref">Figure&nbsp;<span>1.18</span></a>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>btrees <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="fu">system.file</span>(<span class="st">"extdata/RAxML"</span>, </span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"RAxML_bootstrap.H3"</span>, </span>
-<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">package=</span><span class="st">"treeio"</span>)</span>
-<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>                    )</span>
-<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(btrees) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>.id, <span class="at">ncol=</span><span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>btrees <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="fu">system.file</span>(<span class="st">"extdata/RAxML"</span>, </span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"RAxML_bootstrap.H3"</span>, </span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">package=</span><span class="st">"treeio"</span>)</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(btrees) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>.id, <span class="at">ncol=</span><span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Visualizing one hundred bootstrap trees simultaneously.</strong></figcaption>
+<div id="fig-bp100" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="One hundred bootstrap trees">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bp100-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-bp100-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="One hundred bootstrap trees">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bp100-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.16: <strong>Visualizing one hundred bootstrap trees simultaneously.</strong>
+</figcaption>
 </figure>
 </div>
 </div>
@@ -1185,25 +1821,29 @@ with the following features available:
 <section id="annotate-one-tree-with-values-from-different-variables" class="level3">
 <h3 class="anchored" data-anchor-id="annotate-one-tree-with-values-from-different-variables">Annotate one tree with values from different variables</h3>
 <p>To annotate one tree (the same tree) with the values from different variables, one can plot them separately and use <a href="https://CRAN.R-project.org/package=patchwork"><strong>patchwork</strong></a> or <a href="https://CRAN.R-project.org/package=aplot"><strong>aplot</strong></a> to combine them side-by-side.</p>
-<p>Another solution is to utilize the ability to plot a list of trees by <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>, and then add annotation layers for the selected variable at a specific panel via the <a href="#geom2">subset</a> aesthetic mapping supported by <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> or using the <code>td_filter()</code> as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-onetreefacet</span>. The <code>.id</code> is the conserved variable that is internally used to store the IDs of different trees.</p>
+<p>Another solution is to utilize the ability to plot a list of trees by <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>, and then add annotation layers for the selected variable at a specific panel via the <a href="#geom2">subset</a> aesthetic mapping supported by <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> or using the <code>td_filter()</code> as demonstrated in Figure <a href="#fig-onetreefacet" class="quarto-xref">Figure&nbsp;<span>1.17</span></a>. The <code>.id</code> is the conserved variable that is internally used to store the IDs of different trees.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">30</span>)</span>
-<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">label=</span>x<span class="sc">$</span>tip.label, <span class="at">var1=</span><span class="fu">abs</span>(<span class="fu">rnorm</span>(<span class="dv">30</span>)), <span class="at">var2=</span><span class="fu">abs</span>(<span class="fu">rnorm</span>(<span class="dv">30</span>)))</span>
-<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">full_join</span>(x, d, <span class="at">by=</span><span class="st">'label'</span>)</span>
-<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>trs <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">TREE1 =</span> tree, <span class="at">TREE2 =</span> tree)</span>
-<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(trs) <span class="ot">&lt;-</span> <span class="st">'treedataList'</span></span>
-<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(trs) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>.id) <span class="sc">+</span> </span>
-<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tippoint</span>(<span class="fu">aes</span>(<span class="at">colour=</span>var1), <span class="at">data=</span><span class="fu">td_filter</span>(.id <span class="sc">==</span> <span class="st">"TREE1"</span>)) <span class="sc">+</span> </span>
-<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_gradient</span>(<span class="at">low=</span><span class="st">'blue'</span>, <span class="at">high=</span><span class="st">'red'</span>) <span class="sc">+</span>  </span>
-<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a>  ggnewscale<span class="sc">::</span><span class="fu">new_scale_colour</span>()  <span class="sc">+</span> </span>
-<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tippoint</span>(<span class="fu">aes</span>(<span class="at">colour=</span>var2), <span class="at">data=</span><span class="fu">td_filter</span>(.id <span class="sc">==</span> <span class="st">"TREE2"</span>)) <span class="sc">+</span> </span>
-<span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_c</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">30</span>)</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">label=</span>x<span class="sc">$</span>tip.label, <span class="at">var1=</span><span class="fu">abs</span>(<span class="fu">rnorm</span>(<span class="dv">30</span>)), <span class="at">var2=</span><span class="fu">abs</span>(<span class="fu">rnorm</span>(<span class="dv">30</span>)))</span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">full_join</span>(x, d, <span class="at">by=</span><span class="st">'label'</span>)</span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>trs <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">TREE1 =</span> tree, <span class="at">TREE2 =</span> tree)</span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(trs) <span class="ot">&lt;-</span> <span class="st">'treedataList'</span></span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(trs) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>.id) <span class="sc">+</span> </span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tippoint</span>(<span class="fu">aes</span>(<span class="at">colour=</span>var1), <span class="at">data=</span><span class="fu">td_filter</span>(.id <span class="sc">==</span> <span class="st">"TREE1"</span>)) <span class="sc">+</span> </span>
+<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_gradient</span>(<span class="at">low=</span><span class="st">'blue'</span>, <span class="at">high=</span><span class="st">'red'</span>) <span class="sc">+</span>  </span>
+<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a>  ggnewscale<span class="sc">::</span><span class="fu">new_scale_colour</span>()  <span class="sc">+</span> </span>
+<span id="cb67-11"><a href="#cb67-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tippoint</span>(<span class="fu">aes</span>(<span class="at">colour=</span>var2), <span class="at">data=</span><span class="fu">td_filter</span>(.id <span class="sc">==</span> <span class="st">"TREE2"</span>)) <span class="sc">+</span> </span>
+<span id="cb67-12"><a href="#cb67-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_c</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Annotate one tree with values from different variables.</strong> Using <code>subset</code> aesthetic mapping (as in TREE1 panel) or <code>td_filter()</code> (as in TREE2 panel) to filter variables to be displayed on the specific panel.</figcaption>
+<div id="fig-onetreefacet" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Annotate one tree with different variables">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-onetreefacet-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-onetreefacet-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="Annotate one tree with different variables">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-onetreefacet-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.17: <strong>Annotate one tree with values from different variables.</strong> Using <code>subset</code> aesthetic mapping (as in TREE1 panel) or <code>td_filter()</code> (as in TREE2 panel) to filter variables to be displayed on the specific panel.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -1211,10 +1851,10 @@ with the following features available:
 </section>
 <section id="sec-densitree" class="level3">
 <h3 class="anchored" data-anchor-id="sec-densitree">DensiTree</h3>
-<p>Another way to view the bootstrap trees is to merge them to form a density tree using <code>ggdensitree()</code> function (Figure <span class="quarto-unresolved-ref">?fig-densiTree</span>). This will help us identify consensus and differences among a large set of trees. The trees will be stacked on top of each other and the structures of the trees will be rotated to ensure the consistency of the tip order. The tip order is determined by the <code>tip.order</code> parameter and by default (<code>tip.order = 'mode'</code>) the tips are ordered by the most commonly seen topology. The user can pass in a character vector to specify the tip order, or pass in an integer, N, to order the tips by the order of the tips in the Nth tree. Passing <code>mds</code> to <code>tip.order</code> will order the tips based on MDS (Multidimensional Scaling) of the path length between the tips, or passing <code>mds_dist</code> will order the tips based on MDS of the distance between the tips.</p>
+<p>Another way to view the bootstrap trees is to merge them to form a density tree using <code>ggdensitree()</code> function (Figure <a href="#fig-densiTree" class="quarto-xref">Figure&nbsp;<span>1.18</span></a>). This will help us identify consensus and differences among a large set of trees. The trees will be stacked on top of each other and the structures of the trees will be rotated to ensure the consistency of the tip order. The tip order is determined by the <code>tip.order</code> parameter and by default (<code>tip.order = 'mode'</code>) the tips are ordered by the most commonly seen topology. The user can pass in a character vector to specify the tip order, or pass in an integer, N, to order the tips by the order of the tips in the Nth tree. Passing <code>mds</code> to <code>tip.order</code> will order the tips based on MDS (Multidimensional Scaling) of the path length between the tips, or passing <code>mds_dist</code> will order the tips based on MDS of the distance between the tips.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdensitree</span>(btrees, <span class="at">alpha=</span>.<span class="dv">3</span>, <span class="at">colour=</span><span class="st">'steelblue'</span>) <span class="sc">+</span> </span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">hexpand</span>(.<span class="dv">35</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdensitree</span>(btrees, <span class="at">alpha=</span>.<span class="dv">3</span>, <span class="at">colour=</span><span class="st">'steelblue'</span>) <span class="sc">+</span> </span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">hexpand</span>(.<span class="dv">35</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in FUN(X[[i]], ...): Arguments in `...` must be used.
 ✖ Problematic arguments:
@@ -1718,10 +2358,14 @@ Arguments in `...` must be used.
 ℹ Did you misspell an argument name?</code></pre>
 </div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="04_ggtree_visualization_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>DensiTree.</strong> Trees are stacked on top of each other and the structures of the trees are rotated to ensure the consistency of the tip order.</figcaption>
+<div id="fig-densiTree" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="DensiTree">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-densiTree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04_ggtree_visualization_files/figure-html/fig-densiTree-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="DensiTree">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-densiTree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.18: <strong>DensiTree.</strong> Trees are stacked on top of each other and the structures of the trees are rotated to ensure the consistency of the tip order.
+</figcaption>
 </figure>
 </div>
 </div>

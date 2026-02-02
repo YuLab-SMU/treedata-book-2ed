@@ -171,7 +171,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Integration, Manipulation and Visualization of Phylogenetic Trees</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">manual setting. the ropenscilabs/icons package will set up everything for you.</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -363,12 +363,14 @@ div.csl-indent {
 [conflicted] Will prefer ggplot2::geom_errorbarh over any other package.
 [conflicted] Will prefer MicrobiotaProcess::tax_table over any other package.
 [conflicted] Will prefer BiocGenerics::as.data.frame over any other package.
-[conflicted] Will prefer base::setdiff over any other package.</code></pre>
+[conflicted] Will prefer base::setdiff over any other package.
+[conflicted] Will prefer yulab.utils::CRANpkg over any other package.
+[conflicted] Will prefer yulab.utils::Biocpkg over any other package.</code></pre>
 </div>
 </div>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package <span class="citation" data-cites="yu_ggtree:_2017">(<a href="#ref-yu_ggtree:_2017" role="doc-biblioref">Yu et al., 2017</a>)</span> provides programmable visualization and annotation of <a href="#chapter5">phylogenetic trees</a> and <a href="#chapter9">other tree-like structures</a>. It supports visualizing tree data in multiple layers or with the tree side-by-side (see also <a href="#chapter7">Chapter 7</a> and <span class="citation" data-cites="yu_two_2018">(<a href="#ref-yu_two_2018" role="doc-biblioref">Yu et al., 2018</a>)</span>). Although <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports <a href="#tree-layouts">many layouts</a>, the <code>geom_facet()</code> layer only works with <code>rectangular</code>, <code>roundrect</code>, <code>ellipse</code>, and <code>slanted</code> layouts to present tree data on different panels. There is no direct support in <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> to present data on the outer rings of a tree in <code>circular</code>, <code>fan</code>, and <code>radial</code> layouts. To solve this issue, we developed the <a href="http://bioconductor.org/packages/ggtreeExtra"><strong>ggtreeExtra</strong></a> package, which allows users to align associated graph layers in outer rings of circular layout tree. In addition, it also works with a <code>rectangular</code> tree layout (Figure <span class="quarto-unresolved-ref">?fig-HMPplot2</span>).</p>
+<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package <span class="citation" data-cites="yu_ggtree:_2017">(<a href="#ref-yu_ggtree:_2017" role="doc-biblioref">Yu et al., 2017</a>)</span> provides programmable visualization and annotation of <a href="#chapter5">phylogenetic trees</a> and <a href="#chapter9">other tree-like structures</a>. It supports visualizing tree data in multiple layers or with the tree side-by-side (see also <a href="#chapter7">Chapter 7</a> and <span class="citation" data-cites="yu_two_2018">(<a href="#ref-yu_two_2018" role="doc-biblioref">Yu et al., 2018</a>)</span>). Although <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports <a href="#tree-layouts">many layouts</a>, the <code>geom_facet()</code> layer only works with <code>rectangular</code>, <code>roundrect</code>, <code>ellipse</code>, and <code>slanted</code> layouts to present tree data on different panels. There is no direct support in <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> to present data on the outer rings of a tree in <code>circular</code>, <code>fan</code>, and <code>radial</code> layouts. To solve this issue, we developed the <a href="http://bioconductor.org/packages/ggtreeExtra"><strong>ggtreeExtra</strong></a> package, which allows users to align associated graph layers in outer rings of circular layout tree. In addition, it also works with a <code>rectangular</code> tree layout (Figure <a href="#fig-HMPplot2" class="quarto-xref">Figure&nbsp;<span>1.3</span></a>).</p>
 </section>
 <section id="sec-geom-fruit1" class="level2">
 <h2 class="anchored" data-anchor-id="sec-geom-fruit1">Aligning Graphs to the Tree Based on a Tree Structure</h2>
@@ -434,10 +436,14 @@ div.csl-indent {
 <span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>     )</span>
 <span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="10_ggtree_exts_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Phylogenetic tree with OTU abundance distribution</strong>. Species abundance distribution was aligned to the tree and visualized as boxplots. The Phylum information was used to color symbolic points on the tree and also species abundance distributions.</figcaption>
+<div id="fig-psbox" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Phylogenetic tree with OTU abundance distribution">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-psbox-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10_ggtree_exts_files/figure-html/fig-psbox-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="Phylogenetic tree with OTU abundance distribution">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-psbox-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.1: <strong>Phylogenetic tree with OTU abundance distribution</strong>. Species abundance distribution was aligned to the tree and visualized as boxplots. The Phylum information was used to color symbolic points on the tree and also species abundance distributions.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -445,7 +451,7 @@ div.csl-indent {
 </section>
 <section id="sec-geom-fruit2" class="level2">
 <h2 class="anchored" data-anchor-id="sec-geom-fruit2">Aligning Multiple Graphs to the Tree for Multi-dimensional Data</h2>
-<p>We are able to add multiple <code>geom_fruit()</code> layers to a tree and the circular layout is indeed more compact and efficient for multi-dimensional data. This example reproduces figure 2 of <span class="citation" data-cites="morgan2013HMP">(<a href="#ref-morgan2013HMP" role="doc-biblioref">Morgan et al., 2013</a>)</span>. The data is provided by GraPhlAn <span class="citation" data-cites="GraPhlAn">(<a href="#ref-GraPhlAn" role="doc-biblioref">Asnicar et al., 2015</a>)</span>, which contained the relative abundance of the microbiome at different body sites. This example demonstrates the ability to add multiple layers (heat map and bar plot) to present different types of data (Figure <span class="quarto-unresolved-ref">?fig-HMPplot</span>).</p>
+<p>We are able to add multiple <code>geom_fruit()</code> layers to a tree and the circular layout is indeed more compact and efficient for multi-dimensional data. This example reproduces figure 2 of <span class="citation" data-cites="morgan2013HMP">(<a href="#ref-morgan2013HMP" role="doc-biblioref">Morgan et al., 2013</a>)</span>. The data is provided by GraPhlAn <span class="citation" data-cites="GraPhlAn">(<a href="#ref-GraPhlAn" role="doc-biblioref">Asnicar et al., 2015</a>)</span>, which contained the relative abundance of the microbiome at different body sites. This example demonstrates the ability to add multiple layers (heat map and bar plot) to present different types of data (Figure <a href="#fig-HMPplot" class="quarto-xref">Figure&nbsp;<span>1.2</span></a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtreeExtra)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
@@ -550,24 +556,32 @@ div.csl-indent {
 <span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>             )</span>
 <span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="10_ggtree_exts_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Presenting microbiome data (abundance and location) on a phylogenetic tree.</strong> The tree was annotated with symbolic points, highlighted clades, and clade labels. Two <code>geom_fruit()</code> layers were used to visualize location and abundance information.</figcaption>
+<div id="fig-HMPplot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="HMP microbiome data visualization">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-HMPplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10_ggtree_exts_files/figure-html/fig-HMPplot-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="HMP microbiome data visualization">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-HMPplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.2: <strong>Presenting microbiome data (abundance and location) on a phylogenetic tree.</strong> The tree was annotated with symbolic points, highlighted clades, and clade labels. Two <code>geom_fruit()</code> layers were used to visualize location and abundance information.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>The shape of the tip points indicates the types of microbes (commensal microbes or potential pathogens). The transparency of the heatmap indicates the abundance of the microbes, and the colors of the heatmap indicate different sites of the human body. The bar plot indicates the relative abundance of the most prevalent species at the body sites. The node labels contain taxonomy information in this example, and the information was used to highlight and label corresponding clades using <code>geom_hilight()</code> and <code>geom_cladelab()</code>, respectively.</p>
-<p>The <code>geom_fruit()</code> layer supports rectangular layout. Users can either add a <code>geom_fruit()</code> layer to a rectangular tree (e.g., <code>ggtree(tree_object) + geom_fruit(...)</code>) or use <code>layout_rectangular()</code> to transform a circular layout tree to a rectangular layout tree as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-HMPplot2</span>.</p>
+<p>The <code>geom_fruit()</code> layer supports rectangular layout. Users can either add a <code>geom_fruit()</code> layer to a rectangular tree (e.g., <code>ggtree(tree_object) + geom_fruit(...)</code>) or use <code>layout_rectangular()</code> to transform a circular layout tree to a rectangular layout tree as demonstrated in Figure <a href="#fig-HMPplot2" class="quarto-xref">Figure&nbsp;<span>1.3</span></a>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">layout_rectangular</span>() <span class="sc">+</span> </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="fu">c</span>(.<span class="dv">05</span>, .<span class="dv">7</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="10_ggtree_exts_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Illustration of using <code>geom_fruit()</code> in rectangular tree layout.</strong> The figure was produced by transforming Figure <span class="quarto-unresolved-ref">?fig-HMPplot</span> using the rectangular layout. Transforming a rectangular layout tree to a circular layout tree is also supported.</figcaption>
+<div id="fig-HMPplot2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Illustration of using geom_fruit() in rectangular tree layout">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-HMPplot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10_ggtree_exts_files/figure-html/fig-HMPplot2-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="Illustration of using geom_fruit() in rectangular tree layout">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-HMPplot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.3: <strong>Illustration of using <code>geom_fruit()</code> in rectangular tree layout.</strong> The figure was produced by transforming Figure <a href="#fig-HMPplot" class="quarto-xref">Figure&nbsp;<span>1.2</span></a> using the rectangular layout. Transforming a rectangular layout tree to a circular layout tree is also supported.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -575,7 +589,7 @@ div.csl-indent {
 </section>
 <section id="examples-for-population-genetics" class="level2">
 <h2 class="anchored" data-anchor-id="examples-for-population-genetics">Examples for Population Genetics</h2>
-<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> <span class="citation" data-cites="yu_ggtree:_2017">(<a href="#ref-yu_ggtree:_2017" role="doc-biblioref">Yu et al., 2017</a>)</span> and <a href="http://bioconductor.org/packages/ggtreeExtra"><strong>ggtreeExtra</strong></a> packages are designed as general tools and can be applied to many research fields, such as infectious disease epidemiology, metagenome, population genetics, evolutionary biology, and ecology. We have introduced examples for metagenome research (Figure <span class="quarto-unresolved-ref">?fig-psbox</span> and Figure <span class="quarto-unresolved-ref">?fig-HMPplot</span>). In this session, we present examples for population genetics by reproducing figure 4 of <span class="citation" data-cites="Chowe:_2020">(<a href="#ref-Chowe:_2020" role="doc-biblioref">Chow et al., 2020</a>)</span> and figure 1 of <span class="citation" data-cites="RN46:_2015">(<a href="#ref-RN46:_2015" role="doc-biblioref">Wong et al., 2015</a>)</span>.</p>
+<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> <span class="citation" data-cites="yu_ggtree:_2017">(<a href="#ref-yu_ggtree:_2017" role="doc-biblioref">Yu et al., 2017</a>)</span> and <a href="http://bioconductor.org/packages/ggtreeExtra"><strong>ggtreeExtra</strong></a> packages are designed as general tools and can be applied to many research fields, such as infectious disease epidemiology, metagenome, population genetics, evolutionary biology, and ecology. We have introduced examples for metagenome research (Figure <a href="#fig-psbox" class="quarto-xref">Figure&nbsp;<span>1.1</span></a> and Figure <a href="#fig-HMPplot" class="quarto-xref">Figure&nbsp;<span>1.2</span></a>). In this session, we present examples for population genetics by reproducing figure 4 of <span class="citation" data-cites="Chowe:_2020">(<a href="#ref-Chowe:_2020" role="doc-biblioref">Chow et al., 2020</a>)</span> and figure 1 of <span class="citation" data-cites="RN46:_2015">(<a href="#ref-RN46:_2015" role="doc-biblioref">Wong et al., 2015</a>)</span>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtreeExtra)</span>
@@ -733,15 +747,19 @@ div.csl-indent {
 <span id="cb6-154"><a href="#cb6-154" aria-hidden="true" tabindex="-1"></a>      )</span>
 <span id="cb6-155"><a href="#cb6-155" aria-hidden="true" tabindex="-1"></a>p3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="10_ggtree_exts_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Antifungal susceptibility and point mutations in drug targets in <em>Candida Auris</em> </strong>.</figcaption>
+<div id="fig-Caurisplot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Antifungal susceptibility in Candida Auris">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Caurisplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10_ggtree_exts_files/figure-html/fig-Caurisplot-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="Antifungal susceptibility in Candida Auris">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Caurisplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.4: <strong>Antifungal susceptibility and point mutations in drug targets in <em>Candida Auris</em> </strong>.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>In this example, Figure <span class="quarto-unresolved-ref">?fig-Caurisplot</span> shows the phylogenetic tree annotated with different colors to display different clades. The external heatmaps present the susceptibility to fluconazole (FCZ), amphotericin B (AMB), and micafungin (MCF). The external points display the point mutations in lanosterol 14-alpha-demethylase ERG11 (Y132F, K143R, and F126L) and beta-1,3-D-glucan synthase FKS1 (S639Y/P/F) associated with resistance <span class="citation" data-cites="Chowe:_2020">(<a href="#ref-Chowe:_2020" role="doc-biblioref">Chow et al., 2020</a>)</span>.</p>
+<p>In this example, Figure <a href="#fig-Caurisplot" class="quarto-xref">Figure&nbsp;<span>1.4</span></a> shows the phylogenetic tree annotated with different colors to display different clades. The external heatmaps present the susceptibility to fluconazole (FCZ), amphotericin B (AMB), and micafungin (MCF). The external points display the point mutations in lanosterol 14-alpha-demethylase ERG11 (Y132F, K143R, and F126L) and beta-1,3-D-glucan synthase FKS1 (S639Y/P/F) associated with resistance <span class="citation" data-cites="Chowe:_2020">(<a href="#ref-Chowe:_2020" role="doc-biblioref">Chow et al., 2020</a>)</span>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtreeExtra)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
@@ -840,15 +858,19 @@ div.csl-indent {
 <span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a>           )</span>
 <span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a>p3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="10_ggtree_exts_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Population structure of the 1,832 <em>S. Typhi</em> isolates</strong>.</figcaption>
+<div id="fig-Styphiplot" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Population structure of the S. Typhi isolates">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Styphiplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10_ggtree_exts_files/figure-html/fig-Styphiplot-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="Population structure of the S. Typhi isolates">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Styphiplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.5: <strong>Population structure of the 1,832 <em>S. Typhi</em> isolates</strong>.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Figure <span class="quarto-unresolved-ref">?fig-Styphiplot</span> is a rooted maximum-likelihood tree of <em>S. Typhi</em> inferred from 22,145 SNPs <span class="citation" data-cites="RN46:_2015">(<a href="#ref-RN46:_2015" role="doc-biblioref">Wong et al., 2015</a>)</span>, the colors of the tip points represent the geographical origin of the isolates, and the red symbolic points indicate the haplotype of H58 lineage. The color of the external heatmap indicates the years of isolation <span class="citation" data-cites="RN46:_2015">(<a href="#ref-RN46:_2015" role="doc-biblioref">Wong et al., 2015</a>)</span>.</p>
+<p>Figure <a href="#fig-Styphiplot" class="quarto-xref">Figure&nbsp;<span>1.5</span></a> is a rooted maximum-likelihood tree of <em>S. Typhi</em> inferred from 22,145 SNPs <span class="citation" data-cites="RN46:_2015">(<a href="#ref-RN46:_2015" role="doc-biblioref">Wong et al., 2015</a>)</span>, the colors of the tip points represent the geographical origin of the isolates, and the red symbolic points indicate the haplotype of H58 lineage. The color of the external heatmap indicates the years of isolation <span class="citation" data-cites="RN46:_2015">(<a href="#ref-RN46:_2015" role="doc-biblioref">Wong et al., 2015</a>)</span>.</p>
 </section>
 <section id="sec-summary10" class="level2">
 <h2 class="anchored" data-anchor-id="sec-summary10">Summary</h2>

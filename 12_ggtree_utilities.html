@@ -151,7 +151,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Integration, Manipulation and Visualization of Phylogenetic Trees</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">manual setting. the ropenscilabs/icons package will set up everything for you.</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -354,10 +354,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 Please cite:
 
-Shuangbin Xu, Lin Li, Xiao Luo, Meijun Chen, Wenli Tang, Li Zhan, Zehan
-Dai, Tommy T. Lam, Yi Guan, Guangchuang Yu. Ggtree: A serialized data
-object for visualization of a phylogenetic tree and annotation data.
-iMeta 2022, 1(4):e56. doi:10.1002/imt2.56</code></pre>
+S Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L
+Zhan, T Wu, E Hu, Y Jiang, X Bo, G Yu. ggtreeExtra: Compact
+visualization of richly annotated phylogenetic data. Molecular Biology
+and Evolution. 2021, 38(9):4039-4042. doi: 10.1093/molbev/msab166</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -390,9 +390,9 @@ replacement length</code></pre>
 </div>
 </div>
 </div>
-<p>It also supports using a name vector to set the widths of specific panels. The following code will display an identical figure to Figure <span class="quarto-unresolved-ref">?fig-facetWidthA</span>.</p>
+<p>It also supports using a name vector to set the widths of specific panels. The following code will display an identical figure to Figure <a href="#fig-facetWidth-1" class="quarto-xref">Figure&nbsp;<span>1.1 (a)</span></a>.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">facet_widths</span>(p2, <span class="fu">c</span>(<span class="at">Tree =</span> .<span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The <code>facet_widths()</code> function also works with other <code>ggplot</code> objects as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-facetWidthB</span>.</p>
+<p>The <code>facet_widths()</code> function also works with other <code>ggplot</code> objects as demonstrated in Figure <a href="#fig-facetWidth-2" class="quarto-xref">Figure&nbsp;<span>1.1 (b)</span></a>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(Sepal.Width, Petal.Length)) <span class="sc">+</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(.<span class="sc">~</span>Species)</span>
@@ -409,32 +409,57 @@ replacement length</code></pre>
 </div>
 </div>
 </div>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
 <pre><code>Warning in x[i] &lt;- value: number of items to replace is not a multiple of
 replacement length
 Warning in x[i] &lt;- value: number of items to replace is not a multiple of
 replacement length</code></pre>
+<div id="fig-facetWidth" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-facetWidth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-facetWidth" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div id="fig-facetWidth-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:facetWidthscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-facetWidth-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-facetWidth-1.png" class="img-fluid figure-img" data-fig-scap="(ref:facetWidthscap)" data-ref-parent="fig-facetWidth" width="576">
 </div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="576"></p>
-<figcaption><strong>Adjust relative widths of ggplot facets.</strong> The <code>facet_widths()</code> function works with <code>ggtree</code> (A) as well as <code>ggplot</code> (B).</figcaption>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-facetWidth-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) facet_widths() applied to ggtree
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-facetWidth" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div id="fig-facetWidth-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:facetWidthscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-facetWidth-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-facetWidth-2.png" class="img-fluid figure-img" data-fig-scap="(ref:facetWidthscap)" data-ref-parent="fig-facetWidth" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-facetWidth-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) facet_widths() applied to ggplot
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-facetWidth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.1: Adjust relative widths of ggplot facets.
+</figcaption>
+</figure>
+</div>
 </section>
 <section id="sec-facet_labeller" class="level3">
 <h3 class="anchored" data-anchor-id="sec-facet_labeller">facet_labeller</h3>
-<p>The <code>facet_labeller()</code> function was designed to relabel selected panels (Figure <span class="quarto-unresolved-ref">?fig-facetLab</span>), and it currently only works with <code>ggtree</code> objects (<em>i.e.</em>, <code>geom_facet()</code> outputs). A more versatile version that works with both <code>ggtree</code> and <code>ggplot</code> objects is implemented in the <a href="https://CRAN.R-project.org/package=ggfun">ggfun</a> package (<em>i.e.</em>, the <code>facet_set()</code> function).</p>
+<p>The <code>facet_labeller()</code> function was designed to relabel selected panels (Figure <a href="#fig-facetLab" class="quarto-xref">Figure&nbsp;<span>1.2</span></a>), and it currently only works with <code>ggtree</code> objects (<em>i.e.</em>, <code>geom_facet()</code> outputs). A more versatile version that works with both <code>ggtree</code> and <code>ggplot</code> objects is implemented in the <a href="https://CRAN.R-project.org/package=ggfun">ggfun</a> package (<em>i.e.</em>, the <code>facet_set()</code> function).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">facet_labeller</span>(p2, <span class="fu">c</span>(<span class="at">Tree =</span> <span class="st">"phylogeny"</span>, <span class="at">bar =</span> <span class="st">"HELLO"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -449,24 +474,49 @@ replacement length</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
 <pre><code>Warning in x[i] &lt;- value: number of items to replace is not a multiple of
 replacement length</code></pre>
+<div id="fig-facetLab" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-facetLab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-facetLab" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div id="fig-facetLab-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:facetLabscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-facetLab-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-facetLab-1.png" class="img-fluid figure-img" data-fig-scap="(ref:facetLabscap)" data-ref-parent="fig-facetLab" width="576">
 </div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="576"></p>
-<figcaption><strong>Rename facet labels.</strong> Rename multiple labels simultaneously (A) or only for a specific one (B) are all supported. <code>facet_labeller()</code> can combine with <code>facet_widths()</code> to rename facet label and then adjust relative widths (B).</figcaption>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-facetLab-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Rename multiple labels simultaneously
+</figcaption>
 </figure>
 </div>
 </div>
+</div>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-facetLab" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div id="fig-facetLab-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:facetLabscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-facetLab-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-facetLab-2.png" class="img-fluid figure-img" data-fig-scap="(ref:facetLabscap)" data-ref-parent="fig-facetLab" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-facetLab-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Rename a specific label and adjust relative widths
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-facetLab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.2: <strong>Rename facet labels.</strong> Rename multiple labels simultaneously (A) or only for a specific one (B) are all supported. <code>facet_labeller()</code> can combine with <code>facet_widths()</code> to rename facet label and then adjust relative widths (B).
+</figcaption>
+</figure>
 </div>
 </section>
 </section>
@@ -480,8 +530,7 @@ replacement length</code></pre>
 <li><code>geom_text2()</code></li>
 <li><code>geom_label2()</code></li>
 </ul>
-<p>These layers works with both <a href="http://bioconductor.org/packages/ggtree">ggtree</a> and <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> (Figure <span class="quarto-unresolved-ref">?fig-layer2</span>).</p>
-<div class="cell">
+<p>These layers works with both <a href="http://bioconductor.org/packages/ggtree">ggtree</a> and <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> (Figure <a href="#fig-layer2" class="quarto-xref">Figure&nbsp;<span>1.3</span></a>).</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mpg)</span>
@@ -500,24 +549,56 @@ replacement length</code></pre>
 <pre><code>Warning in geom_label2(aes(subset = node &lt; 5, label = label)): Ignoring unknown
 parameters: `label.size`</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_list</span>(p, p2, <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">tag_levels=</span><span class="st">'A'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Geometric layers that support subsetting.</strong> These layers work with <code>ggplot2</code> (A) and <code>ggtree</code> (B).</figcaption>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>p</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>p2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-layer2" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-layer2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layer2" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-layer2-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layer2scap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layer2-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-layer2-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layer2scap)" data-ref-parent="fig-layer2">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layer2-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) These layers work with ggplot2
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layer2" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-layer2-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layer2scap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layer2-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-layer2-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layer2scap)" data-ref-parent="fig-layer2">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layer2-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) These layers work with ggtree
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-layer2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.3: <strong>Geometric layers that support subsetting.</strong>
+</figcaption>
+</figure>
+</div>
 </section>
 <section id="layout-utilities" class="level2">
 <h2 class="anchored" data-anchor-id="layout-utilities">Layout Utilities</h2>
-<p>In <a href="#tree-layouts">session 4.2</a>, we introduce several layouts supported by <a href="http://bioconductor.org/packages/ggtree">ggtree</a>. The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> package also provides several layout functions that can transform from one to another. Note that not all layouts are supported (see Table <span class="quarto-unresolved-ref">?tbl-layoutLayerTab</span> and Figure <span class="quarto-unresolved-ref">?fig-layoutLayer</span>).</p>
+<p>In <a href="#tree-layouts">session 4.2</a>, we introduce several layouts supported by <a href="http://bioconductor.org/packages/ggtree">ggtree</a>. The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> package also provides several layout functions that can transform from one to another. Note that not all layouts are supported (see Table <a href="#tbl-layoutLayerTab" class="quarto-xref">Table&nbsp;<span>1.1</span></a> and Figure <a href="#fig-layoutLayer" class="quarto-xref">Figure&nbsp;<span>1.4</span></a>).</p>
 <div class="cell">
+<div id="tbl-layoutLayerTab" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-layoutLayerTab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1.1: Layout transformers.
+</figcaption>
+<div aria-describedby="tbl-layoutLayerTab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Layout transformers.</caption>
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 26%">
 <col style="width: 73%">
@@ -553,6 +634,9 @@ parameters: `label.size`</code></pre>
 </table>
 </div>
 </div>
+</figure>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2019</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">20</span>)</span>
@@ -561,7 +645,7 @@ parameters: `label.size`</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -573,7 +657,7 @@ parameters: `label.size`</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -585,7 +669,7 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-10-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-6-3.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -599,7 +683,7 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-10-4.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-6-4.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -611,20 +695,95 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-10-5.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-6-5.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Layout functions for transforming among different layouts</strong>. Default rectangular layout (A); transform rectangular to dendrogram layout (B); transform circular to rectangular layout (C); transform rectangular to circular layout (D); transform rectangular to fan layout (E); transform rectangular to inward circular layout (F).</figcaption>
+<div id="fig-layoutLayer" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-layoutLayer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layoutLayer" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-layoutLayer-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layoutLayerscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layoutLayer-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-layoutLayer-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layoutLayerscap)" data-ref-parent="fig-layoutLayer">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layoutLayer-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Default rectangular layout
+</figcaption>
 </figure>
 </div>
 </div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layoutLayer" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-layoutLayer-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layoutLayerscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layoutLayer-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-layoutLayer-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layoutLayerscap)" data-ref-parent="fig-layoutLayer">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layoutLayer-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Transform rectangular to dendrogram layout
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layoutLayer" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-layoutLayer-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layoutLayerscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layoutLayer-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-layoutLayer-3.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layoutLayerscap)" data-ref-parent="fig-layoutLayer">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layoutLayer-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Transform circular to rectangular layout
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layoutLayer" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-layoutLayer-4" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layoutLayerscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layoutLayer-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-layoutLayer-4.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layoutLayerscap)" data-ref-parent="fig-layoutLayer">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layoutLayer-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) Transform rectangular to circular layout
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layoutLayer" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-layoutLayer-5" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layoutLayerscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layoutLayer-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-layoutLayer-5.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layoutLayerscap)" data-ref-parent="fig-layoutLayer">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layoutLayer-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(e) Transform rectangular to fan layout
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-layoutLayer" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-layoutLayer-6" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:layoutLayerscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-layoutLayer-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-layoutLayer-6.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:layoutLayerscap)" data-ref-parent="fig-layoutLayer">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-layoutLayer-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(f) Transform rectangular to inward circular layout
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-layoutLayer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.4: <strong>Layout functions for transforming among different layouts</strong>.
+</figcaption>
+</figure>
 </div>
 </section>
 <section id="scale-utilities" class="level2">
@@ -632,7 +791,7 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <p>The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> package provides several scale functions to manipulate the <em>x</em>-axis, including the <code>scale_x_range()</code> documented in <a href="05_ggtree_annotation.html#uncertainty-of-evolutionary-inference">session 5.2.4</a>, <code>xlim_tree()</code>, <code>xlim_expand()</code>, <code>ggexpand()</code>, <code>hexpand()</code> and <code>vexpand()</code>.</p>
 <section id="sec-xlim_expand" class="level3">
 <h3 class="anchored" data-anchor-id="sec-xlim_expand">Expand x limit for a specific facet panel</h3>
-<p>Sometimes we need to set <code>xlim</code> for a specific facet panel (<em>e.g.</em>, allocate more space for <a href="#faq-label-truncated">long tip labels</a> at <code>Tree</code> panel). However, the <code>ggplot2::xlim()</code> function applies to all the panels. The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> provides <code>xlim_expand()</code> to adjust <code>xlim</code> for user-specific facet panel. It accepts two parameters, <code>xlim</code>, and <code>panel</code>, and can adjust all individual panels as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-xlimExpandA</span>. If you only want to adjust <code>xlim</code> of the <code>Tree</code> panel, you can use <code>xlim_tree()</code> as a shortcut.</p>
+<p>Sometimes we need to set <code>xlim</code> for a specific facet panel (<em>e.g.</em>, allocate more space for <a href="#faq-label-truncated">long tip labels</a> at <code>Tree</code> panel). However, the <code>ggplot2::xlim()</code> function applies to all the panels. The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> provides <code>xlim_expand()</code> to adjust <code>xlim</code> for user-specific facet panel. It accepts two parameters, <code>xlim</code>, and <code>panel</code>, and can adjust all individual panels as demonstrated in Figure <a href="#fig-xlimExpand-1" class="quarto-xref">Figure&nbsp;<span>1.5 (a)</span></a>. If you only want to adjust <code>xlim</code> of the <code>Tree</code> panel, you can use <code>xlim_tree()</code> as a shortcut.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2019-05-02</span>)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">30</span>)</span>
@@ -645,12 +804,12 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The <code>xlim_expand()</code> function also works with <code>ggplot2::facet_grid()</code>. As demonstrated in Figure <span class="quarto-unresolved-ref">?fig-xlimExpandB</span>, only the <code>xlim</code> of <em>virginica</em> panel was adjusted by <code>xlim_expand()</code>.</p>
+<p>The <code>xlim_expand()</code> function also works with <code>ggplot2::facet_grid()</code>. As demonstrated in Figure <a href="#fig-xlimExpand-2" class="quarto-xref">Figure&nbsp;<span>1.5 (b)</span></a>, only the <code>xlim</code> of <em>virginica</em> panel was adjusted by <code>xlim_expand()</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(Sepal.Length, Sepal.Width)) <span class="sc">+</span> </span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(. <span class="sc">~</span> Species, <span class="at">scales =</span> <span class="st">"free_x"</span>) </span>
@@ -658,28 +817,52 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Setting xlim for user-specific facet panels.</strong> Using <code>xlim_tree()</code> to set the Tree panel of the <code>ggtree</code> output (A) and <code>xlim_expand()</code> to set the Dot panel of the <code>ggtree</code> output (A) and the Virginica panel of the <code>ggplot</code> output (B).</figcaption>
+<div id="fig-xlimExpand" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-xlimExpand-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-xlimExpand" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-xlimExpand-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:xlimExpandscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-xlimExpand-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-xlimExpand-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:xlimExpandscap)" data-ref-parent="fig-xlimExpand">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-xlimExpand-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) xlim_expand() applied to ggtree facets
+</figcaption>
 </figure>
 </div>
 </div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-xlimExpand" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-xlimExpand-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:xlimExpandscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-xlimExpand-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-xlimExpand-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:xlimExpandscap)" data-ref-parent="fig-xlimExpand">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-xlimExpand-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) xlim_expand() applied to ggplot facets
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-xlimExpand-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.5: Setting xlim for user-specific facet panels.
+</figcaption>
+</figure>
 </div>
 </section>
 <section id="sec-ggexpand" class="level3">
 <h3 class="anchored" data-anchor-id="sec-ggexpand">Expand plot limit by the ratio of plot range</h3>
 <p>The <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> package cannot automatically adjust plot limits and it is very common that long text was truncated. Users need to adjust x (y) limits manually via the <code>xlim()</code> (<code>ylim()</code>) command (see also <a href="#faq-label-truncated">FAQ: Tip label truncated</a>).</p>
 <p>The <code>xlim()</code> (<code>ylim()</code>) is a good solution to this issue. However, we can make it more simple, by expanding the plot panel by a ratio of the axis range without knowing what the exact value is.</p>
-<p>We provide <code>hexpand()</code> function to expand x limit by specifying a fraction of the x range and it works for both directions (<code>direction=1</code> for right-hand side and <code>direction=-1</code> for left-hand side) (Figure <span class="quarto-unresolved-ref">?fig-hexpand</span>). Another version of <code>vexpand()</code> works with similar behavior for <em>y</em>-axis and the <code>ggexpand()</code> function works for both <em>x</em>- and <em>y</em>-axis (Figure <span class="quarto-unresolved-ref">?fig-phylonetworx</span>).</p>
-<div class="cell">
+<p>We provide <code>hexpand()</code> function to expand x limit by specifying a fraction of the x range and it works for both directions (<code>direction=1</code> for right-hand side and <code>direction=-1</code> for left-hand side) (Figure <a href="#fig-hexpand" class="quarto-xref">Figure&nbsp;<span>1.6</span></a>). Another version of <code>vexpand()</code> works with similar behavior for <em>y</em>-axis and the <code>ggexpand()</code> function works for both <em>x</em>- and <em>y</em>-axis (Figure <a href="11_ggtree_exts-others.html#fig-phylonetworx" class="quarto-xref">Figure&nbsp;<span>9.2</span></a>).</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>x<span class="sc">$</span>tip.label <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">'to make the label longer_'</span>, x<span class="sc">$</span>tip.label)</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(x) <span class="sc">+</span> <span class="fu">geom_tiplab</span>() <span class="sc">+</span> <span class="fu">hexpand</span>(.<span class="dv">4</span>)</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(Sepal.Width, Petal.Width)) <span class="sc">+</span> </span>
@@ -687,15 +870,42 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hexpand</span>(.<span class="dv">2</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">vexpand</span>(.<span class="dv">2</span>)</span>
 <span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_list</span>(p1, p2, <span class="at">tag_levels=</span><span class="st">"A"</span>, <span class="at">widths=</span><span class="fu">c</span>(.<span class="dv">6</span>, .<span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Expanding plot limits by a fraction of the x or y range.</strong> Expand x limit at right-hand side by default (A), and expand x limit for left-hand side when direction = -1 and expand y limit at the upper side (B).</figcaption>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>p1</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>p2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-hexpand" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-hexpand-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-hexpand" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-hexpand-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:hexpandscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-hexpand-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-hexpand-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:hexpandscap)" data-ref-parent="fig-hexpand">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-hexpand-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Expand x limit at the right-hand side
+</figcaption>
 </figure>
 </div>
 </div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-hexpand" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-hexpand-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:hexpandscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-hexpand-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-hexpand-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:hexpandscap)" data-ref-parent="fig-hexpand">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-hexpand-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Expand x/y limits with direction = -1
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hexpand-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.6: <strong>Expanding plot limits by a fraction of the x or y range.</strong> Expand x limit at right-hand side by default (A), and expand x limit for left-hand side when direction = -1 and expand y limit at the upper side (B).
+</figcaption>
+</figure>
 </div>
 </section>
 </section>
@@ -703,7 +913,7 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 <h2 class="anchored" data-anchor-id="tree-data-utilities">Tree data utilities</h2>
 <section id="sec-td_filter" class="level3">
 <h3 class="anchored" data-anchor-id="sec-td_filter">Filter tree data</h3>
-<p>The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> package defined <a href="#geom2">several geom layers</a> that support subsetting tree data. However, many other geom layers that didn’t provide this feature, are defined in <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> and its extensions. To allow filtering tree data with these layers, <a href="http://bioconductor.org/packages/ggtree">ggtree</a> provides an accompanying function, <code>td_filter()</code> that returns a function that works similar to <code>dplyr::filter()</code> and can be passed to the <code>data</code> parameter in geom layers to filter <code>ggtree</code> plot data as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-tdFilter</span>.</p>
+<p>The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> package defined <a href="#geom2">several geom layers</a> that support subsetting tree data. However, many other geom layers that didn’t provide this feature, are defined in <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a> and its extensions. To allow filtering tree data with these layers, <a href="http://bioconductor.org/packages/ggtree">ggtree</a> provides an accompanying function, <code>td_filter()</code> that returns a function that works similar to <code>dplyr::filter()</code> and can be passed to the <code>data</code> parameter in geom layers to filter <code>ggtree</code> plot data as demonstrated in Figure <a href="#fig-tdFilter" class="quarto-xref">Figure&nbsp;<span>1.7</span></a>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytree)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
@@ -737,10 +947,14 @@ Attaching package: 'tidytree'</code></pre>
 <span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_nodepoint</span>(<span class="fu">aes</span>(<span class="at">subset =</span> node <span class="sc">==</span><span class="dv">67</span>), </span>
 <span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>                    <span class="at">size=</span><span class="dv">5</span>, <span class="at">color=</span><span class="st">'blue'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption><strong>Filtering ggtree plot data in geom layers.</strong> Only selected tips (offspring of the node indicated by the blue circle point) were labeled.</figcaption>
+<div id="fig-tdFilter" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Filtering ggtree plot data">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-tdFilter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-tdFilter-1.png" class="img-fluid figure-img" data-fig-scap="Filtering ggtree plot data" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tdFilter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.7: <strong>Filtering ggtree plot data in geom layers.</strong> Only selected tips (offspring of the node indicated by the blue circle point) were labeled.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -788,9 +1002,8 @@ Attaching package: 'tidyr'</code></pre>
 5 t3    &lt;tibble [2 × 1]&gt; &lt;tibble [2 × 1]&gt;</code></pre>
 </div>
 </div>
-<p>Nested data is supported by the operator, <code>%&lt;+%</code>, and can be mapped to the tree structure. If a geom layer can’t directly support visualizing nested data, we need to flatten the data before applying the geom layer to display it. The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> package provides a function, <code>td_unnest()</code>, which returns a function that works similar to <code>tidyr::unnest()</code> and can be used to flatten <code>ggtree</code> plot data as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-tdUnnestA</span>.</p>
-<p>All tree data utilities provide a <code>.f</code> parameter to pass a function to pre-operate the data. This creates the possibility to combine different tree data utilities as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-tdUnnestB</span>.</p>
-<div class="cell">
+<p>Nested data is supported by the operator, <code>%&lt;+%</code>, and can be mapped to the tree structure. If a geom layer can’t directly support visualizing nested data, we need to flatten the data before applying the geom layer to display it. The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> package provides a function, <code>td_unnest()</code>, which returns a function that works similar to <code>tidyr::unnest()</code> and can be used to flatten <code>ggtree</code> plot data as demonstrated in Figure <a href="#fig-tdUnnest-1" class="quarto-xref">Figure&nbsp;<span>1.8 (a)</span></a>.</p>
+<p>All tree data utilities provide a <code>.f</code> parameter to pass a function to pre-operate the data. This creates the possibility to combine different tree data utilities as demonstrated in Figure <a href="#fig-tdUnnest-2" class="quarto-xref">Figure&nbsp;<span>1.8 (b)</span></a>.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tr) <span class="sc">%&lt;+%</span> d2</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p <span class="sc">+</span> </span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(x, y, <span class="at">size=</span> value, <span class="at">colour=</span>group), </span>
@@ -804,15 +1017,42 @@ Attaching package: 'tidyr'</code></pre>
 <span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha=</span>.<span class="dv">4</span>) <span class="sc">+</span></span>
 <span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_size</span>(<span class="at">range=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">10</span>), <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">10</span>))</span>
 <span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_list</span>(p2, p3, <span class="at">tag_levels =</span> <span class="st">'A'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Flattening ggtree plot data.</strong> List-columns can be flattened by <code>td_unnest()</code> and two circle points were displayed on each tip simultaneously (A). Different tree data utilities can be combined to work together, e.g., filter data by <code>td_filter()</code>, and then flatten it by <code>td_unnest()</code>) (B).</figcaption>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>p2</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>p3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-tdUnnest" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-tdUnnest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-tdUnnest" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-tdUnnest-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Flattening ggtree plot data">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-tdUnnest-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-tdUnnest-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="Flattening ggtree plot data" data-ref-parent="fig-tdUnnest">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-tdUnnest-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Flatten list-columns with td_unnest()
+</figcaption>
 </figure>
 </div>
 </div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-tdUnnest" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-tdUnnest-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Flattening ggtree plot data">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-tdUnnest-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-tdUnnest-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="Flattening ggtree plot data" data-ref-parent="fig-tdUnnest">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-tdUnnest-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Combine td_filter() with td_unnest()
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tdUnnest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.8: Flattening ggtree plot data.
+</figcaption>
+</figure>
 </div>
 </section>
 </section>
@@ -831,22 +1071,26 @@ Attaching package: 'tidyr'</code></pre>
 <span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">paste0</span>(<span class="fu">get_taxa_name</span>(p), <span class="at">collapse=</span><span class="st">', '</span>))</span>
 <span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title=</span>x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="480"></p>
-<figcaption><strong>An example tree for demonstrating <code>get_taxa_name()</code> function.</strong></figcaption>
+<div id="fig-tiporder" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Extract tip order">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-tiporder-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-tiporder-1.png" class="img-fluid figure-img" data-fig-scap="Extract tip order" width="480">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tiporder-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.9: <strong>An example tree for demonstrating <code>get_taxa_name()</code> function.</strong>
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The <code>get_taxa_name()</code> function will return a vector of ordered tip labels according to the tree structure displayed in Figure <span class="quarto-unresolved-ref">?fig-tiporder</span>.</p>
+<p>The <code>get_taxa_name()</code> function will return a vector of ordered tip labels according to the tree structure displayed in Figure <a href="#fig-tiporder" class="quarto-xref">Figure&nbsp;<span>1.9</span></a>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_taxa_name</span>(p)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "t9"  "t8"  "t3"  "t2"  "t7"  "t10" "t1"  "t5"  "t6"  "t4" </code></pre>
 </div>
 </div>
-<p>If users specify a node, the <code>get_taxa_name()</code> will extract the tip order of the selected clade (i.e., highlighted region in Figure <span class="quarto-unresolved-ref">?fig-tiporder</span>).</p>
+<p>If users specify a node, the <code>get_taxa_name()</code> will extract the tip order of the selected clade (i.e., highlighted region in Figure <a href="#fig-tiporder" class="quarto-xref">Figure&nbsp;<span>1.9</span></a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_taxa_name</span>(p, <span class="at">node =</span> <span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -875,8 +1119,7 @@ Attaching package: 'tidyr'</code></pre>
 5                   t3 ··················t3                   t3</code></pre>
 </div>
 </div>
-<p>This feature is useful if we want to align tip labels to the end as demonstrated in Figure <span class="quarto-unresolved-ref">?fig-labelpad</span>. Note that in this case, monospace font should be used to ensure the lengths of the labels displayed in the plot are the same.</p>
-<div class="cell">
+<p>This feature is useful if we want to align tip labels to the end as demonstrated in Figure <a href="#fig-labelpad" class="quarto-xref">Figure&nbsp;<span>1.10</span></a>. Note that in this case, monospace font should be used to ensure the lengths of the labels displayed in the plot are the same.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree) <span class="sc">%&lt;+%</span> d <span class="sc">+</span> <span class="fu">xlim</span>(<span class="cn">NA</span>, <span class="dv">5</span>)</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_tiplab</span>(<span class="fu">aes</span>(<span class="at">label=</span>newlabel), </span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">align=</span><span class="cn">TRUE</span>, <span class="at">family=</span><span class="st">'mono'</span>,</span>
@@ -888,15 +1131,42 @@ Attaching package: 'tidyr'</code></pre>
 <pre><code>Scale for x is already present.
 Adding another scale for x, which will replace the existing scale.</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_list</span>(p1, p2, <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">tag_levels =</span> <span class="st">"A"</span>)                            </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="12_ggtree_utilities_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption><strong>Align tip label to the end.</strong> With a dotted line (A) and without a dotted line (B).</figcaption>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>p1</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>p2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-labelpad" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-labelpad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-labelpad" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-labelpad-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:labelpadscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-labelpad-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-labelpad-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:labelpadscap)" data-ref-parent="fig-labelpad">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-labelpad-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) With a dotted line
+</figcaption>
 </figure>
 </div>
 </div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-labelpad" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-labelpad-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:labelpadscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-labelpad-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="12_ggtree_utilities_files/figure-html/fig-labelpad-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:labelpadscap)" data-ref-parent="fig-labelpad">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-labelpad-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Without a dotted line
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-labelpad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.10: <strong>Align tip label to the end.</strong>
+</figcaption>
+</figure>
 </div>
 </section>
 </section>
