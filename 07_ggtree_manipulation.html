@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Master ggtree package suite to handle tree with data.">
+
+<title>8&nbsp; Visual Exploration of Phylogenetic Trees – Data Integration, Manipulation and Visualization of Phylogenetic Trees</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./08_ggtree_tree_with_data.html" rel="next">
+<link href="./06_ggtree_annotation.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04_ggtree_visualization.html">Part II: Tree data visualization and annotation</a></li><li class="breadcrumb-item"><a href="./07_ggtree_manipulation.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visual Exploration of Phylogenetic Trees</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Integration, Manipulation and Visualization of Phylogenetic Trees</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/YuLab-SMU/treedata-book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">manual setting. the ropenscilabs/icons package will set up everything for you.</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_author.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Author</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part I: Tree data input, output, and manipulation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_treeio_importing_tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importing Tree with Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_tidytree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Manipulating Tree with Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_treeio_exporting_tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Exporting tree with data</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part II: Tree data visualization and annotation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_ggtree_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Phylogenetic Tree Visualization</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_interactive_ggtree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Interactive <code>ggtree</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_ggtree_annotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Phylogenetic Tree Annotation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_ggtree_manipulation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visual Exploration of Phylogenetic Trees</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_ggtree_tree_with_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Plotting tree with data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_ggtree_with_silhouette.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Annotating Tree with Silhouette Images and Sub-plots</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_ggtree_tree_objects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">ggtree for Other Tree-like Objects</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part III: ggtree extensions</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_ggtree_exts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">ggtreeExtra for Presenting Data on a Circular Layout</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_ggtree_exts-others.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Other ggtree Extensions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part IV: Miscellaneous topics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_ggtree_utilities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">ggtree Utilities</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14_ggtree_gallery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Gallery of Reproducible Examples</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendix</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A-app-faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(APPENDIX) Appendix</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A-app-tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Related Tools</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A-app-fig-tab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Figures and Tables</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./B-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#viewing-selected-clade" id="toc-viewing-selected-clade" class="nav-link active" data-scroll-target="#viewing-selected-clade"><span class="header-section-number">8.1</span> Viewing Selected Clade</a></li>
+  <li><a href="#sec-scale-clade" id="toc-sec-scale-clade" class="nav-link" data-scroll-target="#sec-scale-clade"><span class="header-section-number">8.2</span> Scaling Selected Clade</a></li>
+  <li><a href="#collapsing-and-expanding-clade" id="toc-collapsing-and-expanding-clade" class="nav-link" data-scroll-target="#collapsing-and-expanding-clade"><span class="header-section-number">8.3</span> Collapsing and Expanding Clade</a></li>
+  <li><a href="#sec-group-taxa-vis" id="toc-sec-group-taxa-vis" class="nav-link" data-scroll-target="#sec-group-taxa-vis"><span class="header-section-number">8.4</span> Grouping Taxa</a></li>
+  <li><a href="#exploring-tree-structure" id="toc-exploring-tree-structure" class="nav-link" data-scroll-target="#exploring-tree-structure"><span class="header-section-number">8.5</span> Exploring Tree Structure</a></li>
+  <li><a href="#sec-summary6" id="toc-sec-summary6" class="nav-link" data-scroll-target="#sec-summary6"><span class="header-section-number">8.6</span> Summary</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/YuLab-SMU/treedata-book/edit/main/07_ggtree_manipulation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/blob/main/07_ggtree_manipulation.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04_ggtree_visualization.html">Part II: Tree data visualization and annotation</a></li><li class="breadcrumb-item"><a href="./07_ggtree_manipulation.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visual Exploration of Phylogenetic Trees</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-chapter6" class="quarto-section-identifier"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visual Exploration of Phylogenetic Trees</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div style="page-break-after: always;"></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ape"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"cowplot"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggtree"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ggtree v4.1.1.004 Learn more at https://yulab-smu.top/contribution-tree-data/
+
+Please cite:
+
+Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam.
+ggtree: an R package for visualization and annotation of phylogenetic
+trees with their covariates and other associated data. Methods in
+Ecology and Evolution. 2017, 8(1):28-36. doi:10.1111/2041-210X.12628</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'ggtree'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:ape':
+
+    rotate</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"yulab.utils"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"kableExtra"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>expand <span class="ot">&lt;-</span> ggtree<span class="sc">::</span>expand</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>rotate <span class="ot">&lt;-</span> ggtree<span class="sc">::</span>rotate</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>flip <span class="ot">&lt;-</span> ggtree<span class="sc">::</span>flip</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> <span class="citation" data-cites="yu_ggtree:_2017">(<a href="#ref-yu_ggtree:_2017" role="doc-biblioref">Yu et al., 2017</a>)</span> supports many ways of manipulating the tree visually, including viewing selected clade to explore large tree (Figure <a href="#fig-viewClade" class="quarto-xref">Figure&nbsp;<span>8.1</span></a>), taxa clustering (Figure <a href="#fig-groupOTU" class="quarto-xref">Figure&nbsp;<span>8.5</span></a>), rotating clade or tree (Figure <a href="#fig-rfClade-2" class="quarto-xref">Figure&nbsp;<span>8.6 (b)</span></a> and <a href="#fig-rotateTree" class="quarto-xref">Figure&nbsp;<span>8.8</span></a>), zoom out or collapsing clades (Figure <a href="#fig-collapseExpand-1" class="quarto-xref">Figure&nbsp;<span>8.3 (a)</span></a> and <a href="#fig-scaleClade" class="quarto-xref">Figure&nbsp;<span>8.2</span></a>), <em>etc.</em>. Details of the tree manipulation functions are summarized in Table <a href="#tbl-treeman" class="quarto-xref">Table&nbsp;<span>8.1</span></a>.</p>
+<div class="cell">
+<div id="tbl-treeman" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-treeman-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8.1: Tree manipulation functions.
+</figcaption>
+<div aria-describedby="tbl-treeman-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table do-not-create-environment cell caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Function</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">collapse</td>
+<td style="text-align: left;">Collapse a selecting clade</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">expand</td>
+<td style="text-align: left;">Expand collapsed clade</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">flip</td>
+<td style="text-align: left;">Exchange position of 2 clades that share a parent node</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">groupClade</td>
+<td style="text-align: left;">Grouping clades</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">groupOTU</td>
+<td style="text-align: left;">Grouping OTUs by tracing back to the most recent common ancestor</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">identify</td>
+<td style="text-align: left;">Interactive tree manipulation</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rotate</td>
+<td style="text-align: left;">Rotating a selected clade by 180 degrees</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rotate_tree</td>
+<td style="text-align: left;">Rotating circular layout tree by a specific angle</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">scaleClade</td>
+<td style="text-align: left;">Zoom in or zoom out selecting clade</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">open_tree</td>
+<td style="text-align: left;">Convert a tree to fan layout by specific open angle</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<section id="viewing-selected-clade" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="viewing-selected-clade"><span class="header-section-number">8.1</span> Viewing Selected Clade</h2>
+<p>A clade is a monophyletic group that contains a single ancestor and all of its descendants. We can visualize a specifically selected clade via the <code>viewClade()</code> function as demonstrated in Figure <a href="#fig-viewClade-2" class="quarto-xref">Figure&nbsp;<span>8.1 (b)</span></a>. Another solution is to extract the selected clade as a new tree object as described in <a href="02_tidytree.html#subsetting-tree-with-data">session 2.5</a>. These functions are developed to help users explore a large tree.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>nwk <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"sample.nwk"</span>, <span class="at">package=</span><span class="st">"treeio"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(nwk)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree) <span class="sc">+</span> <span class="fu">geom_tiplab</span>()</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">viewClade</span>(p, <span class="fu">MRCA</span>(p, <span class="st">"I"</span>, <span class="st">"L"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="07_ggtree_manipulation_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption><strong>Viewing a selected clade of a tree.</strong> An example tree used to demonstrate how <code>r Biocpkg("ggtree")</code> supports exploring or manipulating phylogenetic tree visually (A). The <code>r Biocpkg("ggtree")</code> supports visualizing selected clade (B). A clade can be selected by specifying a node number or determined by the most recent common ancestor of selected tips.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div id="fig-viewClade" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-viewClade-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-viewClade" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-viewClade-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:viewCladescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-viewClade-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-viewClade-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:viewCladescap)" data-ref-parent="fig-viewClade">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-viewClade-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Example tree used to demonstrate visual exploration
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-viewClade" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-viewClade-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:viewCladescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-viewClade-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-viewClade-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:viewCladescap)" data-ref-parent="fig-viewClade">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-viewClade-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Visualizing a selected clade
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-viewClade-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.1: Viewing a selected clade of a tree.
+</figcaption>
+</figure>
+</div>
+<p>Some of the functions, <em>e.g.</em>, <code>viewClade()</code>, work with clade and accept a parameter of an internal node number. To get the internal node number, users can use the <code>MRCA()</code> function (as in Figure <a href="#fig-viewClade" class="quarto-xref">Figure&nbsp;<span>8.1</span></a>) by providing two taxa names. The function will return the node number of input taxa’s most recent common ancestor (MRCA). It works with a tree and graphic (<em>i.e.</em>, the <code>ggtree()</code> output) object. The <a href="https://CRAN.R-project.org/package=tidytree">tidytree</a> package also provides an <code>MRCA()</code> method to extract information from the MRCA node (see details in <a href="#accesor-tidytree">session 2.1.3</a>).</p>
+</section>
+<section id="sec-scale-clade" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="sec-scale-clade"><span class="header-section-number">8.2</span> Scaling Selected Clade</h2>
+<p>The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> provides another option to zoom out (or compress) selected clades via the <code>scaleClade()</code> function. In this way, we retain the topology and branch lengths of compressed clades. This helps to save the space to highlight those clades of primary interest in the study.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tree2 <span class="ot">&lt;-</span> <span class="fu">groupClade</span>(tree, <span class="fu">c</span>(<span class="dv">17</span>, <span class="dv">21</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree2, <span class="fu">aes</span>(<span class="at">color=</span>group)) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">'none'</span>) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"firebrick"</span>, <span class="st">"steelblue"</span>))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">scaleClade</span>(p, <span class="at">node=</span><span class="dv">17</span>, <span class="at">scale=</span>.<span class="dv">1</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-scaleClade" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:scaleCladescap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-scaleClade-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-scaleClade-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:scaleCladescap)">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scaleClade-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.2: <strong>Scaling selected clade.</strong> Clades can be zoomed in (if <code>scale &gt; 1</code>) to highlight or zoomed out to save space.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>If users want to emphasize important clades, they can use the <code>scaleClade()</code> function by passing a numeric value larger than 1 to the <code>scale</code> parameter. Then the selected clade will be zoomed in. Users can also use the <code>groupClade()</code> function to assign selected clades with different clade IDs which can be used to color these clades with different colors as shown in Figure <a href="#fig-scaleClade" class="quarto-xref">Figure&nbsp;<span>8.2</span></a>.</p>
+</section>
+<section id="collapsing-and-expanding-clade" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="collapsing-and-expanding-clade"><span class="header-section-number">8.3</span> Collapsing and Expanding Clade</h2>
+<p>It is a common practice to prune or collapse clades so that certain aspects of a tree can be emphasized. The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> supports collapsing selected clades using the <code>collapse()</code> function as shown in Figure <a href="#fig-collapseExpand-1" class="quarto-xref">Figure&nbsp;<span>8.3 (a)</span></a>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p <span class="sc">%&gt;%</span> <span class="fu">collapse</span>(<span class="at">node=</span><span class="dv">21</span>) <span class="sc">+</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point2</span>(<span class="fu">aes</span>(<span class="at">subset=</span>(node<span class="sc">==</span><span class="dv">21</span>)), <span class="at">shape=</span><span class="dv">21</span>, <span class="at">size=</span><span class="dv">5</span>, <span class="at">fill=</span><span class="st">'green'</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">collapse</span>(p2, <span class="at">node=</span><span class="dv">23</span>) <span class="sc">+</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point2</span>(<span class="fu">aes</span>(<span class="at">subset=</span>(node<span class="sc">==</span><span class="dv">23</span>)), <span class="at">shape=</span><span class="dv">23</span>, <span class="at">size=</span><span class="dv">5</span>, <span class="at">fill=</span><span class="st">'red'</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p2)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">expand</span>(p2, <span class="at">node=</span><span class="dv">23</span>) <span class="sc">%&gt;%</span> <span class="fu">expand</span>(<span class="at">node=</span><span class="dv">21</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="fig-collapseExpand" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-collapseExpand-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-collapseExpand" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-collapseExpand-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:collapseExpandscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-collapseExpand-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-collapseExpand-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:collapseExpandscap)" data-ref-parent="fig-collapseExpand">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-collapseExpand-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Collapsing selected clades
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-collapseExpand" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-collapseExpand-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:collapseExpandscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-collapseExpand-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-collapseExpand-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:collapseExpandscap)" data-ref-parent="fig-collapseExpand">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-collapseExpand-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Expanding collapsed clades back
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-collapseExpand-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.3: Collapsing selected clades and expanding collapsed clades.
+</figcaption>
+</figure>
+</div>
+<p>Here two clades were collapsed and labeled by the green circle and red square symbolic points. Collapsing is a common strategy to collapse clades that are too large for displaying in full or are not the primary interest of the study. In <a href="http://bioconductor.org/packages/ggtree">ggtree</a>, we can expand (<em>i.e.</em>, uncollapse) the collapsed branches back with the <code>expand()</code> function to show details of species relationships as demonstrated in Figure <a href="#fig-collapseExpand-2" class="quarto-xref">Figure&nbsp;<span>8.3 (b)</span></a>.</p>
+<p>Triangles are often used to represent the collapsed clade and <a href="http://bioconductor.org/packages/ggtree">ggtree</a> also supports it. The <code>collapse()</code> function provides a “mode” parameter, which by default is “none” and the selected clade was collapsed as a “tip”. Users can specify the <code>mode</code> to “max” that uses the farthest tip (Figure <a href="#fig-collapseMode-1" class="quarto-xref">Figure&nbsp;<span>8.4 (a)</span></a>), “min” that uses the closest tip (Figure <a href="#fig-collapseMode-2" class="quarto-xref">Figure&nbsp;<span>8.4 (b)</span></a>), and “mixed” that uses both (Figure <a href="#fig-collapseMode-3" class="quarto-xref">Figure&nbsp;<span>8.4 (c)</span></a>).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_tiplab</span>()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>node <span class="ot">&lt;-</span> <span class="dv">21</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">collapse</span>(p2, node, <span class="st">'max'</span>) <span class="sc">%&gt;%</span> <span class="fu">expand</span>(node)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">collapse</span>(p2, node, <span class="st">'min'</span>) <span class="sc">%&gt;%</span> <span class="fu">expand</span>(node)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">collapse</span>(p2, node, <span class="st">'mixed'</span>) <span class="sc">%&gt;%</span> <span class="fu">expand</span>(node)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We can pass additional parameters to set the color and transparency of the triangles (Figure <a href="#fig-collapseMode-4" class="quarto-xref">Figure&nbsp;<span>8.4 (d)</span></a>).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">collapse</span>(p, <span class="dv">21</span>, <span class="st">'mixed'</span>, <span class="at">fill=</span><span class="st">'steelblue'</span>, <span class="at">alpha=</span>.<span class="dv">4</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collapse</span>(<span class="dv">23</span>, <span class="st">'mixed'</span>, <span class="at">fill=</span><span class="st">'firebrick'</span>, <span class="at">color=</span><span class="st">'blue'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We can combine <a href="#scale-clade">scaleClade</a> with <code>collapse</code> to zoom in/out of the triangles (Figure <a href="#fig-collapseMode-5" class="quarto-xref">Figure&nbsp;<span>8.4 (e)</span></a>).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scaleClade</span>(p, <span class="dv">23</span>, .<span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">collapse</span>(<span class="dv">23</span>, <span class="st">'min'</span>, <span class="at">fill=</span><span class="st">"darkgreen"</span>)  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-collapseMode" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-collapseMode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-collapseMode" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-collapseMode-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:collapseModescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-collapseMode-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-collapseMode-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:collapseModescap)" data-ref-parent="fig-collapseMode">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-collapseMode-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Collapse mode max
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-collapseMode" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-collapseMode-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:collapseModescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-collapseMode-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-collapseMode-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:collapseModescap)" data-ref-parent="fig-collapseMode">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-collapseMode-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Collapse mode min
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-collapseMode" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-collapseMode-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:collapseModescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-collapseMode-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-collapseMode-3.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:collapseModescap)" data-ref-parent="fig-collapseMode">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-collapseMode-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Collapse mode mixed
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-collapseMode" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-collapseMode-4" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:collapseModescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-collapseMode-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-collapseMode-4.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:collapseModescap)" data-ref-parent="fig-collapseMode">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-collapseMode-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) Set color, fill, and alpha
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-collapseMode" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-collapseMode-5" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:collapseModescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-collapseMode-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-collapseMode-5.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:collapseModescap)" data-ref-parent="fig-collapseMode">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-collapseMode-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(e) Combine scaleClade() with collapse()
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-collapseMode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.4: Collapse clade as a triangle.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-group-taxa-vis" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="sec-group-taxa-vis"><span class="header-section-number">8.4</span> Grouping Taxa</h2>
+<p>The <code>groupClade()</code> function assigns the branches and nodes under different clades into different groups. It accepts an internal node or a vector of internal nodes to cluster clade/clades.</p>
+<p>Similarly, the <code>groupOTU()</code> function assigns branches and nodes to different groups based on user-specified groups of operational taxonomic units (OTUs) that are not necessarily within a clade but can be monophyletic (clade), polyphyletic or paraphyletic. It accepts a vector of OTUs (taxa name) or a list of OTUs and will trace back from OTUs to their most recent common ancestor (MRCA) and cluster them together as demonstrated in Figure <a href="#fig-groupOTU" class="quarto-xref">Figure&nbsp;<span>8.5</span></a>.</p>
+<p>A phylogenetic tree can be annotated by mapping different line types, sizes, colors, or shapes of the branches or nodes that have been assigned to different groups.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>rn <span class="ot">&lt;-</span> <span class="fu">paste0</span>(iris[,<span class="dv">5</span>], <span class="st">"_"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">150</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(iris) <span class="ot">&lt;-</span> rn</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>d_iris <span class="ot">&lt;-</span> <span class="fu">dist</span>(iris[,<span class="sc">-</span><span class="dv">5</span>], <span class="at">method=</span><span class="st">"man"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>tree_iris <span class="ot">&lt;-</span> ape<span class="sc">::</span><span class="fu">bionj</span>(d_iris)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>grp <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">setosa     =</span> rn[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>],</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">versicolor =</span> rn[<span class="dv">51</span><span class="sc">:</span><span class="dv">100</span>],</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">virginica  =</span> rn[<span class="dv">101</span><span class="sc">:</span><span class="dv">150</span>])</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>p_iris <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree_iris, <span class="at">layout =</span> <span class="st">'circular'</span>, <span class="at">branch.length=</span><span class="st">'none'</span>)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="fu">groupOTU</span>(p_iris, grp, <span class="st">'Species'</span>) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">color=</span>Species) <span class="sc">+</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-groupOTU" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:groupOTUscap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-groupOTU-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-groupOTU-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:groupOTUscap)">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-groupOTU-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.5: <strong>Grouping OTUs.</strong> OTU clustering based on their relationships. Selected OTUs and their ancestors up to the MRCA will be clustered together.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>We can group taxa at the tree level. The following code will produce an identical figure of Figure <a href="#fig-groupOTU" class="quarto-xref">Figure&nbsp;<span>8.5</span></a> (see more details described in <a href="02_tidytree.html#grouping-taxa">session 2.2.3</a>).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tree_iris <span class="ot">&lt;-</span> <span class="fu">groupOTU</span>(tree_iris, grp, <span class="st">"Species"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree_iris, <span class="fu">aes</span>(<span class="at">color=</span>Species), <span class="at">layout =</span> <span class="st">'circular'</span>, </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">branch.length =</span> <span class="st">'none'</span>) <span class="sc">+</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exploring-tree-structure" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="exploring-tree-structure"><span class="header-section-number">8.5</span> Exploring Tree Structure</h2>
+<p>To facilitate exploring the tree structure, <a href="http://bioconductor.org/packages/ggtree">ggtree</a> supports rotating selected clade by 180 degrees using the <code>rotate()</code> function (Figure <a href="#fig-rfClade-2" class="quarto-xref">Figure&nbsp;<span>8.6 (b)</span></a>). Position of immediate descendant clades of the internal node can be exchanged via <code>flip()</code> function (Figure <a href="#fig-rfClade-3" class="quarto-xref">Figure&nbsp;<span>8.6 (c)</span></a>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_point2</span>(<span class="fu">aes</span>(<span class="at">subset=</span>node<span class="sc">==</span><span class="dv">16</span>), <span class="at">color=</span><span class="st">'darkgreen'</span>, <span class="at">size=</span><span class="dv">5</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">rotate</span>(p1, <span class="dv">16</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">flip</span>(p2, <span class="dv">17</span>, <span class="dv">21</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="fig-rfClade" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rfClade-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rfClade" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-rfClade-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rotateCladescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rfClade-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-rfClade-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:rotateCladescap)" data-ref-parent="fig-rfClade">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rfClade-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Original tree with selected clade
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rfClade" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-rfClade-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rotateCladescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rfClade-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-rfClade-2.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:rotateCladescap)" data-ref-parent="fig-rfClade">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rfClade-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Rotate selected clade by 180 degrees
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rfClade" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-rfClade-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rotateCladescap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rfClade-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-rfClade-3.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:rotateCladescap)" data-ref-parent="fig-rfClade">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rfClade-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Flip immediate descendant clades
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rfClade-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.6: <strong>Exploring tree structure.</strong> A clade (indicated by a dark green circle) in a tree (A) can be rotated by 180° (B) and the positions of its immediate descendant clades (colored by blue and red) can be exchanged (C).
+</figcaption>
+</figure>
+</div>
+<p>Most of the tree manipulation functions are working on clades, while <a href="http://bioconductor.org/packages/ggtree">ggtree</a> also provides functions to manipulate a tree, including <code>open_tree()</code> to transform a tree in either rectangular or circular layout to the fan layout, and <code>rotate_tree()</code> function to rotate a tree for specific angle in both circular or fan layouts, as demonstrated in Figures <a href="#fig-openTree" class="quarto-xref">Figure&nbsp;<span>8.7</span></a> and <a href="#fig-rotateTree" class="quarto-xref">Figure&nbsp;<span>8.8</span></a>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">open_tree</span>(p, <span class="dv">180</span>) <span class="sc">+</span> <span class="fu">geom_tiplab</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Scale for y is already present.
+Adding another scale for y, which will replace the existing scale.
+Scale for y is already present.
+Adding another scale for y, which will replace the existing scale.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07_ggtree_manipulation_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Scale for y is already present.
+Adding another scale for y, which will replace the existing scale.
+Scale for y is already present.
+Adding another scale for y, which will replace the existing scale.</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-openTree" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:openTreescap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-openTree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-openTree-1.png" class="img-fluid figure-img" data-fig-scap="(ref:openTreescap)" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-openTree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.7: <strong>Transforming a tree to fan layout.</strong> A tree can be transformed to a fan layout by <code>open_tree</code> with a specific <code>angle</code>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rotate_tree</span>(p3, <span class="dv">180</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Coordinate system already present.
+ℹ Adding new coordinate system, which will replace the existing one.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07_ggtree_manipulation_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Coordinate system already present.
+ℹ Adding new coordinate system, which will replace the existing one.</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-rotateTree" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rotateTreescap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rotateTree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-rotateTree-1.png" class="img-fluid figure-img" data-fig-scap="(ref:rotateTreescap)" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rotateTree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.8: <strong>Rotating tree.</strong> A circular/fan layout tree can be rotated by any specific <code>angle</code>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The following example rotates four selected clades (Figure <a href="#fig-rotategif" class="quarto-xref">Figure&nbsp;<span>8.9</span></a>). It is easy to traverse all the internal nodes and rotate them one-by-one.</p>
+<!--
+
+{r eval=F, echo=!knitr::is_latex_output()}
+set.seed(2016-05-29)
+x <- rtree(50)
+p <- ggtree(x) + geom_tiplab()
+for (n in reorder(x, 'postorder')$edge[,1] %>% unique) {
+    p <- rotate(p, n)
+    print(p + geom_point2(aes(subset=(node == n)), color='red'))
+}
+```
+
+
+{r rotategif, fig.width=8, fig.height=9.6, echo=FALSE, eval=!knitr::is_latex_output()}
+knitr::include_graphics("img/rotate_clade.gif")
+```
+
+-->
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2016-05-29</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">50</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(x) <span class="sc">+</span> <span class="fu">geom_tiplab</span>()</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="do">## nn &lt;- unique(reorder(x, 'postorder')$edge[,1]) </span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="do">## to traverse all the internal nodes</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>nn <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">unique</span>(<span class="fu">reorder</span>(x, <span class="st">'postorder'</span>)<span class="sc">$</span>edge[,<span class="dv">1</span>]), <span class="dv">4</span>)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">lapply</span>(nn, <span class="cf">function</span>(n) {</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> <span class="fu">rotate</span>(p, n)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    p <span class="sc">+</span> <span class="fu">geom_point2</span>(<span class="fu">aes</span>(<span class="at">subset=</span>(node <span class="sc">==</span> n)), <span class="at">color=</span><span class="st">'red'</span>, <span class="at">size=</span><span class="dv">3</span>)</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>pp[[<span class="dv">1</span>]]</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>pp[[<span class="dv">2</span>]]</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>pp[[<span class="dv">3</span>]]</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>pp[[<span class="dv">4</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-rotategif" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rotategif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rotategif" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div id="fig-rotategif-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rotategifscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rotategif-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-rotategif-1.png" class="img-fluid figure-img" data-fig-scap="(ref:rotategifscap)" data-ref-parent="fig-rotategif" width="1440">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rotategif-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Rotation 1
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rotategif" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div id="fig-rotategif-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rotategifscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rotategif-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-rotategif-2.png" class="img-fluid figure-img" data-fig-scap="(ref:rotategifscap)" data-ref-parent="fig-rotategif" width="1440">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rotategif-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Rotation 2
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rotategif" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div id="fig-rotategif-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rotategifscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rotategif-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-rotategif-3.png" class="img-fluid figure-img" data-fig-scap="(ref:rotategifscap)" data-ref-parent="fig-rotategif" width="1440">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rotategif-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Rotation 3
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rotategif" style="flex-basis: 25.0%;justify-content: flex-start;">
+<div id="fig-rotategif-4" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rotategifscap)">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rotategif-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-rotategif-4.png" class="img-fluid figure-img" data-fig-scap="(ref:rotategifscap)" data-ref-parent="fig-rotategif" width="1440">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rotategif-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) Rotation 4
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rotategif-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.9: <strong>Rotate selected clades.</strong> Four clades were randomly selected to rotate (indicated by the red symbol).
+</figcaption>
+</figure>
+</div>
+<!--
+{r eval=FALSE, echo=!knitr::is_latex_output()}
+set.seed(123)
+tr <- rtree(50)
+p <- ggtree(tr, layout='circular') + geom_tiplab()
+
+for (angle in seq(0, 270, 10)) {
+    print(open_tree(p, angle=angle) + ggtitle(paste("open angle:", angle)))
+}
+```
+
+{r fangif, fig.width=8, fig.height=9.6, echo=FALSE, fig.cap="(ref:fangifcap)", fig.scap="(ref:fangifscap)", eval=!knitr::is_latex_output()}
+knitr::include_graphics("img/fan_layout.gif")
+```
+
+-->
+<p>Figure <span class="quarto-unresolved-ref">?fig-fangif</span> demonstrates the usage of <code>open_tree()</code> with different open angles.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">50</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tr, <span class="at">layout=</span><span class="st">'circular'</span>) </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>angles <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">270</span>, <span class="at">length.out=</span><span class="dv">6</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">lapply</span>(angles, <span class="cf">function</span>(angle) {</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">open_tree</span>(p, <span class="at">angle=</span>angle) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">"open angle:"</span>, angle))</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>pp[[<span class="dv">1</span>]]</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>pp[[<span class="dv">2</span>]]</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>pp[[<span class="dv">3</span>]]</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>pp[[<span class="dv">4</span>]]</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>pp[[<span class="dv">5</span>]]</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>pp[[<span class="dv">6</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">50</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tr, <span class="at">layout=</span><span class="st">'circular'</span>) </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>angles <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">270</span>, <span class="at">length.out=</span><span class="dv">6</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">lapply</span>(angles, <span class="cf">function</span>(angle) {</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">open_tree</span>(p, <span class="at">angle=</span>angle) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">"open angle:"</span>, angle))</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>pp[[<span class="dv">1</span>]]</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>pp[[<span class="dv">2</span>]]</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>pp[[<span class="dv">3</span>]]</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>pp[[<span class="dv">4</span>]]</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>pp[[<span class="dv">5</span>]]</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>pp[[<span class="dv">6</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell quarto-layout-panel" data-layout-ncol="3">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-fangif-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:fangifscap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fangif-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-fangif-1.png" class="img-fluid figure-img" data-fig-scap="(ref:fangifscap)" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fangif-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.10: <strong>Open tree with different angles.</strong>
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-fangif-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:fangifscap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fangif-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-fangif-2.png" class="img-fluid figure-img" data-fig-scap="(ref:fangifscap)" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fangif-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.11: <strong>Open tree with different angles.</strong>
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-fangif-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:fangifscap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fangif-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-fangif-3.png" class="img-fluid figure-img" data-fig-scap="(ref:fangifscap)" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fangif-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.12: <strong>Open tree with different angles.</strong>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-fangif-4" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:fangifscap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fangif-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-fangif-4.png" class="img-fluid figure-img" data-fig-scap="(ref:fangifscap)" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fangif-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.13: <strong>Open tree with different angles.</strong>
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-fangif-5" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:fangifscap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fangif-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-fangif-5.png" class="img-fluid figure-img" data-fig-scap="(ref:fangifscap)" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fangif-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.14: <strong>Open tree with different angles.</strong>
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-fangif-6" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:fangifscap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fangif-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-fangif-6.png" class="img-fluid figure-img" data-fig-scap="(ref:fangifscap)" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fangif-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.15: <strong>Open tree with different angles.</strong>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>Figure <span class="quarto-unresolved-ref">?fig-rotatetreegif</span> illustrates a rotating tree with different angles.</p>
+<!--
+{r eval=FALSE, echo=!knitr::is_latex_output()}
+for (angle in seq(0, 270, 10)) {
+    print(rotate_tree(p, angle) + ggtitle(paste("rotate angle:", angle)))
+}
+```
+
+{r rotatetreegif, fig.width=8, fig.height=9.6, echo=FALSE, eval=!knitr::is_latex_output(), fig.cap="(ref:rotatetreegifcap)", fig.scap="(ref:rotatetreegifscap)"}
+knitr::include_graphics("img/rotate_tree.gif")
+```
+
+-->
+<div class="cell quarto-layout-panel" data-layout-ncol="3">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-rotatetreegif-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rotatetreegifscap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rotatetreegif-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-rotatetreegif-1.png" class="img-fluid figure-img" data-fig-scap="(ref:rotatetreegifscap)" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rotatetreegif-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.16: <strong>Rotate tree with different angles.</strong>
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-rotatetreegif-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rotatetreegifscap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rotatetreegif-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-rotatetreegif-2.png" class="img-fluid figure-img" data-fig-scap="(ref:rotatetreegifscap)" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rotatetreegif-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.17: <strong>Rotate tree with different angles.</strong>
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-rotatetreegif-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rotatetreegifscap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rotatetreegif-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-rotatetreegif-3.png" class="img-fluid figure-img" data-fig-scap="(ref:rotatetreegifscap)" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rotatetreegif-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.18: <strong>Rotate tree with different angles.</strong>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-rotatetreegif-4" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rotatetreegifscap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rotatetreegif-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-rotatetreegif-4.png" class="img-fluid figure-img" data-fig-scap="(ref:rotatetreegifscap)" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rotatetreegif-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.19: <strong>Rotate tree with different angles.</strong>
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-rotatetreegif-5" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rotatetreegifscap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rotatetreegif-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-rotatetreegif-5.png" class="img-fluid figure-img" data-fig-scap="(ref:rotatetreegifscap)" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rotatetreegif-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.20: <strong>Rotate tree with different angles.</strong>
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-rotatetreegif-6" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:rotatetreegifscap)">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rotatetreegif-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-rotatetreegif-6.png" class="img-fluid figure-img" data-fig-scap="(ref:rotatetreegifscap)" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rotatetreegif-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.21: <strong>Rotate tree with different angles.</strong>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>Interactive tree manipulation is also possible via the <code>identify()</code> method (see details described in <a href="#identify">Chapter 12</a>).</p>
+</section>
+<section id="sec-summary6" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="sec-summary6"><span class="header-section-number">8.6</span> Summary</h2>
+<p>A good visualization tool can not only help users to present the data, but it should also be able to help users to explore the data. Data exploration can allow users to better understand the data and also help discover hidden patterns. The <a href="http://bioconductor.org/packages/ggtree">ggtree</a> provides a set of functions to allow visually manipulating phylogenetic trees and exploring tree structures with associated data. Exploring data in the evolutionary context may help discover new systematic patterns and generate new hypotheses.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-yu_ggtree:_2017" class="csl-entry" role="listitem">
+Yu, G., Smith, D. K., Zhu, H., Guan, Y., &amp; Lam, T. T.-Y. (2017). Ggtree: An r package for visualization and annotation of phylogenetic trees with their covariates and other associated data. <em>Methods in Ecology and Evolution</em>, <em>8</em>(1), 28–36. <a href="https://doi.org/10.1111/2041-210X.12628">https://doi.org/10.1111/2041-210X.12628</a>
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./06_ggtree_annotation.html" class="pagination-link" aria-label="Phylogenetic Tree Annotation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Phylogenetic Tree Annotation</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./08_ggtree_tree_with_data.html" class="pagination-link" aria-label="Plotting tree with data">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Plotting tree with data</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/YuLab-SMU/treedata-book/edit/main/07_ggtree_manipulation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/blob/main/07_ggtree_manipulation.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>
