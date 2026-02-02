@@ -274,7 +274,11 @@ The `r Biocpkg("ggtree")` [@yu_ggtree:_2017] and `r Biocpkg("ggtreeExtra")` pack
 
 
 
+```{r}
+#| echo: false
 
+ggtree_unset_interactive()
+```
 
 ```{r}
 #| fig-width: 7
