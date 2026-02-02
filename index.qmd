@@ -10,10 +10,10 @@ options(
 
 options(tinytex.clean = FALSE)
 
-## manual setting. the ropenscilabs/icons package will set up everything for you.
-## fontawesome supports
-## htmltools::tagList(rmarkdown::html_dependency_font_awesome())
-## icons::download_fontawesome()
+# manual setting. the ropenscilabs/icons package will set up everything for you.
+# fontawesome supports
+# htmltools::tagList(rmarkdown::html_dependency_font_awesome())
+# icons::download_fontawesome()
 
 library(knitr)
 #knit_hooks$set(crop = hook_pdfcrop)
@@ -38,7 +38,6 @@ if (knitr::is_latex_output()) {
 
 ```{asis, echo=identical(knitr:::pandoc_to(), 'html')}
 **Note**: This book has been published by [Chapman & Hall/CRC](https://www.routledge.com/Data-Integration-Manipulation-and-Visualization-of-Phylogenetic-Trees/Yu/p/book/9781032233574). The online version of this book is free to read here (thanks to Chapman & Hall/CRC), and licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
-<p style="text-align: center;"><a href="https://www.routledge.com/Data-Integration-Manipulation-and-Visualization-of-Phylogenetic-Trees/Yu/p/book/9781032233574"><img src="https://yulab-smu.top/treedata-book/9781032233574_cover_review.png" alt="The ggtree book cover" /></a></p>
 ```
 
 
@@ -50,7 +49,7 @@ The development of the `r Biocpkg("ggtree")` package started during my PhD study
 After several years of development, `r Biocpkg("ggtree")` has evolved into a package suite, including `r CRANpkg("tidytree")` for manipulating tree with data using the tidy interface; `r Biocpkg("treeio")` for importing and exporting tree with richly annotated data; `r Biocpkg("ggtree")` for tree visualization and annotation and `r Biocpkg("ggtreeExtra")` for presenting data with a phylogeny side-by-side for a rectangular layout or in outer rings for a circular layout. The `r Biocpkg("ggtree")` is a general tool that supports different types of tree and tree-like structures and can be applied to different disciplines to help researchers presenting and interpreting data in the evolutionary or hierarchical context. 
 
 
-## Structure of the book {-}
+## Structure of the book {.unnumbered}
 
 
 + Part I (Tree data input, output and manipulation) describes `r Biocpkg("treeio")` package for tree data input and output, and `r CRANpkg("tidytree")` package for tree data manipulation.
@@ -62,7 +61,7 @@ After several years of development, `r Biocpkg("ggtree")` has evolved into a pac
 ```{r}
 ```
 
-## Acknowledgments {-}
+## Acknowledgments {.unnumbered}
 
 Many people have contributed to this book with spelling and grammar corrections. I'd particularly like to thank Shuangbin Xu, Lin Li and Xiao Luo for their detailed technical reviews of the book, and Tiao You for designing the front cover of the book. 
 
