@@ -1,15 +1,16 @@
 \mainmatter
 
-
-# (PART\*) Part I: Tree data input, output, and manipulation {-}
-
 \newpage
 
 # Importing Tree with Data {#chapter1}
 
 
 
-```{r echo=FALSE, results="hide", message=FALSE}
+```{r}
+#| echo: false
+#| results: hide
+#| message: false
+#| warning: false
 source("setup.R")
 library(tidyr)
 library(dplyr)

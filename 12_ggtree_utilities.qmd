@@ -1,5 +1,3 @@
-# (PART\*) Part IV: Miscellaneous topics {-}
-
 \newpage
 
 # ggtree Utilities {#sec-chapter12}

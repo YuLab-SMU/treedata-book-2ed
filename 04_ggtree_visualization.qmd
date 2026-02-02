@@ -1,11 +1,12 @@
-# (PART\*) Part II: Tree data visualization and annotation {-}
-
 \newpage
 
 
 # Phylogenetic Tree Visualization {#sec-chapter4}
 
 ```{r}
+#| echo: false
+#| warning: false
+#| message: false
 library("ape")
 library("grid")
 library("ggplot2")

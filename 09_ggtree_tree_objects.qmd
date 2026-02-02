@@ -3,6 +3,9 @@
 # ggtree for Other Tree-like Objects {#sec-chapter9}
 
 ```{r}
+#| echo: false
+#| warning: false
+#| message: false
 library("yulab.utils")
 library("ggplot2")
 library("tidytree")

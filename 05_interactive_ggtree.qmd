@@ -1,6 +1,9 @@
 # Interactive `ggtree` {#sec-interactive-ggtree}
 
 ```{r}
+#| echo: false
+#| warning: false
+#| message: false
 library("ape")
 library("ggtree")
 source("setup.R")
@@ -102,8 +105,12 @@ p3
 
 This workflow allows you to use interactivity during exploration while keeping a single plotting script for both interactive inspection and final figure export.
 
+For a more complex and comprehensive example of interactive `ggtree` visualization, including multiple data layers and complex mappings, please refer to the HMP microbiome data visualization in [Chapter 10](#sec-geom-fruit2). That example demonstrates how to combine `ggtreeExtra` with interactive features to explore multi-dimensional data associated with a phylogenetic tree.
+
+
 ## Practical notes
 
 - Assign stable and unique `data_id` values within each layer.
 - Keep tooltips short. Use them for values, labels, and short summaries.
 - If a plot becomes slow, remove unnecessary interactive mappings from dense layers.
+

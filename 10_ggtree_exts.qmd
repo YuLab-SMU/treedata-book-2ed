@@ -1,10 +1,11 @@
-# (PART\*) Part III: ggtree extensions {-}
-
 \newpage
 
 # ggtreeExtra for Presenting Data on a Circular Layout {#sec-chapter10}
 
 ```{r}
+#| echo: false
+#| warning: false
+#| message: false
 library("yulab.utils")
 source("setup.R")
 ```
@@ -101,9 +102,7 @@ p
 
 ## Aligning Multiple Graphs to the Tree for Multi-dimensional Data {#sec-geom-fruit2}
 
-We are able to add multiple `geom_fruit()`\index{geom\textunderscore fruit} layers to a tree and the circular layout is indeed more compact and efficient for multi-dimensional data. This example reproduces figure 2 of [@morgan2013HMP]. The data is provided by GraPhlAn [@GraPhlAn], which contained the relative abundance of the microbiome at different body sites. This example demonstrates the ability to add multiple layers (heat map and bar plot) to present different types of data (Figure @fig-HMPplot)\index{microbiome}. 
-
-
+We are able to add multiple `geom_fruit()`\index{geom\textunderscore fruit} layers to a tree and the circular layout is indeed more compact and efficient for multi-dimensional data. This example reproduces figure 2 of [@morgan2013HMP]. The data is provided by GraPhlAn [@GraPhlAn], which contained the relative abundance of the microbiome at different body sites. This example demonstrates the ability to add multiple layers (heat map and bar plot) to present different types of data (Figure @fig-HMPplot)\index{microbiome}. This figure is also an interactive one, where you can hover over the branches, nodes, and other graphical elements to explore the data. For more details on creating interactive `ggtree` plots, please refer to [Chapter 5](#sec-interactive-ggtree).
 
 ```{r}
 #| dev: 'png'
@@ -125,6 +124,7 @@ library(tidytree)
 library(ggstar)
 library(ggplot2)
 library(ggnewscale)
+library(ggiraph)
 library(TDbook)
 
 # load data from TDbook, including tree_hmptree, 
@@ -159,14 +159,19 @@ poslist <- c(1.6, 1.4, 1.6, 0.8, 0.1, 0.25, 1.6, 1.6, 1.2, 0.4,
 labdf <- data.frame(node=nodeids, label=nodelab, pos=poslist)
 
 # The circular layout tree.
-p <- ggtree(tree, layout="fan", size=0.15, open.angle=5) +
-     geom_hilight(data=nodedf, mapping=aes(node=node),
+p <- ggtree(tree, layout="fan", 
+             mapping = aes(tooltip = round(branch.length,2), data_id=node), 
+             size=0.15, open.angle=5) +
+     geom_hilight(data=nodedf, 
+                  mapping=aes(node=node, tooltip = node, data_id = node),
                   extendto=6.8, alpha=0.3, fill="grey", color="grey50",
-                  size=0.05) +
+                  size=0.05, to.bottom = TRUE) +
      geom_cladelab(data=labdf, 
                    mapping=aes(node=node, 
                                label=label,
-                               offset.text=pos),
+                               offset.text=pos,
+                               tooltip = label, 
+                               data_id = label),
                    hjust=0.5,
                    angle="auto",
                    barsize=NA,
@@ -175,8 +180,13 @@ p <- ggtree(tree, layout="fan", size=0.15, open.angle=5) +
                    fontface="italic"
                    )
 
-p <- p %<+% dat1 + geom_star(
-                        mapping=aes(fill=Phylum, starshape=Type, size=Size),
+p <- p %<+% dat1 + geom_star_interactive(
+                        mapping=aes(subset=isTip, 
+                                    fill=Phylum, 
+                                    starshape=Type, 
+                                    size=Size,
+                                    tooltip = paste0(Phylum,"\n", label), 
+                                    data_id = label),
                         position="identity",starstroke=0.1) +
         scale_fill_manual(values=c("#FFC125","#87CEFA","#7B68EE","#808080",
                                 "#800080", "#9ACD32","#D15FEE","#FFC0CB",
@@ -196,22 +206,31 @@ p <- p %<+% dat1 + geom_star(
                                         override.aes=list(starshape=15)))
                                                     
 p <- p + new_scale_fill() +
-         geom_fruit(data=dat2, geom=geom_tile,
-                  mapping=aes(y=ID, x=Sites, alpha=Abundance, fill=Sites),
+         geom_fruit(data=dat2, geom=geom_tile_interactive,
+                  mapping=aes(y=ID, x=Sites, alpha=Abundance, fill=Sites, 
+                              tooltip = round(Abundance, 2), 
+                              data_id = paste0(Sites, ID)),
                   color = "grey50", offset = 0.04,size = 0.02)+
          scale_alpha_continuous(range=c(0, 1),
                              guide=guide_legend(keywidth = 0.3, 
                                              keyheight = 0.3, order=5)) +
-         geom_fruit(data=dat3, geom=geom_bar,
-                    mapping=aes(y=ID, x=HigherAbundance, fill=Sites),
+         geom_fruit(data=dat3, geom=geom_bar_interactive,
+                    mapping=aes(y=ID, x=HigherAbundance, fill=Sites,
+                                tooltip = round(HigherAbundance, 2), 
+                                data_id = paste0(Sites, ID)),
                     pwidth=0.38, 
                     orientation="y", 
                     stat="identity",
          ) +
-         scale_fill_manual(values=c("#0000FF","#FFA500","#FF0000",
-                                "#800000", "#006400","#800080","#696969"),
-                           guide=guide_legend(keywidth = 0.3, 
-                                        keyheight = 0.3, order=4))+
+         scale_fill_manual_interactive(
+           values=c("#0000FF","#FFA500","#FF0000",
+                   "#800000", "#006400","#800080","#696969"),
+           data_id = function(breaks) as.character(breaks),
+           tooltip = function(breaks) as.character(breaks),
+           onclick = function(breaks) paste0("alert(\"", as.character(breaks), "\")"),                           
+           guide=guide_legend(keywidth = 0.3, 
+                  keyheight = 0.3, order=4)
+           )+
          geom_treescale(fontsize=2, linesize=0.3, x=4.9, y=0.1) +
          theme(legend.position=c(0.93, 0.5),
                legend.background=element_rect(fill=NA),
@@ -219,6 +238,8 @@ p <- p + new_scale_fill() +
                legend.text=element_text(size=4.5),
                legend.spacing.y = unit(0.02, "cm"),
              )
+
+ggtree_set_interactive()
 p
 ```
 

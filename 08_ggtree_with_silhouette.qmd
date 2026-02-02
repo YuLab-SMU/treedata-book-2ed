@@ -3,6 +3,9 @@
 # Annotating Tree with Silhouette Images and Sub-plots {#sec-chapter8}
 
 ```{r}
+#| echo: false
+#| warning: false
+#| message: false
 #| include: false
 library(knitr)
 opts_chunk$set(message=FALSE, warning=FALSE, eval=TRUE, echo=TRUE, cache=TRUE)
