@@ -105,7 +105,7 @@ p3
 
 This workflow allows you to use interactivity during exploration while keeping a single plotting script for both interactive inspection and final figure export.
 
-For a more complex and comprehensive example of interactive `ggtree` visualization, including multiple data layers and complex mappings, please refer to the HMP microbiome data visualization in [Chapter 10](#sec-geom-fruit2). That example demonstrates how to combine `ggtreeExtra` with interactive features to explore multi-dimensional data associated with a phylogenetic tree.
+For a more complex and comprehensive example of interactive `ggtree` visualization, including multiple data layers and complex mappings, please refer to the HMP microbiome data visualization in [Chapter 11](#sec-geom-fruit2). That example demonstrates how to combine `ggtreeExtra` with interactive features to explore multi-dimensional data associated with a phylogenetic tree.
 
 
 ## Practical notes

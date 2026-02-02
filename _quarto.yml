@@ -22,19 +22,19 @@ book:
       chapters:
         - 04_ggtree_visualization.qmd
         - 05_interactive_ggtree.qmd
-        - 05_ggtree_annotation.qmd
-        - 06_ggtree_manipulation.qmd
-        - 07_ggtree_tree_with_data.qmd
-        - 08_ggtree_with_silhouette.qmd
-        - 09_ggtree_tree_objects.qmd
+        - 06_ggtree_annotation.qmd
+        - 07_ggtree_manipulation.qmd
+        - 08_ggtree_tree_with_data.qmd
+        - 09_ggtree_with_silhouette.qmd
+        - 10_ggtree_tree_objects.qmd
     - part: "Part III: ggtree extensions"
       chapters:
-        - 10_ggtree_exts.qmd
-        - 11_ggtree_exts-others.qmd
+        - 11_ggtree_exts.qmd
+        - 12_ggtree_exts-others.qmd
     - part: "Part IV: Miscellaneous topics"
       chapters:
-        - 12_ggtree_utilities.qmd
-        - 13_ggtree_gallery.qmd
+        - 13_ggtree_utilities.qmd
+        - 14_ggtree_gallery.qmd
     - part: "Appendix"
       chapters: 
         - A-app-faq.qmd

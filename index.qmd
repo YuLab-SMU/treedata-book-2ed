@@ -31,23 +31,9 @@ if (knitr::is_latex_output()) {
 ```
 
 
-
-
-<!--
-# Welcome {-}
-
-<img class="cover" src="book-cover.png" width="210" height="297" /> This is the online work-in-progress book of "Data Integration, Manipulation and Visualization of Phylogenetic Trees". This book gives your all the details of using the ggtree package suite to handle tree with data. The book is written by Guangchuang Yu.
-
-
-<center>
-<img src="book-cover.png" style="width:500px;border:2px solid black;"/>
-</center>
-
--->
-
 \newpage
 \frontmatter
-# Preface {-}
+# Preface {#sec-preface .unnumbered}
 
 
 ```{asis, echo=identical(knitr:::pandoc_to(), 'html')}
