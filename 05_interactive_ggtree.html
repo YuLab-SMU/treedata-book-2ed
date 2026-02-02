@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Master ggtree package suite to handle tree with data.">
+
+<title>4&nbsp; Interactive ggtree – Data Integration, Manipulation and Visualization of Phylogenetic Trees</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./05_ggtree_annotation.html" rel="next">
+<link href="./04_ggtree_visualization.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/ggiraphjs-0.9.2/girafe.css" rel="stylesheet">
+<script src="site_libs/ggiraphjs-0.9.2/girafe.js"></script>
+<script src="site_libs/girafe-binding-0.9.3/girafe.js"></script>
+
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05_interactive_ggtree.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Interactive <code>ggtree</code></span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Integration, Manipulation and Visualization of Phylogenetic Trees</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/YuLab-SMU/treedata-book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">manual setting. the ropenscilabs/icons package will set up everything for you.</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_author.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Author</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_treeio_importing_tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(PART*) Part I: Tree data input, output, and manipulation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_tidytree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Manipulating Tree with Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_treeio_exporting_tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exporting tree with data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_ggtree_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(PART*) Part II: Tree data visualization and annotation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_interactive_ggtree.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Interactive <code>ggtree</code></span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_ggtree_annotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Phylogenetic Tree Annotation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_ggtree_manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Visual Exploration of Phylogenetic Trees</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_ggtree_tree_with_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Plotting tree with data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_ggtree_with_silhouette.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Annotating Tree with Silhouette Images and Sub-plots</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_ggtree_tree_objects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">ggtree for Other Tree-like Objects</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_ggtree_exts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(PART*) Part III: ggtree extensions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_ggtree_exts-others.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Other ggtree Extensions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_ggtree_utilities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(PART*) Part IV: Miscellaneous topics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_ggtree_gallery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Gallery of Reproducible Examples</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendix</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A-app-faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(APPENDIX) Appendix</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A-app-tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Related Tools</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A-app-fig-tab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Figures and Tables</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./B-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">4.1</span> Introduction</a></li>
+  <li><a href="#turning-interactivity-on-and-off" id="toc-turning-interactivity-on-and-off" class="nav-link" data-scroll-target="#turning-interactivity-on-and-off"><span class="header-section-number">4.2</span> Turning interactivity on and off</a></li>
+  <li><a href="#the-two-key-aesthetics-tooltip-and-data_id" id="toc-the-two-key-aesthetics-tooltip-and-data_id" class="nav-link" data-scroll-target="#the-two-key-aesthetics-tooltip-and-data_id"><span class="header-section-number">4.3</span> The two key aesthetics: <code>tooltip</code> and <code>data_id</code></a></li>
+  <li><a href="#interactive-layers" id="toc-interactive-layers" class="nav-link" data-scroll-target="#interactive-layers"><span class="header-section-number">4.4</span> Interactive layers</a></li>
+  <li><a href="#returning-to-static-output" id="toc-returning-to-static-output" class="nav-link" data-scroll-target="#returning-to-static-output"><span class="header-section-number">4.5</span> Returning to static output</a></li>
+  <li><a href="#practical-notes" id="toc-practical-notes" class="nav-link" data-scroll-target="#practical-notes"><span class="header-section-number">4.6</span> Practical notes</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/YuLab-SMU/treedata-book/edit/main/05_interactive_ggtree.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/blob/main/05_interactive_ggtree.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-interactive-ggtree" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Interactive <code>ggtree</code></span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ape"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggtree"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ggtree v4.1.1.004 Learn more at https://yulab-smu.top/contribution-tree-data/
+
+Please cite:
+
+Guangchuang Yu, Tommy Tsan-Yuk Lam, Huachen Zhu, Yi Guan. Two methods
+for mapping and visualizing associated data on phylogeny using ggtree.
+Molecular Biology and Evolution. 2018, 35(12):3041-3043.
+doi:10.1093/molbev/msy194</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'ggtree'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:ape':
+
+    rotate</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"setup.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[conflicted] Will prefer ggtree::expand over any other package.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[conflicted] Will prefer ggtree::rotate over any other package.
+[conflicted] Will prefer treeio::mask over any other package.
+[conflicted] Will prefer treeio::parent over any other package.
+[conflicted] Will prefer treeio::ancestor over any other package.
+[conflicted] Will prefer treeio::get.data over any other package.
+[conflicted] Will prefer treeio::drop.tip over any other package.
+[conflicted] Will prefer treeio::read.newick over any other package.
+[conflicted] Will prefer tidytree::MRCA over any other package.
+[conflicted] Will prefer dplyr::filter over any other package.
+[conflicted] Will prefer dplyr::rename over any other package.
+[conflicted] Will prefer dplyr::collapse over any other package.
+[conflicted] Will prefer dplyr::intersect over any other package.
+[conflicted] Will prefer dplyr::union over any other package.
+[conflicted] Will prefer dplyr::slice over any other package.
+[conflicted] Will prefer base::strsplit over any other package.
+[conflicted] Will prefer base::paste over any other package.
+[conflicted] Will prefer ggplot2::geom_errorbarh over any other package.
+[conflicted] Will prefer MicrobiotaProcess::tax_table over any other package.
+[conflicted] Will prefer BiocGenerics::as.data.frame over any other package.
+[conflicted] Will prefer base::setdiff over any other package.
+[conflicted] Will prefer yulab.utils::CRANpkg over any other package.
+[conflicted] Will prefer yulab.utils::Biocpkg over any other package.</code></pre>
+</div>
+</div>
+<section id="introduction" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">4.1</span> Introduction</h2>
+<p>Tree figures are often used in two different modes.</p>
+<p>In the first mode, you prepare a static figure for a manuscript or a report. The goal is to be stable and reproducible. In the second mode, you explore: you hover to read values, identify elements, and verify that layers match the intended nodes or clades.</p>
+<p><a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports an interactive mode designed for exploration. The design principle is simple: you switch interactivity on and off, while keeping the same plotting code and the same <code>ggtree</code> objects. When interactivity is enabled, printing a plot returns an HTML widget; when it is disabled, the same plot prints as a static figure.</p>
+</section>
+<section id="turning-interactivity-on-and-off" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="turning-interactivity-on-and-off"><span class="header-section-number">4.2</span> Turning interactivity on and off</h2>
+<p>Start with a normal <code>ggtree</code> plot.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">20</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tr)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_interactive_ggtree_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Enable interactive mode and print the same object again.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree_set_interactive</span>()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Interactive visualization of ggtree requires specific interactive attributes,
+such as `tooltip`, `onclick`, or `data_id`; without them,
+no interactive features will be available!</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="girafe html-widget html-fill-item" id="htmlwidget-31f021030c44f57ef298" style="width:100%;height:338px;"></div>
+<script type="application/json" data-for="htmlwidget-31f021030c44f57ef298">{"x":{"html":"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='ggiraph-svg' role='graphics-document' id='svg_c75555269eefd075' viewBox='0 0 504 504'>\n <defs id='svg_c75555269eefd075_defs'>\n  <clipPath id='svg_c75555269eefd075_c1'>\n   <rect x='0' y='0' width='504' height='504'/>\n  <\/clipPath>\n  <clipPath id='svg_c75555269eefd075_c2'>\n   <rect x='5.48' y='5.48' width='493.04' height='493.04'/>\n  <\/clipPath>\n <\/defs>\n <g id='svg_c75555269eefd075_rootg' class='ggiraph-svg-rootg'>\n  <g clip-path='url(#svg_c75555269eefd075_c1)'>\n   <rect x='0' y='0' width='504' height='504' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='0.75' stroke-linejoin='round' stroke-linecap='round' class='ggiraph-svg-bg'/>\n   <rect x='0' y='0' width='504' height='504' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n  <\/g>\n  <g clip-path='url(#svg_c75555269eefd075_c2)'>\n   <rect x='5.48' y='5.48' width='493.04' height='493.04' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='126.67' y1='337.43' x2='158.02' y2='337.43' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='126.67' y1='313.02' x2='227.8' y2='313.02' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='71.73' y1='361.84' x2='77.13' y2='361.84' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='204.95' y1='264.2' x2='271.09' y2='264.2' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='204.95' y1='239.8' x2='229.3' y2='239.8' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='190.58' y1='288.61' x2='205.62' y2='288.61' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='290.73' y1='215.39' x2='334.87' y2='215.39' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='290.73' y1='190.98' x2='369.14' y2='190.98' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='274' y1='142.16' x2='370.05' y2='142.16' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='326.88' y1='117.76' x2='422.39' y2='117.76' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='326.88' y1='93.35' x2='422.66' y2='93.35' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='387.16' y1='44.53' x2='476.11' y2='44.53' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='387.16' y1='20.12' x2='461.34' y2='20.12' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='335.3' y1='68.94' x2='419.03' y2='68.94' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='196.38' y1='166.57' x2='196.46' y2='166.57' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='109.88' y1='483.88' x2='154.66' y2='483.88' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='109.88' y1='459.47' x2='182.12' y2='459.47' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='138.51' y1='410.65' x2='167.23' y2='410.65' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='138.51' y1='386.24' x2='217.27' y2='386.24' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='125.41' y1='435.06' x2='174.64' y2='435.06' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='27.89' y1='362.41' x2='27.89' y2='362.41' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='27.89' y1='280.6' x2='44.26' y2='280.6' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='44.26' y1='343.53' x2='71.73' y2='343.53' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='71.73' y1='325.22' x2='126.67' y2='325.22' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='44.26' y1='217.68' x2='96.39' y2='217.68' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='96.39' y1='270.31' x2='190.58' y2='270.31' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='190.58' y1='252' x2='204.95' y2='252' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='96.39' y1='165.05' x2='185.2' y2='165.05' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='185.2' y1='203.18' x2='290.73' y2='203.18' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='185.2' y1='126.91' x2='196.38' y2='126.91' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='196.38' y1='87.25' x2='241.65' y2='87.25' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='241.65' y1='123.86' x2='274' y2='123.86' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='274' y1='105.55' x2='326.88' y2='105.55' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='241.65' y1='50.63' x2='335.3' y2='50.63' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='335.3' y1='32.33' x2='387.16' y2='32.33' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='27.89' y1='444.21' x2='83.93' y2='444.21' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='83.93' y1='471.67' x2='109.88' y2='471.67' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='83.93' y1='416.75' x2='125.41' y2='416.75' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='125.41' y1='398.45' x2='138.51' y2='398.45' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='126.67' y1='325.22' x2='126.67' y2='337.43' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='126.67' y1='325.22' x2='126.67' y2='313.02' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='71.73' y1='343.53' x2='71.73' y2='361.84' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='204.95' y1='252' x2='204.95' y2='264.2' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='204.95' y1='252' x2='204.95' y2='239.8' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='190.58' y1='270.31' x2='190.58' y2='288.61' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='290.73' y1='203.18' x2='290.73' y2='215.39' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='290.73' y1='203.18' x2='290.73' y2='190.98' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='274' y1='123.86' x2='274' y2='142.16' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='326.88' y1='105.55' x2='326.88' y2='117.76' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='326.88' y1='105.55' x2='326.88' y2='93.35' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='387.16' y1='32.33' x2='387.16' y2='44.53' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='387.16' y1='32.33' x2='387.16' y2='20.12' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='335.3' y1='50.63' x2='335.3' y2='68.94' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='196.38' y1='126.91' x2='196.38' y2='166.57' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='109.88' y1='471.67' x2='109.88' y2='483.88' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='109.88' y1='471.67' x2='109.88' y2='459.47' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='138.51' y1='398.45' x2='138.51' y2='410.65' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='138.51' y1='398.45' x2='138.51' y2='386.24' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='125.41' y1='416.75' x2='125.41' y2='435.06' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='27.89' y1='362.41' x2='27.89' y2='362.41' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='27.89' y1='362.41' x2='27.89' y2='280.6' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='44.26' y1='280.6' x2='44.26' y2='343.53' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='71.73' y1='343.53' x2='71.73' y2='325.22' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='44.26' y1='280.6' x2='44.26' y2='217.68' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='96.39' y1='217.68' x2='96.39' y2='270.31' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='190.58' y1='270.31' x2='190.58' y2='252' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='96.39' y1='217.68' x2='96.39' y2='165.05' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='185.2' y1='165.05' x2='185.2' y2='203.18' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='185.2' y1='165.05' x2='185.2' y2='126.91' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='196.38' y1='126.91' x2='196.38' y2='87.25' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='241.65' y1='87.25' x2='241.65' y2='123.86' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='274' y1='123.86' x2='274' y2='105.55' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='241.65' y1='87.25' x2='241.65' y2='50.63' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='335.3' y1='50.63' x2='335.3' y2='32.33' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='27.89' y1='362.41' x2='27.89' y2='444.21' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='83.93' y1='444.21' x2='83.93' y2='471.67' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='83.93' y1='444.21' x2='83.93' y2='416.75' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line x1='125.41' y1='416.75' x2='125.41' y2='398.45' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n  <\/g>\n <\/g>\n<\/svg>","js":null,"uid":"svg_c75555269eefd075","ratio":1,"settings":{"tooltip":{"css":".tooltip_SVGID_ { padding:5px;background:black;color:white;border-radius:2px;text-align:left; ; position:absolute;pointer-events:none;z-index:999;}","placement":"doc","opacity":0.9,"offx":10,"offy":10,"use_cursor_pos":true,"use_fill":true,"use_stroke":false,"delay_over":200,"delay_out":500},"hover":{"css":".hover_data_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_data_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_data_SVGID_ { fill:orange;stroke:black; }\nline.hover_data_SVGID_, polyline.hover_data_SVGID_ { fill:none;stroke:orange; }\nrect.hover_data_SVGID_, polygon.hover_data_SVGID_, path.hover_data_SVGID_ { fill:orange;stroke:none; }\nimage.hover_data_SVGID_ { stroke:orange; }","reactive":true,"nearest_distance":null},"hover_inv":{"css":""},"hover_key":{"css":".hover_key_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_key_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_key_SVGID_ { fill:orange;stroke:black; }\nline.hover_key_SVGID_, polyline.hover_key_SVGID_ { fill:none;stroke:orange; }\nrect.hover_key_SVGID_, polygon.hover_key_SVGID_, path.hover_key_SVGID_ { fill:orange;stroke:none; }\nimage.hover_key_SVGID_ { stroke:orange; }","reactive":true},"hover_theme":{"css":".hover_theme_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_theme_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_theme_SVGID_ { fill:orange;stroke:black; }\nline.hover_theme_SVGID_, polyline.hover_theme_SVGID_ { fill:none;stroke:orange; }\nrect.hover_theme_SVGID_, polygon.hover_theme_SVGID_, path.hover_theme_SVGID_ { fill:orange;stroke:none; }\nimage.hover_theme_SVGID_ { stroke:orange; }","reactive":true},"select":{"css":".select_data_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_data_SVGID_ { stroke:none;fill:red; }\ncircle.select_data_SVGID_ { fill:red;stroke:black; }\nline.select_data_SVGID_, polyline.select_data_SVGID_ { fill:none;stroke:red; }\nrect.select_data_SVGID_, polygon.select_data_SVGID_, path.select_data_SVGID_ { fill:red;stroke:none; }\nimage.select_data_SVGID_ { stroke:red; }","type":"multiple","only_shiny":true,"selected":[]},"select_inv":{"css":""},"select_key":{"css":".select_key_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_key_SVGID_ { stroke:none;fill:red; }\ncircle.select_key_SVGID_ { fill:red;stroke:black; }\nline.select_key_SVGID_, polyline.select_key_SVGID_ { fill:none;stroke:red; }\nrect.select_key_SVGID_, polygon.select_key_SVGID_, path.select_key_SVGID_ { fill:red;stroke:none; }\nimage.select_key_SVGID_ { stroke:red; }","type":"single","only_shiny":true,"selected":[]},"select_theme":{"css":".select_theme_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_theme_SVGID_ { stroke:none;fill:red; }\ncircle.select_theme_SVGID_ { fill:red;stroke:black; }\nline.select_theme_SVGID_, polyline.select_theme_SVGID_ { fill:none;stroke:red; }\nrect.select_theme_SVGID_, polygon.select_theme_SVGID_, path.select_theme_SVGID_ { fill:red;stroke:none; }\nimage.select_theme_SVGID_ { stroke:red; }","type":"single","only_shiny":true,"selected":[]},"zoom":{"min":0.7,"max":10,"duration":300,"default_on":false},"toolbar":{"position":"topleft","pngname":"diagram","tooltips":null,"fixed":false,"hidden":[],"delay_over":200,"delay_out":500},"sizing":{"rescale":true,"width":1}}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>At this stage, the output may still look “plain”. This is expected: interactivity requires you to tell <code>ggtree</code> what should be shown on hover and how graphical elements should be identified.</p>
+<p>When you are done exploring and want static output again, disable interactive mode.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree_unset_interactive</span>()</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_interactive_ggtree_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="the-two-key-aesthetics-tooltip-and-data_id" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="the-two-key-aesthetics-tooltip-and-data_id"><span class="header-section-number">4.3</span> The two key aesthetics: <code>tooltip</code> and <code>data_id</code></h2>
+<p>Interactive behavior is controlled by two aesthetics:</p>
+<ul>
+<li><code>tooltip</code> supplies the content shown when hovering over an element.</li>
+<li><code>data_id</code> supplies a unique identifier for elements so that the widget can map hover/click events back to specific branches, nodes, or layers.</li>
+</ul>
+<p>The following example uses branch length as the tooltip and uses node IDs as element identifiers.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree_set_interactive</span>()</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  tr,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">tooltip =</span> <span class="fu">round</span>(branch.length, <span class="dv">2</span>),</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">data_id =</span> node</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>p2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="girafe html-widget html-fill-item" id="htmlwidget-3315589fed18d622a76f" style="width:100%;height:338px;"></div>
+<script type="application/json" data-for="htmlwidget-3315589fed18d622a76f">{"x":{"html":"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='ggiraph-svg' role='graphics-document' id='svg_31f021030c44f57e' viewBox='0 0 504 504'>\n <defs id='svg_31f021030c44f57e_defs'>\n  <clipPath id='svg_31f021030c44f57e_c1'>\n   <rect x='0' y='0' width='504' height='504'/>\n  <\/clipPath>\n  <clipPath id='svg_31f021030c44f57e_c2'>\n   <rect x='5.48' y='5.48' width='493.04' height='493.04'/>\n  <\/clipPath>\n <\/defs>\n <g id='svg_31f021030c44f57e_rootg' class='ggiraph-svg-rootg'>\n  <g clip-path='url(#svg_31f021030c44f57e_c1)'>\n   <rect x='0' y='0' width='504' height='504' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='0.75' stroke-linejoin='round' stroke-linecap='round' class='ggiraph-svg-bg'/>\n   <rect x='0' y='0' width='504' height='504' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n  <\/g>\n  <g clip-path='url(#svg_31f021030c44f57e_c2)'>\n   <rect x='5.48' y='5.48' width='493.04' height='493.04' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <line id='svg_31f021030c44f57e_e1' x1='126.67' y1='337.43' x2='158.02' y2='337.43' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.27' data-id='1'/>\n   <line id='svg_31f021030c44f57e_e2' x1='126.67' y1='313.02' x2='227.8' y2='313.02' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.86' data-id='2'/>\n   <line id='svg_31f021030c44f57e_e3' x1='71.73' y1='361.84' x2='77.13' y2='361.84' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.05' data-id='3'/>\n   <line id='svg_31f021030c44f57e_e4' x1='204.95' y1='264.2' x2='271.09' y2='264.2' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.56' data-id='4'/>\n   <line id='svg_31f021030c44f57e_e5' x1='204.95' y1='239.8' x2='229.3' y2='239.8' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.21' data-id='5'/>\n   <line id='svg_31f021030c44f57e_e6' x1='190.58' y1='288.61' x2='205.62' y2='288.61' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.13' data-id='6'/>\n   <line id='svg_31f021030c44f57e_e7' x1='290.73' y1='215.39' x2='334.87' y2='215.39' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.37' data-id='7'/>\n   <line id='svg_31f021030c44f57e_e8' x1='290.73' y1='190.98' x2='369.14' y2='190.98' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.67' data-id='8'/>\n   <line id='svg_31f021030c44f57e_e9' x1='274' y1='142.16' x2='370.05' y2='142.16' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.81' data-id='9'/>\n   <line id='svg_31f021030c44f57e_e10' x1='326.88' y1='117.76' x2='422.39' y2='117.76' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.81' data-id='10'/>\n   <line id='svg_31f021030c44f57e_e11' x1='326.88' y1='93.35' x2='422.66' y2='93.35' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.81' data-id='11'/>\n   <line id='svg_31f021030c44f57e_e12' x1='387.16' y1='44.53' x2='476.11' y2='44.53' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.75' data-id='12'/>\n   <line id='svg_31f021030c44f57e_e13' x1='387.16' y1='20.12' x2='461.34' y2='20.12' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.63' data-id='13'/>\n   <line id='svg_31f021030c44f57e_e14' x1='335.3' y1='68.94' x2='419.03' y2='68.94' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.71' data-id='14'/>\n   <line id='svg_31f021030c44f57e_e15' x1='196.38' y1='166.57' x2='196.46' y2='166.57' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0' data-id='15'/>\n   <line id='svg_31f021030c44f57e_e16' x1='109.88' y1='483.88' x2='154.66' y2='483.88' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.38' data-id='16'/>\n   <line id='svg_31f021030c44f57e_e17' x1='109.88' y1='459.47' x2='182.12' y2='459.47' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.61' data-id='17'/>\n   <line id='svg_31f021030c44f57e_e18' x1='138.51' y1='410.65' x2='167.23' y2='410.65' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.24' data-id='18'/>\n   <line id='svg_31f021030c44f57e_e19' x1='138.51' y1='386.24' x2='217.27' y2='386.24' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.67' data-id='19'/>\n   <line id='svg_31f021030c44f57e_e20' x1='125.41' y1='435.06' x2='174.64' y2='435.06' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.42' data-id='20'/>\n   <line id='svg_31f021030c44f57e_e21' x1='27.89' y1='362.41' x2='27.89' y2='362.41' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0' data-id='21'/>\n   <line id='svg_31f021030c44f57e_e22' x1='27.89' y1='280.6' x2='44.26' y2='280.6' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.14' data-id='22'/>\n   <line id='svg_31f021030c44f57e_e23' x1='44.26' y1='343.53' x2='71.73' y2='343.53' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.23' data-id='23'/>\n   <line id='svg_31f021030c44f57e_e24' x1='71.73' y1='325.22' x2='126.67' y2='325.22' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.47' data-id='24'/>\n   <line id='svg_31f021030c44f57e_e25' x1='44.26' y1='217.68' x2='96.39' y2='217.68' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.44' data-id='25'/>\n   <line id='svg_31f021030c44f57e_e26' x1='96.39' y1='270.31' x2='190.58' y2='270.31' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.8' data-id='26'/>\n   <line id='svg_31f021030c44f57e_e27' x1='190.58' y1='252' x2='204.95' y2='252' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.12' data-id='27'/>\n   <line id='svg_31f021030c44f57e_e28' x1='96.39' y1='165.05' x2='185.2' y2='165.05' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.75' data-id='28'/>\n   <line id='svg_31f021030c44f57e_e29' x1='185.2' y1='203.18' x2='290.73' y2='203.18' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.9' data-id='29'/>\n   <line id='svg_31f021030c44f57e_e30' x1='185.2' y1='126.91' x2='196.38' y2='126.91' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.09' data-id='30'/>\n   <line id='svg_31f021030c44f57e_e31' x1='196.38' y1='87.25' x2='241.65' y2='87.25' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.38' data-id='31'/>\n   <line id='svg_31f021030c44f57e_e32' x1='241.65' y1='123.86' x2='274' y2='123.86' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.27' data-id='32'/>\n   <line id='svg_31f021030c44f57e_e33' x1='274' y1='105.55' x2='326.88' y2='105.55' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.45' data-id='33'/>\n   <line id='svg_31f021030c44f57e_e34' x1='241.65' y1='50.63' x2='335.3' y2='50.63' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.79' data-id='34'/>\n   <line id='svg_31f021030c44f57e_e35' x1='335.3' y1='32.33' x2='387.16' y2='32.33' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.44' data-id='35'/>\n   <line id='svg_31f021030c44f57e_e36' x1='27.89' y1='444.21' x2='83.93' y2='444.21' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.48' data-id='36'/>\n   <line id='svg_31f021030c44f57e_e37' x1='83.93' y1='471.67' x2='109.88' y2='471.67' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.22' data-id='37'/>\n   <line id='svg_31f021030c44f57e_e38' x1='83.93' y1='416.75' x2='125.41' y2='416.75' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.35' data-id='38'/>\n   <line id='svg_31f021030c44f57e_e39' x1='125.41' y1='398.45' x2='138.51' y2='398.45' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.11' data-id='39'/>\n   <line id='svg_31f021030c44f57e_e40' x1='126.67' y1='325.22' x2='126.67' y2='337.43' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.27' data-id='1'/>\n   <line id='svg_31f021030c44f57e_e41' x1='126.67' y1='325.22' x2='126.67' y2='313.02' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.86' data-id='2'/>\n   <line id='svg_31f021030c44f57e_e42' x1='71.73' y1='343.53' x2='71.73' y2='361.84' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.05' data-id='3'/>\n   <line id='svg_31f021030c44f57e_e43' x1='204.95' y1='252' x2='204.95' y2='264.2' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.56' data-id='4'/>\n   <line id='svg_31f021030c44f57e_e44' x1='204.95' y1='252' x2='204.95' y2='239.8' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.21' data-id='5'/>\n   <line id='svg_31f021030c44f57e_e45' x1='190.58' y1='270.31' x2='190.58' y2='288.61' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.13' data-id='6'/>\n   <line id='svg_31f021030c44f57e_e46' x1='290.73' y1='203.18' x2='290.73' y2='215.39' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.37' data-id='7'/>\n   <line id='svg_31f021030c44f57e_e47' x1='290.73' y1='203.18' x2='290.73' y2='190.98' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.67' data-id='8'/>\n   <line id='svg_31f021030c44f57e_e48' x1='274' y1='123.86' x2='274' y2='142.16' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.81' data-id='9'/>\n   <line id='svg_31f021030c44f57e_e49' x1='326.88' y1='105.55' x2='326.88' y2='117.76' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.81' data-id='10'/>\n   <line id='svg_31f021030c44f57e_e50' x1='326.88' y1='105.55' x2='326.88' y2='93.35' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.81' data-id='11'/>\n   <line id='svg_31f021030c44f57e_e51' x1='387.16' y1='32.33' x2='387.16' y2='44.53' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.75' data-id='12'/>\n   <line id='svg_31f021030c44f57e_e52' x1='387.16' y1='32.33' x2='387.16' y2='20.12' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.63' data-id='13'/>\n   <line id='svg_31f021030c44f57e_e53' x1='335.3' y1='50.63' x2='335.3' y2='68.94' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.71' data-id='14'/>\n   <line id='svg_31f021030c44f57e_e54' x1='196.38' y1='126.91' x2='196.38' y2='166.57' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0' data-id='15'/>\n   <line id='svg_31f021030c44f57e_e55' x1='109.88' y1='471.67' x2='109.88' y2='483.88' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.38' data-id='16'/>\n   <line id='svg_31f021030c44f57e_e56' x1='109.88' y1='471.67' x2='109.88' y2='459.47' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.61' data-id='17'/>\n   <line id='svg_31f021030c44f57e_e57' x1='138.51' y1='398.45' x2='138.51' y2='410.65' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.24' data-id='18'/>\n   <line id='svg_31f021030c44f57e_e58' x1='138.51' y1='398.45' x2='138.51' y2='386.24' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.67' data-id='19'/>\n   <line id='svg_31f021030c44f57e_e59' x1='125.41' y1='416.75' x2='125.41' y2='435.06' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.42' data-id='20'/>\n   <line id='svg_31f021030c44f57e_e60' x1='27.89' y1='362.41' x2='27.89' y2='362.41' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0' data-id='21'/>\n   <line id='svg_31f021030c44f57e_e61' x1='27.89' y1='362.41' x2='27.89' y2='280.6' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.14' data-id='22'/>\n   <line id='svg_31f021030c44f57e_e62' x1='44.26' y1='280.6' x2='44.26' y2='343.53' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.23' data-id='23'/>\n   <line id='svg_31f021030c44f57e_e63' x1='71.73' y1='343.53' x2='71.73' y2='325.22' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.47' data-id='24'/>\n   <line id='svg_31f021030c44f57e_e64' x1='44.26' y1='280.6' x2='44.26' y2='217.68' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.44' data-id='25'/>\n   <line id='svg_31f021030c44f57e_e65' x1='96.39' y1='217.68' x2='96.39' y2='270.31' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.8' data-id='26'/>\n   <line id='svg_31f021030c44f57e_e66' x1='190.58' y1='270.31' x2='190.58' y2='252' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.12' data-id='27'/>\n   <line id='svg_31f021030c44f57e_e67' x1='96.39' y1='217.68' x2='96.39' y2='165.05' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.75' data-id='28'/>\n   <line id='svg_31f021030c44f57e_e68' x1='185.2' y1='165.05' x2='185.2' y2='203.18' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.9' data-id='29'/>\n   <line id='svg_31f021030c44f57e_e69' x1='185.2' y1='165.05' x2='185.2' y2='126.91' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.09' data-id='30'/>\n   <line id='svg_31f021030c44f57e_e70' x1='196.38' y1='126.91' x2='196.38' y2='87.25' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.38' data-id='31'/>\n   <line id='svg_31f021030c44f57e_e71' x1='241.65' y1='87.25' x2='241.65' y2='123.86' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.27' data-id='32'/>\n   <line id='svg_31f021030c44f57e_e72' x1='274' y1='123.86' x2='274' y2='105.55' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.45' data-id='33'/>\n   <line id='svg_31f021030c44f57e_e73' x1='241.65' y1='87.25' x2='241.65' y2='50.63' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.79' data-id='34'/>\n   <line id='svg_31f021030c44f57e_e74' x1='335.3' y1='50.63' x2='335.3' y2='32.33' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.44' data-id='35'/>\n   <line id='svg_31f021030c44f57e_e75' x1='27.89' y1='362.41' x2='27.89' y2='444.21' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.48' data-id='36'/>\n   <line id='svg_31f021030c44f57e_e76' x1='83.93' y1='444.21' x2='83.93' y2='471.67' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.22' data-id='37'/>\n   <line id='svg_31f021030c44f57e_e77' x1='83.93' y1='444.21' x2='83.93' y2='416.75' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.35' data-id='38'/>\n   <line id='svg_31f021030c44f57e_e78' x1='125.41' y1='416.75' x2='125.41' y2='398.45' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.11' data-id='39'/>\n  <\/g>\n <\/g>\n<\/svg>","js":null,"uid":"svg_31f021030c44f57e","ratio":1,"settings":{"tooltip":{"css":".tooltip_SVGID_ { padding:5px;background:black;color:white;border-radius:2px;text-align:left; ; position:absolute;pointer-events:none;z-index:999;}","placement":"doc","opacity":0.9,"offx":10,"offy":10,"use_cursor_pos":true,"use_fill":true,"use_stroke":false,"delay_over":200,"delay_out":500},"hover":{"css":".hover_data_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_data_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_data_SVGID_ { fill:orange;stroke:black; }\nline.hover_data_SVGID_, polyline.hover_data_SVGID_ { fill:none;stroke:orange; }\nrect.hover_data_SVGID_, polygon.hover_data_SVGID_, path.hover_data_SVGID_ { fill:orange;stroke:none; }\nimage.hover_data_SVGID_ { stroke:orange; }","reactive":true,"nearest_distance":null},"hover_inv":{"css":""},"hover_key":{"css":".hover_key_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_key_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_key_SVGID_ { fill:orange;stroke:black; }\nline.hover_key_SVGID_, polyline.hover_key_SVGID_ { fill:none;stroke:orange; }\nrect.hover_key_SVGID_, polygon.hover_key_SVGID_, path.hover_key_SVGID_ { fill:orange;stroke:none; }\nimage.hover_key_SVGID_ { stroke:orange; }","reactive":true},"hover_theme":{"css":".hover_theme_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_theme_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_theme_SVGID_ { fill:orange;stroke:black; }\nline.hover_theme_SVGID_, polyline.hover_theme_SVGID_ { fill:none;stroke:orange; }\nrect.hover_theme_SVGID_, polygon.hover_theme_SVGID_, path.hover_theme_SVGID_ { fill:orange;stroke:none; }\nimage.hover_theme_SVGID_ { stroke:orange; }","reactive":true},"select":{"css":".select_data_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_data_SVGID_ { stroke:none;fill:red; }\ncircle.select_data_SVGID_ { fill:red;stroke:black; }\nline.select_data_SVGID_, polyline.select_data_SVGID_ { fill:none;stroke:red; }\nrect.select_data_SVGID_, polygon.select_data_SVGID_, path.select_data_SVGID_ { fill:red;stroke:none; }\nimage.select_data_SVGID_ { stroke:red; }","type":"multiple","only_shiny":true,"selected":[]},"select_inv":{"css":""},"select_key":{"css":".select_key_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_key_SVGID_ { stroke:none;fill:red; }\ncircle.select_key_SVGID_ { fill:red;stroke:black; }\nline.select_key_SVGID_, polyline.select_key_SVGID_ { fill:none;stroke:red; }\nrect.select_key_SVGID_, polygon.select_key_SVGID_, path.select_key_SVGID_ { fill:red;stroke:none; }\nimage.select_key_SVGID_ { stroke:red; }","type":"single","only_shiny":true,"selected":[]},"select_theme":{"css":".select_theme_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_theme_SVGID_ { stroke:none;fill:red; }\ncircle.select_theme_SVGID_ { fill:red;stroke:black; }\nline.select_theme_SVGID_, polyline.select_theme_SVGID_ { fill:none;stroke:red; }\nrect.select_theme_SVGID_, polygon.select_theme_SVGID_, path.select_theme_SVGID_ { fill:red;stroke:none; }\nimage.select_theme_SVGID_ { stroke:red; }","type":"single","only_shiny":true,"selected":[]},"zoom":{"min":0.7,"max":10,"duration":300,"default_on":false},"toolbar":{"position":"topleft","pngname":"diagram","tooltips":null,"fixed":false,"hidden":[],"delay_over":200,"delay_out":500},"sizing":{"rescale":true,"width":1}}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>With these two mappings, hovering over branches should display the tooltip, and the hovered element will be visually emphasized.</p>
+</section>
+<section id="interactive-layers" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="interactive-layers"><span class="header-section-number">4.4</span> Interactive layers</h2>
+<p>You can add interactive behavior to additional layers in the same way: by supplying <code>tooltip</code> and <code>data_id</code> in the layer mapping. This is useful when you highlight clades, place symbols, or add annotations and want them to participate in the interactive view.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dt <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="dv">36</span>, <span class="dv">38</span>), <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> p2 <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hilight</span>(</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> dt,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">node =</span> id,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">fill =</span> type,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">tooltip =</span> <span class="fu">paste0</span>(<span class="st">"clade of node "</span>, id),</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">data_id =</span> type</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">to.bottom =</span> <span class="cn">TRUE</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>p3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="girafe html-widget html-fill-item" id="htmlwidget-1d8b9e786d9d3fe28ddc" style="width:100%;height:338px;"></div>
+<script type="application/json" data-for="htmlwidget-1d8b9e786d9d3fe28ddc">{"x":{"html":"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='ggiraph-svg' role='graphics-document' id='svg_f2983315589fed18' viewBox='0 0 504 504'>\n <defs id='svg_f2983315589fed18_defs'>\n  <clipPath id='svg_f2983315589fed18_c1'>\n   <rect x='0' y='0' width='504' height='504'/>\n  <\/clipPath>\n  <clipPath id='svg_f2983315589fed18_c2'>\n   <rect x='5.48' y='5.48' width='442.49' height='493.04'/>\n  <\/clipPath>\n <\/defs>\n <g id='svg_f2983315589fed18_rootg' class='ggiraph-svg-rootg'>\n  <g clip-path='url(#svg_f2983315589fed18_c1)'>\n   <rect x='0' y='0' width='504' height='504' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='0.75' stroke-linejoin='round' stroke-linecap='round' class='ggiraph-svg-bg'/>\n   <rect x='0' y='0' width='504' height='504' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n  <\/g>\n  <g clip-path='url(#svg_f2983315589fed18_c2)'>\n   <rect x='5.48' y='5.48' width='442.49' height='493.04' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <rect id='svg_f2983315589fed18_e1' x='50.74' y='365.14' width='144.82' height='119.09' fill='#F8766D' fill-opacity='0.5' stroke='none' title='clade of node 36' data-id='A'/>\n   <rect id='svg_f2983315589fed18_e2' x='94.5' y='365.14' width='101.06' height='71.46' fill='#00BFC4' fill-opacity='0.5' stroke='none' title='clade of node 38' data-id='B'/>\n   <line id='svg_f2983315589fed18_e3' x1='114.24' y1='329.41' x2='142.38' y2='329.41' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.27' data-id='1'/>\n   <line id='svg_f2983315589fed18_e4' x1='114.24' y1='305.59' x2='205.01' y2='305.59' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.86' data-id='2'/>\n   <line id='svg_f2983315589fed18_e5' x1='64.94' y1='353.23' x2='69.79' y2='353.23' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.05' data-id='3'/>\n   <line id='svg_f2983315589fed18_e6' x1='184.5' y1='257.95' x2='243.86' y2='257.95' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.56' data-id='4'/>\n   <line id='svg_f2983315589fed18_e7' x1='184.5' y1='234.14' x2='206.36' y2='234.14' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.21' data-id='5'/>\n   <line id='svg_f2983315589fed18_e8' x1='171.6' y1='281.77' x2='185.1' y2='281.77' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.13' data-id='6'/>\n   <line id='svg_f2983315589fed18_e9' x1='261.48' y1='210.32' x2='301.1' y2='210.32' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.37' data-id='7'/>\n   <line id='svg_f2983315589fed18_e10' x1='261.48' y1='186.5' x2='331.86' y2='186.5' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.67' data-id='8'/>\n   <line id='svg_f2983315589fed18_e11' x1='246.47' y1='138.86' x2='332.67' y2='138.86' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.81' data-id='9'/>\n   <line id='svg_f2983315589fed18_e12' x1='293.93' y1='115.04' x2='379.64' y2='115.04' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.81' data-id='10'/>\n   <line id='svg_f2983315589fed18_e13' x1='293.93' y1='91.23' x2='379.89' y2='91.23' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.81' data-id='11'/>\n   <line id='svg_f2983315589fed18_e14' x1='348.03' y1='43.59' x2='427.86' y2='43.59' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.75' data-id='12'/>\n   <line id='svg_f2983315589fed18_e15' x1='348.03' y1='19.77' x2='414.61' y2='19.77' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.63' data-id='13'/>\n   <line id='svg_f2983315589fed18_e16' x1='301.49' y1='67.41' x2='376.63' y2='67.41' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.71' data-id='14'/>\n   <line id='svg_f2983315589fed18_e17' x1='176.81' y1='162.68' x2='176.88' y2='162.68' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0' data-id='15'/>\n   <line id='svg_f2983315589fed18_e18' x1='99.18' y1='472.32' x2='139.37' y2='472.32' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.38' data-id='16'/>\n   <line id='svg_f2983315589fed18_e19' x1='99.18' y1='448.5' x2='164.01' y2='448.5' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.61' data-id='17'/>\n   <line id='svg_f2983315589fed18_e20' x1='124.87' y1='400.87' x2='150.65' y2='400.87' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.24' data-id='18'/>\n   <line id='svg_f2983315589fed18_e21' x1='124.87' y1='377.05' x2='195.56' y2='377.05' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.67' data-id='19'/>\n   <line id='svg_f2983315589fed18_e22' x1='113.11' y1='424.68' x2='157.3' y2='424.68' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.42' data-id='20'/>\n   <line id='svg_f2983315589fed18_e23' x1='25.59' y1='353.79' x2='25.59' y2='353.79' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0' data-id='21'/>\n   <line id='svg_f2983315589fed18_e24' x1='25.59' y1='273.96' x2='40.28' y2='273.96' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.14' data-id='22'/>\n   <line id='svg_f2983315589fed18_e25' x1='40.28' y1='335.36' x2='64.94' y2='335.36' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.23' data-id='23'/>\n   <line id='svg_f2983315589fed18_e26' x1='64.94' y1='317.5' x2='114.24' y2='317.5' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.47' data-id='24'/>\n   <line id='svg_f2983315589fed18_e27' x1='40.28' y1='212.55' x2='87.07' y2='212.55' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.44' data-id='25'/>\n   <line id='svg_f2983315589fed18_e28' x1='87.07' y1='263.91' x2='171.6' y2='263.91' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.8' data-id='26'/>\n   <line id='svg_f2983315589fed18_e29' x1='171.6' y1='246.05' x2='184.5' y2='246.05' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.12' data-id='27'/>\n   <line id='svg_f2983315589fed18_e30' x1='87.07' y1='161.19' x2='166.78' y2='161.19' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.75' data-id='28'/>\n   <line id='svg_f2983315589fed18_e31' x1='166.78' y1='198.41' x2='261.48' y2='198.41' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.9' data-id='29'/>\n   <line id='svg_f2983315589fed18_e32' x1='166.78' y1='123.98' x2='176.81' y2='123.98' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.09' data-id='30'/>\n   <line id='svg_f2983315589fed18_e33' x1='176.81' y1='85.27' x2='217.44' y2='85.27' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.38' data-id='31'/>\n   <line id='svg_f2983315589fed18_e34' x1='217.44' y1='121' x2='246.47' y2='121' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.27' data-id='32'/>\n   <line id='svg_f2983315589fed18_e35' x1='246.47' y1='103.13' x2='293.93' y2='103.13' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.45' data-id='33'/>\n   <line id='svg_f2983315589fed18_e36' x1='217.44' y1='49.54' x2='301.49' y2='49.54' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.79' data-id='34'/>\n   <line id='svg_f2983315589fed18_e37' x1='301.49' y1='31.68' x2='348.03' y2='31.68' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.44' data-id='35'/>\n   <line id='svg_f2983315589fed18_e38' x1='25.59' y1='433.62' x2='75.89' y2='433.62' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.48' data-id='36'/>\n   <line id='svg_f2983315589fed18_e39' x1='75.89' y1='460.41' x2='99.18' y2='460.41' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.22' data-id='37'/>\n   <line id='svg_f2983315589fed18_e40' x1='75.89' y1='406.82' x2='113.11' y2='406.82' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.35' data-id='38'/>\n   <line id='svg_f2983315589fed18_e41' x1='113.11' y1='388.96' x2='124.87' y2='388.96' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.11' data-id='39'/>\n   <line id='svg_f2983315589fed18_e42' x1='114.24' y1='317.5' x2='114.24' y2='329.41' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.27' data-id='1'/>\n   <line id='svg_f2983315589fed18_e43' x1='114.24' y1='317.5' x2='114.24' y2='305.59' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.86' data-id='2'/>\n   <line id='svg_f2983315589fed18_e44' x1='64.94' y1='335.36' x2='64.94' y2='353.23' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.05' data-id='3'/>\n   <line id='svg_f2983315589fed18_e45' x1='184.5' y1='246.05' x2='184.5' y2='257.95' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.56' data-id='4'/>\n   <line id='svg_f2983315589fed18_e46' x1='184.5' y1='246.05' x2='184.5' y2='234.14' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.21' data-id='5'/>\n   <line id='svg_f2983315589fed18_e47' x1='171.6' y1='263.91' x2='171.6' y2='281.77' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.13' data-id='6'/>\n   <line id='svg_f2983315589fed18_e48' x1='261.48' y1='198.41' x2='261.48' y2='210.32' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.37' data-id='7'/>\n   <line id='svg_f2983315589fed18_e49' x1='261.48' y1='198.41' x2='261.48' y2='186.5' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.67' data-id='8'/>\n   <line id='svg_f2983315589fed18_e50' x1='246.47' y1='121' x2='246.47' y2='138.86' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.81' data-id='9'/>\n   <line id='svg_f2983315589fed18_e51' x1='293.93' y1='103.13' x2='293.93' y2='115.04' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.81' data-id='10'/>\n   <line id='svg_f2983315589fed18_e52' x1='293.93' y1='103.13' x2='293.93' y2='91.23' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.81' data-id='11'/>\n   <line id='svg_f2983315589fed18_e53' x1='348.03' y1='31.68' x2='348.03' y2='43.59' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.75' data-id='12'/>\n   <line id='svg_f2983315589fed18_e54' x1='348.03' y1='31.68' x2='348.03' y2='19.77' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.63' data-id='13'/>\n   <line id='svg_f2983315589fed18_e55' x1='301.49' y1='49.54' x2='301.49' y2='67.41' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.71' data-id='14'/>\n   <line id='svg_f2983315589fed18_e56' x1='176.81' y1='123.98' x2='176.81' y2='162.68' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0' data-id='15'/>\n   <line id='svg_f2983315589fed18_e57' x1='99.18' y1='460.41' x2='99.18' y2='472.32' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.38' data-id='16'/>\n   <line id='svg_f2983315589fed18_e58' x1='99.18' y1='460.41' x2='99.18' y2='448.5' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.61' data-id='17'/>\n   <line id='svg_f2983315589fed18_e59' x1='124.87' y1='388.96' x2='124.87' y2='400.87' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.24' data-id='18'/>\n   <line id='svg_f2983315589fed18_e60' x1='124.87' y1='388.96' x2='124.87' y2='377.05' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.67' data-id='19'/>\n   <line id='svg_f2983315589fed18_e61' x1='113.11' y1='406.82' x2='113.11' y2='424.68' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.42' data-id='20'/>\n   <line id='svg_f2983315589fed18_e62' x1='25.59' y1='353.79' x2='25.59' y2='353.79' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0' data-id='21'/>\n   <line id='svg_f2983315589fed18_e63' x1='25.59' y1='353.79' x2='25.59' y2='273.96' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.14' data-id='22'/>\n   <line id='svg_f2983315589fed18_e64' x1='40.28' y1='273.96' x2='40.28' y2='335.36' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.23' data-id='23'/>\n   <line id='svg_f2983315589fed18_e65' x1='64.94' y1='335.36' x2='64.94' y2='317.5' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.47' data-id='24'/>\n   <line id='svg_f2983315589fed18_e66' x1='40.28' y1='273.96' x2='40.28' y2='212.55' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.44' data-id='25'/>\n   <line id='svg_f2983315589fed18_e67' x1='87.07' y1='212.55' x2='87.07' y2='263.91' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.8' data-id='26'/>\n   <line id='svg_f2983315589fed18_e68' x1='171.6' y1='263.91' x2='171.6' y2='246.05' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.12' data-id='27'/>\n   <line id='svg_f2983315589fed18_e69' x1='87.07' y1='212.55' x2='87.07' y2='161.19' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.75' data-id='28'/>\n   <line id='svg_f2983315589fed18_e70' x1='166.78' y1='161.19' x2='166.78' y2='198.41' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.9' data-id='29'/>\n   <line id='svg_f2983315589fed18_e71' x1='166.78' y1='161.19' x2='166.78' y2='123.98' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.09' data-id='30'/>\n   <line id='svg_f2983315589fed18_e72' x1='176.81' y1='123.98' x2='176.81' y2='85.27' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.38' data-id='31'/>\n   <line id='svg_f2983315589fed18_e73' x1='217.44' y1='85.27' x2='217.44' y2='121' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.27' data-id='32'/>\n   <line id='svg_f2983315589fed18_e74' x1='246.47' y1='121' x2='246.47' y2='103.13' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.45' data-id='33'/>\n   <line id='svg_f2983315589fed18_e75' x1='217.44' y1='85.27' x2='217.44' y2='49.54' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.79' data-id='34'/>\n   <line id='svg_f2983315589fed18_e76' x1='301.49' y1='49.54' x2='301.49' y2='31.68' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.44' data-id='35'/>\n   <line id='svg_f2983315589fed18_e77' x1='25.59' y1='353.79' x2='25.59' y2='433.62' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.48' data-id='36'/>\n   <line id='svg_f2983315589fed18_e78' x1='75.89' y1='433.62' x2='75.89' y2='460.41' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.22' data-id='37'/>\n   <line id='svg_f2983315589fed18_e79' x1='75.89' y1='433.62' x2='75.89' y2='406.82' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.35' data-id='38'/>\n   <line id='svg_f2983315589fed18_e80' x1='113.11' y1='406.82' x2='113.11' y2='388.96' stroke='#000000' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round' title='0.11' data-id='39'/>\n  <\/g>\n  <g clip-path='url(#svg_f2983315589fed18_c1)'>\n   <rect x='458.93' y='221.58' width='39.59' height='60.85' fill='#FFFFFF' fill-opacity='1' stroke='none'/>\n   <path d='M 467.387699 235.721241 L 467.387699 235.721241 L 467.343548 235.732789 L 467.299183 235.743799 L 467.254603 235.754273 L 467.209808 235.764210 L 467.164798 235.773609 L 467.119574 235.782471 L 467.074134 235.790796 L 467.028480 235.798585 L 466.982611 235.805835 L 466.936527 235.812549 L 466.936527 235.812549 L 466.890658 235.819693 L 466.843284 235.826085 L 466.794408 235.831724 L 466.744027 235.836612 L 466.692142 235.840748 L 466.638753 235.844131 L 466.583861 235.846763 L 466.527464 235.848643 L 466.469564 235.849771 L 466.410159 235.850147 L 466.410159 235.850147 L 466.189730 235.836988 L 465.992503 235.797510 L 465.818480 235.731714 L 465.667659 235.639600 L 465.540042 235.521168 L 465.435628 235.376417 L 465.354417 235.205347 L 465.296409 235.007960 L 465.261605 234.784253 L 465.250003 234.534229 L 465.250003 230.656299 L 464.578616 230.656299 L 464.578616 229.952686 L 465.287601 229.952686 L 465.572269 228.652881 L 466.216800 228.652881 L 466.216800 229.952686 L 467.291019 229.952686 L 467.291019 230.656299 L 466.216800 230.656299 L 466.216800 234.324756 L 466.216800 234.324756 L 466.218143 234.406075 L 466.222171 234.482452 L 466.228885 234.553887 L 466.238284 234.620381 L 466.250369 234.681934 L 466.265140 234.738545 L 466.282596 234.790215 L 466.302738 234.836944 L 466.325565 234.878731 L 466.351077 234.915577 L 466.351077 234.915577 L 466.380994 234.947212 L 466.414886 234.975518 L 466.452752 235.000494 L 466.494593 235.022139 L 466.540408 235.040455 L 466.590199 235.055440 L 466.643963 235.067095 L 466.701702 235.075420 L 466.763416 235.080416 L 466.829105 235.082081 L 466.829105 235.082081 L 466.856927 235.081866 L 466.884534 235.081221 L 466.911927 235.080147 L 466.939105 235.078643 L 466.966068 235.076710 L 466.992816 235.074346 L 467.019349 235.071553 L 467.045667 235.068331 L 467.071771 235.064678 L 467.097659 235.060596 L 467.097659 235.060596 L 467.124730 235.056192 L 467.152230 235.051573 L 467.180159 235.046739 L 467.208519 235.041690 L 467.237308 235.036426 L 467.266527 235.030948 L 467.296175 235.025254 L 467.326253 235.019346 L 467.356761 235.013223 L 467.387699 235.006885 L 467.387699 235.721241 Z ' fill='#000000' fill-opacity='1' fill-rule='nonzero' stroke='none'/>\n   <path d='M 470.712406 235.764210 L 470.712406 235.764210 L 470.671478 235.868409 L 470.630335 235.970460 L 470.588978 236.070362 L 470.547406 236.168116 L 470.505618 236.263721 L 470.463616 236.357178 L 470.421400 236.448487 L 470.378968 236.537647 L 470.336322 236.624659 L 470.293460 236.709522 L 470.293460 236.709522 L 470.251029 236.793096 L 470.207523 236.874092 L 470.162943 236.952510 L 470.117288 237.028350 L 470.070560 237.101612 L 470.022757 237.172295 L 469.973880 237.240401 L 469.923929 237.305928 L 469.872904 237.368877 L 469.820804 237.429249 L 469.820804 237.429249 L 469.767576 237.487955 L 469.713167 237.543760 L 469.657576 237.596666 L 469.600804 237.646670 L 469.542850 237.693775 L 469.483714 237.737979 L 469.423397 237.779283 L 469.361898 237.817686 L 469.299217 237.853189 L 469.235355 237.885792 L 469.235355 237.885792 L 469.169935 237.916407 L 469.102581 237.943799 L 469.033294 237.967969 L 468.962074 237.988917 L 468.888919 238.006641 L 468.813831 238.021143 L 468.736810 238.032422 L 468.657855 238.040479 L 468.576966 238.045313 L 468.494144 238.046924 L 468.494144 238.046924 L 468.457889 238.046817 L 468.422171 238.046495 L 468.386991 238.045958 L 468.352347 238.045206 L 468.318241 238.044239 L 468.284671 238.043057 L 468.251639 238.041661 L 468.219144 238.040049 L 468.187186 238.038223 L 468.155765 238.036182 L 468.155765 238.036182 L 468.124451 238.033765 L 468.092816 238.030811 L 468.060858 238.027320 L 468.028577 238.023292 L 467.995975 238.018726 L 467.963050 238.013624 L 467.929803 238.007984 L 467.896234 238.001807 L 467.862342 237.995093 L 467.828128 237.987842 L 467.828128 237.262745 L 467.828128 237.262745 L 467.848807 237.265860 L 467.870023 237.268760 L 467.891776 237.271446 L 467.914066 237.273917 L 467.936893 237.276172 L 467.960257 237.278213 L 467.984158 237.280040 L 468.008597 237.281651 L 468.033573 237.283047 L 468.059085 237.284229 L 468.059085 237.284229 L 468.084491 237.286270 L 468.109144 237.288096 L 468.133045 237.289708 L 468.156195 237.291104 L 468.178592 237.292286 L 468.200238 237.293252 L 468.221131 237.294004 L 468.241273 237.294542 L 468.260662 237.294864 L 468.279300 237.294971 L 468.279300 237.294971 L 468.363573 237.291802 L 468.446663 237.282295 L 468.528573 237.266451 L 468.609300 237.244268 L 468.688846 237.215748 L 468.767210 237.180889 L 468.844393 237.139693 L 468.920394 237.092159 L 468.995213 237.038287 L 469.068851 236.978077 L 469.068851 236.978077 L 469.140985 236.910938 L 469.211292 236.836280 L 469.279774 236.754102 L 469.346429 236.664405 L 469.411258 236.567188 L 469.474261 236.462452 L 469.535438 236.350196 L 469.594788 236.230420 L 469.652313 236.103126 L 469.708011 235.968311 L 469.799320 235.737354 L 467.495120 229.952686 L 468.526370 229.952686 L 469.750980 233.164600 L 469.750980 233.164600 L 469.761991 233.194571 L 469.773538 233.226475 L 469.785623 233.260313 L 469.798245 233.296085 L 469.811405 233.333790 L 469.825101 233.373428 L 469.839334 233.415001 L 469.854105 233.458506 L 469.869412 233.503946 L 469.885257 233.551319 L 469.885257 233.551319 L 469.902391 233.599659 L 469.919417 233.647999 L 469.936336 233.696338 L 469.953148 233.744678 L 469.969852 233.793018 L 469.986449 233.841358 L 470.002938 233.889698 L 470.019320 233.938038 L 470.035594 233.986377 L 470.051761 234.034717 L 470.051761 234.034717 L 470.068734 234.082574 L 470.085277 234.129463 L 470.101390 234.175386 L 470.117074 234.220342 L 470.132327 234.264332 L 470.147152 234.307354 L 470.161546 234.349410 L 470.175511 234.390499 L 470.189046 234.430621 L 470.202152 234.469776 L 470.202152 234.469776 L 470.214505 234.506998 L 470.225784 234.541319 L 470.235990 234.572740 L 470.245120 234.601260 L 470.253177 234.626880 L 470.260159 234.649600 L 470.266068 234.669419 L 470.270902 234.686338 L 470.274661 234.700357 L 470.277347 234.711475 L 470.277347 234.711475 L 470.280999 234.698531 L 470.285511 234.683331 L 470.290882 234.665875 L 470.297113 234.646163 L 470.304202 234.624195 L 470.312152 234.599971 L 470.320960 234.573492 L 470.330628 234.544756 L 470.341156 234.513765 L 470.352542 234.480518 L 470.352542 234.480518 L 470.365540 234.444693 L 470.378753 234.408116 L 470.392181 234.370787 L 470.405824 234.332706 L 470.419681 234.293873 L 470.433753 234.254288 L 470.448040 234.213951 L 470.462542 234.172862 L 470.477259 234.131021 L 470.492191 234.088428 L 470.492191 234.088428 L 470.508304 234.045406 L 470.524417 234.002276 L 470.540531 233.959039 L 470.556644 233.915694 L 470.572757 233.872242 L 470.588870 233.828682 L 470.604984 233.785015 L 470.621097 233.741241 L 470.637210 233.697359 L 470.653324 233.653370 L 470.653324 233.653370 L 470.669168 233.609918 L 470.684476 233.567647 L 470.699246 233.526558 L 470.713480 233.486651 L 470.727176 233.447925 L 470.740335 233.410381 L 470.752957 233.374019 L 470.765042 233.338838 L 470.776590 233.304839 L 470.787601 233.272022 L 471.926273 229.952686 L 472.946781 229.952686 L 470.712406 235.764210 Z ' fill='#000000' fill-opacity='1' fill-rule='nonzero' stroke='none'/>\n   <path d='M 478.624027 232.831592 L 478.624027 232.831592 L 478.622952 232.962701 L 478.619730 233.091768 L 478.614359 233.218794 L 478.606839 233.343780 L 478.597171 233.466724 L 478.585355 233.587627 L 478.571390 233.706490 L 478.555277 233.823311 L 478.537015 233.938091 L 478.516605 234.050831 L 478.516605 234.050831 L 478.493670 234.160992 L 478.467835 234.268038 L 478.439100 234.371968 L 478.407464 234.472784 L 478.372928 234.570484 L 478.335491 234.665069 L 478.295155 234.756539 L 478.251917 234.844893 L 478.205780 234.930132 L 478.156741 235.012256 L 478.156741 235.012256 L 478.105662 235.091104 L 478.051253 235.166514 L 477.993514 235.238487 L 477.932445 235.307022 L 477.868045 235.372120 L 477.800316 235.433780 L 477.729256 235.492002 L 477.654866 235.546788 L 477.577147 235.598135 L 477.496097 235.646045 L 477.496097 235.646045 L 477.412523 235.688907 L 477.325081 235.727256 L 477.233773 235.761094 L 477.138597 235.790420 L 477.039554 235.815235 L 476.936644 235.835538 L 476.829866 235.851329 L 476.719222 235.862608 L 476.604710 235.869376 L 476.486331 235.871631 L 476.486331 235.871631 L 476.363280 235.869268 L 476.243343 235.862178 L 476.126522 235.850362 L 476.012816 235.833819 L 475.902225 235.812549 L 475.794749 235.786553 L 475.690389 235.755831 L 475.589144 235.720381 L 475.491014 235.680206 L 475.395999 235.635303 L 475.395999 235.635303 L 475.304744 235.585030 L 475.217894 235.528741 L 475.135448 235.466436 L 475.057406 235.398116 L 474.983768 235.323780 L 474.914534 235.243428 L 474.849705 235.157061 L 474.789281 235.064678 L 474.733260 234.966280 L 474.681644 234.861866 L 474.654788 234.861866 L 474.654788 234.861866 L 474.655809 234.864766 L 474.656722 234.869170 L 474.657528 234.875079 L 474.658226 234.882491 L 474.658817 234.891407 L 474.659300 234.901827 L 474.659676 234.913751 L 474.659945 234.927178 L 474.660106 234.942110 L 474.660159 234.958545 L 474.660159 234.958545 L 474.661180 234.976163 L 474.662093 234.994639 L 474.662899 235.013975 L 474.663597 235.034170 L 474.664188 235.055225 L 474.664671 235.077139 L 474.665047 235.099913 L 474.665316 235.123545 L 474.665477 235.148038 L 474.665531 235.173389 L 474.665531 235.173389 L 474.666551 235.199493 L 474.667464 235.226241 L 474.668270 235.253633 L 474.668968 235.281670 L 474.669559 235.310352 L 474.670042 235.339678 L 474.670418 235.369649 L 474.670687 235.400264 L 474.670848 235.431524 L 474.670902 235.463428 L 474.670902 235.463428 L 474.671922 235.494581 L 474.672835 235.525733 L 474.673641 235.556885 L 474.674339 235.588038 L 474.674930 235.619190 L 474.675413 235.650342 L 474.675789 235.681495 L 474.676058 235.712647 L 474.676219 235.743799 L 474.676273 235.774952 L 474.676273 238.046924 L 473.709476 238.046924 L 473.709476 231.139698 L 473.709476 231.139698 L 473.709422 231.097964 L 473.709261 231.056553 L 473.708992 231.015464 L 473.708616 230.974698 L 473.708133 230.934253 L 473.707542 230.894131 L 473.706844 230.854332 L 473.706038 230.814854 L 473.705125 230.775699 L 473.704105 230.736866 L 473.704105 230.736866 L 473.704051 230.698570 L 473.703890 230.661026 L 473.703621 230.624234 L 473.703245 230.588194 L 473.702762 230.552906 L 473.702171 230.518370 L 473.701473 230.484585 L 473.700667 230.451553 L 473.699754 230.419273 L 473.698734 230.387745 L 473.698734 230.387745 L 473.697659 230.356002 L 473.696585 230.325225 L 473.695511 230.295416 L 473.694437 230.266573 L 473.693363 230.238697 L 473.692288 230.211788 L 473.691214 230.185845 L 473.690140 230.160870 L 473.689066 230.136861 L 473.687991 230.113819 L 473.687991 230.113819 L 473.686917 230.091905 L 473.685843 230.071280 L 473.684769 230.051944 L 473.683695 230.033897 L 473.682620 230.017139 L 473.681546 230.001670 L 473.680472 229.987491 L 473.679398 229.974600 L 473.678324 229.962999 L 473.677249 229.952686 L 474.611820 229.952686 L 474.611820 229.952686 L 474.612894 229.956714 L 474.613968 229.962354 L 474.615042 229.969605 L 474.616116 229.978467 L 474.617191 229.988941 L 474.618265 230.001026 L 474.619339 230.014722 L 474.620413 230.030030 L 474.621488 230.046949 L 474.622562 230.065479 L 474.622562 230.065479 L 474.624657 230.085245 L 474.626644 230.105870 L 474.628524 230.127354 L 474.630296 230.149698 L 474.631961 230.172901 L 474.633519 230.196963 L 474.634969 230.221885 L 474.636312 230.247667 L 474.637547 230.274307 L 474.638675 230.301807 L 474.638675 230.301807 L 474.640770 230.328877 L 474.642757 230.356377 L 474.644637 230.384307 L 474.646409 230.412667 L 474.648074 230.441456 L 474.649632 230.470674 L 474.651082 230.500323 L 474.652425 230.530401 L 474.653660 230.560909 L 474.654788 230.591846 L 474.654788 230.591846 L 474.656829 230.622837 L 474.658656 230.653506 L 474.660267 230.683853 L 474.661663 230.713877 L 474.662845 230.743580 L 474.663812 230.772960 L 474.664564 230.802017 L 474.665101 230.830752 L 474.665423 230.859166 L 474.665531 230.887256 L 474.687015 230.887256 L 474.687015 230.887256 L 474.714246 230.832256 L 474.742230 230.778975 L 474.770965 230.727413 L 474.800452 230.677569 L 474.830692 230.629444 L 474.861683 230.583038 L 474.893426 230.538350 L 474.925921 230.495381 L 474.959168 230.454131 L 474.993167 230.414600 L 474.993167 230.414600 L 475.028026 230.375606 L 475.063851 230.338116 L 475.100643 230.302129 L 475.138402 230.267647 L 475.177127 230.234669 L 475.216820 230.203194 L 475.257479 230.173223 L 475.299105 230.144756 L 475.341698 230.117794 L 475.385257 230.092335 L 475.385257 230.092335 L 475.429783 230.067305 L 475.475277 230.043780 L 475.521737 230.021758 L 475.569163 230.001241 L 475.617557 229.982227 L 475.666917 229.964717 L 475.717244 229.948711 L 475.768538 229.934210 L 475.820799 229.921211 L 475.874027 229.909717 L 475.874027 229.909717 L 475.929456 229.898492 L 475.986175 229.888448 L 476.044183 229.879585 L 476.103480 229.871905 L 476.164066 229.865406 L 476.225941 229.860088 L 476.289105 229.855953 L 476.353558 229.852999 L 476.419300 229.851226 L 476.486331 229.850635 L 476.486331 229.850635 L 476.604710 229.852784 L 476.719222 229.859229 L 476.829866 229.869971 L 476.936644 229.885010 L 477.039554 229.904346 L 477.138597 229.927979 L 477.233773 229.955909 L 477.325081 229.988135 L 477.412523 230.024659 L 477.496097 230.065479 L 477.496097 230.065479 L 477.577147 230.110220 L 477.654866 230.158506 L 477.729256 230.210337 L 477.800316 230.265713 L 477.868045 230.324634 L 477.932445 230.387100 L 477.993514 230.453111 L 478.051253 230.522667 L 478.105662 230.595767 L 478.156741 230.672413 L 478.156741 230.672413 L 478.205780 230.751421 L 478.251917 230.833760 L 478.295155 230.919429 L 478.335491 231.008428 L 478.372928 231.100757 L 478.407464 231.196417 L 478.439100 231.295406 L 478.467835 231.397725 L 478.493670 231.503375 L 478.516605 231.612354 L 478.516605 231.612354 L 478.537015 231.723160 L 478.555277 231.836436 L 478.571390 231.952183 L 478.585355 232.070401 L 478.597171 232.191089 L 478.606839 232.314249 L 478.614359 232.439878 L 478.619730 232.567979 L 478.622952 232.698550 L 478.624027 232.831592 Z M 477.608890 232.853077 L 477.608890 232.853077 L 477.608245 232.746836 L 477.606312 232.642960 L 477.603089 232.541446 L 477.598577 232.442295 L 477.592777 232.345508 L 477.585687 232.251085 L 477.577308 232.159024 L 477.567640 232.069327 L 477.556683 231.981993 L 477.544437 231.897022 L 477.544437 231.897022 L 477.530579 231.814522 L 477.514788 231.734600 L 477.497064 231.657256 L 477.477406 231.582491 L 477.455814 231.510303 L 477.432288 231.440694 L 477.406829 231.373663 L 477.379437 231.309210 L 477.350111 231.247335 L 477.318851 231.188038 L 477.318851 231.188038 L 477.286624 231.131426 L 477.252249 231.077608 L 477.215726 231.026583 L 477.177054 230.978350 L 477.136234 230.932911 L 477.093265 230.890264 L 477.048148 230.850411 L 477.000882 230.813350 L 476.951468 230.779083 L 476.899906 230.747608 L 476.899906 230.747608 L 476.845926 230.719034 L 476.789261 230.693467 L 476.729910 230.670909 L 476.667874 230.651358 L 476.603153 230.634815 L 476.535745 230.621280 L 476.465653 230.610752 L 476.392874 230.603233 L 476.317410 230.598721 L 476.239261 230.597217 L 476.239261 230.597217 L 476.175184 230.598130 L 476.111859 230.600870 L 476.049285 230.605435 L 475.987464 230.611827 L 475.926395 230.620044 L 475.866077 230.630088 L 475.806512 230.641959 L 475.747699 230.655655 L 475.689637 230.671177 L 475.632327 230.688526 L 475.632327 230.688526 L 475.576092 230.708453 L 475.521253 230.731710 L 475.467811 230.758296 L 475.415765 230.788213 L 475.365116 230.821460 L 475.315863 230.858038 L 475.268006 230.897945 L 475.221546 230.941182 L 475.176483 230.987750 L 475.132816 231.037647 L 475.132816 231.037647 L 475.091781 231.091197 L 475.052464 231.148721 L 475.014866 231.210220 L 474.978988 231.275694 L 474.944827 231.345142 L 474.912386 231.418565 L 474.881663 231.495962 L 474.852659 231.577335 L 474.825374 231.662681 L 474.799808 231.752002 L 474.799808 231.752002 L 474.776336 231.844976 L 474.755335 231.943428 L 474.736805 232.047359 L 474.720745 232.156768 L 474.707157 232.271656 L 474.696038 232.392022 L 474.687391 232.517867 L 474.681214 232.649190 L 474.677508 232.785992 L 474.676273 232.928272 L 474.676273 232.928272 L 474.677293 233.049927 L 474.680355 233.167823 L 474.685457 233.281959 L 474.692601 233.392335 L 474.701785 233.498951 L 474.713011 233.601807 L 474.726278 233.700904 L 474.741585 233.796241 L 474.758934 233.887818 L 474.778324 233.975635 L 474.778324 233.975635 L 474.799647 234.058887 L 474.822796 234.138917 L 474.847772 234.215723 L 474.874574 234.289307 L 474.903201 234.359669 L 474.933656 234.426807 L 474.965936 234.490723 L 475.000042 234.551417 L 475.035975 234.608887 L 475.073734 234.663135 L 475.073734 234.663135 L 475.114393 234.714322 L 475.156878 234.762608 L 475.201190 234.807994 L 475.247327 234.850479 L 475.295291 234.890064 L 475.345081 234.926749 L 475.396698 234.960533 L 475.450140 234.991417 L 475.505408 235.019400 L 475.562503 235.044483 L 475.562503 235.044483 L 475.621370 235.065914 L 475.681956 235.085088 L 475.744261 235.102007 L 475.808284 235.116670 L 475.874027 235.129078 L 475.941488 235.139229 L 476.010667 235.147125 L 476.081566 235.152764 L 476.154183 235.156148 L 476.228519 235.157276 L 476.228519 235.157276 L 476.307689 235.155718 L 476.384066 235.151045 L 476.457650 235.143257 L 476.528441 235.132354 L 476.596439 235.118335 L 476.661644 235.101202 L 476.724056 235.080953 L 476.783675 235.057588 L 476.840501 235.031109 L 476.894534 235.001514 L 476.894534 235.001514 L 476.947117 234.968965 L 476.997445 234.933624 L 477.045516 234.895489 L 477.091331 234.854561 L 477.134891 234.810840 L 477.176195 234.764327 L 477.215242 234.715020 L 477.252034 234.662920 L 477.286571 234.608028 L 477.318851 234.550342 L 477.318851 234.550342 L 477.350111 234.489971 L 477.379437 234.427022 L 477.406829 234.361495 L 477.432288 234.293389 L 477.455814 234.222706 L 477.477406 234.149444 L 477.497064 234.073604 L 477.514788 233.995186 L 477.530579 233.914190 L 477.544437 233.830616 L 477.544437 233.830616 L 477.556683 233.743497 L 477.567640 233.654014 L 477.577308 233.562169 L 477.585687 233.467960 L 477.592777 233.371387 L 477.598577 233.272452 L 477.603089 233.171153 L 477.606312 233.067491 L 477.608245 232.961465 L 477.608890 232.853077 Z ' fill='#000000' fill-opacity='1' fill-rule='nonzero' stroke='none'/>\n   <path d='M 480.568363 233.062549 L 480.568363 233.062549 L 480.569276 233.153160 L 480.572015 233.242374 L 480.576580 233.330191 L 480.582972 233.416612 L 480.591190 233.501636 L 480.601234 233.585264 L 480.613104 233.667496 L 480.626800 233.748331 L 480.642323 233.827769 L 480.659671 233.905811 L 480.659671 233.905811 L 480.679974 233.981060 L 480.702210 234.054268 L 480.726380 234.125435 L 480.752484 234.194561 L 480.780521 234.261646 L 480.810491 234.326690 L 480.842396 234.389693 L 480.876234 234.450655 L 480.912005 234.509576 L 480.949710 234.566456 L 480.949710 234.566456 L 480.990531 234.620059 L 481.033499 234.671299 L 481.078616 234.720176 L 481.125882 234.766690 L 481.175296 234.810840 L 481.226859 234.852627 L 481.280570 234.892051 L 481.336429 234.929112 L 481.394437 234.963809 L 481.454593 234.996143 L 481.454593 234.996143 L 481.517059 235.024717 L 481.581995 235.050284 L 481.649403 235.072842 L 481.719281 235.092393 L 481.791629 235.108936 L 481.866449 235.122471 L 481.943739 235.132999 L 482.023499 235.140518 L 482.105731 235.145030 L 482.190433 235.146534 L 482.190433 235.146534 L 482.313592 235.144009 L 482.431702 235.136436 L 482.544764 235.123814 L 482.652777 235.106143 L 482.755741 235.083423 L 482.853656 235.055655 L 482.946522 235.022837 L 483.034339 234.984971 L 483.117108 234.942056 L 483.194827 234.894092 L 483.194827 234.894092 L 483.268626 234.842261 L 483.337484 234.787745 L 483.401400 234.730543 L 483.460374 234.670655 L 483.514408 234.608082 L 483.563499 234.542823 L 483.607650 234.474878 L 483.646859 234.404249 L 483.681126 234.330933 L 483.710452 234.254932 L 484.559085 234.496631 L 484.559085 234.496631 L 484.540072 234.545025 L 484.519554 234.593526 L 484.497533 234.642134 L 484.474007 234.690850 L 484.448978 234.739673 L 484.422445 234.788604 L 484.394408 234.837642 L 484.364866 234.886788 L 484.333822 234.936041 L 484.301273 234.985401 L 484.301273 234.985401 L 484.267918 235.033311 L 484.232308 235.080362 L 484.194442 235.126553 L 484.154320 235.171885 L 484.111942 235.216358 L 484.067308 235.259971 L 484.020418 235.302725 L 483.971273 235.344620 L 483.919871 235.385655 L 483.866214 235.425831 L 483.866214 235.425831 L 483.810033 235.463858 L 483.751058 235.500596 L 483.689290 235.536045 L 483.624730 235.570206 L 483.557376 235.603077 L 483.487230 235.634659 L 483.414290 235.664952 L 483.338558 235.693956 L 483.260033 235.721670 L 483.178714 235.748096 L 483.178714 235.748096 L 483.095355 235.771568 L 483.008558 235.792569 L 482.918324 235.811099 L 482.824652 235.827159 L 482.727542 235.840748 L 482.626995 235.851866 L 482.523011 235.860513 L 482.415589 235.866690 L 482.304730 235.870396 L 482.190433 235.871631 L 482.190433 235.871631 L 481.938743 235.863951 L 481.699300 235.840909 L 481.472103 235.802505 L 481.257152 235.748741 L 481.054447 235.679615 L 480.863988 235.595127 L 480.685775 235.495279 L 480.519808 235.380069 L 480.366087 235.249498 L 480.224613 235.103565 L 480.224613 235.103565 L 480.097049 234.942486 L 479.982913 234.766475 L 479.882205 234.575533 L 479.794925 234.369659 L 479.721073 234.148853 L 479.660648 233.913116 L 479.613651 233.662447 L 479.580081 233.396846 L 479.559940 233.116314 L 479.553226 232.820850 L 479.553226 232.820850 L 479.555267 232.660093 L 479.561390 232.504385 L 479.571595 232.353726 L 479.585882 232.208116 L 479.604251 232.067554 L 479.626702 231.932042 L 479.653236 231.801578 L 479.683851 231.676163 L 479.718548 231.555796 L 479.757327 231.440479 L 479.757327 231.440479 L 479.799652 231.328760 L 479.844984 231.221338 L 479.893324 231.118213 L 479.944671 231.019385 L 479.999027 230.924854 L 480.056390 230.834620 L 480.116761 230.748682 L 480.180140 230.667042 L 480.246527 230.589698 L 480.315921 230.516651 L 480.315921 230.516651 L 480.388001 230.447740 L 480.462445 230.382803 L 480.539251 230.321841 L 480.618421 230.264854 L 480.699954 230.211841 L 480.783851 230.162803 L 480.870111 230.117740 L 480.958734 230.076651 L 481.049720 230.039537 L 481.143070 230.006397 L 481.143070 230.006397 L 481.238245 229.975782 L 481.334710 229.948389 L 481.432464 229.924219 L 481.531507 229.903272 L 481.631839 229.885547 L 481.733460 229.871045 L 481.836370 229.859766 L 481.940570 229.851710 L 482.046058 229.846876 L 482.152835 229.845264 L 482.152835 229.845264 L 482.296512 229.847627 L 482.435355 229.854717 L 482.569364 229.866534 L 482.698538 229.883077 L 482.822879 229.904346 L 482.942386 229.930342 L 483.057059 229.961065 L 483.166898 229.996514 L 483.271903 230.036690 L 483.372074 230.081592 L 483.372074 230.081592 L 483.468914 230.130684 L 483.561781 230.183428 L 483.650672 230.239825 L 483.735589 230.299874 L 483.816532 230.363575 L 483.893499 230.430928 L 483.966492 230.501934 L 484.035511 230.576592 L 484.100555 230.654903 L 484.161624 230.736866 L 484.161624 230.736866 L 484.220008 230.821085 L 484.274847 230.908311 L 484.326141 230.998545 L 484.373890 231.091788 L 484.418094 231.188038 L 484.458753 231.287295 L 484.495867 231.389561 L 484.529437 231.494835 L 484.559461 231.603116 L 484.585941 231.714405 L 484.585941 231.714405 L 484.610433 231.828111 L 484.632347 231.943643 L 484.651683 232.061002 L 484.668441 232.180186 L 484.682620 232.301197 L 484.694222 232.424034 L 484.703245 232.548697 L 484.709691 232.675186 L 484.713558 232.803502 L 484.714847 232.933643 L 484.714847 233.062549 L 480.568363 233.062549 Z M 483.715824 232.321338 L 483.715824 232.321338 L 483.696649 232.142642 L 483.671351 231.973936 L 483.639930 231.815220 L 483.602386 231.666495 L 483.558719 231.527759 L 483.508929 231.399014 L 483.453016 231.280259 L 483.390980 231.171495 L 483.322821 231.072720 L 483.248538 230.983936 L 483.248538 230.983936 L 483.167811 230.903316 L 483.080316 230.831182 L 482.986053 230.767535 L 482.885023 230.712374 L 482.777225 230.665699 L 482.662659 230.627510 L 482.541326 230.597808 L 482.413226 230.576592 L 482.278358 230.563863 L 482.136722 230.559620 L 482.136722 230.559620 L 482.088114 230.560425 L 482.038968 230.562842 L 481.989285 230.566871 L 481.939066 230.572510 L 481.888309 230.579761 L 481.837015 230.588624 L 481.785184 230.599097 L 481.732816 230.611182 L 481.679910 230.624878 L 481.626468 230.640186 L 481.626468 230.640186 L 481.574207 230.656460 L 481.522699 230.675206 L 481.471942 230.696421 L 481.421937 230.720108 L 481.372684 230.746265 L 481.324183 230.774893 L 481.276434 230.805992 L 481.229437 230.839561 L 481.183192 230.875601 L 481.137699 230.914112 L 481.137699 230.914112 L 481.093280 230.955308 L 481.050257 230.999405 L 481.008631 231.046402 L 480.968402 231.096299 L 480.929569 231.149097 L 480.892132 231.204795 L 480.856092 231.263394 L 480.821449 231.324893 L 480.788201 231.389293 L 480.756351 231.456592 L 480.756351 231.456592 L 480.726541 231.526148 L 480.699417 231.599463 L 480.674979 231.676539 L 480.653226 231.757374 L 480.634158 231.841968 L 480.617777 231.930323 L 480.604080 232.022437 L 480.593070 232.118311 L 480.584744 232.217945 L 480.579105 232.321338 L 483.715824 232.321338 Z ' fill='#000000' fill-opacity='1' fill-rule='nonzero' stroke='none'/>\n   <rect x='464.41' y='242.39' width='17.28' height='17.28' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <rect x='465.12' y='243.09' width='15.86' height='15.86' fill='#F8766D' fill-opacity='0.5' stroke='none'/>\n   <rect x='464.41' y='259.67' width='17.28' height='17.28' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n   <rect x='465.12' y='260.37' width='15.86' height='15.86' fill='#00BFC4' fill-opacity='0.5' stroke='none'/>\n   <path d='M 492.186018 254.052167 L 491.494221 252.281855 L 488.735627 252.281855 L 488.039533 254.052167 L 487.188752 254.052167 L 489.659455 247.997871 L 490.591877 247.997871 L 493.023908 254.052167 L 492.186018 254.052167 Z M 490.471565 249.643574 L 490.471565 249.643574 L 490.457858 249.609156 L 490.444237 249.574652 L 490.430701 249.540062 L 490.417252 249.505386 L 490.403889 249.470624 L 490.390612 249.435777 L 490.377420 249.400843 L 490.364315 249.365824 L 490.351295 249.330718 L 490.338362 249.295527 L 490.338362 249.295527 L 490.326459 249.260636 L 490.314815 249.226433 L 490.303428 249.192917 L 490.292299 249.160089 L 490.281428 249.127949 L 490.270815 249.096496 L 490.260459 249.065730 L 490.250362 249.035652 L 490.240522 249.006261 L 490.230940 248.977558 L 490.230940 248.977558 L 490.221615 248.948855 L 490.212549 248.921183 L 490.203740 248.894542 L 490.195190 248.868933 L 490.186897 248.844355 L 490.178862 248.820808 L 490.171084 248.798292 L 490.163565 248.776808 L 490.156303 248.756355 L 490.149299 248.736933 L 490.149299 248.736933 L 490.143541 248.717941 L 490.138299 248.700496 L 490.133572 248.684597 L 490.129362 248.670246 L 490.125666 248.657441 L 490.122487 248.646183 L 490.119822 248.636472 L 490.117674 248.628308 L 490.116041 248.621691 L 490.114924 248.616621 L 490.114924 248.616621 L 490.112990 248.621691 L 490.110627 248.628308 L 490.107834 248.636472 L 490.104612 248.646183 L 490.100959 248.657441 L 490.096877 248.670246 L 490.092365 248.684597 L 490.087424 248.700496 L 490.082053 248.717941 L 490.076252 248.736933 L 490.076252 248.736933 L 490.070022 248.757171 L 490.063362 248.778355 L 490.056272 248.800484 L 490.048752 248.823558 L 490.040803 248.847578 L 490.032424 248.872542 L 490.023615 248.898453 L 490.014377 248.925308 L 490.004709 248.953109 L 489.994612 248.981855 L 489.994612 248.981855 L 489.984987 249.011374 L 489.975018 249.041496 L 489.964705 249.072218 L 489.954049 249.103542 L 489.943049 249.135468 L 489.931705 249.167996 L 489.920018 249.201124 L 489.907987 249.234855 L 489.895612 249.269187 L 489.882893 249.304121 L 489.882893 249.304121 L 489.870819 249.339312 L 489.858658 249.374417 L 489.846412 249.409437 L 489.834080 249.444371 L 489.821662 249.479218 L 489.809158 249.513980 L 489.796569 249.548656 L 489.783893 249.583246 L 489.771131 249.617749 L 489.758283 249.652167 L 488.984846 251.641621 L 491.249299 251.641621 L 490.471565 249.643574 Z ' fill='#000000' fill-opacity='1' fill-rule='nonzero' stroke='none'/>\n   <path d='M 492.577033 269.626308 L 492.577033 269.626308 L 492.575229 269.716929 L 492.569815 269.804886 L 492.560791 269.890179 L 492.548158 269.972808 L 492.531916 270.052773 L 492.512065 270.130074 L 492.488604 270.204710 L 492.461533 270.276683 L 492.430854 270.345992 L 492.396565 270.412636 L 492.396565 270.412636 L 492.359225 270.475929 L 492.319393 270.536902 L 492.277069 270.595554 L 492.232252 270.651886 L 492.184944 270.705898 L 492.135143 270.757589 L 492.082850 270.806960 L 492.028065 270.854011 L 491.970787 270.898742 L 491.911018 270.941152 L 491.911018 270.941152 L 491.849014 270.980468 L 491.785033 271.017636 L 491.719076 271.052656 L 491.651143 271.085527 L 491.581233 271.116249 L 491.509346 271.144824 L 491.435483 271.171249 L 491.359643 271.195527 L 491.281826 271.217656 L 491.202033 271.237636 L 491.202033 271.237636 L 491.120822 271.255597 L 491.038752 271.271667 L 490.955822 271.285847 L 490.872033 271.298136 L 490.787385 271.308535 L 490.701877 271.317042 L 490.615510 271.323660 L 490.528283 271.328386 L 490.440197 271.331222 L 490.351252 271.332167 L 487.893440 271.332167 L 487.893440 265.277871 L 490.093440 265.277871 L 490.093440 265.277871 L 490.192912 265.278730 L 490.290237 265.281308 L 490.385412 265.285605 L 490.478440 265.291621 L 490.569319 265.299355 L 490.658049 265.308808 L 490.744631 265.319980 L 490.829065 265.332871 L 490.911350 265.347480 L 490.991487 265.363808 L 490.991487 265.363808 L 491.069346 265.381124 L 491.144799 265.400417 L 491.217846 265.421687 L 491.288487 265.444933 L 491.356721 265.470156 L 491.422549 265.497355 L 491.485971 265.526531 L 491.546987 265.557683 L 491.605596 265.590812 L 491.661799 265.625917 L 491.661799 265.625917 L 491.715467 265.662999 L 491.766471 265.702058 L 491.814811 265.743093 L 491.860487 265.786105 L 491.903498 265.831093 L 491.943846 265.878058 L 491.981529 265.926999 L 492.016549 265.977917 L 492.048904 266.030812 L 492.078596 266.085683 L 492.078596 266.085683 L 492.106354 266.141800 L 492.131190 266.200152 L 492.153104 266.260738 L 492.172096 266.323558 L 492.188166 266.388613 L 492.201315 266.455902 L 492.211541 266.525425 L 492.218846 266.597183 L 492.223229 266.671175 L 492.224690 266.747402 L 492.224690 266.747402 L 492.223959 266.797804 L 492.221768 266.847605 L 492.218115 266.896804 L 492.213002 266.945402 L 492.206428 266.993398 L 492.198393 267.040792 L 492.188897 267.087585 L 492.177940 267.133777 L 492.165522 267.179367 L 492.151643 267.224355 L 492.151643 267.224355 L 492.137119 267.268656 L 492.121049 267.312183 L 492.103432 267.354937 L 492.084268 267.396917 L 492.063557 267.438124 L 492.041299 267.478558 L 492.017494 267.518218 L 491.992143 267.557105 L 491.965244 267.595218 L 491.936799 267.632558 L 491.936799 267.632558 L 491.907666 267.668179 L 491.876987 267.702855 L 491.844760 267.736585 L 491.810987 267.769371 L 491.775666 267.801210 L 491.738799 267.832105 L 491.700385 267.862054 L 491.660424 267.891058 L 491.618916 267.919117 L 491.575862 267.946230 L 491.575862 267.946230 L 491.532162 267.971367 L 491.487002 267.995214 L 491.440381 268.017773 L 491.392299 268.039042 L 491.342756 268.059023 L 491.291752 268.077714 L 491.239287 268.095117 L 491.185362 268.111230 L 491.129975 268.126054 L 491.073127 268.139589 L 491.073127 268.139589 L 491.145315 268.148999 L 491.215783 268.160042 L 491.284533 268.172718 L 491.351565 268.187027 L 491.416877 268.202968 L 491.480471 268.220542 L 491.542346 268.239749 L 491.602502 268.260589 L 491.660940 268.283062 L 491.717658 268.307167 L 491.717658 268.307167 L 491.773432 268.332777 L 491.827315 268.359761 L 491.879307 268.388121 L 491.929408 268.417855 L 491.977619 268.448964 L 492.023940 268.481449 L 492.068369 268.515308 L 492.110908 268.550542 L 492.151557 268.587152 L 492.190315 268.625136 L 492.190315 268.625136 L 492.227225 268.664453 L 492.262330 268.705058 L 492.295631 268.746953 L 492.327127 268.790136 L 492.356819 268.834609 L 492.384705 268.880371 L 492.410787 268.927421 L 492.435065 268.975761 L 492.457537 269.025390 L 492.478205 269.076308 L 492.478205 269.076308 L 492.496983 269.127441 L 492.513783 269.179433 L 492.528608 269.232285 L 492.541455 269.285996 L 492.552326 269.340566 L 492.561221 269.395996 L 492.568139 269.452285 L 492.573080 269.509433 L 492.576045 269.567441 L 492.577033 269.626308 Z M 491.399690 266.846230 L 491.399690 266.846230 L 491.396338 266.751054 L 491.386283 266.661464 L 491.369526 266.577460 L 491.346065 266.499042 L 491.315901 266.426210 L 491.279033 266.358964 L 491.235463 266.297304 L 491.185190 266.241230 L 491.128213 266.190742 L 491.064533 266.145839 L 491.064533 266.145839 L 490.994494 266.105835 L 490.918440 266.070042 L 490.836369 266.038460 L 490.748283 266.011089 L 490.654182 265.987929 L 490.554065 265.968980 L 490.447932 265.954242 L 490.335783 265.943714 L 490.217619 265.937398 L 490.093440 265.935292 L 488.714143 265.935292 L 488.714143 267.851699 L 490.093440 267.851699 L 490.093440 267.851699 L 490.164510 267.851011 L 490.233346 267.848949 L 490.299947 267.845511 L 490.364315 267.840699 L 490.426447 267.834511 L 490.486346 267.826949 L 490.544010 267.818011 L 490.599440 267.807699 L 490.652635 267.796011 L 490.703596 267.782949 L 490.703596 267.782949 L 490.752494 267.767781 L 490.799502 267.751496 L 490.844619 267.734093 L 490.887846 267.715574 L 490.929182 267.695937 L 490.968627 267.675183 L 491.006182 267.653312 L 491.041846 267.630324 L 491.075619 267.606218 L 491.107502 267.580996 L 491.107502 267.580996 L 491.137580 267.553839 L 491.165940 267.525652 L 491.192580 267.496433 L 491.217502 267.466183 L 491.240705 267.434902 L 491.262190 267.402589 L 491.281955 267.369246 L 491.300002 267.334871 L 491.316330 267.299464 L 491.330940 267.263027 L 491.330940 267.263027 L 491.344002 267.225601 L 491.355690 267.187230 L 491.366002 267.147914 L 491.374940 267.107652 L 491.382502 267.066445 L 491.388690 267.024292 L 491.393502 266.981195 L 491.396940 266.937152 L 491.399002 266.892164 L 491.399690 266.846230 Z M 491.747737 269.561855 L 491.747737 269.561855 L 491.746662 269.505136 L 491.743440 269.450136 L 491.738069 269.396855 L 491.730549 269.345292 L 491.720881 269.295449 L 491.709065 269.247324 L 491.695100 269.200917 L 491.678987 269.156230 L 491.660725 269.113261 L 491.640315 269.072011 L 491.640315 269.072011 L 491.618744 269.032351 L 491.595283 268.994152 L 491.569932 268.957414 L 491.542690 268.922136 L 491.513557 268.888320 L 491.482533 268.855964 L 491.449619 268.825070 L 491.414815 268.795636 L 491.378119 268.767664 L 491.339533 268.741152 L 491.339533 268.741152 L 491.299186 268.716058 L 491.257205 268.692339 L 491.213592 268.669996 L 491.168346 268.649027 L 491.121467 268.629433 L 491.072955 268.611214 L 491.022811 268.594371 L 490.971033 268.578902 L 490.917623 268.564808 L 490.862580 268.552089 L 490.862580 268.552089 L 490.806893 268.540660 L 490.749830 268.530433 L 490.691393 268.521410 L 490.631580 268.513589 L 490.570393 268.506972 L 490.507830 268.501558 L 490.443893 268.497347 L 490.378580 268.494339 L 490.311893 268.492535 L 490.243830 268.491933 L 488.714143 268.491933 L 488.714143 270.674746 L 490.308283 270.674746 L 490.308283 270.674746 L 490.370502 270.674230 L 490.431690 270.672683 L 490.491846 270.670105 L 490.550971 270.666496 L 490.609065 270.661855 L 490.666127 270.656183 L 490.722158 270.649480 L 490.777158 270.641746 L 490.831127 270.632980 L 490.884065 270.623183 L 490.884065 270.623183 L 490.936572 270.612097 L 490.987533 270.599464 L 491.036947 270.585285 L 491.084815 270.569558 L 491.131135 270.552285 L 491.175908 270.533464 L 491.219135 270.513097 L 491.260815 270.491183 L 491.300947 270.467722 L 491.339533 270.442714 L 491.339533 270.442714 L 491.377346 270.416074 L 491.413440 270.387714 L 491.447815 270.357636 L 491.480471 270.325839 L 491.511408 270.292324 L 491.540627 270.257089 L 491.568127 270.220136 L 491.593908 270.181464 L 491.617971 270.141074 L 491.640315 270.098964 L 491.640315 270.098964 L 491.660725 270.054921 L 491.678987 270.008730 L 491.695100 269.960390 L 491.709065 269.909902 L 491.720881 269.857265 L 491.730549 269.802480 L 491.738069 269.745546 L 491.743440 269.686464 L 491.746662 269.625234 L 491.747737 269.561855 Z ' fill='#000000' fill-opacity='1' fill-rule='nonzero' stroke='none'/>\n  <\/g>\n <\/g>\n<\/svg>","js":null,"uid":"svg_f2983315589fed18","ratio":1,"settings":{"tooltip":{"css":".tooltip_SVGID_ { padding:5px;background:black;color:white;border-radius:2px;text-align:left; ; position:absolute;pointer-events:none;z-index:999;}","placement":"doc","opacity":0.9,"offx":10,"offy":10,"use_cursor_pos":true,"use_fill":true,"use_stroke":false,"delay_over":200,"delay_out":500},"hover":{"css":".hover_data_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_data_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_data_SVGID_ { fill:orange;stroke:black; }\nline.hover_data_SVGID_, polyline.hover_data_SVGID_ { fill:none;stroke:orange; }\nrect.hover_data_SVGID_, polygon.hover_data_SVGID_, path.hover_data_SVGID_ { fill:orange;stroke:none; }\nimage.hover_data_SVGID_ { stroke:orange; }","reactive":true,"nearest_distance":null},"hover_inv":{"css":""},"hover_key":{"css":".hover_key_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_key_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_key_SVGID_ { fill:orange;stroke:black; }\nline.hover_key_SVGID_, polyline.hover_key_SVGID_ { fill:none;stroke:orange; }\nrect.hover_key_SVGID_, polygon.hover_key_SVGID_, path.hover_key_SVGID_ { fill:orange;stroke:none; }\nimage.hover_key_SVGID_ { stroke:orange; }","reactive":true},"hover_theme":{"css":".hover_theme_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_theme_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_theme_SVGID_ { fill:orange;stroke:black; }\nline.hover_theme_SVGID_, polyline.hover_theme_SVGID_ { fill:none;stroke:orange; }\nrect.hover_theme_SVGID_, polygon.hover_theme_SVGID_, path.hover_theme_SVGID_ { fill:orange;stroke:none; }\nimage.hover_theme_SVGID_ { stroke:orange; }","reactive":true},"select":{"css":".select_data_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_data_SVGID_ { stroke:none;fill:red; }\ncircle.select_data_SVGID_ { fill:red;stroke:black; }\nline.select_data_SVGID_, polyline.select_data_SVGID_ { fill:none;stroke:red; }\nrect.select_data_SVGID_, polygon.select_data_SVGID_, path.select_data_SVGID_ { fill:red;stroke:none; }\nimage.select_data_SVGID_ { stroke:red; }","type":"multiple","only_shiny":true,"selected":[]},"select_inv":{"css":""},"select_key":{"css":".select_key_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_key_SVGID_ { stroke:none;fill:red; }\ncircle.select_key_SVGID_ { fill:red;stroke:black; }\nline.select_key_SVGID_, polyline.select_key_SVGID_ { fill:none;stroke:red; }\nrect.select_key_SVGID_, polygon.select_key_SVGID_, path.select_key_SVGID_ { fill:red;stroke:none; }\nimage.select_key_SVGID_ { stroke:red; }","type":"single","only_shiny":true,"selected":[]},"select_theme":{"css":".select_theme_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_theme_SVGID_ { stroke:none;fill:red; }\ncircle.select_theme_SVGID_ { fill:red;stroke:black; }\nline.select_theme_SVGID_, polyline.select_theme_SVGID_ { fill:none;stroke:red; }\nrect.select_theme_SVGID_, polygon.select_theme_SVGID_, path.select_theme_SVGID_ { fill:red;stroke:none; }\nimage.select_theme_SVGID_ { stroke:red; }","type":"single","only_shiny":true,"selected":[]},"zoom":{"min":0.7,"max":10,"duration":300,"default_on":false},"toolbar":{"position":"topleft","pngname":"diagram","tooltips":null,"fixed":false,"hidden":[],"delay_over":200,"delay_out":500},"sizing":{"rescale":true,"width":1}}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>In interactive mode, hover emphasis is applied on top of the original colors. If a highlighted region appears to mismatch the legend while hovering, it is usually the hover overlay. The underlying colors remain unchanged.</p>
+</section>
+<section id="returning-to-static-output" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="returning-to-static-output"><span class="header-section-number">4.5</span> Returning to static output</h2>
+<p>Interactive plots are intended for HTML output. For PDF export and static raster/vector formats, disable interactive mode and print the same plot.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree_unset_interactive</span>()</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>p3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_interactive_ggtree_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This workflow allows you to use interactivity during exploration while keeping a single plotting script for both interactive inspection and final figure export.</p>
+</section>
+<section id="practical-notes" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="practical-notes"><span class="header-section-number">4.6</span> Practical notes</h2>
+<ul>
+<li>Assign stable and unique <code>data_id</code> values within each layer.</li>
+<li>Keep tooltips short. Use them for values, labels, and short summaries.</li>
+<li>If a plot becomes slow, remove unnecessary interactive mappings from dense layers.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./04_ggtree_visualization.html" class="pagination-link" aria-label="(PART\*) Part II: Tree data visualization and annotation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">(PART*) Part II: Tree data visualization and annotation</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./05_ggtree_annotation.html" class="pagination-link" aria-label="Phylogenetic Tree Annotation">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Phylogenetic Tree Annotation</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/YuLab-SMU/treedata-book/edit/main/05_interactive_ggtree.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/blob/main/05_interactive_ggtree.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>

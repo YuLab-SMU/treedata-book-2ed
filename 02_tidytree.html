@@ -206,32 +206,38 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./05_interactive_ggtree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Interactive <code>ggtree</code></span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./05_ggtree_annotation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Phylogenetic Tree Annotation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Phylogenetic Tree Annotation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06_ggtree_manipulation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visual Exploration of Phylogenetic Trees</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Visual Exploration of Phylogenetic Trees</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./07_ggtree_tree_with_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Plotting tree with data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Plotting tree with data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./08_ggtree_with_silhouette.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Annotating Tree with Silhouette Images and Sub-plots</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Annotating Tree with Silhouette Images and Sub-plots</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09_ggtree_tree_objects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">ggtree for Other Tree-like Objects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">ggtree for Other Tree-like Objects</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -243,7 +249,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./11_ggtree_exts-others.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Other ggtree Extensions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Other ggtree Extensions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -255,7 +261,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./13_ggtree_gallery.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Gallery of Reproducible Examples</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Gallery of Reproducible Examples</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -276,13 +282,13 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./A-app-tools.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Related Tools</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Related Tools</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./A-app-fig-tab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Figures and Tables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Figures and Tables</span></span></a>
   </div>
 </li>
       </ul>
@@ -708,7 +714,7 @@ with the following features available:
 </section>
 <section id="grouping-taxa" class="level3" data-number="2.2.3">
 <h3 data-number="2.2.3" class="anchored" data-anchor-id="grouping-taxa"><span class="header-section-number">2.2.3</span> Grouping taxa</h3>
-<p>The <code>groupOTU()</code> and <code>groupClade()</code> methods are designed for adding taxa grouping information to the input tree object. The methods were implemented in <a href="https://CRAN.R-project.org/package=tidytree"><strong>tidytree</strong></a>, <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a>, and <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> respectively to support adding grouping information for the <code>tbl_tree</code>, <code>phylo</code> and <code>treedata</code>, and <code>ggtree</code> objects. This grouping information can be used directly in tree visualization (<em>e.g.</em>, <a href="#group-taxa-vis">coloring a tree based on grouping information</a>) with <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> (Figure <a href="06_ggtree_manipulation.html#fig-groupOTU" class="quarto-xref">Figure&nbsp;<span>5.5</span></a>).</p>
+<p>The <code>groupOTU()</code> and <code>groupClade()</code> methods are designed for adding taxa grouping information to the input tree object. The methods were implemented in <a href="https://CRAN.R-project.org/package=tidytree"><strong>tidytree</strong></a>, <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a>, and <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> respectively to support adding grouping information for the <code>tbl_tree</code>, <code>phylo</code> and <code>treedata</code>, and <code>ggtree</code> objects. This grouping information can be used directly in tree visualization (<em>e.g.</em>, <a href="#group-taxa-vis">coloring a tree based on grouping information</a>) with <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> (Figure <a href="06_ggtree_manipulation.html#fig-groupOTU" class="quarto-xref">Figure&nbsp;<span>6.5</span></a>).</p>
 <section id="groupclade" class="level4" data-number="2.2.3.1">
 <h4 data-number="2.2.3.1" class="anchored" data-anchor-id="groupclade"><span class="header-section-number">2.2.3.1</span> groupClade</h4>
 <p>The <code>groupClade()</code> method accepts an internal node or a vector of internal nodes to add grouping information of selected clade/clades.</p>
