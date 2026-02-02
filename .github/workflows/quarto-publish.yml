@@ -87,6 +87,7 @@ jobs:
             any::scales
             any::ggridges
             any::ade4
+            YuLab-SMU/seqmagick
             YuLab-SMU/tidytree
             YuLab-SMU/treeio
             YuLab-SMU/ggtree
