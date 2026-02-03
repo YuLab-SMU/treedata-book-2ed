@@ -1,3 +1,9 @@
+
+
+\newpage
+\frontmatter
+# Preface {#sec-preface .unnumbered}
+
 ```{r}
 #| echo: false
 #| warning: false
@@ -29,11 +35,6 @@ if (knitr::is_latex_output()) {
 }
 
 ```
-
-
-\newpage
-\frontmatter
-# Preface {#sec-preface .unnumbered}
 
 
 ```{asis, echo=identical(knitr:::pandoc_to(), 'html')}
