@@ -253,7 +253,6 @@ Some software tools that do not support these outputs can be supported through d
 #|   - "NHX file"
 #|   - "CodeML output"
 #| layout-ncol: 1
-#| fig-scap: "(ref:beastFigtreescap)"
 #| out-width: "100%"
 knitr::include_graphics("img/phyldog.png", auto_pdf = TRUE)
 knitr::include_graphics("img/codeml.png", auto_pdf = TRUE)

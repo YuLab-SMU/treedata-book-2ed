@@ -25,7 +25,7 @@ opts_chunk$set(message=FALSE, warning=FALSE, eval=TRUE,
 if (knitr::is_latex_output()) {
     opts_chunk$set(dev = "cairo_pdf")
 } else {
-    opts_chunk$set(dev = "svg")
+    opts_chunk$set(dev = "png", dpi = 300)
 }
 
 ```

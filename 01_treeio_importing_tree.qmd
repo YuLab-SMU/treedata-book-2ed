@@ -35,8 +35,8 @@ Phylogenetic trees are used to describe genealogical relationships among a group
 #| echo: false
 #| fig-width: 6
 #| fig-height: 4
-#| fig-cap: "(ref:phylogenycap)"
-#| fig-scap: "(ref:phylogenyscap)"
+#| fig-cap: |
+#|   **Components of a phylogenetic tree.** External nodes (green circles), also called `r squote("tips")`, represent actual organisms sampled and sequenced (*e.g.*, viruses in infectious disease research). They are the `r squote("taxa")` in the terminology of evolutionary biology. The internal nodes (blue circles) represent hypothetical ancestors for the tips. The root (red circle) is the common ancestor of all species in the tree. The horizontal lines are branches and represent evolutionary changes (gray number) measured in a unit of time or genetic divergence. The bar at the bottom provides the scale of these branch lengths. 
 #| out-extra: ''
 require(ggtree)
 set.seed(2017-04-22)
@@ -92,8 +92,8 @@ The Newick\index{Newick} tree format is the standard for representing trees in c
 #| warning: false
 #| echo: false
 #| fig-height: 3.5
-#| fig-cap: "(ref:randomTreecap)"
-#| fig-scap: "(ref:randomTreescap)"
+#| fig-cap: |
+#|   **A sample tree for demonstrating Newick text to encode tree structure.** Tips were aligned to the right-hand side and branch lengths were labeled on the middle of each branch.
 #| out-extra: ''
 library(Biostrings)
 library(ape)
@@ -496,8 +496,8 @@ A programmable platform for phylogenetic data parsing, integration, and annotati
 #| label: fig-treeioDiagram
 #| out-width: "95%"
 #| echo: false
-#| fig-cap: "(ref:treeioDiagramcap)"
-#| fig-scap: "(ref:treeioDiagramscap)"
+#| fig-cap: |
+#|   __Overview of the *treeio* package and its relations with *tidytree* and *ggtree*__. *Treeio* supports parsing a tree with data from a number of file formats and software outputs. A *treedata* object stores a phylogenetic tree with node/branch-associated data. *Treeio* provides several functions to manipulate a tree with data. Users can convert the *treedata* object into a tidy data frame (each row represents a node in the tree and each column represents a variable) and process the tree with data using the tidy interface implemented in *tidytree*. The tree can be extracted from the *treedata* object and exported to a Newick and NEXUS file or can be exported with associated data into a single file (either in the BEAST NEXUS or jtree format). Associated data stored in the *treedata* object can be used to annotate the tree using *ggtree*. In addition, *ggtree* supports a number of tree objects, including *phyloseq* for microbiome data and *obkData* for outbreak data. The *phylo*, multiPhylo (*ape* package), *phylo4*, *phylo4d* (*phylobase* package), *phylog* (*ade4* package), *phyloseq* (*phyloseq* package), and *obkData* (*OutbreakTools* package) are tree objects defined by the R community to store tree with or without domain-specific data. All these tree objects as well as hierarchical clustering results (*e.g.*, *hclust* and *dendrogram* objects) are supported by *ggtree*.
 knitr::include_graphics("img/treeio-diagram.png", auto_pdf = TRUE)
 ```
 
@@ -803,8 +803,8 @@ Here, we used `pml` object which was defined in the `r CRANpkg("phangorn")` pack
 #| message: false
 #| fig-width: 14
 #| fig-height: 14
-#| fig-cap: "(ref:pmlTreecap)"
-#| fig-scap: "(ref:pmlTreescap)"
+#| fig-cap: |
+#|   **Converting `pml` object to `treedata` object.** This allows using `r CRANpkg("tidytree")` to process the tree data as well as using `r Biocpkg("ggtree")` and `r Biocpkg("ggtreeExtra")` to visualize the tree with associated data.
 #| out-width: "100%"
 library(phangorn)
 treefile <- system.file("extdata", "pa.nwk", package="treeio")

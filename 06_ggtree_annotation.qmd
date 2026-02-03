@@ -63,7 +63,6 @@ ggtree(tree) + geom_tiplab() +
 #| warning: false
 #| fig-cap: |
 #|   **Annotating tree using the grammar of graphics.** The NHX tree was annotated using the grammar of graphic syntax by combining different layers using the `+` operator. Species information was labeled in the middle of the branches. Duplication events were shown on the most recent common ancestor and clade bootstrap values were displayed near to it.
-#| fig-scap: "(ref:ggtreeNHXscap)"
 #| out-extra: ''
 #| echo: false
 print(p)
@@ -162,7 +161,6 @@ p + geom_cladelab(node=34, label="another clade", align=TRUE,
 #|   - "Changing size and angle"
 #|   - "Using geom_label() with background color"
 #| layout-ncol: 2
-#| fig-scap: "(ref:cladelabelscap)"
 #| out-width: '100%'
 set.seed(2015-12-21)
 tree <- rtree(30)
@@ -231,7 +229,6 @@ p3 <- p + geom_cladelab(data = dt,
 #|   - "Use aesthetic mapping to annotate clades"
 #|   - "Use images or phylopic to annotate clades"
 #|   - "Map variables to change color or size of text or images"
-#| fig-scap: "(ref:cladelabaesscap)"
 #| out-width: '100%'
 #| fig-show: hold
 #| layout-ncol: 3
@@ -289,7 +286,6 @@ p + geom_tiplab() +
 #|   - "geom_cladelab() supports unrooted layouts"
 #|   - "geom_strip() labels all types of associated taxa"
 #| layout-ncol: 2
-#| fig-scap: "(ref:striplabelscap)"
 #| out-width: '100%'
 
 pg <- ggtree(tree, layout="daylight")
@@ -404,7 +400,6 @@ ggtree(x) + geom_hilight(mapping=aes(subset = node %in% c(10, 12),
 #|   - "Highlight clades using external data"
 #|   - "Highlight clades using tree-associated data"
 #| layout-ncol: 3
-#| fig-scap: "(ref:hilightscap)"
 #| out-width: '100%'
 nwk <- system.file("extdata", "sample.nwk", package="treeio")
 tree <- read.tree(nwk)
@@ -460,7 +455,6 @@ The `geom_taxalink()` layout supports aesthetic mapping, which requires a `data.
 #|   - "Inward circular layout"
 #|   - "Aesthetic mapping"
 #| layout-ncol: 2
-#| fig-scap: "(ref:taxalinkscap)"
 #| fig-width: 12
 #| fig-height: 10
 #| warning: false
@@ -540,7 +534,6 @@ p3 <- p2 + scale_x_range() + theme_tree2()
 #|   - "Estimated value"
 #|   - "Second x-axis for range scaling"
 #| layout-ncol: 3
-#| fig-scap: "(ref:geomRangescap)"
 #| fig-width: 12
 #| fig-height: 4
 #| echo: false
@@ -576,7 +569,6 @@ Furthermore, the evolutionary data from the inference of `r pkg_beast`, `r pkg_m
 #| label: fig-beast
 #| fig-cap: |
 #|   **Annotating `r pkg_beast` tree with _length\_95%\_HPD_ and posterior.** Branch length credible intervals (95% HPD) were displayed as red horizontal bars and clade posterior values were shown on the middle of branches\index{BEAST}.
-#| fig-scap: "Annotating BEAST tree"
 #| fig-width: 7
 #| out-extra: ''
 #| out-width: '100%'
@@ -628,7 +620,6 @@ ggtree(hy) +
 #| label: fig-codeml
 #| fig-cap: |
 #|   **Annotating tree with amino acid substitution and *d~N~/d~S~* inferred by `r pkg_codeml`.** Branches were rescaled and colored by *d~N~/d~S~* values, and amino acid substitutions were displayed on the middle of branches.
-#| fig-scap: "Annotating tree with CodeML dN/dS"
 #| warning: false
 #| out-extra: ''
 #| fig-height: 4

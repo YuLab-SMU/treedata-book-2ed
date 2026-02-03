@@ -53,8 +53,8 @@ The `r CRANpkg("rtol")` [@michonneau_rotl:_2016] is an R package to interact wit
 #| label: fig-rotlSubtree
 #| fig-width: 8
 #| fig-height: 6
-#| fig-cap: "(ref:rotlSubtreecap)"
-#| fig-scap: "Open Tree of Life subtree"
+#| fig-cap: |
+#|   **Visualizing Open Tree of Life subtree.** The `rotl` package allows users to query subtrees from the Open Tree of Life database and the output can be directly visualized using `ggtree`.
 #| out-width: '100%'
 ## example from: https://github.com/ropensci/rotl
 library(rotl)
@@ -116,8 +116,8 @@ print(d, row.names=FALSE)
 ```{r}
 #| echo: false
 #| label: fig-emojidatatree
-#| fig-cap: "(ref:emojidatatreecap)"
-#| fig-scap: "Phylomoji as ASCII text"
+#| fig-cap: |
+#|   **Phylomoji as ASCII text.** The `data.tree` package can be used to print a phylogenetic tree as ASCII art, and `ggtree` supports parsing tip labels as emojis.
 #| out-width: '100%'
 knitr::include_graphics("img/data-tree-emojim.png")
 ```
@@ -168,8 +168,8 @@ The `r Biocpkg("ggtree")` supports annotating a tree with silhouette images via 
 #| label: fig-ggimagebg
 #| fig-width: 8
 #| fig-height: 4
-#| fig-cap: "(ref:ggimagebgcap)"
-#| fig-scap: "(ref:ggimagebgscap)"
+#| fig-cap: |
+#|   **Processing images on the fly.** The `ggimage` package supports processing images using `magick` package before rendering them on the tree.
 #| out-width: '100%'
 #| fig-show: hold
 #| layout-ncol: 2
@@ -205,8 +205,9 @@ The `geom_bgimage()` adds a layer of the image and puts the layer to the bottom 
 #| label: fig-bgimage
 #| fig-width: 6
 #| fig-height: 4
-#| fig-cap: "(ref:bgimagecap)"
-#| fig-scap: "Tree on a background image"
+#| fig-cap: |
+#|   **Plotting tree on a background image.** The `geom_bgimage()` layer can be used to add a background image to the `ggtree` plot.
+#| out-width: '100%'
 ggtree(rtree(20), size=1.5, color="white") + 
   geom_bgimage('img/blackboard.jpg') + 
   geom_tiplab(color="white", size=5, family='xkcd')

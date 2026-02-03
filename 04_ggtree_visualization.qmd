@@ -126,7 +126,6 @@ ggtree(tree, branch.length="none")
 #|   - "Non-ladderized tree"
 #|   - "Cladogram without branch length information"
 #| layout-ncol: 4
-#| fig-scap: "(ref:basicvizscap)"
 #| out-width: "100%"
 
 library("treeio")
@@ -194,7 +193,6 @@ ggtree(tree, layout="daylight", branch.length = 'none')
 #|   - "Cladogram: circular layout"
 #|   - "Cladogram: unrooted layout"
 #| layout-ncol: 4
-#| fig-scap: "(ref:layoutscap)"
 #| out-extra: ''
 #| message: false
 #| out-width: "100%"
@@ -273,7 +271,6 @@ tree_angle <- ggplotify::as.ggplot(ggtree(tree), angle=-30, scale=.9)
 #|   - "Circular layout"
 #|   - "Circular inward layout"
 #|   - "Circular inward layout (custom xlim)"
-#| fig-scap: "(ref:layout2scap)"
 #| fig-width: 8
 #| fig-height: 8
 #| echo: false
@@ -433,7 +430,6 @@ ggtree(tree) + theme_tree2()
 #|   - "Modify scale bar and text styling"
 #|   - "Enable x-axis for timescaled tree"
 #| layout-ncol: 2
-#| fig-scap: "(ref:treescalescap)"
 #| out-width: '100%'
 
 p1 <- ggtree(tree) + geom_treescale()
@@ -481,7 +477,6 @@ p + geom_tippoint(color="#FDAC4F", shape=8, size=3)
 #| fig-subcap:
 #|   - "geom_point() automatically adds symbolic points of all nodes"
 #|   - "geom_nodepoint() adds internal nodes and geom_tippoint() adds external nodes"
-#| fig-scap: "(ref:nodeTipscap)"
 #| out-width: '100%'
 #| fig-show: hold
 #| layout-ncol: 2
@@ -549,7 +544,6 @@ ggtree(tree) + geom_tiplab(as_ylab=TRUE, color='firebrick')
 #|   - "geom_tiplab() supports displaying tip labels"
 #|   - "For the circular, fan, or unrooted layouts, labels can be rotated"
 #|   - "For the dendrogram/rectangular layout, tip labels can be displayed as y-axis labels"
-#| fig-scap: "(ref:tiplabscap)"
 #| fig-show: hold
 #| layout-ncol: 3
 #| out-width: '100%'
@@ -604,7 +598,6 @@ ggtree(tree2) + geom_tiplab() + geom_rootedge(rootedge = 3)
 #|   - "No root-edge information results in no root-edge"
 #|   - "Manually setting root edge for the tree"
 #|   - "Specifying root edge length only for plotting"
-#| fig-scap: "(ref:rootedgescap)"
 #| fig-show: hold
 #| layout-ncol: 2
 ## with root edge = 1
@@ -662,7 +655,6 @@ Users can use any feature (if available), including clade posterior and _d~N~/d~
 #| fig-subcap:
 #|   - "Map trait to edge color directly"
 #|   - "Overlay colored edges on a thicker black tree for outlines"
-#| fig-scap: "(ref:continuousColorscap)"
 #| out-width: '100%'
 #| fig-show: hold
 #| layout-ncol: 2
@@ -768,7 +760,6 @@ p4 <- ggtree(mlc_tree, branch.length='dN_vs_dS') + theme_tree2() +
 #|   - "Branches rescaled by substitution rate inferred by BEAST"
 #|   - "Tree inferred by CodeML"
 #|   - "Branches rescaled by dN/dS values"
-#| fig-scap: "(ref:rescaleTreescap)"
 #| out-width: '100%'
 #| fig-show: hold
 #| layout-ncol: 2
@@ -819,7 +810,6 @@ ggtree(x, color="orange", size=1) + theme_tree('grey30')
 #| fig-subcap:
 #|   - "theme_tree() with custom background"
 #|   - "theme_tree() with a different background"
-#| fig-scap: "(ref:themescap)"
 #| out-width: "100%"
 #| fig-show: hold
 #| layout-ncol: 2

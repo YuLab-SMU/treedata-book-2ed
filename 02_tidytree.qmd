@@ -189,7 +189,6 @@ by `r pkg_beast` on the same branches.
 #| warning: false
 #| fig-cap: |
 #|   **Correlation of *d~N~/d~S~*, *d~N~*, and *d~S~* vs. substitution rate.** After merging the *BEAST* and *CodeML* outputs, the branch-specific estimates (substitution rate, *d~N~/d~S~* , *d~N~*, and *d~S~*) from the two analysis programs are compared on the same branch basis. The associations of *d~N~/d~S~*, *d~N~*, and *d~S~* vs. *rate* are visualized in hexbin scatter plots.
-#| fig-scap: "Correlation of dN/dS vs. substitution rate"
 #| out-extra: ''
 #| out-width: "100%"
 library(dplyr)
@@ -387,7 +386,6 @@ Then we can reroot the tree with the associated data mapping to the branches and
 #| fig-subcap:
 #|   - "Original tree"
 #|   - "Rerooted tree, with associated data mapped correctly"
-#| fig-scap: "(ref:rerootscap)"
 #| fig-show: hold
 #| layout-ncol: 2
 # reroot
@@ -481,7 +479,6 @@ Phylogenetic data can be merged for joint analysis (Figure @fig-correlations). T
 #|   - "Branches scaled in time (year from the root)"
 #|   - "Rescaled using dN as branch lengths"
 #|   - "Rescaled using substitution rates"
-#| fig-scap: "(ref:rescalescap)"
 #| out-extra: ''
 #| out-width: "100%"
 #| fig-show: hold
@@ -518,7 +515,6 @@ Let's say that we want to remove three tips (colored red) from the tree (Figure 
 #| fig-subcap:
 #|   - "Original tree with three tips to remove"
 #|   - "Updated tree after removing selected tips"
-#| fig-scap: "(ref:removeTipscap)"
 #| out-width: "100%"
 #| fig-show: hold
 #| layout-ncol: 2
@@ -560,7 +556,6 @@ The `tree_subset()` function allows you to look at the portions of the tree that
 #|   - "Subset tree with data"
 #|   - "Subset tree relative to original position without rootedge"
 #|   - "Subset tree relative to original position with rootedge"
-#| fig-scap: "(ref:subsetTipscap)"
 #| out-extra: ''
 #| out-width: "100%"
 #| fig-show: hold
@@ -617,7 +612,6 @@ If you are interested in a certain clade, you can specify the input node as an i
 #|   - "Extract a clade and trace back to immediate relatives"
 #|   - "View a very large tree"
 #|   - "View a selected portion of the tree"
-#| fig-scap: "(ref:subsetNodescap)"
 #| out-extra: ''
 #| out-width: "100%"
 #| fig-show: hold

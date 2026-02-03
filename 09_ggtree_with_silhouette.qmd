@@ -39,7 +39,6 @@ Online tools such as `r pkg_itol` [@letunic_interactive_2007] and `r pkg_evolvie
 #| label: fig-frogimage
 #| fig-cap: |
 #|   **Labelling taxa with images.** Users need to specify `geom = "image"` and map the image file names onto the `image` aesthetics.
-#| fig-scap: "(ref:frogimagescap)"
 #| out-width: '100%'
 library(ggimage)
 library(ggtree)
@@ -121,7 +120,6 @@ p <- ggtree(tree) %<+% d +
 #| label: fig-phylopic
 #| fig-cap: |
 #|   **Labelling taxa with phylopic images.** The `r Biocpkg("ggtree")` will automatically download phylopic figures by querying provided UID. The figures can be colored using numerical or categorical values.
-#| fig-scap: "(ref:phylopicscap)"
 #| echo: false
 # print(p)
 # cowplot::plot_grid(pg, p, ncol=2, labels=LETTERS[1:2]) 
@@ -147,7 +145,6 @@ This example uses `ape::ace()` function to estimate ancestral character states. 
 #| fig-height: 9.6
 #| fig-cap: |
 #|   **Annotate internal nodes with barplots.**
-#| fig-scap: "(ref:barInsetscap)"
 #| out-width: '100%'
 library(phytools)
 data(anoletree)
@@ -194,7 +191,6 @@ Similarly, users can use the `nodepie()` function to generate a list of pie char
 #| fig-subcap:
 #|   - "Using bar charts to display summary statistics of internal nodes"
 #|   - "Using pie charts to display summary statistics of internal nodes"
-#| fig-scap: "(ref:pieInsetscap)"
 #| out-width: '100%'
 #| fig-show: hold
 #| layout-ncol: 2
@@ -221,7 +217,6 @@ The `geom_inset()` layer accepts a list of `r squote('ggplot')` graphic objects 
 #| label: fig-barpieInset
 #| fig-cap: |
 #|   **Annotate internal nodes with different types of subplots.**
-#| fig-scap: "(ref:barpieInsetscap)"
 #| out-width: '100%'
 pies_and_bars <- pies
 i <- sample(length(pies), 20)
@@ -265,7 +260,6 @@ p <- ggtree(tree, linetype = "dashed", size=1, color='firebrick') %<+% d +
 #| warning: false
 #| fig-cap: |
 #|   **Parsing label as emoji.** Text (*e.g.*, node or tip labels) can be parsed as emoji.
-#| fig-scap: "(ref:phylomoji1scap)"
 #| out-width: '100%'
 #| echo: false
 knitr::include_graphics("img/phylomoji-ggtree.png")
@@ -313,7 +307,6 @@ p2 %>% rotate_tree(-90)
 #| echo: false
 #| fig-cap: |
 #|   **Phylomoji in cirular and fan layouts.**
-#| fig-scap: "(ref:emojifanscap)"
 #| out-width: '100%'
 if (FALSE) {
 p <- ggtree(tree, layout = "circular", size=1) +  
@@ -375,7 +368,6 @@ Parsing clade labels as emojis is also supported in the `geom_cladelab()` layer.
 #| label: fig-emojiclade
 #| fig-cap: |
 #|   **Emoji to label clades.**
-#| fig-scap: "(ref:emojicladescap)"
 #| out-width: '100%'
 set.seed(123)
 tr <- rtree(30)
@@ -437,12 +429,10 @@ dev.off()
 
 
 ```{r}
-#| label: fig-applemoji
-#| out-width: "100%"
-#| echo: false
-#| fig-scap: "(ref:applemojiscap)"
 #| fig-cap: |
 #|   **Use Apple Color Emoji in `ggtree`.** The tip labels were parsed as emojis using `AppleColorEmoji` font in Safari.
+#| out-width: "100%"
+#| echo: false
 knitr::include_graphics("img/apple_emoji.png", auto_pdf = TRUE)
 ```
 

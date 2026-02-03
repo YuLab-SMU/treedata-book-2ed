@@ -32,7 +32,6 @@ In `r Biocpkg("ggtree")`, we implemented an operator, `%<+%`, to attach annotati
 #| label: fig-attacher
 #| fig-cap: |
 #|   **Example of attaching multiple datasets**. External datasets including tip data (e.g., trophic habit and body weight) and node data (e.g., clade posterior and vernacular name) were attached to the `ggtree` graphic via the `%<+%` operator and the data was used to annotate the tree.
-#| fig-scap: "(ref:attacherscap)"
 #| out-width: '100%'
 library(ggimage)
 library(ggtree)
@@ -91,7 +90,6 @@ knitr::kable(facet_geoms, booktabs = TRUE)
 #| label: fig-plottree
 #| fig-cap: |
 #|   **Example of plotting SNP and trait data**. The 'location' information was attached to the tree and used to color tip symbols (Tree panel), and other datasets. SNP and Trait data were visualized as dot chart (SNP panel) and bar chart (Trait panel).
-#| fig-scap: "(ref:plottreescap)"
 #| out-width: '100%'
 library(ggtree)
 library(TDbook)
@@ -197,7 +195,6 @@ gheatmap(p, genotype, offset=8, width=0.6,
 #| fig-subcap:
 #|   - "H3 influenza tree with a genotype table visualized as a heatmap"
 #|   - "Aligned tips with tailored x-axis for divergence times and segments"
-#| fig-scap: "(ref:gheatmapscap)"
 #| out-width: '90%'
 #| fig-show: hold
 #| layout-ncol: 1
@@ -245,7 +242,6 @@ To solve this issue, we can use the `r CRANpkg("ggnewscale")` package to create 
 #| label: fig-mgheatmap
 #| fig-cap: |
 #|   **Example of plotting multiple matrix with `gheatmap()`**. A data frame (with 'first' and 'second' columns) was visualized as a discrete heatmap and another data frame (with 'A', 'B' and 'C' columns) was visualized as a continuous heatmap with corresponding discrete and continuous palette of colors (Figure @fig-mgheatmap).
-#| fig-scap: "(ref:mgheatmapscap)"
 #| out-width: '100%'
 
 nwk <- system.file("extdata", "sample.nwk", package="treeio")
@@ -316,7 +312,6 @@ msaplot(p, AA_sequence, window=c(120, 200))
 #| fig-subcap:
 #|   - "Whole MSA sequences visualized with a rectangular tree"
 #|   - "Circular tree layout with an alignment window slice"
-#| fig-scap: "(ref:msaplotscap)"
 #| out-width: '100%'
 #| fig-show: hold
 #| layout-ncol: 2
@@ -444,7 +439,6 @@ p2 %>% insert_left(g) %>% insert_right(p1, width=.5)
 #| fig-subcap:
 #|   - "cowplot() just places subplots together"
 #|   - "aplot() reorders tree-associated subplots by tree structure"
-#| fig-scap: "(ref:compositescap)"
 #| out-width: '100%'
 #| fig-show: hold
 #| layout-ncol: 1
