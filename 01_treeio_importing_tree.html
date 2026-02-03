@@ -440,13 +440,13 @@ window.Quarto = {
   Please report the issue at &lt;https://github.com/YuLab-SMU/ggtree/issues&gt;.</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="fig-phylogeny" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:phylogenyscap)">
+<div id="fig-phylogeny" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-phylogeny-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="01_treeio_importing_tree_files/figure-html/fig-phylogeny-1.png" class="img-fluid figure-img" data-fig-scap="(ref:phylogenyscap)" width="576">
+<img src="01_treeio_importing_tree_files/figure-html/fig-phylogeny-1.png" class="img-fluid figure-img" width="576">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-phylogeny-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.1: (ref:phylogenycap)
+Figure&nbsp;2.1: <strong>Components of a phylogenetic tree.</strong> External nodes (green circles), also called <code>r squote("tips")</code>, represent actual organisms sampled and sequenced (<em>e.g.</em>, viruses in infectious disease research). They are the <code>r squote("taxa")</code> in the terminology of evolutionary biology. The internal nodes (blue circles) represent hypothetical ancestors for the tips. The root (red circle) is the common ancestor of all species in the tree. The horizontal lines are branches and represent evolutionary changes (gray number) measured in a unit of time or genetic divergence. The bar at the bottom provides the scale of these branch lengths.
 </figcaption>
 </figure>
 </div>
@@ -468,13 +468,13 @@ Figure&nbsp;2.1: (ref:phylogenycap)
 <p>(ref:randomTreecap) <strong>A sample tree for demonstrating Newick text to encode tree structure.</strong> Tips were aligned to the right-hand side and branch lengths were labeled on the middle of each branch.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-randomTree" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:randomTreescap)">
+<div id="fig-randomTree" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-randomTree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="01_treeio_importing_tree_files/figure-html/fig-randomTree-1.png" class="img-fluid figure-img" data-fig-scap="(ref:randomTreescap)" width="672">
+<img src="01_treeio_importing_tree_files/figure-html/fig-randomTree-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-randomTree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.2: (ref:randomTreecap)
+Figure&nbsp;2.2: <strong>A sample tree for demonstrating Newick text to encode tree structure.</strong> Tips were aligned to the right-hand side and branch lengths were labeled on the middle of each branch.
 </figcaption>
 </figure>
 </div>
@@ -501,7 +501,7 @@ END;</code></pre>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>#NEXUS
-[R-package APE, Mon Feb  2 10:15:34 2026]
+[R-package APE, Tue Feb  3 01:03:06 2026]
 
 BEGIN TAXA;
     DIMENSIONS NTAX = 5;
@@ -815,13 +815,13 @@ Table&nbsp;2.1: Parser functions defined in treeio
 <p>(ref:treeioDiagramcap) <strong>Overview of the <em>treeio</em> package and its relations with <em>tidytree</em> and <em>ggtree</em></strong>. <em>Treeio</em> supports parsing a tree with data from a number of file formats and software outputs. A <em>treedata</em> object stores a phylogenetic tree with node/branch-associated data. <em>Treeio</em> provides several functions to manipulate a tree with data. Users can convert the <em>treedata</em> object into a tidy data frame (each row represents a node in the tree and each column represents a variable) and process the tree with data using the tidy interface implemented in <em>tidytree</em>. The tree can be extracted from the <em>treedata</em> object and exported to a Newick and NEXUS file or can be exported with associated data into a single file (either in the BEAST NEXUS or jtree format). Associated data stored in the <em>treedata</em> object can be used to annotate the tree using <em>ggtree</em>. In addition, <em>ggtree</em> supports a number of tree objects, including <em>phyloseq</em> for microbiome data and <em>obkData</em> for outbreak data. The <em>phylo</em>, multiPhylo (<em>ape</em> package), <em>phylo4</em>, <em>phylo4d</em> (<em>phylobase</em> package), <em>phylog</em> (<em>ade4</em> package), <em>phyloseq</em> (<em>phyloseq</em> package), and <em>obkData</em> (<em>OutbreakTools</em> package) are tree objects defined by the R community to store tree with or without domain-specific data. All these tree objects as well as hierarchical clustering results (<em>e.g.</em>, <em>hclust</em> and <em>dendrogram</em> objects) are supported by <em>ggtree</em>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-treeioDiagram" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:treeioDiagramscap)">
+<div id="fig-treeioDiagram" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-treeioDiagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="img/treeio-diagram.png" class="img-fluid figure-img" style="width:95.0%" data-fig-scap="(ref:treeioDiagramscap)">
+<img src="img/treeio-diagram.png" class="img-fluid figure-img" style="width:95.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-treeioDiagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.3: (ref:treeioDiagramcap)
+Figure&nbsp;2.3: <strong>Overview of the <em>treeio</em> package and its relations with <em>tidytree</em> and <em>ggtree</em></strong>. <em>Treeio</em> supports parsing a tree with data from a number of file formats and software outputs. A <em>treedata</em> object stores a phylogenetic tree with node/branch-associated data. <em>Treeio</em> provides several functions to manipulate a tree with data. Users can convert the <em>treedata</em> object into a tidy data frame (each row represents a node in the tree and each column represents a variable) and process the tree with data using the tidy interface implemented in <em>tidytree</em>. The tree can be extracted from the <em>treedata</em> object and exported to a Newick and NEXUS file or can be exported with associated data into a single file (either in the BEAST NEXUS or jtree format). Associated data stored in the <em>treedata</em> object can be used to annotate the tree using <em>ggtree</em>. In addition, <em>ggtree</em> supports a number of tree objects, including <em>phyloseq</em> for microbiome data and <em>obkData</em> for outbreak data. The <em>phylo</em>, multiPhylo (<em>ape</em> package), <em>phylo4</em>, <em>phylo4d</em> (<em>phylobase</em> package), <em>phylog</em> (<em>ade4</em> package), <em>phyloseq</em> (<em>phyloseq</em> package), and <em>obkData</em> (<em>OutbreakTools</em> package) are tree objects defined by the R community to store tree with or without domain-specific data. All these tree objects as well as hierarchical clustering results (<em>e.g.</em>, <em>hclust</em> and <em>dendrogram</em> objects) are supported by <em>ggtree</em>.
 </figcaption>
 </figure>
 </div>
@@ -1239,7 +1239,7 @@ with the following features available:
 <div class="cell-output cell-output-stdout">
 <pre><code>'treedata' S4 object that stored information
 of
-    '/tmp/RtmpouHIar/file22d9180a4bc5.jtree'.
+    '/tmp/Rtmp2SNJTV/file22ad388e2954.jtree'.
 
 ...@ phylo:
 
@@ -1349,13 +1349,13 @@ Table&nbsp;2.2: Conversion of tree-like object to phylo or treedata object
 (`geom_text()`).</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="fig-pmlTree" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:pmlTreescap)">
+<div id="fig-pmlTree" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pmlTree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="01_treeio_importing_tree_files/figure-html/fig-pmlTree-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:pmlTreescap)">
+<img src="01_treeio_importing_tree_files/figure-html/fig-pmlTree-1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pmlTree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.4: (ref:pmlTreecap)
+Figure&nbsp;2.4: <strong>Converting <code>pml</code> object to <code>treedata</code> object.</strong> This allows using <code>r CRANpkg("tidytree")</code> to process the tree data as well as using <code>r Biocpkg("ggtree")</code> and <code>r Biocpkg("ggtreeExtra")</code> to visualize the tree with associated data.
 </figcaption>
 </figure>
 </div>

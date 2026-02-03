@@ -630,10 +630,10 @@ NA END;</code></pre>
 <div aria-describedby="fig-beastFigtree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
 <div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-beastFigtree" style="flex-basis: 100.0%;justify-content: flex-start;">
-<div id="fig-beastFigtree-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:beastFigtreescap)">
+<div id="fig-beastFigtree-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-beastFigtree-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="img/phyldog.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:beastFigtreescap)" data-ref-parent="fig-beastFigtree">
+<img src="img/phyldog.png" class="img-fluid figure-img" style="width:100.0%" data-ref-parent="fig-beastFigtree">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-beastFigtree-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (a) NHX file
@@ -644,10 +644,10 @@ NA END;</code></pre>
 </div>
 <div class="quarto-layout-row">
 <div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-beastFigtree" style="flex-basis: 100.0%;justify-content: flex-start;">
-<div id="fig-beastFigtree-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:beastFigtreescap)">
+<div id="fig-beastFigtree-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-beastFigtree-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="img/codeml.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="(ref:beastFigtreescap)" data-ref-parent="fig-beastFigtree">
+<img src="img/codeml.png" class="img-fluid figure-img" style="width:100.0%" data-ref-parent="fig-beastFigtree">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-beastFigtree-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (b) CodeML output
@@ -705,10 +705,10 @@ NA Ectopleura_larynx@3556167:0.33):0.19);</code></pre>
 
 Please cite:
 
-L Zhou, T Feng, S Xu, F Gao, TT Lam, Q Wang, T Wu, H Huang, L Zhan, L
-Li, Y Guan, Z Dai, G Yu. ggmsa: a visual exploration tool for multiple
-sequence alignment and associated data. Bioinformatics. 2022,
-23(4):bbac222. 10.1093/bib/bbac222</code></pre>
+Shuangbin Xu, Lin Li, Xiao Luo, Meijun Chen, Wenli Tang, Li Zhan, Zehan
+Dai, Tommy T. Lam, Yi Guan, Guangchuang Yu. Ggtree: A serialized data
+object for visualization of a phylogenetic tree and annotation data.
+iMeta 2022, 1(4):e56. doi:10.1002/imt2.56</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
@@ -735,7 +735,7 @@ Attaching package: 'tidytree'</code></pre>
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">write.beast</span>(fake_tree2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#NEXUS
-[R-package treeio, Mon Feb  2 10:16:01 2026]
+[R-package treeio, Tue Feb  3 01:03:33 2026]
 
 BEGIN TAXA;
     DIMENSIONS NTAX = 5;
@@ -755,7 +755,7 @@ BEGIN TREES;
         4   Nanomia_bijuga@717864,
         5   Cordagalma_sp_@1525873
     ;
-    TREE * UNTITLED = [&amp;R] ((1[&amp;fake_trait=-1.47,another_trait=0.62]:0.09,2[&amp;fake_trait=0.28,another_trait=0.09]:0)[&amp;fake_trait=1.57,another_trait=0.98]:0,(5[&amp;fake_trait=-0.48,another_trait=0.28]:0.07,(3[&amp;fake_trait=0.42,another_trait=0.56]:0.12,4[&amp;fake_trait=0.67,another_trait=0.43]:0.13)[&amp;fake_trait=-0.92,another_trait=0.46]:0)[&amp;fake_trait=-0.27,another_trait=0.22]:0):0.29;
+    TREE * UNTITLED = [&amp;R] ((1[&amp;fake_trait=0.61,another_trait=0.24]:0.09,2[&amp;fake_trait=0.24,another_trait=0.02]:0)[&amp;fake_trait=-1.01,another_trait=0.69]:0,(5[&amp;fake_trait=1.39,another_trait=0.6]:0.07,(3[&amp;fake_trait=1,another_trait=0.25]:0.12,4[&amp;fake_trait=1.2,another_trait=0.12]:0.13)[&amp;fake_trait=-2.74,another_trait=0.04]:0)[&amp;fake_trait=-0.39,another_trait=0.17]:0):0.29;
 END;</code></pre>
 </div>
 </div>
@@ -867,7 +867,7 @@ with the following features available:
 <div class="cell-output cell-output-stdout">
 <pre><code>'treedata' S4 object that stored information
 of
-    '/tmp/RtmpwbTxTp/file232564fcc588.tree'.
+    '/tmp/RtmpiALhVS/file22f756210000.tree'.
 
 ...@ phylo:
 
@@ -982,7 +982,7 @@ NA [1] "Tue Nov 16 10:24:34 2021"</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>'treedata' S4 object that stored information
 of
-    '/tmp/RtmpwbTxTp/file232564b10773.jtree'.
+    '/tmp/RtmpiALhVS/file22f768b907cb.jtree'.
 
 ...@ phylo:
 
