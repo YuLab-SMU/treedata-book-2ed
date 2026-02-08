@@ -410,12 +410,12 @@ div.csl-indent {
 [25] "BioVizSeq"         "DAISIEprep"        "ddtlcm"           
 [28] "delimtools"        "dowser"            "EvoPhylo"         
 [31] "FossilSim"         "genBaRcode"        "harrietr"         
-[34] "mycolorsTB"        "RevGadgets"        "scistreer"        
-[37] "shinyTempSignal"   "STraTUS"           "Sysrecon"         
-[40] "TransProR"        </code></pre>
+[34] "mycolorsTB"        "numbat"            "RevGadgets"       
+[37] "scistreer"         "shinyTempSignal"   "STraTUS"          
+[40] "Sysrecon"          "TransProR"        </code></pre>
 </div>
 </div>
-<p>There are 40 packages in CRAN or Bioconductor that depend on or import <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> and several packages on GitHub that extend <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>. Here we briefly introduce some extension packages, including <a href="http://bioconductor.org/packages/MicrobiotaProcess"><strong>MicrobiotaProcess</strong></a> and <a href="http://bioconductor.org/packages/tanggle"><strong>tanggle</strong></a>.</p>
+<p>There are 41 packages in CRAN or Bioconductor that depend on or import <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> and several packages on GitHub that extend <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>. Here we briefly introduce some extension packages, including <a href="http://bioconductor.org/packages/MicrobiotaProcess"><strong>MicrobiotaProcess</strong></a> and <a href="http://bioconductor.org/packages/tanggle"><strong>tanggle</strong></a>.</p>
 <section id="sec-MicrobiotaProcess" class="level2" data-number="12.1">
 <h2 data-number="12.1" class="anchored" data-anchor-id="sec-MicrobiotaProcess"><span class="header-section-number">12.1</span> Taxonomy Annotation Using MicrobiotaProcess</h2>
 <p>The <a href="http://bioconductor.org/packages/MicrobiotaProcess"><strong>MicrobiotaProcess</strong></a> package provides a LEfSe-like algorithm <span class="citation" data-cites="segata_metagenomic_2011">(<a href="#ref-segata_metagenomic_2011" role="doc-biblioref">Segata et al., 2011</a>)</span> to discover microbiome biomarkers by comparing taxon abundance between different classes. It provides several methods to visualize the analysis result. The <code>ggdiffclade</code> is developed based on <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> <span class="citation" data-cites="yu_ggtree:_2017">(<a href="#ref-yu_ggtree:_2017" role="doc-biblioref">Yu et al., 2017</a>)</span>. In addition to the <code>diff_analysis()</code> result, it also supports a data frame that contains a hierarchical relationship (<em>e.g.</em>, <a href="#MicrobiotaProcess-taxonomy">taxonomy annotation</a> or KEGG annotation) with another data frame that contains taxa and factor information and/or pvalue. The following example demonstrates how to use data frames (<em>i.e.</em>, analysis results) to visualize the differential taxonomy tree. More details can be found on the vignette of the <a href="http://bioconductor.org/packages/MicrobiotaProcess"><strong>MicrobiotaProcess</strong></a> package.</p>
