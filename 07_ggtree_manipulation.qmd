@@ -168,7 +168,7 @@ p3
 
 Here two clades were collapsed and labeled by the green circle and red square symbolic points. Collapsing is a common strategy to collapse clades that are too large for displaying in full or are not the primary interest of the study. In `r Biocpkg("ggtree")`, we can expand (*i.e.*, uncollapse) the collapsed branches back with the `expand()` function to show details of species relationships as demonstrated in Figure @fig-collapseExpand-2.
 
-Triangles are often used to represent the collapsed clade and `r Biocpkg("ggtree")` also supports it. The `collapse()` function provides a "mode" parameter, which by default is "none" and the selected clade was collapsed as a "tip". Users can specify the `mode` to "max" that uses the farthest tip (Figure @fig-collapseMode-1), "min" that uses the closest tip (Figure @fig-collapseMode-2), and "mixed" that uses both (Figure @fig-collapseMode-3). 
+Triangles are often used to represent the collapsed clade and `r Biocpkg("ggtree")` also supports it. The `collapse()` function provides a `mode` parameter, which by default is `"none"` and the selected clade is collapsed as a tip. Users can specify the `mode` to `"max"` that uses the farthest tip (Figure @fig-collapseMode-1), `"min"` that uses the closest tip (Figure @fig-collapseMode-2), and `"mixed"` that uses both (Figure @fig-collapseMode-3). 
 
 
 ```r
@@ -177,6 +177,33 @@ node <- 21
 collapse(p2, node, 'max') %>% expand(node)
 collapse(p2, node, 'min') %>% expand(node)
 collapse(p2, node, 'mixed') %>% expand(node)
+```
+
+The `height` parameter can be used to control the displayed height of collapsed triangles. It supports three input forms: `NULL` (default, do nothing), `ggplot2::rel()` to scale the original triangle height relatively, and a numeric value to force an absolute displayed height. This is useful when multiple collapsed clades should have a comparable visual footprint (Figure @fig-collapseHeight).
+
+
+
+```{r}
+#| echo: true
+#| label: fig-collapseHeight
+#| fig-cap: |
+#|   Controlling the displayed height of collapsed triangles.
+#| fig-subcap:
+#|   - "Default height"
+#|   - "Relative height with `ggplot2::rel(0.2)`"
+#|   - "Absolute height set to 1"
+#| out-width: '100%'
+#| fig-height: 3.5
+#| fig-show: hold
+#| layout-ncol: 3
+p_height_base <- p + geom_tiplab()
+p_height_default <- collapse(p_height_base, node, 'mixed')
+p_height_relative <- collapse(p_height_base, node, 'mixed', height = ggplot2::rel(0.2))
+p_height_fixed <- collapse(p_height_base, node, 'mixed', height = 1)
+
+p_height_default
+p_height_relative
+p_height_fixed
 ```
 
 We can pass additional parameters to set the color and transparency of the triangles (Figure @fig-collapseMode-4).
