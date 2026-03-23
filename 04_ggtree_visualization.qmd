@@ -147,7 +147,7 @@ p4
 
 ### Layouts of a phylogenetic tree {#sec-tree-layouts}
 
-Viewing phylogenetic with `r Biocpkg("ggtree")` is quite simple, just pass the tree object to the `ggtree()` function. We have developed several types of layouts for tree presentation (Figure @fig-layout), including *rectangular* (by default), *roundrect* (rounded rectangular), *ellipse*, *slanted*, *circular*, *fan*, *unrooted*\index{unrooted} (equal angle and daylight methods), time-scaled, and two-dimensional layouts\index{tree layout}. 
+Viewing phylogenetic with `r Biocpkg("ggtree")` is quite simple, just pass the tree object to the `ggtree()` function. We have developed several types of layouts for tree presentation (Figure @fig-layout), including *rectangular* (by default), *roundrect* (rounded rectangular), *ellipse*, *slanted*, *circular*, *fan*, *unrooted*\index{unrooted} (equal angle, daylight, and TreeAndLeaf-inspired methods), time-scaled, and two-dimensional layouts\index{tree layout}. 
 
 Here are examples of visualizing a tree with different layouts:
 
@@ -295,12 +295,73 @@ ggtree(tree) + layout_inward_circular(xlim=15)
 **Phylogram.** Layouts of *rectangular*, *roundrect*, *slanted*, *ellipse*, *circular*, and *fan* are supported to visualize phylogram\index{phylogram} (by default, with branch length scaled) as demonstrated in Figures @fig-layout-1–@fig-layout-6.
 
 
-**Unrooted layout.** Unrooted (also called `r squote('radial')`) layout is supported by equal-angle and daylight algorithms; users can specify unrooted layout algorithm by passing "equal_angle" or "daylight" to `layout` parameter to visualize the tree. The equal-angle method was proposed by Christopher Meacham in *PLOTREE*, which was incorporated in `r pkg_phylip` [@retief_phylogenetic_2000]. This method starts from the root of the tree and allocates arcs of angle to each subtree proportional to the number of tips in it. It iterates from root to tips and subdivides the angle allocated to a subtree into angles for its dependent subtrees. This method is fast and was implemented in many software packages. As shown in Figure @fig-layout-7, the equal angle method has a drawback that tips tend to be clustered together, which will leave many spaces unused. The daylight method starts from an initial tree built by equal angle and iteratively improves it by successively going to each interior node and swinging subtrees so that the arcs of "daylight" are equal (Figure @fig-layout-8). This method was firstly implemented in `r pkg_paup` [@wilgenbusch_inferring_2003].
+**Unrooted layout.** Unrooted (also called `r squote('radial')`) layout is supported by equal-angle, daylight, and `tree_and_leaf` algorithms; users can specify the unrooted layout algorithm by passing `"equal_angle"`, `"daylight"`, or `"tree_and_leaf"` to the `layout` parameter to visualize the tree. The equal-angle method was proposed by Christopher Meacham in *PLOTREE*, which was incorporated in `r pkg_phylip` [@retief_phylogenetic_2000]. This method starts from the root of the tree and allocates arcs of angle to each subtree proportional to the number of tips in it. It iterates from root to tips and subdivides the angle allocated to a subtree into angles for its dependent subtrees. This method is fast and was implemented in many software packages. As shown in Figure @fig-layout-7, the equal angle method has a drawback that tips tend to be clustered together, which will leave many spaces unused. The daylight method starts from an initial tree built by equal angle and iteratively improves it by successively going to each interior node and swinging subtrees so that the arcs of "daylight" are equal (Figure @fig-layout-8). This method was firstly implemented in `r pkg_paup` [@wilgenbusch_inferring_2003]. The `tree_and_leaf` layout is a deterministic, leaf-centric layout inspired by the `r Biocpkg("TreeAndLeaf")` package. It begins from an existing unrooted layout and applies a static relaxation step that increases tip separation while preserving the overall tree skeleton, which is useful when annotations are concentrated around the leaves (Figure @fig-treeAndLeafLayout). 
 
 
 
 **Cladogram.** To visualize a cladogram\index{cladogram} that is without branch length scaling and only displays the tree structure,  `branch.length` is set to "none" and it works for all types of layouts (Figures @fig-layout-9–@fig-layout-12).
 
+```{r}
+#| echo: false
+#| label: fig-treeAndLeafLayout
+#| fig-cap: |
+#|   Comparing unrooted layouts with the leaf-centric `tree_and_leaf` layout.
+#| fig-subcap:
+#|   - "Equal-angle layout"
+#|   - "Daylight layout"
+#|   - "TreeAndLeaf-inspired layout"
+#| out-width: "100%"
+#| fig-height: 3.5
+#| fig-show: hold
+#| layout-ncol: 3
+set.seed(2017-02-16)
+tree_tl <- rtree(50)
+p_equal_angle <- ggtree(tree_tl, layout = "equal_angle")
+p_daylight <- ggtree(tree_tl, layout = "daylight")
+p_tree_and_leaf <- ggtree(tree_tl, layout = "tree_and_leaf")
+
+p_equal_angle
+p_daylight
+p_tree_and_leaf
+```
+
+
+
+**Paired-tree layout.** A tanglegram-like paired-tree view is useful for comparing two related trees while keeping `ggtree` annotations on both sides. The `ggdoubletree()` helper accepts either two raw trees or two pre-annotated `ggtree` objects plus an association table. When `optimize = TRUE`, it applies a deterministic tip-order optimization step to reduce crossing links; `optimize_side = "both"` alternates optimization on both trees.
+
+```{r}
+#| label: fig-ggdoubletree
+#| fig-cap: |
+#|   **Paired-tree layout.** `ggdoubletree()` compares two trees and draws association links between matched taxa while preserving tree-side annotations.
+#| fig-scap: "Paired-tree layout"
+#| out-width: '100%'
+#| fig-height: 4.8
+tr_left <- ape::read.tree(text = "(((a,b),c),(d,e));")
+tr_right <- ape::read.tree(text = "((e,d),(c,(b,a)));")
+assoc <- data.frame(
+  left = c("a", "b", "c", "d", "e"),
+  right = c("a", "b", "c", "d", "e")
+)
+
+left_view <- ggtree(tr_left) +
+  geom_tiplab() +
+  geom_tippoint(color = "#3C78D8", size = 2)
+
+right_view <- ggtree(tr_right) +
+  geom_tiplab() +
+  geom_tippoint(color = "#D95F02", size = 2)
+
+p_tangle <- ggdoubletree(
+  left_view,
+  right_view,
+  assoc,
+  optimize = TRUE,
+  optimize_side = "both"
+)
+
+p_tangle +
+  geom_tanglelink(alpha = 0.35, color = "grey50")
+```
 
 
 **Timescaled layout.** For a timescaled tree\index{time-scaled tree}, the most recent sampling date must be specified via the `mrsd` parameter, and `ggtree()` will scale the tree by sampling (tip) and divergence (internal node) time, and a timescale axis will be displayed under the tree by default. Users can use the `r CRANpkg("deeptime")` package to add geologic timescale (e.g., periods and eras) to a `ggtree()` plot. 

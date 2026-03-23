@@ -197,9 +197,10 @@ The `height` parameter can be used to control the displayed height of collapsed 
 #| fig-show: hold
 #| layout-ncol: 3
 p_height_base <- p + geom_tiplab()
-p_height_default <- collapse(p_height_base, node, 'mixed')
-p_height_relative <- collapse(p_height_base, node, 'mixed', height = ggplot2::rel(0.2))
-p_height_fixed <- collapse(p_height_base, node, 'mixed', height = 1)
+node <- 21
+p_height_default <- ggtree::collapse(p_height_base, node = node, mode = 'mixed')
+p_height_relative <- ggtree::collapse(p_height_base, node = node, mode = 'mixed', height = ggplot2::rel(0.2))
+p_height_fixed <- ggtree::collapse(p_height_base, node = node, mode = 'mixed', height = 1)
 
 p_height_default
 p_height_relative
