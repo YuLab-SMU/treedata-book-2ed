@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,6 +10,9 @@
 
 <title>3&nbsp; Exporting tree with data – Data Integration, Manipulation and Visualization of Phylogenetic Trees</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -90,15 +93,14 @@ div.csl-indent {
 <link href="./02_tidytree.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-66c9649715f74f1e4324758aa2390964.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -705,10 +707,11 @@ NA Ectopleura_larynx@3556167:0.33):0.19);</code></pre>
 
 Please cite:
 
-Guangchuang Yu, Tommy Tsan-Yuk Lam, Huachen Zhu, Yi Guan. Two methods
-for mapping and visualizing associated data on phylogeny using ggtree.
-Molecular Biology and Evolution. 2018, 35(12):3041-3043.
-doi:10.1093/molbev/msy194</code></pre>
+L Zhan, X Luo, W Xie, XA Zhu, Z Xie, J Lin, L Li, W Tang, R Wang, L
+Deng, Y Liao, B Liu, Y Cai, Q Wang, S Xu, G Yu. shinyTempSignal: an R
+shiny application for exploring temporal and other phylogenetic
+signals. Journal of Genetics and Genomics 2024, 51(7):762-768. doi:
+10.1016/j.jgg.2024.02.004</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
@@ -735,7 +738,7 @@ Attaching package: 'tidytree'</code></pre>
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">write.beast</span>(fake_tree2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#NEXUS
-[R-package treeio, Sun Feb 22 02:44:37 2026]
+[R-package treeio, Sun Mar 29 03:43:29 2026]
 
 BEGIN TAXA;
     DIMENSIONS NTAX = 5;
@@ -755,7 +758,7 @@ BEGIN TREES;
         4   Nanomia_bijuga@717864,
         5   Cordagalma_sp_@1525873
     ;
-    TREE * UNTITLED = [&amp;R] ((1[&amp;fake_trait=-0.82,another_trait=0.56]:0.09,2[&amp;fake_trait=0.6,another_trait=0.46]:0)[&amp;fake_trait=1.67,another_trait=0.86]:0,(5[&amp;fake_trait=-1.38,another_trait=0.04]:0.07,(3[&amp;fake_trait=-0.84,another_trait=0.56]:0.12,4[&amp;fake_trait=0.18,another_trait=0.62]:0.13)[&amp;fake_trait=1.25,another_trait=0.04]:0)[&amp;fake_trait=0.84,another_trait=0.67]:0):0.29;
+    TREE * UNTITLED = [&amp;R] ((1[&amp;fake_trait=1.4,another_trait=0.34]:0.09,2[&amp;fake_trait=0.22,another_trait=0.33]:0)[&amp;fake_trait=1.01,another_trait=0.38]:0,(5[&amp;fake_trait=-0.15,another_trait=0.41]:0.07,(3[&amp;fake_trait=-0.88,another_trait=0.28]:0.12,4[&amp;fake_trait=-2.08,another_trait=0.29]:0.13)[&amp;fake_trait=0.4,another_trait=0.06]:0)[&amp;fake_trait=-0.36,another_trait=0.25]:0):0.29;
 END;</code></pre>
 </div>
 </div>
@@ -867,7 +870,7 @@ with the following features available:
 <div class="cell-output cell-output-stdout">
 <pre><code>'treedata' S4 object that stored information
 of
-    '/tmp/RtmpQvPS6N/file246649d2d20f.tree'.
+    '/tmp/RtmpuwHQov/file10c96470678b7.tree'.
 
 ...@ phylo:
 
@@ -982,7 +985,7 @@ NA [1] "Tue Nov 16 10:24:34 2021"</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>'treedata' S4 object that stored information
 of
-    '/tmp/RtmpQvPS6N/file2466734fef02.jtree'.
+    '/tmp/RtmpuwHQov/file10c963b126803.jtree'.
 
 ...@ phylo:
 
