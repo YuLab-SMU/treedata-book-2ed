@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -97,10 +97,10 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-66c9649715f74f1e4324758aa2390964.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-36bf55b16c7cb4b1420f41495cb5446a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -431,14 +431,13 @@ Attaching package: 'MicrobiotaProcess'</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>ggtree v4.1.1.006 Learn more at https://yulab-smu.top/contribution-tree-data/
+<pre><code>ggtree v4.1.2 Learn more at https://yulab-smu.top/contribution-tree-data/
 
 Please cite:
 
-Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam.
-ggtree: an R package for visualization and annotation of phylogenetic
-trees with their covariates and other associated data. Methods in
-Ecology and Evolution. 2017, 8(1):28-36. doi:10.1111/2041-210X.12628</code></pre>
+Guangchuang Yu.  Data Integration, Manipulation and Visualization of
+Phylogenetic Trees (1st edition). Chapman and Hall/CRC. 2022,
+doi:10.1201/9781003279242, ISBN: 9781032233574</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The original kostic2012crc is a MPSE object</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(kostic2012crc)</span>
@@ -598,26 +597,26 @@ Figure&nbsp;15.2: <strong>Visualizing Open Tree of Life subtree.</strong> The <c
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(d) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(d, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>NA                     
-NA  11                 
-NA   ¦--12             
-NA   ¦   ¦--t8         
-NA   ¦   °--13         
-NA   ¦       ¦--14     
-NA   ¦       ¦   ¦--t6 
-NA   ¦       ¦   °--t7 
-NA   ¦       °--15     
-NA   ¦           ¦--t1 
-NA   ¦           °--t10
-NA   °--16             
-NA       ¦--t4         
-NA       °--17         
-NA           ¦--18     
-NA           ¦   ¦--t3 
-NA           ¦   °--t9 
-NA           °--19     
-NA               ¦--t2 
-NA               °--t5</code></pre>
+<pre><code>NA                        
+NA  11                    
+NA   ¦--12                
+NA   ¦   ¦--13            
+NA   ¦   ¦   ¦--t10       
+NA   ¦   ¦   °--t6        
+NA   ¦   °--14            
+NA   ¦       ¦--15        
+NA   ¦       ¦   ¦--16    
+NA   ¦       ¦   ¦   ¦--t2
+NA   ¦       ¦   ¦   °--t9
+NA   ¦       ¦   °--17    
+NA   ¦       ¦       ¦--t7
+NA   ¦       ¦       °--t8
+NA   ¦       °--18        
+NA   ¦           ¦--t3    
+NA   ¦           °--t1    
+NA   °--19                
+NA       ¦--t5            
+NA       °--t4</code></pre>
 </div>
 </div>
 <p>It is neat to print ASCII-art of the phylogeny. Sometimes, we don’t want to plot the tree, but just take a glance at the tree structure without leaving the focus from the R console. However, it is not a good idea to print the whole tree as ASCII text if the tree is large. Sometimes, we just want to look at a specific portion of the tree and its immediate relatives. In this scenario, we can use <code>treeio::tree_subset()</code> function (see <a href="subsetting-tree-with-data">session 2.4</a>) to extract selected portion of a tree. Then we can print ASCII-art of the tree subset to explore the evolutionary relationship of the species of our interest in the R console.</p>
@@ -655,23 +654,23 @@ Figure&nbsp;15.3: <strong>Phylomoji as ASCII text.</strong> The <code>data.tree<
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">dev.off</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NA                                                                                 
-NA                                           ####################                  
-NA                                           #                                     
-NA                                     #######                                     
-NA                                     #     #                                     
-NA                                     #     ##################################    
-NA    ##################################                                           
-NA    #                                #                                           
-NA    #                                #                                           
-NA    #                                #######################                     
+NA                                        ###################                      
+NA                                        #                                        
+NA                                #########                                        
+NA                                #       #                                        
+NA                                #       ############                             
+NA                                #                                                
+NA    #############################                                                
+NA    #                           #                                                
+NA    #                           #                      ######################    
+NA    #                           #                      #                         
+NA    #                           ########################                         
+NA    #                                                  #                         
+NA    #                                                  ################          
 NA    #                                                                            
 NA    #                                                                            
 NA    #                                                                            
-NA    #        ############                                                        
-NA    #        #                                                                   
-NA    ##########                                                                   
-NA             #                                                                   
-NA             ##############################                                      
+NA    ####################################################                         
 NA                                                                                 
 NA </code></pre>
 </div>
