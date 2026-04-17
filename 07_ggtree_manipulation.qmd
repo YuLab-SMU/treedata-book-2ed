@@ -179,7 +179,7 @@ collapse(p2, node, 'min') %>% expand(node)
 collapse(p2, node, 'mixed') %>% expand(node)
 ```
 
-The `height` parameter can be used to control the displayed height of collapsed triangles. It supports three input forms: `NULL` (default, do nothing), `ggplot2::rel()` to scale the original triangle height relatively, and a numeric value to force an absolute displayed height. This is useful when multiple collapsed clades should have a comparable visual footprint (Figure @fig-collapseHeight).
+The `height` parameter can be used to control the displayed height of collapsed triangles. It supports three input forms: `NULL` (default, keep the original triangle height), `ggplot2::rel()` to scale the original triangle height relatively, and a numeric value to force an absolute displayed height. This is useful when multiple collapsed clades should have a comparable visual footprint. After collapsing with a custom `height`, `expand()` restores the original layout correctly (Figure @fig-collapseHeight).
 
 
 
@@ -187,24 +187,27 @@ The `height` parameter can be used to control the displayed height of collapsed 
 #| echo: true
 #| label: fig-collapseHeight
 #| fig-cap: |
-#|   Controlling the displayed height of collapsed triangles.
+#|   Controlling the displayed height of collapsed triangles and restoring the original layout with `expand()`.
 #| fig-subcap:
 #|   - "Default height"
 #|   - "Relative height with `ggplot2::rel(0.2)`"
 #|   - "Absolute height set to 1"
+#|   - "Expanded back after using `height = 1`"
 #| out-width: '100%'
-#| fig-height: 3.5
+#| fig-height: 4
 #| fig-show: hold
-#| layout-ncol: 3
-p_height_base <- p + geom_tiplab()
+#| layout-ncol: 2
+p_height_base <- p
 node <- 21
 p_height_default <- ggtree::collapse(p_height_base, node = node, mode = 'mixed')
 p_height_relative <- ggtree::collapse(p_height_base, node = node, mode = 'mixed', height = ggplot2::rel(0.2))
 p_height_fixed <- ggtree::collapse(p_height_base, node = node, mode = 'mixed', height = 1)
+p_height_restored <- p_height_fixed %>% expand(node = node)
 
 p_height_default
 p_height_relative
 p_height_fixed
+p_height_restored
 ```
 
 We can pass additional parameters to set the color and transparency of the triangles (Figure @fig-collapseMode-4).

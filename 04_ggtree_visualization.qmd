@@ -295,7 +295,7 @@ ggtree(tree) + layout_inward_circular(xlim=15)
 **Phylogram.** Layouts of *rectangular*, *roundrect*, *slanted*, *ellipse*, *circular*, and *fan* are supported to visualize phylogram\index{phylogram} (by default, with branch length scaled) as demonstrated in Figures @fig-layout-1–@fig-layout-6.
 
 
-**Unrooted layout.** Unrooted (also called `r squote('radial')`) layout is supported by equal-angle, daylight, and `tree_and_leaf` algorithms; users can specify the unrooted layout algorithm by passing `"equal_angle"`, `"daylight"`, or `"tree_and_leaf"` to the `layout` parameter to visualize the tree. The equal-angle method was proposed by Christopher Meacham in *PLOTREE*, which was incorporated in `r pkg_phylip` [@retief_phylogenetic_2000]. This method starts from the root of the tree and allocates arcs of angle to each subtree proportional to the number of tips in it. It iterates from root to tips and subdivides the angle allocated to a subtree into angles for its dependent subtrees. This method is fast and was implemented in many software packages. As shown in Figure @fig-layout-7, the equal angle method has a drawback that tips tend to be clustered together, which will leave many spaces unused. The daylight method starts from an initial tree built by equal angle and iteratively improves it by successively going to each interior node and swinging subtrees so that the arcs of "daylight" are equal (Figure @fig-layout-8). This method was firstly implemented in `r pkg_paup` [@wilgenbusch_inferring_2003]. The `tree_and_leaf` layout is a deterministic, leaf-centric layout inspired by the `r Biocpkg("TreeAndLeaf")` package. It begins from an existing unrooted layout and applies a static relaxation step that increases tip separation while preserving the overall tree skeleton, which is useful when annotations are concentrated around the leaves (Figure @fig-treeAndLeafLayout). 
+**Unrooted layout.** Unrooted (also called `r squote('radial')`) layout is supported by the equal-angle, daylight, and `tree_and_leaf` algorithms. Users can choose among them by setting the `layout` parameter to `"equal_angle"`, `"daylight"`, or `"tree_and_leaf"`. The equal-angle method was proposed by Christopher Meacham in *PLOTREE* and later incorporated into `r pkg_phylip` [@retief_phylogenetic_2000]. Starting from the root, it allocates angular space to each subtree in proportion to the number of descendant tips. This strategy is fast and has been implemented in many software packages, but it often leaves large unused areas while densely packing the tips (Figure @fig-layout-7). The daylight method begins with an equal-angle tree and iteratively swings subtrees around internal nodes so that the arcs of "daylight" are more evenly distributed (Figure @fig-layout-8); this method was first implemented in `r pkg_paup` [@wilgenbusch_inferring_2003]. The `tree_and_leaf` layout, inspired by the `r Biocpkg("TreeAndLeaf")` package and now integrated directly into `ggtree()`, provides another deterministic alternative. It starts from an existing unrooted layout and applies a static relaxation step to increase the separation among leaves while preserving the overall shape of the tree. This behavior is especially useful when tip labels or other annotations are concentrated near the periphery.
 
 
 
@@ -325,9 +325,31 @@ p_daylight
 p_tree_and_leaf
 ```
 
+Figure @fig-treeAndLeafLayout illustrates that `tree_and_leaf` preserves the overall topology while allocating more space to the tips. It should therefore be viewed as a complement to the daylight layout rather than a replacement for it. When the main visual burden lies near the leaves, such as when many labels or tip-associated data layers are present, `tree_and_leaf` can provide a clearer display.
+
+```{r}
+#| label: fig-treeAndLeafLabels
+#| fig-cap: |
+#|   **Leaf-focused unrooted layouts.** Compared with the daylight layout, `tree_and_leaf` provides more room for tip labels while preserving the overall tree shape.
+#| fig-subcap:
+#|   - "Daylight layout with tip labels"
+#|   - "`tree_and_leaf` layout with tip labels"
+#| out-width: "100%"
+#| fig-height: 4.4
+#| fig-show: hold
+#| layout-ncol: 2
+set.seed(20260309)
+tree_leaf_demo <- rtree(30)
+
+ggtree(tree_leaf_demo, layout = "daylight") +
+  geom_tiplab(size = 2.4, align = TRUE, linesize = 0.25)
+
+ggtree(tree_leaf_demo, layout = "tree_and_leaf") +
+  geom_tiplab(size = 2.4, align = TRUE, linesize = 0.25)
+```
 
 
-**Paired-tree layout.** A tanglegram-like paired-tree view is useful for comparing two related trees while keeping `ggtree` annotations on both sides. The `ggdoubletree()` helper accepts either two raw trees or two pre-annotated `ggtree` objects plus an association table. When `optimize = TRUE`, it applies a deterministic tip-order optimization step to reduce crossing links; `optimize_side = "both"` alternates optimization on both trees.
+
 
 ```{r}
 #| label: fig-ggdoubletree
@@ -884,6 +906,49 @@ ggtree(x, color="orange", size=1) + theme_tree('grey30')
 ```
 
 Users can also use an image file as the tree background, see example in [Appendix B](#ggimage-bgimage).
+
+## Paired Trees and Tanglegrams
+
+In [Section @sec-ggtree-fortify], we showed how to manipulate fortified tree data and manually place two trees face-to-face for comparison. That approach remains useful when full control over coordinates, offsets, and layer composition is required. In many routine applications, however, the analytical goal is more specific: two related trees need to be displayed side by side, matched taxa need to be connected, and the annotations on both trees need to remain legible. For this common task, `ggtree` now provides native paired-tree support through `ggdoubletree()`, `fortify.tanglegram()`, `fortify.cophylo()`, and `geom_tanglelink()`.
+
+The main user-facing entry point is `ggdoubletree()`. It accepts two raw trees, two pre-annotated `ggtree` objects, or a `cophylo` object together with an association table. This is particularly convenient when the two trees have already been decorated with labels, points, or other layers, because these annotations can be carried over into the paired display. When `optimize = TRUE`, `ggtree` performs a deterministic tip-order optimization step to reduce link crossings. The `optimize_side` argument specifies whether the optimization is applied to the `"right"` tree, the `"left"` tree, or `"both"`. Figure @fig-pairedTreesNative presents a minimal example constructed from two annotated `ggtree` objects.
+
+```{r}
+#| label: fig-pairedTreesNative
+#| fig-cap: |
+#|   **A native paired-tree display.** `ggdoubletree()` compares two annotated `ggtree` objects, preserves their tip annotations, and adds association links as a standard plotting layer.
+#| fig-scap: "A native paired-tree display"
+#| out-width: '100%'
+#| fig-height: 4.8
+#| message: false
+library(ggtree)
+
+tr_left <- ape::read.tree(text = "(((a,b),c),(d,e));")
+tr_right <- ape::read.tree(text = "((e,d),(c,(b,a)));")
+assoc <- data.frame(
+  left = c("a", "b", "c", "d", "e"),
+  right = c("a", "b", "c", "d", "e")
+)
+
+left_view <- ggtree(tr_left) +
+  geom_tiplab() +
+  geom_tippoint(color = "#3C78D8", size = 2)
+
+right_view <- ggtree(tr_right) +
+  geom_tiplab() +
+  geom_tippoint(color = "#D95F02", size = 2)
+
+ggdoubletree(
+  left_view,
+  right_view,
+  assoc,
+  optimize = TRUE,
+  optimize_side = "both"
+) +
+  geom_tanglelink(alpha = 0.35, color = "grey50")
+```
+
+Compared with the manual strategy in Section @sec-ggtree-fortify, the native paired-tree workflow removes much of the bookkeeping needed to mirror coordinates and resolve link positions by hand. At the same time, the lower-level `fortify.tanglegram()` and `fortify.cophylo()` methods remain useful when users wish to inspect or further manipulate the paired-tree data before drawing it.
 
 ## Visualize a List of Trees
 
