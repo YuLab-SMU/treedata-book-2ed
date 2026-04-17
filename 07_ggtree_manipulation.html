@@ -399,8 +399,10 @@ div.csl-indent {
 
 Please cite:
 
-Guangchuang Yu. Using ggtree to visualize data on tree-like structures.
-Current Protocols in Bioinformatics. 2020, 69:e96. doi:10.1002/cpbi.96</code></pre>
+Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam.
+ggtree: an R package for visualization and annotation of phylogenetic
+trees with their covariates and other associated data. Methods in
+Ecology and Evolution. 2017, 8(1):28-36. doi:10.1111/2041-210X.12628</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
@@ -612,21 +614,23 @@ Figure&nbsp;7.3: Collapsing selected clades and expanding collapsed clades.
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">collapse</span>(p2, node, <span class="st">'max'</span>) <span class="sc">%&gt;%</span> <span class="fu">expand</span>(node)</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">collapse</span>(p2, node, <span class="st">'min'</span>) <span class="sc">%&gt;%</span> <span class="fu">expand</span>(node)</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">collapse</span>(p2, node, <span class="st">'mixed'</span>) <span class="sc">%&gt;%</span> <span class="fu">expand</span>(node)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The <code>height</code> parameter can be used to control the displayed height of collapsed triangles. It supports three input forms: <code>NULL</code> (default, do nothing), <code>ggplot2::rel()</code> to scale the original triangle height relatively, and a numeric value to force an absolute displayed height. This is useful when multiple collapsed clades should have a comparable visual footprint (Figure <a href="#fig-collapseHeight" class="quarto-xref">Figure&nbsp;<span>7.4</span></a>).</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>p_height_base <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_tiplab</span>()</span>
+<p>The <code>height</code> parameter can be used to control the displayed height of collapsed triangles. It supports three input forms: <code>NULL</code> (default, keep the original triangle height), <code>ggplot2::rel()</code> to scale the original triangle height relatively, and a numeric value to force an absolute displayed height. This is useful when multiple collapsed clades should have a comparable visual footprint. After collapsing with a custom <code>height</code>, <code>expand()</code> restores the original layout correctly (Figure <a href="#fig-collapseHeight" class="quarto-xref">Figure&nbsp;<span>7.4</span></a>).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>p_height_base <span class="ot">&lt;-</span> p</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>node <span class="ot">&lt;-</span> <span class="dv">21</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>p_height_default <span class="ot">&lt;-</span> ggtree<span class="sc">::</span><span class="fu">collapse</span>(p_height_base, <span class="at">node =</span> node, <span class="at">mode =</span> <span class="st">'mixed'</span>)</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>p_height_relative <span class="ot">&lt;-</span> ggtree<span class="sc">::</span><span class="fu">collapse</span>(p_height_base, <span class="at">node =</span> node, <span class="at">mode =</span> <span class="st">'mixed'</span>, <span class="at">height =</span> ggplot2<span class="sc">::</span><span class="fu">rel</span>(<span class="fl">0.2</span>))</span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>p_height_fixed <span class="ot">&lt;-</span> ggtree<span class="sc">::</span><span class="fu">collapse</span>(p_height_base, <span class="at">node =</span> node, <span class="at">mode =</span> <span class="st">'mixed'</span>, <span class="at">height =</span> <span class="dv">1</span>)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>p_height_default</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>p_height_relative</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>p_height_fixed</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>p_height_restored <span class="ot">&lt;-</span> p_height_fixed <span class="sc">%&gt;%</span> <span class="fu">expand</span>(<span class="at">node =</span> node)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>p_height_default</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>p_height_relative</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>p_height_fixed</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>p_height_restored</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="fig-collapseHeight" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-collapseHeight-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
-<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-collapseHeight" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-collapseHeight" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div id="fig-collapseHeight-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-collapseHeight-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -638,7 +642,7 @@ Figure&nbsp;7.3: Collapsing selected clades and expanding collapsed clades.
 </figure>
 </div>
 </div>
-<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-collapseHeight" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-collapseHeight" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div id="fig-collapseHeight-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-collapseHeight-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -650,7 +654,9 @@ Figure&nbsp;7.3: Collapsing selected clades and expanding collapsed clades.
 </figure>
 </div>
 </div>
-<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-collapseHeight" style="flex-basis: 33.3%;justify-content: flex-start;">
+</div>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-collapseHeight" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div id="fig-collapseHeight-3" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-collapseHeight-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -662,10 +668,22 @@ Figure&nbsp;7.3: Collapsing selected clades and expanding collapsed clades.
 </figure>
 </div>
 </div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-collapseHeight" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-collapseHeight-4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-collapseHeight-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="07_ggtree_manipulation_files/figure-html/fig-collapseHeight-4.png" class="img-fluid figure-img" style="width:100.0%" data-ref-parent="fig-collapseHeight">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-collapseHeight-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) Expanded back after using <code>height = 1</code>
+</figcaption>
+</figure>
+</div>
+</div>
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-collapseHeight-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.4: Controlling the displayed height of collapsed triangles.
+Figure&nbsp;7.4: Controlling the displayed height of collapsed triangles and restoring the original layout with <code>expand()</code>.
 </figcaption>
 </figure>
 </div>
