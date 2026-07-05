@@ -781,6 +781,15 @@ Figure&nbsp;10.5: <strong>Visualizing dendrogram.</strong> Use <code>cutree()</c
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(g, <span class="at">layout=</span><span class="st">'slanted'</span>, <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length=</span>arrow_size)) <span class="sc">+</span> </span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">5</span>, <span class="at">color=</span><span class="st">'steelblue'</span>, <span class="at">alpha=</span>.<span class="dv">6</span>) <span class="sc">+</span> </span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tiplab</span>(<span class="at">hjust=</span>.<span class="dv">5</span>,<span class="at">vjust=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">layout_dendrogram</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Computation failed in `stat_tree()`.
+Caused by error in `dplyr::filter()`:
+ℹ In argument: `.data$node != .rootnode.tbl_tree(df)$node`.
+Caused by error:
+! invalid tbl_tree object.
+  missing column:
+    label.</code></pre>
+</div>
 <div class="cell-output-display">
 <div id="fig-treeGraph" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:treeGraphscap)">
 <figure class="quarto-float quarto-float-fig figure">
@@ -799,25 +808,25 @@ Figure&nbsp;10.6: <strong>Visualizing a tree graph.</strong> The lines with arro
 <h2 data-number="10.4" class="anchored" data-anchor-id="ggtree-for-other-tree-like-structures"><span class="header-section-number">10.4</span> ggtree for Other Tree-like Structures</h2>
 <p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package can be used to visualize any data in a hierarchical structure. Here, we use the GNI (Gross National Income) numbers in 2014 as an example. After preparing an edge list, that is a matrix or data frame that contains two columns indicating the relationship of parent and child nodes, we can use the <code>as.phylo()</code> method provided by the <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package to convert the edge list to a <code>phylo</code> object. Then it can be visualized using <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> with associated data. In this example, the population was used to scale the size of circle points for each country (Figure <a href="#fig-gni2014" class="quarto-xref">Figure&nbsp;<span>10.7</span></a>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(treeio)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"GNI2014"</span>, <span class="at">package=</span><span class="st">"treemap"</span>)</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> GNI2014[, <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>)]</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>n[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(n[,<span class="dv">1</span>])</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>n[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">s</span><span class="sc">\\</span><span class="st">(.*</span><span class="sc">\\</span><span class="st">)"</span>, <span class="st">""</span>, n[,<span class="dv">1</span>])</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="st">"World"</span>, <span class="fu">as.character</span>(<span class="fu">unique</span>(n[,<span class="dv">1</span>])))</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(w) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(n)</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>edgelist <span class="ot">&lt;-</span> <span class="fu">rbind</span>(n, w)</span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">as.phylo</span>(edgelist)</span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(y, <span class="at">layout=</span><span class="st">'circular'</span>) <span class="sc">%&lt;+%</span> GNI2014 <span class="sc">+</span> </span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">color=</span>continent) <span class="sc">+</span> <span class="fu">geom_tippoint</span>(<span class="fu">aes</span>(<span class="at">size=</span>population), <span class="at">alpha=</span>.<span class="dv">6</span>) <span class="sc">+</span> </span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="fu">aes</span>(<span class="at">label=</span>country), <span class="at">offset=</span>.<span class="dv">05</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlim</span>(<span class="cn">NA</span>, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(treeio)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"GNI2014"</span>, <span class="at">package=</span><span class="st">"treemap"</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> GNI2014[, <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>)]</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>n[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(n[,<span class="dv">1</span>])</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>n[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">s</span><span class="sc">\\</span><span class="st">(.*</span><span class="sc">\\</span><span class="st">)"</span>, <span class="st">""</span>, n[,<span class="dv">1</span>])</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="st">"World"</span>, <span class="fu">as.character</span>(<span class="fu">unique</span>(n[,<span class="dv">1</span>])))</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(w) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(n)</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>edgelist <span class="ot">&lt;-</span> <span class="fu">rbind</span>(n, w)</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">as.phylo</span>(edgelist)</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(y, <span class="at">layout=</span><span class="st">'circular'</span>) <span class="sc">%&lt;+%</span> GNI2014 <span class="sc">+</span> </span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">color=</span>continent) <span class="sc">+</span> <span class="fu">geom_tippoint</span>(<span class="fu">aes</span>(<span class="at">size=</span>population), <span class="at">alpha=</span>.<span class="dv">6</span>) <span class="sc">+</span> </span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="fu">aes</span>(<span class="at">label=</span>country), <span class="at">offset=</span>.<span class="dv">05</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlim</span>(<span class="cn">NA</span>, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-gni2014" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="(ref:gni2014scap)">
 <figure class="quarto-float quarto-float-fig figure">
