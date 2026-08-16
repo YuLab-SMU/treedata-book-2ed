@@ -103,7 +103,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-343830dee7e81009abd9657442190b55.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-3d497cff885f6278d37568d0ef0763f8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -438,8 +438,10 @@ Attaching package: 'MicrobiotaProcess'</code></pre>
 
 Please cite:
 
-Guangchuang Yu. Using ggtree to visualize data on tree-like structures.
-Current Protocols in Bioinformatics. 2020, 69:e96. doi:10.1002/cpbi.96</code></pre>
+Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam.
+ggtree: an R package for visualization and annotation of phylogenetic
+trees with their covariates and other associated data. Methods in
+Ecology and Evolution. 2017, 8(1):28-36. doi:10.1111/2041-210X.12628</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The original kostic2012crc is a MPSE object</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(kostic2012crc)</span>
@@ -599,26 +601,26 @@ Figure&nbsp;15.2: <strong>Visualizing Open Tree of Life subtree.</strong> The <c
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(d) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(d, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>NA                            
-NA  11                        
-NA   ¦--12                    
-NA   ¦   ¦--t8                
-NA   ¦   °--t5                
-NA   °--13                    
-NA       ¦--14                
-NA       ¦   ¦--15            
-NA       ¦   ¦   ¦--16        
-NA       ¦   ¦   ¦   ¦--t9    
-NA       ¦   ¦   ¦   °--17    
-NA       ¦   ¦   ¦       ¦--t6
-NA       ¦   ¦   ¦       °--t4
-NA       ¦   ¦   °--18        
-NA       ¦   ¦       ¦--19    
-NA       ¦   ¦       ¦   ¦--t2
-NA       ¦   ¦       ¦   °--t3
-NA       ¦   ¦       °--t10   
-NA       ¦   °--t1            
-NA       °--t7</code></pre>
+<pre><code>NA                        
+NA  11                    
+NA   ¦--12                
+NA   ¦   ¦--13            
+NA   ¦   ¦   ¦--14        
+NA   ¦   ¦   ¦   ¦--15    
+NA   ¦   ¦   ¦   ¦   ¦--t8
+NA   ¦   ¦   ¦   ¦   °--t6
+NA   ¦   ¦   ¦   °--16    
+NA   ¦   ¦   ¦       ¦--t4
+NA   ¦   ¦   ¦       °--t1
+NA   ¦   ¦   °--17        
+NA   ¦   ¦       ¦--t7    
+NA   ¦   ¦       °--18    
+NA   ¦   ¦           ¦--t3
+NA   ¦   ¦           °--t5
+NA   ¦   °--19            
+NA   ¦       ¦--t9        
+NA   ¦       °--t2        
+NA   °--t10</code></pre>
 </div>
 </div>
 <p>It is neat to print ASCII-art of the phylogeny. Sometimes, we don’t want to plot the tree, but just take a glance at the tree structure without leaving the focus from the R console. However, it is not a good idea to print the whole tree as ASCII text if the tree is large. Sometimes, we just want to look at a specific portion of the tree and its immediate relatives. In this scenario, we can use <code>treeio::tree_subset()</code> function (see <a href="subsetting-tree-with-data">session 2.4</a>) to extract selected portion of a tree. Then we can print ASCII-art of the tree subset to explore the evolutionary relationship of the species of our interest in the R console.</p>
@@ -656,23 +658,23 @@ Figure&nbsp;15.3: <strong>Phylomoji as ASCII text.</strong> The <code>data.tree<
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">dev.off</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NA                                                                                 
-NA                                                      #######################    
-NA                                                      #                          
-NA                             ##########################                          
-NA                             #                        #                          
-NA                             #                        #######                    
-NA                             #                                                   
-NA    ##########################                                                   
-NA    #                        #                                                   
-NA    #                        #         ##############                            
-NA    #                        #         #                                         
-NA    #                        ###########                                         
-NA    #                                  #                                         
-NA    #                                  ########                                  
+NA                                                    ###############              
+NA                                                    #                            
+NA                                       ##############                            
+NA                                       #            #                            
+NA                                       #            #########################    
+NA                       #################                                         
+NA                       #               #                                         
+NA                       #               #                                         
+NA    ####################               #################                         
+NA    #                  #                                                         
+NA    #                  #                                                         
+NA    #                  #                                                         
+NA    #                  ##############                                            
 NA    #                                                                            
 NA    #                                                                            
 NA    #                                                                            
-NA    ##########                                                                   
+NA    #########################                                                    
 NA                                                                                 
 NA </code></pre>
 </div>
