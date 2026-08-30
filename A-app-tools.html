@@ -402,7 +402,7 @@ div.csl-indent {
 </div>
 <section id="sec-MicrobiotaProcess-taxonomy" class="level2" data-number="15.1">
 <h2 data-number="15.1" class="anchored" data-anchor-id="sec-MicrobiotaProcess-taxonomy"><span class="header-section-number">15.1</span> MicrobiotaProcess: Convert Taxonomy Table to a <code>treedata</code> Object</h2>
-<p>Taxonomy (genus, family, …) data are widely used in microbiome or ecology. Hierarchical taxonomies are the tree-like structure that organizes items into subcategories and can be converted to a tree object (see also the <a href="#phylog">phylog object</a>). The <a href="http://bioconductor.org/packages/MicrobiotaProcess"><strong>MicrobiotaProcess</strong></a> supports converting a <code>taxonomyTable</code> object, defined in the <a href="http://bioconductor.org/packages/phyloseq"><strong>phyloseq</strong></a> package, to a <code>treedata</code> object, and the taxonomic hierarchical relationship can be visualized using <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> (Figure <a href="#fig-TaxaTree" class="quarto-xref">Figure&nbsp;<span>15.1</span></a>). When there are taxonomy names that are <a href="https://github.com/YuLab-SMU/MicrobiotaProcess/issues/14">confused and missing</a>, the <code>as.treedata()</code> method for <code>taxonomyTable</code> objects will complete their upper-level taxonomic information automatically.</p>
+<p>Taxonomy (genus, family, …) data are widely used in microbiome or ecology. Hierarchical taxonomies are the tree-like structure that organizes items into subcategories and can be converted to a tree object (see also the <a href="#phylog">phylog object</a>). The <a href="https://bioconductor.org/packages/MicrobiotaProcess"><strong>MicrobiotaProcess</strong></a> supports converting a <code>taxonomyTable</code> object, defined in the <a href="https://bioconductor.org/packages/phyloseq"><strong>phyloseq</strong></a> package, to a <code>treedata</code> object, and the taxonomic hierarchical relationship can be visualized using <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> (Figure <a href="#fig-TaxaTree" class="quarto-xref">Figure&nbsp;<span>15.1</span></a>). When there are taxonomy names that are <a href="https://github.com/YuLab-SMU/MicrobiotaProcess/issues/14">confused and missing</a>, the <code>as.treedata()</code> method for <code>taxonomyTable</code> objects will complete their upper-level taxonomic information automatically.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MicrobiotaProcess)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
@@ -438,10 +438,10 @@ Attaching package: 'MicrobiotaProcess'</code></pre>
 
 Please cite:
 
-Shuangbin Xu, Lin Li, Xiao Luo, Meijun Chen, Wenli Tang, Li Zhan, Zehan
-Dai, Tommy T. Lam, Yi Guan, Guangchuang Yu. Ggtree: A serialized data
-object for visualization of a phylogenetic tree and annotation data.
-iMeta 2022, 1(4):e56. doi:10.1002/imt2.56</code></pre>
+Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam.
+ggtree: an R package for visualization and annotation of phylogenetic
+trees with their covariates and other associated data. Methods in
+Ecology and Evolution. 2017, 8(1):28-36. doi:10.1111/2041-210X.12628</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The original kostic2012crc is a MPSE object</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(kostic2012crc)</span>
@@ -478,7 +478,7 @@ Figure&nbsp;15.1: <strong>Convert a <code>taxonomyTable</code> object to a <code
 </section>
 <section id="sec-rtol" class="level2" data-number="15.2">
 <h2 data-number="15.2" class="anchored" data-anchor-id="sec-rtol"><span class="header-section-number">15.2</span> rtol: An R Interface to Open Tree API</h2>
-<p>The <a href="https://CRAN.R-project.org/package=rtol"><strong>rtol</strong></a> <span class="citation" data-cites="michonneau_rotl:_2016">(<a href="#ref-michonneau_rotl:_2016" role="doc-biblioref">Michonneau et al., 2016</a>)</span> is an R package to interact with the Open Tree of Life data APIs. Users can use it to query phylogenetic trees and visualize the trees with <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> to explore species relationships (Figure <a href="#fig-rotlSubtree" class="quarto-xref">Figure&nbsp;<span>15.2</span></a>).</p>
+<p>The <a href="https://CRAN.R-project.org/package=rtol"><strong>rtol</strong></a> <span class="citation" data-cites="michonneau_rotl:_2016">(<a href="#ref-michonneau_rotl:_2016" role="doc-biblioref">Michonneau et al., 2016</a>)</span> is an R package to interact with the Open Tree of Life data APIs. Users can use it to query phylogenetic trees and visualize the trees with <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> to explore species relationships (Figure <a href="#fig-rotlSubtree" class="quarto-xref">Figure&nbsp;<span>15.2</span></a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## example from: https://github.com/ropensci/rotl</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rotl)</span>
@@ -526,7 +526,7 @@ Figure&nbsp;15.2: <strong>Visualizing Open Tree of Life subtree.</strong> The <c
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"yulab.utils"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>One way to make a quick interactive phylogenetic tree is using <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> with the <a href="https://CRAN.R-project.org/package=plotly"><strong>plotly</strong></a> package. The <a href="https://plotly-r.com/improving-ggplotly.html">ggplotly()</a> is able to convert <code>ggtree</code> object to a <code>plotly</code> object. Note that the <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package also supports interactive manipulation of the phylogenetic tree via the <a href="#identify">identify()</a> method.</p>
+<p>One way to make a quick interactive phylogenetic tree is using <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> with the <a href="https://CRAN.R-project.org/package=plotly"><strong>plotly</strong></a> package. The <a href="https://plotly-r.com/improving-ggplotly.html">ggplotly()</a> is able to convert <code>ggtree</code> object to a <code>plotly</code> object. Note that the <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package also supports interactive manipulation of the phylogenetic tree via the <a href="#identify">identify()</a> method.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example from https://twitter.com/drandersgs/status/965996335882059776</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># LOAD LIBS ---------------------------------------------------------------</span></span>
@@ -601,30 +601,30 @@ Figure&nbsp;15.2: <strong>Visualizing Open Tree of Life subtree.</strong> The <c
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(d) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(d, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>NA                            
-NA  11                        
-NA   ¦--12                    
-NA   ¦   ¦--13                
-NA   ¦   ¦   ¦--14            
-NA   ¦   ¦   ¦   ¦--t10       
-NA   ¦   ¦   ¦   °--t2        
-NA   ¦   ¦   °--t3            
-NA   ¦   °--15                
-NA   ¦       ¦--16            
-NA   ¦       ¦   ¦--17        
-NA   ¦       ¦   ¦   ¦--18    
-NA   ¦       ¦   ¦   ¦   ¦--t6
-NA   ¦       ¦   ¦   ¦   °--t7
-NA   ¦       ¦   ¦   °--t8    
-NA   ¦       ¦   °--t5        
-NA   ¦       °--t4            
-NA   °--19                    
-NA       ¦--t1                
-NA       °--t9</code></pre>
+<pre><code>NA                         
+NA  11                     
+NA   ¦--12                 
+NA   ¦   ¦--13             
+NA   ¦   ¦   ¦--t7         
+NA   ¦   ¦   °--t8         
+NA   ¦   °--t6             
+NA   °--14                 
+NA       ¦--15             
+NA       ¦   ¦--t2         
+NA       ¦   °--t5         
+NA       °--16             
+NA           ¦--17         
+NA           ¦   ¦--t4     
+NA           ¦   °--t3     
+NA           °--18         
+NA               ¦--19     
+NA               ¦   ¦--t10
+NA               ¦   °--t1 
+NA               °--t9</code></pre>
 </div>
 </div>
 <p>It is neat to print ASCII-art of the phylogeny. Sometimes, we don’t want to plot the tree, but just take a glance at the tree structure without leaving the focus from the R console. However, it is not a good idea to print the whole tree as ASCII text if the tree is large. Sometimes, we just want to look at a specific portion of the tree and its immediate relatives. In this scenario, we can use <code>treeio::tree_subset()</code> function (see <a href="subsetting-tree-with-data">session 2.4</a>) to extract selected portion of a tree. Then we can print ASCII-art of the tree subset to explore the evolutionary relationship of the species of our interest in the R console.</p>
-<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports parsing tip labels as emoji to create <a href="#phylomoji">phylomoji</a>. With the <a href="https://CRAN.R-project.org/package=data.tree"><strong>data.tree</strong></a> and <a href="https://CRAN.R-project.org/package=emojifont"><strong>emojifont</strong></a> packages, we can also print phylomoji as ASCII text (Figure <a href="#fig-emojidatatree" class="quarto-xref">Figure&nbsp;<span>15.3</span></a>).</p>
+<p>The <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports parsing tip labels as emoji to create <a href="#phylomoji">phylomoji</a>. With the <a href="https://CRAN.R-project.org/package=data.tree"><strong>data.tree</strong></a> and <a href="https://CRAN.R-project.org/package=emojifont"><strong>emojifont</strong></a> packages, we can also print phylomoji as ASCII text (Figure <a href="#fig-emojidatatree" class="quarto-xref">Figure&nbsp;<span>15.3</span></a>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.tree)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emojifont)</span>
@@ -658,23 +658,23 @@ Figure&nbsp;15.3: <strong>Phylomoji as ASCII text.</strong> The <code>data.tree<
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">dev.off</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NA                                                                                 
-NA                                            #################################    
-NA                                            #                                    
-NA                                       ######                                    
-NA                                       #    #                                    
-NA                                       #    ##########                           
-NA                           #############                                         
-NA                           #           #                                         
-NA                           #           #                                         
-NA    ########################           ###############################           
-NA    #                      #                                                     
-NA    #                      #                                                     
-NA    #                      #                                                     
-NA    #                      #############                                         
+NA                                               #########                         
+NA                                               #                                 
+NA                  ##############################                                 
+NA                  #                            #                                 
+NA                  #                            ##############################    
+NA    ###############                                                              
+NA    #             #                                                              
+NA    #             #                                                              
+NA    #             ##################                                             
 NA    #                                                                            
 NA    #                                                                            
 NA    #                                                                            
-NA    ##################                                                           
+NA    #               ##############                                               
+NA    #               #                                                            
+NA    #################                                                            
+NA                    #                                                            
+NA                    ######                                                       
 NA                                                                                 
 NA </code></pre>
 </div>
@@ -704,7 +704,7 @@ Figure&nbsp;15.4: <strong>Zoom in on a selected clade.</strong>
 </section>
 <section id="sec-ggimage-tips" class="level2" data-number="15.7">
 <h2 data-number="15.7" class="anchored" data-anchor-id="sec-ggimage-tips"><span class="header-section-number">15.7</span> Tips for Using <code>ggtree</code> with <code>ggimage</code></h2>
-<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports annotating a tree with silhouette images via the <a href="https://CRAN.R-project.org/package=ggimage"><strong>ggimage</strong></a> package. The <a href="https://CRAN.R-project.org/package=ggimage"><strong>ggimage</strong></a> provides the grammar of graphic syntax to work with image files. It allows processing images on the fly via the <code>image_fun</code> parameter, which accepts a function to process <code>magick-image</code> objects (Figure <a href="#fig-ggimagebg" class="quarto-xref">Figure&nbsp;<span>15.5</span></a>). The <a href="https://CRAN.R-project.org/package=magick"><strong>magick</strong></a> package provides several functions, and these functions can be combined to perform a particular task.</p>
+<p>The <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports annotating a tree with silhouette images via the <a href="https://CRAN.R-project.org/package=ggimage"><strong>ggimage</strong></a> package. The <a href="https://CRAN.R-project.org/package=ggimage"><strong>ggimage</strong></a> provides the grammar of graphic syntax to work with image files. It allows processing images on the fly via the <code>image_fun</code> parameter, which accepts a function to process <code>magick-image</code> objects (Figure <a href="#fig-ggimagebg" class="quarto-xref">Figure&nbsp;<span>15.5</span></a>). The <a href="https://CRAN.R-project.org/package=magick"><strong>magick</strong></a> package provides several functions, and these functions can be combined to perform a particular task.</p>
 <section id="sec-ggimage-rm-image-bg" class="level3" data-number="15.7.1">
 <h3 data-number="15.7.1" class="anchored" data-anchor-id="sec-ggimage-rm-image-bg"><span class="header-section-number">15.7.1</span> Example 1: Remove background of images</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggimage)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -788,7 +788,7 @@ Figure&nbsp;15.6: <strong>Plotting tree on a background image.</strong> The <cod
 <p>If you have <a href="https://jupyter.org/">Jupyter notebook</a> installed on your system, you can install <a href="https://irkernel.github.io/">IRkernel</a> with the following command in R:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"IRkernel"</span>)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>IRkernel<span class="sc">::</span><span class="fu">installspec</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Then you can use <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> and other R packages in the Jupyter notebook (Figure <a href="#fig-jupyter" class="quarto-xref">Figure&nbsp;<span>15.7</span></a>). Here is a screenshot of recreating Figure <a href="09_ggtree_with_silhouette.html#fig-phylomoji1" class="quarto-xref">Figure&nbsp;<span>9.5</span></a> in the Jupyter notebook.</p>
+<p>Then you can use <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> and other R packages in the Jupyter notebook (Figure <a href="#fig-jupyter" class="quarto-xref">Figure&nbsp;<span>15.7</span></a>). Here is a screenshot of recreating Figure <a href="09_ggtree_with_silhouette.html#fig-phylomoji1" class="quarto-xref">Figure&nbsp;<span>9.5</span></a> in the Jupyter notebook.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-jupyter" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="ggtree in Jupyter notebook">

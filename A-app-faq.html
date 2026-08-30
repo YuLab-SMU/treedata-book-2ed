@@ -441,21 +441,21 @@ doi: 10.1093/molbev/msz240</code></pre>
 <p>The <a href="https://groups.google.com/forum/?#!forum/bioc-ggtree">ggtree mailing-list</a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> is a great place to get help, once you have created a reproducible example that illustrates your problem.</p>
 <section id="sec-installation" class="level2">
 <h2 class="anchored" data-anchor-id="sec-installation">Installation</h2>
-<p>The <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> is released within the Bioconductor project; you need to use <a href="https://CRAN.R-project.org/package=BiocManager"><strong>BiocManager</strong></a> to install it.</p>
+<p>The <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> is released within the Bioconductor project; you need to use <a href="https://CRAN.R-project.org/package=BiocManager"><strong>BiocManager</strong></a> to install it.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## you need to install BiocManager before using it</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages("BiocManager")</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BiocManager)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install</span>(<span class="st">"ggtree"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Bioconductor release is adhered to a specific R version. Please make sure you are using the latest version of R if you want to install the latest release of Bioconductor packages, including <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>. Beware that bugs will only be fixed in the current release and develop branches. If you find a bug, please follow the guide<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> to report it.</p>
+<p>Bioconductor release is adhered to a specific R version. Please make sure you are using the latest version of R if you want to install the latest release of Bioconductor packages, including <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>. Beware that bugs will only be fixed in the current release and develop branches. If you find a bug, please follow the guide<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> to report it.</p>
 <p>To make it easy to install and load multiple core packages in a single step, we created a meta-package, <a href="https://github.com/YuLab-SMU/treedataverse"><strong>treedataverse</strong></a>. Users can install the package via the following command:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"YuLab-SMU/treedataverse"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Once it is installed, loading the package will also load the core <a href="https://github.com/YuLab-SMU/treedataverse"><strong>treedataverse</strong></a> packages, including <a href="https://CRAN.R-project.org/package=tidytree"><strong>tidytree</strong></a>, <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a>, <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>, and <a href="http://bioconductor.org/packages/ggtreeExtra"><strong>ggtreeExtra</strong></a>.</p>
+<p>Once it is installed, loading the package will also load the core <a href="https://github.com/YuLab-SMU/treedataverse"><strong>treedataverse</strong></a> packages, including <a href="https://CRAN.R-project.org/package=tidytree"><strong>tidytree</strong></a>, <a href="https://bioconductor.org/packages/treeio"><strong>treeio</strong></a>, <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>, and <a href="https://bioconductor.org/packages/ggtreeExtra"><strong>ggtreeExtra</strong></a>.</p>
 </section>
 <section id="sec-faq-r" class="level2">
 <h2 class="anchored" data-anchor-id="sec-faq-r">Basic R Related</h2>
 <section id="sec-faq-local-file" class="level3">
 <h3 class="anchored" data-anchor-id="sec-faq-local-file">Use your local file</h3>
-<p>If you are new to <code>R</code> and want to use <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> for tree visualization, please do learn some basic <code>R</code> and <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a>.</p>
+<p>If you are new to <code>R</code> and want to use <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> for tree visualization, please do learn some basic <code>R</code> and <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a>.</p>
 <p>A very common issue is that users copy and paste commands without looking at the function’s behavior. The <code>system.file()</code> function was used in some of our examples to find files packed in the packages.</p>
 <pre><code>system.file                package:base                R Documentation
 
@@ -821,7 +821,7 @@ Figure&nbsp;1.5: <strong>Bootstrap value stored in node label.</strong>
 </div>
 </div>
 </div>
-<p>As this is a very common issue, we implemented a <code>read.newick()</code> function in the <a href="http://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package to allow parsing internal node labels as supported values. As a result, it can be easier to display bootstrap values using the following code:</p>
+<p>As this is a very common issue, we implemented a <code>read.newick()</code> function in the <a href="https://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package to allow parsing internal node labels as supported values. As a result, it can be easier to display bootstrap values using the following code:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">&lt;-</span> <span class="fu">read.newick</span>(nwk, <span class="at">node.label=</span><span class="st">'support'</span>)</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tr) <span class="sc">+</span> <span class="fu">geom_nodelab</span>(<span class="at">geom=</span><span class="st">'label'</span>, <span class="fu">aes</span>(<span class="at">label=</span>support, <span class="at">subset=</span>support <span class="sc">&gt;</span> <span class="dv">80</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <!-- 
@@ -1470,7 +1470,7 @@ Figure&nbsp;1.16: <strong>Trim extra white space for polar coordinates.</strong>
 </section>
 <section id="sec-export-edit" class="level2">
 <h2 class="anchored" data-anchor-id="sec-export-edit">Edit Tree Graphic Details</h2>
-<p>It can be hard to modify plot details for ordinary users using <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a>/<a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>. We recommend using the <a href="https://CRAN.R-project.org/package=eoffice"><strong>eoffice</strong></a> package to export <a href="http://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> output to a Microsoft Office Document and edit the tree graphic in PowerPoint.</p>
+<p>It can be hard to modify plot details for ordinary users using <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a>/<a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>. We recommend using the <a href="https://CRAN.R-project.org/package=eoffice"><strong>eoffice</strong></a> package to export <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> output to a Microsoft Office Document and edit the tree graphic in PowerPoint.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
