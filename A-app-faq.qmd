@@ -158,7 +158,7 @@ p2
 p3
 ```
 
-The third solution is to use `hexpand()` as demonstrated in [session 12.4](#ggexpand). 
+The third solution is to use `hexpand()` as demonstrated in [session 15.4.2](#sec-ggexpand). 
 
 
 For rectangular/dendrogram layout trees, users can display tip labels as *y*-axis labels. In this case, no matter how long the labels are, they will not be truncated (see Figure @fig-tiplab-3).
@@ -179,7 +179,7 @@ d <- data.frame(label = LETTERS[1:4],
 rename_taxa(tree, d, label, label2) %>% write.tree
 ```
 
-If the input tree object is a `treedata` instance, you can use `write.beast()` to export the tree with associated data to a BEAST compatible NEXUS file (see [Chapter 3](#chapter3)).
+If the input tree object is a `treedata` instance, you can use `write.beast()` to export the tree with associated data to a BEAST compatible NEXUS file (see [Chapter 4](#sec-chapter3)).
 
 Renaming phylogeny tip labels seems not to be a good idea, since it may introduce problems when mapping the original sequence alignment to the tree. Personally, I recommend storing the new labels as a tip annotation in `treedata` object. 
 
@@ -430,7 +430,7 @@ print(pg)
 ### Specifying the order of the tips 
 
 
-The `rotateConstr()` function provided in the `r CRANpkg("ape")` package rotates internal branches based on the specified order of the tips, and the order should be followed when plotting the tree (from bottom to top). As `ggtree()` by default ladderizes the input tree, users need to disable by passing `ladderize = FALSE`. Then the order of the tree will be displayed as expected (Figure @fig-rotateConstr). Users can also extract tip order displayed by `ggtree()` using the `get_taxa_name()` function as demonstrated in [session 12.6](#tiporder).  
+The `rotateConstr()` function provided in the `r CRANpkg("ape")` package rotates internal branches based on the specified order of the tips, and the order should be followed when plotting the tree (from bottom to top). As `ggtree()` by default ladderizes the input tree, users need to disable by passing `ladderize = FALSE`. Then the order of the tree will be displayed as expected (Figure @fig-rotateConstr). Users can also extract tip order displayed by `ggtree()` using the `get_taxa_name()` function as demonstrated in [session 15.6.1](#sec-tiporder).  
 
 
 

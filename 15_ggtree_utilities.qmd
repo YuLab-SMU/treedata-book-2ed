@@ -195,7 +195,7 @@ p2
 
 ## Layout Utilities
 
-In [session 4.2](#tree-layouts), we introduce several layouts supported by `r Biocpkg("ggtree")`. The `r Biocpkg("ggtree")` package also provides several layout functions that can transform from one to another. Note that not all layouts are supported (see Table @tbl-layoutLayerTab and Figure @fig-layoutLayer)\index{tree layout}.
+In [session 5.2.2](#sec-tree-layouts), we introduce several layouts supported by `r Biocpkg("ggtree")`. The `r Biocpkg("ggtree")` package also provides several layout functions that can transform from one to another. Note that not all layouts are supported (see Table @tbl-layoutLayerTab and Figure @fig-layoutLayer)\index{tree layout}.
 
 ```{r}
 #| echo: false
@@ -283,12 +283,12 @@ as.ggplot(p + layout_inward_circular(xlim=4) + geom_tiplab(hjust=1), scale=1.2, 
 ## Scale Utilities
 
 
-The `r Biocpkg("ggtree")` package provides several scale functions to manipulate the *x*-axis, including the `scale_x_range()` documented in [session 5.2.4](#uncertainty-of-evolutionary-inference), `xlim_tree()`, `xlim_expand()`, `ggexpand()`, `hexpand()` and `vexpand()`.
+The `r Biocpkg("ggtree")` package provides several scale functions to manipulate the *x*-axis, including the `scale_x_range()` documented in [session 8.2.4](#uncertainty-of-evolutionary-inference), `xlim_tree()`, `xlim_expand()`, `ggexpand()`, `hexpand()` and `vexpand()`.
 
 
 ### Expand x limit for a specific facet panel {#sec-xlim_expand}
 
-Sometimes we need to set `xlim` for a specific facet panel (*e.g.*, allocate more space for [long tip labels](#faq-label-truncated) at `Tree` panel). However, the `ggplot2::xlim()` function applies to all the panels. The `r Biocpkg("ggtree")` provides `xlim_expand()` to adjust `xlim` for user-specific facet panel. It accepts two parameters, `xlim`, and `panel`, and can adjust all individual panels as demonstrated in Figure @fig-xlimExpand-1. If you only want to adjust `xlim` of the `Tree` panel, you can use `xlim_tree()` as a shortcut.
+Sometimes we need to set `xlim` for a specific facet panel (*e.g.*, allocate more space for [long tip labels](#sec-faq-label-truncated) at `Tree` panel). However, the `ggplot2::xlim()` function applies to all the panels. The `r Biocpkg("ggtree")` provides `xlim_expand()` to adjust `xlim` for user-specific facet panel. It accepts two parameters, `xlim`, and `panel`, and can adjust all individual panels as demonstrated in Figure @fig-xlimExpand-1. If you only want to adjust `xlim` of the `Tree` panel, you can use `xlim_tree()` as a shortcut.
 
 
 ```{r}
@@ -350,7 +350,7 @@ g + theme_grey() + xlim_expand(c(0, 15), 'virginica')
 
 ### Expand plot limit by the ratio of plot range {#sec-ggexpand}
 
-The `r CRANpkg("ggplot2")` package cannot automatically adjust plot limits and it is very common that long text was truncated. Users need to adjust x (y) limits manually via the `xlim()` (`ylim()`) command (see also [FAQ: Tip label truncated](#faq-label-truncated)). 
+The `r CRANpkg("ggplot2")` package cannot automatically adjust plot limits and it is very common that long text was truncated. Users need to adjust x (y) limits manually via the `xlim()` (`ylim()`) command (see also [FAQ: Tip label truncated](#sec-faq-label-truncated)). 
 
 The `xlim()` (`ylim()`) is a good solution to this issue. However, we can make it more simple, by expanding the plot panel by a ratio of the axis range without knowing what the exact value is. 
 
@@ -387,7 +387,7 @@ p2
 
 ### Filter tree data {#sec-td_filter}
 
-The `r Biocpkg("ggtree")` package defined [several geom layers](#geom2) that support subsetting tree data. However, many other geom layers that didn't provide this feature, are defined in `r CRANpkg("ggplot2")` and its extensions. To allow filtering tree data with these layers, `r Biocpkg("ggtree")` provides an accompanying function, `td_filter()` that returns a function that works similar to `dplyr::filter()` and can be passed to the `data` parameter in geom layers to filter `ggtree` plot data as demonstrated in Figure @fig-tdFilter.
+The `r Biocpkg("ggtree")` package defined [several geom layers](#sec-geom2) that support subsetting tree data. However, many other geom layers that didn't provide this feature, are defined in `r CRANpkg("ggplot2")` and its extensions. To allow filtering tree data with these layers, `r Biocpkg("ggtree")` provides an accompanying function, `td_filter()` that returns a function that works similar to `dplyr::filter()` and can be passed to the `data` parameter in geom layers to filter `ggtree` plot data as demonstrated in Figure @fig-tdFilter.
 
 
 
@@ -470,7 +470,7 @@ p3
 
 ### Extract tip order {#sec-tiporder}
 
-To create [composite plots](#composite_plot), users need to re-order their data manually before creating tree-associated graphs. The order of their data should be consistent with the tip order presented in the `ggtree()` plot. For this purpose, we provide the `get_taxa_name()` function to extract an ordered vector of tips based on the tree structure plotted by `ggtree()`. 
+To create [composite plots](#sec-composite_plot), users need to re-order their data manually before creating tree-associated graphs. The order of their data should be consistent with the tip order presented in the `ggtree()` plot. For this purpose, we provide the `get_taxa_name()` function to extract an ordered vector of tips based on the tree structure plotted by `ggtree()`. 
 
 
 

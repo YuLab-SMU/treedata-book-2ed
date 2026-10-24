@@ -15,26 +15,28 @@ book:
     - 00_author.qmd
     - part: "Part I: Tree data input, output, and manipulation"
       chapters:
-        - 01_treeio_importing_tree.qmd
-        - 02_tidytree.qmd
-        - 03_treeio_exporting_tree.qmd
+        - 01_trees_and_tree_like_structures.qmd
+        - 02_treeio_importing_tree.qmd
+        - 03_tidytree.qmd
+        - 04_treeio_exporting_tree.qmd
     - part: "Part II: Tree data visualization and annotation"
       chapters:
-        - 04_ggtree_visualization.qmd
-        - 05_interactive_ggtree.qmd
-        - 06_ggtree_annotation.qmd
-        - 07_ggtree_manipulation.qmd
-        - 08_ggtree_tree_with_data.qmd
-        - 09_ggtree_with_silhouette.qmd
-        - 10_ggtree_tree_objects.qmd
+        - 05_ggtree_layouts.qmd
+        - 06_ggtree_aesthetics.qmd
+        - 07_ggtree_tree_objects.qmd
+        - 08_ggtree_annotation.qmd
+        - 09_ggtree_manipulation.qmd
+        - 10_ggtree_tree_with_data.qmd
+        - 11_ggtree_with_silhouette.qmd
+        - 12_interactive_ggtree.qmd
+        - 13_ggtree_exts.qmd
     - part: "Part III: ggtree extensions"
       chapters:
-        - 11_ggtree_exts.qmd
-        - 12_ggtree_exts-others.qmd
-    - part: "Part IV: Miscellaneous topics"
+        - 14_ggtree_exts-others.qmd
+    - part: "Part IV: Utilities and gallery"
       chapters:
-        - 13_ggtree_utilities.qmd
-        - 14_ggtree_gallery.qmd
+        - 15_ggtree_utilities.qmd
+        - 16_ggtree_gallery.qmd
     - part: "Appendix"
       chapters: 
         - A-app-faq.qmd

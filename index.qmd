@@ -53,10 +53,14 @@ After several years of development, `r Biocpkg("ggtree")` has evolved into a pac
 ## Structure of the book {.unnumbered}
 
 
-+ Part I (Tree data input, output and manipulation) describes `r Biocpkg("treeio")` package for tree data input and output, and `r CRANpkg("tidytree")` package for tree data manipulation.
-+ Part II (Tree data visualization and annotation) introduces tree visualization and annotation using the grammar of graphic syntax implemented in the `r Biocpkg("ggtree")` package. It emphasizes presenting tree-associated data on the tree.
-+ Part III (ggtree extensions) introduces `r Biocpkg("ggtreeExtra")` for presenting data on circular layout trees and other extensions including `r Biocpkg("MicrobiotaProcess")` and `r Biocpkg("tanggle")` *etc*.
-+ Part IV (Miscellaneous topics) describes utilities provided by the `r Biocpkg("ggtree")` package suite and presents a set of reproducible examples.
+Although phylogenetic trees are the primary running example of this book, the `r Biocpkg("ggtree")` package suite supports tree and tree-like structures in general — clustering dendrograms, taxonomies, directory trees, and many others. The book is organized around this generality:
+
++ Part I (Tree data input, output and manipulation) begins with an overview of trees and tree-like structures and the unified tree data model, and then describes the `r Biocpkg("treeio")` package for tree data input and output, and the `r CRANpkg("tidytree")` package for tree data manipulation.
++ Part II (Tree data visualization and annotation) introduces tree visualization and annotation using the grammar of graphic syntax implemented in the `r Biocpkg("ggtree")` package, covering layouts and tree components, aesthetics, tree objects of different classes, annotation layers, visual exploration, and presenting tree-associated data on and alongside the tree, interactively and with `r Biocpkg("ggtreeExtra")`.
++ Part III (ggtree extensions) introduces other extensions including `r Biocpkg("MicrobiotaProcess")` and `r Biocpkg("tanggle")` *etc*.
++ Part IV (Utilities and gallery) describes utilities provided by the `r Biocpkg("ggtree")` package suite and presents a set of reproducible examples.
+
+Phylogenetics-specific passages are marked with domain notes, so readers working with other kinds of tree data can follow the general workflow and skip the evolutionary details.
 
 
 ```{r}

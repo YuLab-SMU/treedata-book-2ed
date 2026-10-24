@@ -59,7 +59,7 @@ brackets, which are reserved for comments. In this way, existing programs that c
 The `r Biocpkg("treeio")` package [@wang_treeio_2020] provides the `write.beast()`\index{BEAST} function to export `treedata` object as BEAST Nexus file [@bouckaert_beast_2014].
 With `r Biocpkg("treeio")`, it is easy to convert
 software output to BEAST format if the output can be parsed
-by `r Biocpkg("treeio")` (see [Chapter 1](#chapter1)). 
+by `r Biocpkg("treeio")` (see [Chapter 2](#chapter1)). 
 
 Here is an example of converting NHX file to BEAST format:
 
@@ -347,7 +347,7 @@ After merging, the `fake_trait` and `another_trait` stored in `fake_data` will b
 
 Not only Newick tree text can be combined with associated data, but also tree
 data obtained from software output can be combined with external data, as well
-as different tree objects can be merged (for details, see [Chapter 2](#chapter2)).
+as different tree objects can be merged (for details, see [Chapter 3](#sec-chapter2)).
 
 
 ```{r}
@@ -502,7 +502,7 @@ writeLines(x)
 
 The `jtree` file can be directly imported as a `treedata` object using
 the `read.jtree()` function provided also
-in `r Biocpkg("treeio")` package (see also [session 1.3](#jtree)).
+in `r Biocpkg("treeio")` package (see also [session 2.2.2.11](#jtree)).
 
 ```{r}
 read.jtree(jtree_file)

@@ -1,6 +1,6 @@
 \newpage
 
-# Annotating Tree with Silhouette Images and Sub-plots {#sec-chapter8}
+# Annotating Trees with Images and Sub-plots {#sec-chapter8}
 
 ```{r}
 #| echo: false
@@ -429,6 +429,7 @@ dev.off()
 
 
 ```{r}
+#| label: fig-applemoji
 #| fig-cap: |
 #|   **Use Apple Color Emoji in `ggtree`.** The tip labels were parsed as emojis using `AppleColorEmoji` font in Safari.
 #| out-width: "100%"
@@ -438,7 +439,7 @@ knitr::include_graphics("img/apple_emoji.png", auto_pdf = TRUE)
 
 ### Phylomoji in ASCII art
 
-Producing phylomoji as an ASCII art is also possible. Users can refer to [Appendix D](#ascii-tree) for details.
+Producing phylomoji as an ASCII art is also possible. Users can refer to [Appendix D](#sec-ascii-tree) for details.
 
 ## Summary {#sec-summary8}
 

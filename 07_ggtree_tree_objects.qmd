@@ -1,6 +1,6 @@
 \newpage
 
-# ggtree for Other Tree-like Objects {#sec-chapter9}
+# Tree and Tree-like Objects in R {#sec-chapter9}
 
 ```{r}
 #| echo: false
@@ -16,7 +16,7 @@ source("setup.R")
 
 ## ggtree for Phylogenetic Tree Objects
 
-The `r Biocpkg("treeio")` packages [@wang_treeio_2020] allow parsing evolutionary inferences from several software outputs and linking external data to the tree structure. It serves as an infrastructure to bring evolutionary data to the R community. The `r Biocpkg("ggtree")` package [@yu_ggtree:_2017] works seamlessly with `r Biocpkg("treeio")` to visualize tree-associated data to annotate the tree. The `r Biocpkg("ggtree")` package is a general tool for tree visualization and annotation and it fits the ecosystem of R packages. Most of the S3/S4 tree objects defined by other R packages are also supported by `r Biocpkg("ggtree")`, including `phylo` ([session 4.2](#visualizing-phylogenetic-tree-with-ggtree)), `multiPhylo` ([session 4.4](#visualize-a-list-of-trees)), `phylo4`, `phylo4d`, `phyloseq`, and `obkData`. With `r Biocpkg("ggtree")`, we are able to generate more complex tree graphs which is not possible or easy to do with other packages. For example, the visualization of the `phyloseq` object in Figure @fig-phyloseq is not supported by the `r Biocpkg("phyloseq")` package. The `r Biocpkg("ggtree")` package also extends the possibility of linking external data to these tree objects [@yu_two_2018].
+The `r Biocpkg("treeio")` packages [@wang_treeio_2020] allow parsing evolutionary inferences from several software outputs and linking external data to the tree structure. It serves as an infrastructure to bring evolutionary data to the R community. The `r Biocpkg("ggtree")` package [@yu_ggtree:_2017] works seamlessly with `r Biocpkg("treeio")` to visualize tree-associated data to annotate the tree. The `r Biocpkg("ggtree")` package is a general tool for tree visualization and annotation and it fits the ecosystem of R packages. Most of the S3/S4 tree objects defined by other R packages are also supported by `r Biocpkg("ggtree")`, including `phylo` ([session 5.2](#visualizing-phylogenetic-tree-with-ggtree)), `multiPhylo` ([session 6.5](#visualize-a-list-of-trees)), `phylo4`, `phylo4d`, `phyloseq`, and `obkData`. With `r Biocpkg("ggtree")`, we are able to generate more complex tree graphs which is not possible or easy to do with other packages. For example, the visualization of the `phyloseq` object in Figure @fig-phyloseq is not supported by the `r Biocpkg("phyloseq")` package. The `r Biocpkg("ggtree")` package also extends the possibility of linking external data to these tree objects [@yu_two_2018].
 
 
 ### The phylo4 and phylo4d objects {#sec-phylobase}
@@ -74,7 +74,7 @@ p2
 
 ### The phylog object {#sec-phylog}
 
-The `phylog` is defined in the `r CRANpkg("ade4")` package. The package is designed for analyzing ecological data and provides `newick2phylog()`, `hclust2phylog()`, and `taxo2phylog()` functions to create phylogeny from Newick string, hierarchical clustering result, or a taxonomy (see also the `r Biocpkg("MicrobiotaProcess")` package described in [Chapter 11](#chapter11)). The `phylog` object is also supported by `r Biocpkg("ggtree")` as demonstrated in Figure @fig-phylog.
+The `phylog` is defined in the `r CRANpkg("ade4")` package. The package is designed for analyzing ecological data and provides `newick2phylog()`, `hclust2phylog()`, and `taxo2phylog()` functions to create phylogeny from Newick string, hierarchical clustering result, or a taxonomy (see also the `r Biocpkg("MicrobiotaProcess")` package described in [Chapter 14](#sec-chapter11)). The `phylog` object is also supported by `r Biocpkg("ggtree")` as demonstrated in Figure @fig-phylog.
 
 
 
@@ -217,6 +217,9 @@ ggtree(x, mrsd="2009-09-30", as.Date=TRUE, right=TRUE) +
 
 ## ggtree for Dendrograms {#sec-dendrogram}
 
+Hierarchical clustering is one of the most common sources of trees outside evolutionary biology: `stats::hclust()` and similar functions produce dendrograms that can be visualized directly with `ggtree()`.
+
+
 A dendrogram is a tree diagram to display hierarchical clustering and classification/regression trees. In R, we can calculate a hierarchical clustering using the function `hclust()`\index{dendrogram}.
 
 ```{r}
@@ -341,7 +344,7 @@ ggtree(g, layout='slanted', arrow = arrow(length=arrow_size)) +
 
 
 
-## ggtree for Other Tree-like Structures
+## Other Tree-like Structures {#sec-other-structures}
 
 The `r Biocpkg("ggtree")` package can be used to visualize any data in a hierarchical structure. Here, we use the GNI (Gross National Income) numbers in 2014 as an example. After preparing an edge list, that is a matrix or data frame that contains two columns indicating the relationship of parent and child nodes, we can use the `as.phylo()` method provided by the `r Biocpkg("treeio")` package to convert the edge list to a `phylo` object. Then it can be visualized using `r Biocpkg("ggtree")` with associated data. In this example, the population was used to scale the size of circle points for each country (Figure @fig-gni2014).
 
