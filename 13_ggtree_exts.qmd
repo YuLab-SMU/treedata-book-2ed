@@ -102,7 +102,7 @@ p
 
 ## Aligning Multiple Graphs to the Tree for Multi-dimensional Data {#sec-geom-fruit2}
 
-We are able to add multiple `geom_fruit()`\index{geom\textunderscore fruit} layers to a tree and the circular layout is indeed more compact and efficient for multi-dimensional data. This example reproduces figure 2 of [@morgan2013HMP]. The data is provided by GraPhlAn [@GraPhlAn], which contained the relative abundance of the microbiome at different body sites. This example demonstrates the ability to add multiple layers (heat map and bar plot) to present different types of data (Figure @fig-HMPplot)\index{microbiome}. This figure is also an interactive one, where you can hover over the branches, nodes, and other graphical elements to explore the data. For more details on creating interactive `ggtree` plots, please refer to [Chapter 5](#sec-interactive-ggtree).
+We are able to add multiple `geom_fruit()`\index{geom\textunderscore fruit} layers to a tree and the circular layout is indeed more compact and efficient for multi-dimensional data. This example reproduces figure 2 of [@morgan2013HMP]. The data is provided by GraPhlAn [@GraPhlAn], which contained the relative abundance of the microbiome at different body sites. This example demonstrates the ability to add multiple layers (heat map and bar plot) to present different types of data (Figure @fig-HMPplot)\index{microbiome}. This figure is also an interactive one, where you can hover over the branches, nodes, and other graphical elements to explore the data. For more details on creating interactive `ggtree` plots, please refer to [Chapter 12](#sec-interactive-ggtree).
 
 ```{r}
 #| dev: 'png'

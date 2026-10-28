@@ -242,7 +242,7 @@ associated with epidemiological information, such as location, age, and subtype.
 Functional annotations may need to be mapped onto gene trees for comparative
 genomics studies. To facilitate data
 integration, `r Biocpkg("treeio")` provides
-`full_join()` methods to link external data to phylogeny and store it in either `phylo` or `treedata` object. Beware that linking external data to a `phylo` object will produce a `treedata` object to store the input `phylo` with associated data. The `full_join` methods can also be used at tidy data frame level (*i.e.*, `tbl_tree` object described previously) and at `ggtree` level (described in [Chapter 7](#sec-attach-operator)) [@yu_two_2018].
+`full_join()` methods to link external data to phylogeny and store it in either `phylo` or `treedata` object. Beware that linking external data to a `phylo` object will produce a `treedata` object to store the input `phylo` with associated data. The `full_join` methods can also be used at tidy data frame level (*i.e.*, `tbl_tree` object described previously) and at `ggtree` level (described in [Chapter 10](#sec-attach-operator)) [@yu_two_2018].
 
 
 The following example calculated bootstrap values and merged those values with the tree (a `phylo` object) by matching their node numbers.
@@ -492,7 +492,7 @@ p2
 p3
 ```
 
-Modifying branch lengths in the tree object in addtion to using the `rescale_tree()` function, users can directly specify a variable as branch length in `ggtree()` as demonstrated in [session 6.2](#rescale-tree). 
+Modifying branch lengths in the tree object in addtion to using the `rescale_tree()` function, users can directly specify a variable as branch length in `ggtree()` as demonstrated in [session 6.3](#rescale-tree). 
 
 
 ## Subsetting Tree with Data

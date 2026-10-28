@@ -439,7 +439,7 @@ knitr::include_graphics("img/apple_emoji.png", auto_pdf = TRUE)
 
 ### Phylomoji in ASCII art
 
-Producing phylomoji as an ASCII art is also possible. Users can refer to [Appendix D](#sec-ascii-tree) for details.
+Producing phylomoji as an ASCII art is also possible. Users can refer to [Chapter 17](#sec-ascii-tree) for details.
 
 ## Summary {#sec-summary8}
 

@@ -109,7 +109,7 @@ knitr::kable(geoms, caption = "Geom layers defined in ggtree.", booktabs = T) %>
 
 The `r Biocpkg("ggtree")` [@yu_ggtree:_2017] implements `geom_cladelab()` layer to annotate a selected clade with a bar indicating the clade with a corresponding label\index{geom\textunderscore cladelab}.
 
-The `geom_cladelab()` layer accepts a selected internal node number and labels the corresponding clade automatically (Figure @fig-cladelabel-1). To get the internal node number, please refer to [Chapter 2](#sec-accesor-tidytree). 
+The `geom_cladelab()` layer accepts a selected internal node number and labels the corresponding clade automatically (Figure @fig-cladelabel-1). To get the internal node number, please refer to [Chapter 3](#sec-accesor-tidytree). 
 
 
 ```{r}

@@ -502,7 +502,7 @@ writeLines(x)
 
 The `jtree` file can be directly imported as a `treedata` object using
 the `read.jtree()` function provided also
-in `r Biocpkg("treeio")` package (see also [session 2.2.2.11](#jtree)).
+in `r Biocpkg("treeio")` package (see also [session 2.3.2.11](#jtree)).
 
 ```{r}
 read.jtree(jtree_file)

@@ -18,6 +18,12 @@ library(ggplot2)
 library("treeio")
 ```
 
+## Introduction
+
+This chapter describes how tree data gets into R. A tree usually arrives as a text file written by some program — a Newick string from a maximum-likelihood search, a NEXUS file from a Bayesian run, or a log file from a molecular dating analysis — and the data associated with its nodes and branches arrives with it. The `r Biocpkg("treeio")` package reads these files into `treedata` objects, which keep the topology and the associated data together so that they can be manipulated (Chapter \@ref(sec-chapter2)), exported (Chapter \@ref(sec-chapter3)), and visualized (Part II).
+
+The formats introduced below are not exclusively phylogenetic: Newick and NEXUS are used to encode any hierarchical structure with associated data, and the converters described at the end of this chapter bring trees from other R packages into the same `treedata` model.
+
 ## Phylogenetic Tree Formats {#format}
 
 
@@ -225,7 +231,7 @@ writeLines(x)
 ```
 
 
-`r pkg_beast` output can contain many different evolutionary inferences, depending on the analysis models defined in *BEAUTi* for running. For example in molecular clock analysis, it contains `rate`, `length`, `height`, `posterior` and corresponding HPD and range for uncertainty estimation. `Rate` is the estimated evolutionary rate of the branch. `Length` is the length of the branch in years. `Height` is the time from node to root, while `posterior` is the Bayesian clade credibility value. The above example is the output tree of a molecular clock analysis and should contain these inferences. To save space, only the `length` estimation was shown above. Besides, Molecular Evolutionary Genetics Analysis (`r pkg_mega`) [@kumar_mega7_2016] also supports exporting trees in `r pkg_beast` compatible Nexus format (see [session 2.2.2.2](#mega)). 
+`r pkg_beast` output can contain many different evolutionary inferences, depending on the analysis models defined in *BEAUTi* for running. For example in molecular clock analysis, it contains `rate`, `length`, `height`, `posterior` and corresponding HPD and range for uncertainty estimation. `Rate` is the estimated evolutionary rate of the branch. `Length` is the length of the branch in years. `Height` is the time from node to root, while `posterior` is the Bayesian clade credibility value. The above example is the output tree of a molecular clock analysis and should contain these inferences. To save space, only the `length` estimation was shown above. Besides, Molecular Evolutionary Genetics Analysis (`r pkg_mega`) [@kumar_mega7_2016] also supports exporting trees in `r pkg_beast` compatible Nexus format (see [session 2.3.2.2](#mega)). 
 
 *`r pkg_mrbayes`*\index{MrBayes} [@huelsenbeck_mrbayes_2001] is a program that uses the Markov Chain Monte Carlo\index{Markov Chain Monte Carlo} method to sample from the posterior probability distributions. Its output file annotates nodes and branches separately by two sets of square brackets. For example below, posterior clade probabilities for the node and branch length estimates for the branch:
 

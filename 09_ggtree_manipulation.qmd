@@ -546,7 +546,7 @@ pp[[6]]
 ```
 
 
-Interactive tree manipulation is also possible via the `identify()` method (see details described in [Chapter 12](#sec-identify)).
+Interactive tree manipulation is also possible via the `identify()` method (see details described in [Chapter 15](#sec-identify)).
 
 
 

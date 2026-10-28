@@ -16,6 +16,8 @@ source("setup.R")
 source("software-link.R")
 ```
 
+## Introduction
+
 Beyond displaying the tree structure itself, `r Biocpkg("ggtree")` allows mapping data associated with the tree to visual properties such as edge color and branch length scale, customizing every component of the theme, and presenting multiple trees together.
 
 ## Color tree
@@ -220,7 +222,7 @@ ggtree(x, color="#0808E5", size=1) + theme_tree("#FEE4E9")
 ggtree(x, color="orange", size=1) + theme_tree('grey30')
 ```
 
-Users can also use an image file as the tree background, see example in [Appendix B](#sec-ggimage-bgimage).
+Users can also use an image file as the tree background, see example in [Chapter 17](#sec-ggimage-bgimage).
 
 ## Paired Trees and Tanglegrams
 

@@ -48,8 +48,8 @@ tree_types <- data.frame(
                       "MicrobiotaProcess", "as.treedata()",
                       "Supported directly by ggtree() or via as.treedata()",
                       "Constructed as phylo/treedata"),
-  `Covered in` = c("Chapter 2", "Section 7.2", "Appendix A",
-                    "Section 7.3", "Chapter 7", "Section 7.4"),
+  `Covered in` = c("Chapter 2", "Section 7.3", "Chapter 14",
+                    "Section 7.4", "Chapter 7", "Section 7.5"),
   check.names = FALSE
 )
 knitr::kable(tree_types)

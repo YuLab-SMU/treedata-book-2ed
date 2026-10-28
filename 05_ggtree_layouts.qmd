@@ -534,7 +534,7 @@ p4
 ```
 
 
-Treescale is not restricted to evolution distance, `r Biocpkg('treeio')` can rescale the tree with other numerical variables (details described in [session 3.4](#sec-rescale-treeio)), and `r Biocpkg("ggtree")` allows users to specify a numerical variable to serve as branch length for visualization (details described in [session 6.2](#rescale-tree)).
+Treescale is not restricted to evolution distance, `r Biocpkg('treeio')` can rescale the tree with other numerical variables (details described in [session 3.4](#sec-rescale-treeio)), and `r Biocpkg("ggtree")` allows users to specify a numerical variable to serve as branch length for visualization (details described in [session 6.3](#rescale-tree)).
 
 
 ### Displaying nodes/tips {#sec-geom-nodepoint}
