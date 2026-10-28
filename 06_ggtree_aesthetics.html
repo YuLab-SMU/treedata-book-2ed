@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Master ggtree package suite to handle tree with data.">
+
+<title>6&nbsp; Tree Aesthetics: Color, Scale, and Theme – Data Integration, Manipulation and Visualization of Phylogenetic Trees</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./07_ggtree_tree_objects.html" rel="next">
+<link href="./05_ggtree_layouts.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fd33a4952e9ae2782db733e1f7710525.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05_ggtree_layouts.html">Part II: Tree data visualization and annotation</a></li><li class="breadcrumb-item"><a href="./06_ggtree_aesthetics.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Tree Aesthetics: Color, Scale, and Theme</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Integration, Manipulation and Visualization of Phylogenetic Trees</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/YuLab-SMU/treedata-book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_author.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Author</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part I: Tree data input, output, and manipulation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_trees_and_tree_like_structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Trees and Tree-like Structures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_treeio_importing_tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importing Tree with Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_tidytree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Manipulating Tree with Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_treeio_exporting_tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Exporting tree with data</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part II: Tree data visualization and annotation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_ggtree_layouts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Tree Visualization: Layouts and Components</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_ggtree_aesthetics.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Tree Aesthetics: Color, Scale, and Theme</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_ggtree_tree_objects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Tree and Tree-like Objects in R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_ggtree_annotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Tree Annotation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_ggtree_manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Visual Exploration of Trees</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_ggtree_tree_with_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Plotting tree with data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_ggtree_with_silhouette.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Annotating Trees with Images and Sub-plots</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_interactive_ggtree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interactive <code>ggtree</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_ggtree_exts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">ggtreeExtra for Presenting Data on a Circular Layout</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part III: ggtree extensions</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14_ggtree_exts-others.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Other ggtree Extensions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part IV: Utilities and gallery</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15_ggtree_utilities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">ggtree Utilities</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16_ggtree_gallery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Gallery of Reproducible Examples</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendix</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A-app-faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(APPENDIX) Appendix</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A-app-tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Related Tools</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A-app-fig-tab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Figures and Tables</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./B-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">6.1</span> Introduction</a></li>
+  <li><a href="#color-tree" id="toc-color-tree" class="nav-link" data-scroll-target="#color-tree"><span class="header-section-number">6.2</span> Color tree</a></li>
+  <li><a href="#rescale-tree" id="toc-rescale-tree" class="nav-link" data-scroll-target="#rescale-tree"><span class="header-section-number">6.3</span> Rescale tree</a></li>
+  <li><a href="#modify-components-of-a-theme" id="toc-modify-components-of-a-theme" class="nav-link" data-scroll-target="#modify-components-of-a-theme"><span class="header-section-number">6.4</span> Modify components of a theme</a></li>
+  <li><a href="#paired-trees-and-tanglegrams" id="toc-paired-trees-and-tanglegrams" class="nav-link" data-scroll-target="#paired-trees-and-tanglegrams"><span class="header-section-number">6.5</span> Paired Trees and Tanglegrams</a></li>
+  <li><a href="#visualize-a-list-of-trees" id="toc-visualize-a-list-of-trees" class="nav-link" data-scroll-target="#visualize-a-list-of-trees"><span class="header-section-number">6.6</span> Visualize a List of Trees</a>
+  <ul class="collapse">
+  <li><a href="#annotate-one-tree-with-values-from-different-variables" id="toc-annotate-one-tree-with-values-from-different-variables" class="nav-link" data-scroll-target="#annotate-one-tree-with-values-from-different-variables"><span class="header-section-number">6.6.1</span> Annotate one tree with values from different variables</a></li>
+  <li><a href="#sec-densitree" id="toc-sec-densitree" class="nav-link" data-scroll-target="#sec-densitree"><span class="header-section-number">6.6.2</span> DensiTree</a></li>
+  </ul></li>
+  <li><a href="#sec-summary4" id="toc-sec-summary4" class="nav-link" data-scroll-target="#sec-summary4"><span class="header-section-number">6.7</span> Summary</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/YuLab-SMU/treedata-book/edit/main/06_ggtree_aesthetics.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/blob/main/06_ggtree_aesthetics.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05_ggtree_layouts.html">Part II: Tree data visualization and annotation</a></li><li class="breadcrumb-item"><a href="./06_ggtree_aesthetics.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Tree Aesthetics: Color, Scale, and Theme</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-chapter-aesthetics" class="quarto-section-identifier"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Tree Aesthetics: Color, Scale, and Theme</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div style="page-break-after: always;"></div>
+<section id="introduction" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">6.1</span> Introduction</h2>
+<p>Beyond displaying the tree structure itself, <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> allows mapping data associated with the tree to visual properties such as edge color and branch length scale, customizing every component of the theme, and presenting multiple trees together.</p>
+</section>
+<section id="color-tree" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="color-tree"><span class="header-section-number">6.2</span> Color tree</h2>
+<p>In <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> <span class="citation" data-cites="yu_two_2018">(<a href="#ref-yu_two_2018" role="doc-biblioref">Yu et al., 2018</a>)</span>, coloring phylogenetic tree is easy, by using <code>aes(color=VAR)</code> to map the color of the tree based on a specific variable (both numerical and categorical variables are supported, see Figure <a href="#fig-colortree" class="quarto-xref">Figure&nbsp;<span>6.1</span></a>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>beast_file <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"examples/MCC_FluA_H3.tree"</span>, <span class="at">package=</span><span class="st">"ggtree"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>beast_tree <span class="ot">&lt;-</span> <span class="fu">read.beast</span>(beast_file)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(beast_tree, <span class="fu">aes</span>(<span class="at">color=</span>rate)) <span class="sc">+</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_continuous</span>(<span class="at">low=</span><span class="st">'darkgreen'</span>, <span class="at">high=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-colortree" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Color tree by continuous or discrete feature">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-colortree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06_ggtree_aesthetics_files/figure-html/fig-colortree-1.png" class="img-fluid figure-img" data-fig-scap="Color tree by continuous or discrete feature" width="480">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-colortree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.1: <strong>Color tree by continuous or discrete feature.</strong> Edges are colored by values associated with the child nodes.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Users can use any feature (if available), including clade posterior and <em>d<sub>N</sub>/d<sub>S</sub></em>, <em>etc.</em>, to scale the color of the tree. If the feature is a continuous numerical value, <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> provides a <code>continuous</code> parameter to support plotting continuous state transition in edges. Here, we use an example<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> to demonstrate this functionality (Figure <a href="#fig-continuousColor-1" class="quarto-xref">Figure&nbsp;<span>6.2 (a)</span></a>). If you want to add a thin black border in tree branches, you can place a tree with black and slightly thicker branches below your tree to emulate edge outlines as demonstrated in Figure <a href="#fig-continuousColor-2" class="quarto-xref">Figure&nbsp;<span>6.2 (b)</span></a>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(treeio)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytree)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TDbook)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="do">## ref: http://www.phytools.org/eqg2015/asr.html</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="do">## load `tree_anole` and `df_svl` from 'TDbook'</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>svl <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(df_svl)[,<span class="dv">1</span>]</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> phytools<span class="sc">::</span><span class="fu">fastAnc</span>(tree_anole, svl, <span class="at">vars=</span><span class="cn">TRUE</span>, <span class="at">CI=</span><span class="cn">TRUE</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>td <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">node =</span> <span class="fu">nodeid</span>(tree_anole, <span class="fu">names</span>(svl)),</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">trait =</span> svl)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>nd <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">node =</span> <span class="fu">names</span>(fit<span class="sc">$</span>ace), <span class="at">trait =</span> fit<span class="sc">$</span>ace)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">rbind</span>(td, nd)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>node <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(d<span class="sc">$</span>node)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">full_join</span>(tree_anole, d, <span class="at">by =</span> <span class="st">'node'</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree, <span class="fu">aes</span>(<span class="at">color=</span>trait), <span class="at">layout =</span> <span class="st">'circular'</span>, </span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">ladderize =</span> <span class="cn">FALSE</span>, <span class="at">continuous =</span> <span class="st">'colour'</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_gradientn</span>(<span class="at">colours=</span><span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">'orange'</span>, <span class="st">'green'</span>, <span class="st">'cyan'</span>, <span class="st">'blue'</span>)) <span class="sc">+</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="at">hjust =</span> <span class="sc">-</span>.<span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="fl">1.2</span>) <span class="sc">+</span> </span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(.<span class="dv">05</span>, .<span class="dv">85</span>)) </span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tree, <span class="at">layout=</span><span class="st">'circular'</span>, <span class="at">ladderize =</span> <span class="cn">FALSE</span>, <span class="at">size=</span><span class="fl">2.8</span>) <span class="sc">+</span> </span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tree</span>(<span class="fu">aes</span>(<span class="at">color=</span>trait), <span class="at">continuous =</span> <span class="st">'colour'</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span>  </span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_gradientn</span>(<span class="at">colours=</span><span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">'orange'</span>, <span class="st">'green'</span>, <span class="st">'cyan'</span>, <span class="st">'blue'</span>)) <span class="sc">+</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="fu">aes</span>(<span class="at">color=</span>trait), <span class="at">hjust =</span> <span class="sc">-</span>.<span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="fl">1.2</span>) <span class="sc">+</span> </span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(.<span class="dv">05</span>, .<span class="dv">85</span>)) </span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>p1</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>p2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-continuousColor" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-continuousColor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-continuousColor" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-continuousColor-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-continuousColor-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06_ggtree_aesthetics_files/figure-html/fig-continuousColor-1.png" class="img-fluid figure-img" style="width:100.0%" data-ref-parent="fig-continuousColor">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-continuousColor-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Map trait to edge color directly
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-continuousColor" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-continuousColor-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-continuousColor-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06_ggtree_aesthetics_files/figure-html/fig-continuousColor-2.png" class="img-fluid figure-img" style="width:100.0%" data-ref-parent="fig-continuousColor">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-continuousColor-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Overlay colored edges on a thicker black tree for outlines
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-continuousColor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.2: Continuous state transition in edges.
+</figcaption>
+</figure>
+</div>
+<p>Besides, we can use a two-dimensional tree (as demonstrated in Figure <a href="05_ggtree_layouts.html#fig-2d" class="quarto-xref">Figure&nbsp;<span>5.8</span></a>) to visualize phenotype on the vertical dimension to create the phenogram Figure <a href="#fig-phenogram" class="quarto-xref">Figure&nbsp;<span>6.3</span></a>. We can use the <a href="https://CRAN.R-project.org/package=ggrepel"><strong>ggrepel</strong></a> package to repel tip labels to avoid overlapping as demonstrated in Figure <a href="A-app-faq.html#fig-repelTip" class="quarto-xref">Figure&nbsp;<span>1.4</span></a>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(tree, <span class="fu">aes</span>(<span class="at">color=</span>trait), <span class="at">continuous =</span> <span class="st">'colour'</span>, <span class="at">yscale =</span> <span class="st">"trait"</span>) <span class="sc">+</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_viridis_c</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-phenogram" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Phenogram">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-phenogram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06_ggtree_aesthetics_files/figure-html/fig-phenogram-1.png" class="img-fluid figure-img" data-fig-scap="Phenogram" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-phenogram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.3: <strong>Phenogram.</strong> Projecting the tree into a space defined by time (or genetic distance) on the horizontal axis and phenotype on the vertical dimension.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="rescale-tree" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="rescale-tree"><span class="header-section-number">6.3</span> Rescale tree</h2>
+<p>Most of the phylogenetic trees are scaled by evolutionary distance (substitution/site). In <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>, users can rescale a phylogenetic tree by any numerical variable inferred by evolutionary analysis (<em>e.g.</em>, <em>d<sub>N</sub>/d<sub>S</sub></em>).</p>
+<p>This example displays a time tree (Figure <a href="#fig-rescaleTree-1" class="quarto-xref">Figure&nbsp;<span>6.4 (a)</span></a>) and the branches were rescaled by substitution rate inferred by BEAST (Figure <a href="#fig-rescaleTree-2" class="quarto-xref">Figure&nbsp;<span>6.4 (b)</span></a>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"treeio"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>beast_file <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"examples/MCC_FluA_H3.tree"</span>, <span class="at">package=</span><span class="st">"ggtree"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>beast_tree <span class="ot">&lt;-</span> <span class="fu">read.beast</span>(beast_file)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>beast_tree</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'treedata' S4 object that stored information
+of
+    '/home/runner/work/_temp/Library/ggtree/examples/MCC_FluA_H3.tree'.
+
+...@ phylo:
+
+Phylogenetic tree with 76 tips and 75 internal nodes.
+
+Tip labels:
+  A/Hokkaido/30-1-a/2013, A/New_York/334/2004, A/New_York/463/2005,
+A/New_York/452/1999, A/New_York/238/2005, A/New_York/523/1998, ...
+
+Rooted; includes branch length(s).
+
+with the following features available:
+  'height', 'height_0.95_HPD', 'height_median', 'height_range', 'length',
+'length_0.95_HPD', 'length_median', 'length_range', 'posterior', 'rate',
+'rate_0.95_HPD', 'rate_median', 'rate_range'.
+
+# The associated data tibble abstraction: 151 × 16
+# The 'node', 'label' and 'isTip' are from the phylo tree.
+    node label    isTip height height_0.95_HPD height_median height_range length
+   &lt;int&gt; &lt;chr&gt;    &lt;lgl&gt;  &lt;dbl&gt; &lt;list&gt;                  &lt;dbl&gt; &lt;list&gt;        &lt;dbl&gt;
+ 1     1 A/Hokka… TRUE      19 &lt;dbl [2]&gt;                  19 &lt;dbl [2]&gt;     2.34 
+ 2     2 A/New_Y… TRUE      17 &lt;dbl [2]&gt;                  17 &lt;dbl [2]&gt;     1.18 
+ 3     3 A/New_Y… TRUE      14 &lt;dbl [2]&gt;                  14 &lt;dbl [2]&gt;     0.966
+ 4     4 A/New_Y… TRUE      12 &lt;dbl [2]&gt;                  12 &lt;dbl [2]&gt;     1.87 
+ 5     5 A/New_Y… TRUE       9 &lt;dbl [2]&gt;                   9 &lt;dbl [2]&gt;     2.93 
+ 6     6 A/New_Y… TRUE      10 &lt;dbl [2]&gt;                  10 &lt;dbl [2]&gt;     0.827
+ 7     7 A/New_Y… TRUE      10 &lt;dbl [2]&gt;                  10 &lt;dbl [2]&gt;     0.834
+ 8     8 A/New_Y… TRUE       9 &lt;dbl [2]&gt;                   9 &lt;dbl [2]&gt;     1.28 
+ 9     9 A/New_Y… TRUE       9 &lt;dbl [2]&gt;                   9 &lt;dbl [2]&gt;     0.414
+10    10 A/New_Y… TRUE       8 &lt;dbl [2]&gt;                   8 &lt;dbl [2]&gt;     0.306
+# ℹ 141 more rows
+# ℹ 8 more variables: length_0.95_HPD &lt;list&gt;, length_median &lt;dbl&gt;,
+#   length_range &lt;list&gt;, posterior &lt;dbl&gt;, rate &lt;dbl&gt;, rate_0.95_HPD &lt;list&gt;,
+#   rate_median &lt;dbl&gt;, rate_range &lt;list&gt;</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(beast_tree, <span class="at">mrsd=</span><span class="st">'2013-01-01'</span>) <span class="sc">+</span> <span class="fu">theme_tree2</span>() <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">caption=</span><span class="st">"Divergence time"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(beast_tree, <span class="at">branch.length=</span><span class="st">'rate'</span>) <span class="sc">+</span> <span class="fu">theme_tree2</span>() <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">caption=</span><span class="st">"Substitution rate"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The following example draws a tree inferred by CodeML (Figure <a href="#fig-rescaleTree-3" class="quarto-xref">Figure&nbsp;<span>6.4 (c)</span></a>), and the branches can be rescaled by using <em>d<sub>N</sub>/d<sub>S</sub></em> values (Figure <a href="#fig-rescaleTree-4" class="quarto-xref">Figure&nbsp;<span>6.4 (d)</span></a>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mlcfile <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata/PAML_Codeml"</span>, <span class="st">"mlc"</span>, <span class="at">package=</span><span class="st">"treeio"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>mlc_tree <span class="ot">&lt;-</span> <span class="fu">read.codeml_mlc</span>(mlcfile)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(mlc_tree) <span class="sc">+</span> <span class="fu">theme_tree2</span>() <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">caption=</span><span class="st">"nucleotide substitutions per codon"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(mlc_tree, <span class="at">branch.length=</span><span class="st">'dN_vs_dS'</span>) <span class="sc">+</span> <span class="fu">theme_tree2</span>() <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">caption=</span><span class="st">"dN/dS tree"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="fig-rescaleTree" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rescaleTree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rescaleTree" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-rescaleTree-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rescaleTree-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06_ggtree_aesthetics_files/figure-html/fig-rescaleTree-1.png" class="img-fluid figure-img" style="width:100.0%" data-ref-parent="fig-rescaleTree">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rescaleTree-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Time-scaled tree inferred by BEAST
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rescaleTree" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-rescaleTree-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rescaleTree-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06_ggtree_aesthetics_files/figure-html/fig-rescaleTree-2.png" class="img-fluid figure-img" style="width:100.0%" data-ref-parent="fig-rescaleTree">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rescaleTree-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Branches rescaled by substitution rate inferred by BEAST
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rescaleTree" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-rescaleTree-3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rescaleTree-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06_ggtree_aesthetics_files/figure-html/fig-rescaleTree-3.png" class="img-fluid figure-img" style="width:100.0%" data-ref-parent="fig-rescaleTree">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rescaleTree-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Tree inferred by CodeML
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-rescaleTree" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-rescaleTree-4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-rescaleTree-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06_ggtree_aesthetics_files/figure-html/fig-rescaleTree-4.png" class="img-fluid figure-img" style="width:100.0%" data-ref-parent="fig-rescaleTree">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-rescaleTree-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) Branches rescaled by dN/dS values
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rescaleTree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.4: Rescale tree branches.
+</figcaption>
+</figure>
+</div>
+<p>This provides a very convenient way to allow us to explore the relationship between tree associated data and tree structure through visualization. In addition to specifying <code>branch.length</code> in tree visualization, users can change branch length stored in tree object by using <code>rescale_tree()</code> function provided by the <a href="https://bioconductor.org/packages/treeio"><strong>treeio</strong></a> package <span class="citation" data-cites="wang_treeio_2020">(<a href="#ref-wang_treeio_2020" role="doc-biblioref">Wang et al., 2020</a>)</span>, and the following command will display a tree that is identical to Figure <a href="#fig-rescaleTree-2" class="quarto-xref">Figure&nbsp;<span>6.4 (b)</span></a>. The <code>rescale_tree()</code> function was documented in <a href="03_tidytree.html#sec-rescale-treeio">session 3.4</a>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>beast_tree2 <span class="ot">&lt;-</span> <span class="fu">rescale_tree</span>(beast_tree, <span class="at">branch.length=</span><span class="st">'rate'</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(beast_tree2) <span class="sc">+</span> <span class="fu">theme_tree2</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="modify-components-of-a-theme" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="modify-components-of-a-theme"><span class="header-section-number">6.4</span> Modify components of a theme</h2>
+<p>The <code>theme_tree()</code> defined a totally blank canvas, while <code>theme_tree2()</code> adds phylogenetic distance (via <em>x</em>-axis). These two themes all accept a parameter of <code>bgcolor</code> that defined the background color. Users can use any <a href="http://ggplot2.tidyverse.org/reference/theme.html">theme components</a> to the <code>theme_tree()</code> or <code>theme_tree2()</code> functions to modify them (Figure <a href="#fig-theme" class="quarto-xref">Figure&nbsp;<span>6.5</span></a>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2019</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">30</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(x, <span class="at">color=</span><span class="st">"#0808E5"</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span> <span class="fu">theme_tree</span>(<span class="st">"#FEE4E9"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_ggtree_aesthetics_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(x, <span class="at">color=</span><span class="st">"orange"</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span> <span class="fu">theme_tree</span>(<span class="st">'grey30'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_ggtree_aesthetics_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="fig-theme" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-theme-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-theme" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-theme-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-theme-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06_ggtree_aesthetics_files/figure-html/fig-theme-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-ref-parent="fig-theme">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-theme-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) theme_tree() with custom background
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-theme" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-theme-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-theme-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06_ggtree_aesthetics_files/figure-html/fig-theme-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" data-ref-parent="fig-theme">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-theme-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) theme_tree() with a different background
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-theme-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.5: <strong>Three themes.</strong> All ggplot2 theme components can be modified, and all the ggplot2 themes can be applied to <code>ggtree()</code> output.
+</figcaption>
+</figure>
+</div>
+<p>Users can also use an image file as the tree background, see example in <a href="A-app-tools.html#sec-ggimage-bgimage">Chapter 17</a>.</p>
+</section>
+<section id="paired-trees-and-tanglegrams" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="paired-trees-and-tanglegrams"><span class="header-section-number">6.5</span> Paired Trees and Tanglegrams</h2>
+<p>In <a href="03_tidytree.html#sec-ggtree-fortify" class="quarto-xref">Section&nbsp;<span>3.6</span></a>, we showed how to manipulate fortified tree data and manually place two trees face-to-face for comparison. That approach remains useful when full control over coordinates, offsets, and layer composition is required. In many routine applications, however, the analytical goal is more specific: two related trees need to be displayed side by side, matched taxa need to be connected, and the annotations on both trees need to remain legible. For this common task, <code>ggtree</code> now provides native paired-tree support through <code>ggdoubletree()</code>, <code>fortify.tanglegram()</code>, <code>fortify.cophylo()</code>, and <code>geom_tanglelink()</code>.</p>
+<p>The main user-facing entry point is <code>ggdoubletree()</code>. It accepts two raw trees, two pre-annotated <code>ggtree</code> objects, or a <code>cophylo</code> object together with an association table. This is particularly convenient when the two trees have already been decorated with labels, points, or other layers, because these annotations can be carried over into the paired display. When <code>optimize = TRUE</code>, <code>ggtree</code> performs a deterministic tip-order optimization step to reduce link crossings. The <code>optimize_side</code> argument specifies whether the optimization is applied to the <code>"right"</code> tree, the <code>"left"</code> tree, or <code>"both"</code>. Figure <a href="#fig-pairedTreesNative" class="quarto-xref">Figure&nbsp;<span>6.6</span></a> presents a minimal example constructed from two annotated <code>ggtree</code> objects.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtree)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>tr_left <span class="ot">&lt;-</span> ape<span class="sc">::</span><span class="fu">read.tree</span>(<span class="at">text =</span> <span class="st">"(((a,b),c),(d,e));"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>tr_right <span class="ot">&lt;-</span> ape<span class="sc">::</span><span class="fu">read.tree</span>(<span class="at">text =</span> <span class="st">"((e,d),(c,(b,a)));"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>assoc <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">left =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>, <span class="st">"e"</span>),</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">right =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>, <span class="st">"e"</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>left_view <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tr_left) <span class="sc">+</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tiplab</span>() <span class="sc">+</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tippoint</span>(<span class="at">color =</span> <span class="st">"#3C78D8"</span>, <span class="at">size =</span> <span class="dv">2</span>)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>right_view <span class="ot">&lt;-</span> <span class="fu">ggtree</span>(tr_right) <span class="sc">+</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tiplab</span>() <span class="sc">+</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tippoint</span>(<span class="at">color =</span> <span class="st">"#D95F02"</span>, <span class="at">size =</span> <span class="dv">2</span>)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdoubletree</span>(</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  left_view,</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  right_view,</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  assoc,</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">optimize =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">optimize_side =</span> <span class="st">"both"</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tanglelink</span>(<span class="at">alpha =</span> <span class="fl">0.35</span>, <span class="at">color =</span> <span class="st">"grey50"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-pairedTreesNative" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="A native paired-tree display">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pairedTreesNative-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06_ggtree_aesthetics_files/figure-html/fig-pairedTreesNative-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="A native paired-tree display">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pairedTreesNative-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.6: <strong>A native paired-tree display.</strong> <code>ggdoubletree()</code> compares two annotated <code>ggtree</code> objects, preserves their tip annotations, and adds association links as a standard plotting layer.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Compared with the manual strategy in Section <a href="03_tidytree.html#sec-ggtree-fortify" class="quarto-xref"><span>Section 3.6</span></a>, the native paired-tree workflow removes much of the bookkeeping needed to mirror coordinates and resolve link positions by hand. At the same time, the lower-level <code>fortify.tanglegram()</code> and <code>fortify.cophylo()</code> methods remain useful when users wish to inspect or further manipulate the paired-tree data before drawing it.</p>
+</section>
+<section id="visualize-a-list-of-trees" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="visualize-a-list-of-trees"><span class="header-section-number">6.6</span> Visualize a List of Trees</h2>
+<p>The <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> supports <code>multiPhylo</code> and <code>treedataList</code> objects and a list of trees can be viewed simultaneously. The trees will visualize one on top of another and can be plotted in different panels through <code>facet_wrap()</code> or <code>facet_grid()</code> functions (Figure <a href="#fig-multiPhylo" class="quarto-xref">Figure&nbsp;<span>6.7</span></a>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## trees &lt;- lapply(c(10, 20, 40), rtree)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="do">## class(trees) &lt;- "multiPhylo"</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ggtree(trees) + facet_wrap(~.id, scale="free") + geom_tiplab()</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata/r8s"</span>, <span class="st">"H3_r8s_output.log"</span>, <span class="at">package=</span><span class="st">"treeio"</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>r8s <span class="ot">&lt;-</span> <span class="fu">read.r8s</span>(f)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(r8s) <span class="sc">+</span> <span class="fu">facet_wrap</span>( <span class="sc">~</span>.id, <span class="at">scale=</span><span class="st">"free"</span>) <span class="sc">+</span> <span class="fu">theme_tree2</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-multiPhylo" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Visualizing multiPhylo object">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-multiPhylo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06_ggtree_aesthetics_files/figure-html/fig-multiPhylo-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="Visualizing multiPhylo object">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-multiPhylo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.7: <strong>Visualizing multiPhylo object.</strong> The <code>ggtree()</code> function supports visualizing multiple trees stored in the <code>multiPhylo</code> or <code>treedataList</code> objects.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>One hundred bootstrap trees can also be viewed simultaneously (Figure <a href="#fig-bp100" class="quarto-xref">Figure&nbsp;<span>6.8</span></a>). This allows researchers to explore a large set of phylogenetic trees to find consensus and distinct trees. The consensus tree can be summarized via a density tree (Figure <a href="#fig-densiTree" class="quarto-xref">Figure&nbsp;<span>6.10</span></a>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>btrees <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="fu">system.file</span>(<span class="st">"extdata/RAxML"</span>, </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"RAxML_bootstrap.H3"</span>, </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">package=</span><span class="st">"treeio"</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(btrees) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>.id, <span class="at">ncol=</span><span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-bp100" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="One hundred bootstrap trees">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bp100-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06_ggtree_aesthetics_files/figure-html/fig-bp100-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="One hundred bootstrap trees">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bp100-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.8: <strong>Visualizing one hundred bootstrap trees simultaneously.</strong>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="annotate-one-tree-with-values-from-different-variables" class="level3" data-number="6.6.1">
+<h3 data-number="6.6.1" class="anchored" data-anchor-id="annotate-one-tree-with-values-from-different-variables"><span class="header-section-number">6.6.1</span> Annotate one tree with values from different variables</h3>
+<p>To annotate one tree (the same tree) with the values from different variables, one can plot them separately and use <a href="https://CRAN.R-project.org/package=patchwork"><strong>patchwork</strong></a> or <a href="https://CRAN.R-project.org/package=aplot"><strong>aplot</strong></a> to combine them side-by-side.</p>
+<p>Another solution is to utilize the ability to plot a list of trees by <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a>, and then add annotation layers for the selected variable at a specific panel via the <a href="15_ggtree_utilities.html#sec-geom2">subset</a> aesthetic mapping supported by <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> or using the <code>td_filter()</code> as demonstrated in Figure <a href="#fig-onetreefacet" class="quarto-xref">Figure&nbsp;<span>6.9</span></a>. The <code>.id</code> is the conserved variable that is internally used to store the IDs of different trees.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2020</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rtree</span>(<span class="dv">30</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">label=</span>x<span class="sc">$</span>tip.label, <span class="at">var1=</span><span class="fu">abs</span>(<span class="fu">rnorm</span>(<span class="dv">30</span>)), <span class="at">var2=</span><span class="fu">abs</span>(<span class="fu">rnorm</span>(<span class="dv">30</span>)))</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">full_join</span>(x, d, <span class="at">by=</span><span class="st">'label'</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>trs <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">TREE1 =</span> tree, <span class="at">TREE2 =</span> tree)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(trs) <span class="ot">&lt;-</span> <span class="st">'treedataList'</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtree</span>(trs) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>.id) <span class="sc">+</span> </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tippoint</span>(<span class="fu">aes</span>(<span class="at">colour=</span>var1), <span class="at">data=</span><span class="fu">td_filter</span>(.id <span class="sc">==</span> <span class="st">"TREE1"</span>)) <span class="sc">+</span> </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_gradient</span>(<span class="at">low=</span><span class="st">'blue'</span>, <span class="at">high=</span><span class="st">'red'</span>) <span class="sc">+</span>  </span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  ggnewscale<span class="sc">::</span><span class="fu">new_scale_colour</span>()  <span class="sc">+</span> </span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tippoint</span>(<span class="fu">aes</span>(<span class="at">colour=</span>var2), <span class="at">data=</span><span class="fu">td_filter</span>(.id <span class="sc">==</span> <span class="st">"TREE2"</span>)) <span class="sc">+</span> </span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_c</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-onetreefacet" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="Annotate one tree with different variables">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-onetreefacet-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06_ggtree_aesthetics_files/figure-html/fig-onetreefacet-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="Annotate one tree with different variables">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-onetreefacet-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.9: <strong>Annotate one tree with values from different variables.</strong> Using <code>subset</code> aesthetic mapping (as in TREE1 panel) or <code>td_filter()</code> (as in TREE2 panel) to filter variables to be displayed on the specific panel.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-densitree" class="level3" data-number="6.6.2">
+<h3 data-number="6.6.2" class="anchored" data-anchor-id="sec-densitree"><span class="header-section-number">6.6.2</span> DensiTree</h3>
+<p>Another way to view the bootstrap trees is to merge them to form a density tree using <code>ggdensitree()</code> function (Figure <a href="#fig-densiTree" class="quarto-xref">Figure&nbsp;<span>6.10</span></a>). This will help us identify consensus and differences among a large set of trees. The trees will be stacked on top of each other and the structures of the trees will be rotated to ensure the consistency of the tip order. The tip order is determined by the <code>tip.order</code> parameter and by default (<code>tip.order = 'mode'</code>) the tips are ordered by the most commonly seen topology. The user can pass in a character vector to specify the tip order, or pass in an integer, N, to order the tips by the order of the tips in the Nth tree. Passing <code>mds</code> to <code>tip.order</code> will order the tips based on MDS (Multidimensional Scaling) of the path length between the tips, or passing <code>mds_dist</code> will order the tips based on MDS of the distance between the tips.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdensitree</span>(btrees, <span class="at">alpha=</span>.<span class="dv">3</span>, <span class="at">colour=</span><span class="st">'steelblue'</span>) <span class="sc">+</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">hexpand</span>(.<span class="dv">35</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in FUN(X[[i]], ...): Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?
+Arguments in `...` must be used.
+✖ Problematic arguments:
+• alpha = 0.3
+• colour = "steelblue"
+ℹ Did you misspell an argument name?</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-densiTree" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-scap="DensiTree">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-densiTree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06_ggtree_aesthetics_files/figure-html/fig-densiTree-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-scap="DensiTree">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-densiTree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.10: <strong>DensiTree.</strong> Trees are stacked on top of each other and the structures of the trees are rotated to ensure the consistency of the tip order.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-summary4" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="sec-summary4"><span class="header-section-number">6.7</span> Summary</h2>
+<p>Visualizing phylogenetic trees with <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> is easy by using a single command <code>ggtree(tree)</code>. The <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package provides several geometric layers to display tree components such as tip labels, symbolic points for both external and internal nodes, root-edge, <em>etc</em>. Associated data can be used to rescale branch lengths, color the tree, and be displayed on the tree. All these can be done by the <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a> grammar of graphic syntax, which makes it very easy to overlay layers and customize the tree graph (via <a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a> themes and scales). The <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package also provides several layers that are specifically designed for tree annotation which will be introduced in <a href="08_ggtree_annotation.html">Chapter 8</a>. The <a href="https://bioconductor.org/packages/ggtree"><strong>ggtree</strong></a> package makes the presentation of trees and associated data extremely easy. Simple graphs are easy to generate, while complex graphs are simply superimposed layers and are also easy to generate.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-wang_treeio_2020" class="csl-entry" role="listitem">
+Wang, L.-G., Lam, T. T.-Y., Xu, S., Dai, Z., Zhou, L., Feng, T., Guo, P., Dunn, C. W., Jones, B. R., Bradley, T., Zhu, H., Guan, Y., Jiang, Y., &amp; Yu, G. (2020). Treeio: An r package for phylogenetic tree input and output with richly annotated and associated data. <em>Molecular Biology and Evolution</em>, <em>37</em>(2), 599–603. <a href="https://doi.org/10.1093/molbev/msz240">https://doi.org/10.1093/molbev/msz240</a>
+</div>
+<div id="ref-yu_two_2018" class="csl-entry" role="listitem">
+Yu, G., Lam, T. T.-Y., Zhu, H., &amp; Guan, Y. (2018). Two methods for mapping and visualizing associated data on phylogeny using ggtree. <em>Molecular Biology and Evolution</em>, <em>35</em>(12), 3041–3043. <a href="https://doi.org/10.1093/molbev/msy194">https://doi.org/10.1093/molbev/msy194</a>
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p><a href="http://www.phytools.org/eqg2015/asr.html" class="uri">http://www.phytools.org/eqg2015/asr.html</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./05_ggtree_layouts.html" class="pagination-link" aria-label="Tree Visualization: Layouts and Components">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Tree Visualization: Layouts and Components</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./07_ggtree_tree_objects.html" class="pagination-link" aria-label="Tree and Tree-like Objects in R">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Tree and Tree-like Objects in R</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/YuLab-SMU/treedata-book/edit/main/06_ggtree_aesthetics.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li><li><a href="https://github.com/YuLab-SMU/treedata-book/blob/main/06_ggtree_aesthetics.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>
